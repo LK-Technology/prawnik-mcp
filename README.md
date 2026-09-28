@@ -147,6 +147,17 @@ prawnik-mcp sync --source eli --act DU/1964/16 --act DU/2018/1000
 prawnik-mcp sync --source cellar --celex 32016R0679
 ```
 
+### Optional: semantic ranking
+
+```bash
+uv tool install "prawnik-mcp[semantic] @ git+https://github.com/LK-Technology/prawnik-mcp"
+prawnik-mcp embed            # downloads a ~220 MB model once, embeds the local corpus (about 30 records/s on a laptop)
+```
+
+With an index, `search_legal` merges the lexical ranking with the embedding ranking (reciprocal rank fusion).
+`PRAWNIK_MCP_EMBED_MODEL` selects another fastembed model (for example `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`);
+`PRAWNIK_MCP_SEMANTIC=0` switches it off. Re-run `embed` after `sync`; unchanged records are skipped.
+
 ## When to use it, and when not to
 
 Use it to give an assistant primary-source text of Polish civil, consumer, tax, procurement and data-protection law
@@ -161,7 +172,9 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
   so many event dates return `temporal_unknown` rather than a guess.
 - Acts without a consolidated text are stored as originally published and flagged; EU consolidated versions are
   documentation only.
-- Search is lexical (SQLite FTS5 with simple Polish stemming). There is no semantic search.
+- Search is lexical by default (SQLite FTS5 with simple Polish stemming). Semantic ranking is an optional extra
+  (`pip install "prawnik-mcp[semantic]"`, then `prawnik-mcp embed`): it uses a small multilingual model, covers only
+  what is stored locally, and its quality on legal Polish has not been measured.
 - CBOSA (administrative courts) cannot be searched: its robots.txt disallows the search endpoints, so only
   documents with a known id are fetched. Paste the link of a ruling page (found with a web search such as
   `site:orzeczenia.nsa.gov.pl …`) into `get_legal_document` to fetch it.

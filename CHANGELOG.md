@@ -25,6 +25,8 @@ All notable changes to this project are documented here. The format follows
 - **Prompts:** eight task procedures (case-law research, wording on a date, reply to a payment demand, unfair
   terms, consumer claims, GDPR complaint, UOKiK notice, tax rulings), each with an optional `context` argument;
   README prompts table generated from the server.
+- **Optional semantic ranking:** `pip install "prawnik-mcp[semantic]"` and `prawnik-mcp embed` build a local embedding
+  index (fastembed, multilingual MiniLM); `search_legal` fuses it with FTS5 by reciprocal rank fusion. Schema v5.
 - `scripts/pii_scan.py` (PESEL, bank accounts, phones, e-mails, local denylist, forbidden paths) and pre-commit hooks.
 - Network guard for offline tests (`tests/conftest.py`).
 

@@ -62,6 +62,9 @@ def main(argv: list[str] | None = None) -> int:
     q.add_argument("--limit", type=int, default=5)
     q.add_argument("--live", action="store_true", help="also query source APIs now")
     q.add_argument("--local", action="store_true", help="local corpus only")
+    e = sub.add_parser("embed", help="build the optional semantic index of the local corpus (needs [semantic])")
+    e.add_argument("--limit", type=int, help="embed at most this many new or changed records")
+    e.add_argument("--source", action="append", help="only records of this source id (repeatable)")
     g = sub.add_parser("get", help="exact text of a provision or judgment")
     g.add_argument("document_id")
     g.add_argument("locator", nargs="?")
@@ -77,6 +80,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if cmd == "sync":
         return _sync(ap, a, store)
+    if cmd == "embed":
+        from prawnik_mcp import semantic
+
+        if not semantic.available():
+            ap.error('semantic search needs the extra: pip install "prawnik-mcp[semantic]"')
+        res = semantic.index_store(store, lambda m: print(m, file=sys.stderr), limit=a.limit, source_ids=a.source)
+        _print({**res, "model": semantic.model_name(), "indexed_records": semantic.indexed_count(store)})
+        return 0
     if cmd == "status":
         _print(service.sources_status(store).model_dump(mode="json"))
     elif cmd == "search":

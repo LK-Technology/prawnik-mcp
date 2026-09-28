@@ -12,7 +12,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from prawnik_mcp import sources
+from prawnik_mcp import semantic, sources
 from prawnik_mcp.contracts import (
     Claim,
     Coverage,
@@ -254,6 +254,16 @@ def search_legal(
     if kind_enums:
         fts_kinds = sorted({"judgment" if k in RECORD_KINDS else "provision" for k in kind_enums})
     rows = [] if empty else store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
+    hybrid = False
+    if offset == 0 and not empty and semantic.enabled(store):
+        try:
+            sem = semantic.search(store, query, kinds=fts_kinds, limit=limit * 4)
+        except Exception as e:  # noqa: BLE001 - e.g. the model cannot be loaded offline
+            warnings.append(f"Wyszukiwanie semantyczne pominięte ({type(e).__name__}); wynik tylko leksykalny.")
+        else:
+            by_ref = {r[0]: r for r in rows} | {r[0]: (r[0], r[1], r[2], -r[3], r[4]) for r in sem if r[0] not in {x[0] for x in rows}}
+            rows = [by_ref[ref] for ref in semantic.fuse([r[0] for r in rows], [r[0] for r in sem])]
+            hybrid = True
     consumed = 0
     for ref, kind, document_id, score, _body in rows:
         if len(hits) >= limit:
@@ -280,7 +290,7 @@ def search_legal(
                 fetched_at=snap.fetched_at if snap else None, score=round(-score, 3),
                 metadata={"version_label": p.version_label, "temporal_status": ts.value, "temporal_notes": reasons,
                           "origin": "local"}))
-    more = consumed < len(rows)  # unread local rows remain
+    more = consumed < len(rows) and not hybrid  # unread local rows remain (a fused ranking is not paged)
     live_searched: list[str] = []
     if use_live and offset == 0 and (live is True or len(hits) < limit):
         remote, lw, unavailable, live_searched = live_mod.live_search(
@@ -304,7 +314,8 @@ def search_legal(
         "next_cursor": str(offset + consumed) if more else None,
         "search_scope": "FTS5/BM25 po lokalnym korpusie" + (
             f"; wyszukiwanie na żywo: {', '.join(live_searched)}" if live_searched else "")
-            + "; bez wyszukiwania semantycznego",
+            + ("; ranking hybrydowy: FTS5/BM25 + embeddingi (lokalny indeks semantyczny)" if hybrid
+               else "; bez wyszukiwania semantycznego (opcjonalne: prawnik-mcp embed)"),
     })
 
 

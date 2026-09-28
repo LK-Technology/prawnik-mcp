@@ -78,7 +78,15 @@ def _v4(db: sqlite3.Connection) -> None:
     _v3(db)
 
 
-MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3, 4: _v4}
+def _v5(db: sqlite3.Connection) -> None:
+    """Embeddings for the optional semantic search (empty unless `prawnik-mcp embed` was run)."""
+    db.execute("""CREATE TABLE IF NOT EXISTS embeddings (
+        ref TEXT NOT NULL, chunk INTEGER NOT NULL, model TEXT NOT NULL, kind TEXT, document_id TEXT,
+        digest TEXT NOT NULL, text TEXT NOT NULL, vec BLOB NOT NULL, PRIMARY KEY (ref, chunk, model))""")
+    db.execute("CREATE INDEX IF NOT EXISTS embeddings_model ON embeddings(model)")
+
+
+MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3, 4: _v4, 5: _v5}
 LATEST = max(MIGRATIONS)
 
 
