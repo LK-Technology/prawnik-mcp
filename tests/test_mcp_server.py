@@ -30,6 +30,6 @@ def test_server_lists_six_tools_and_handles_empty_corpus(tmp_path):
             r = _payload(await c.call_tool("get_legal_document", {"document_id": "eli:DU/2014/827", "locator": "art. 27"}))
             assert r["status"] == "not_found"
             prompts = {p.name for p in (await c.list_prompts()).prompts}
-            assert "procedura_analizy" in prompts
+            assert "analysis_procedure" in prompts
 
     asyncio.run(run())

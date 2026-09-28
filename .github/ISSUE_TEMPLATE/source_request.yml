@@ -1,0 +1,19 @@
+name: New data source
+description: Propose a legal source (court, authority, registry)
+labels: [source]
+body:
+  - type: input
+    id: source
+    attributes: {label: Source name and URL}
+    validations: {required: true}
+  - type: dropdown
+    id: access
+    attributes:
+      label: Access method
+      options: [Official API, Official bulk export, Web pages (permitted), Unknown]
+  - type: textarea
+    id: terms
+    attributes: {label: Terms of reuse, description: Link to the terms/licence page if known}
+  - type: textarea
+    id: why
+    attributes: {label: Why it matters, description: Which legal questions need it}

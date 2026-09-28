@@ -206,7 +206,7 @@ class Store:
         q = ("SELECT ref, kind, document_id, bm25(fts, 5.0, 1.0) AS s, body FROM fts WHERE fts MATCH ?")
         args: list = [match]
         if kinds:
-            q += " AND kind IN (%s)" % ",".join("?" * len(kinds))
+            q += " AND kind IN ({})".format(",".join("?" * len(kinds)))
             args += kinds
         q += " ORDER BY s LIMIT ? OFFSET ?"
         args += [limit, offset]

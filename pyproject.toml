@@ -68,4 +68,4 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
-ignore = ["E501"]
+ignore = ["E501", "UP042"]  # UP042: keep (str, Enum) — str() output is part of the contract

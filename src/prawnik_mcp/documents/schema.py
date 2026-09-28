@@ -59,7 +59,7 @@ class QualifyingQuestion(BaseModel):
     related_sources: list[dict[str, str]] = []  # identifiers only, to be verified
 
     @model_validator(mode="after")
-    def _check(self) -> "QualifyingQuestion":
+    def _check(self) -> QualifyingQuestion:
         for a in self.excluding_answers + self.flag_answers:
             if a not in self.options:
                 raise ValueError(f"{self.id}: answer {a!r} not in options")
@@ -76,7 +76,7 @@ class LegalSourceRef(BaseModel):
     purpose: str  # why the client should look at it (no statement of its content)
 
     @model_validator(mode="after")
-    def _only_supported(self) -> "LegalSourceRef":
+    def _only_supported(self) -> LegalSourceRef:
         if not re.match(r"^(eli:DU/\d{4}/\d+|celex:\w+|saos:\d+)$", self.document_id):
             raise ValueError(f"unsupported document_id {self.document_id}")
         return self
@@ -124,7 +124,7 @@ class TemplateSpec(BaseModel):
     review_history: list[ReviewEntry] = []
 
     @model_validator(mode="after")
-    def _consistency(self) -> "TemplateSpec":
+    def _consistency(self) -> TemplateSpec:
         names = {f.name for f in self.required_facts}
         if len(names) != len(self.required_facts):
             raise ValueError("duplicate field names")

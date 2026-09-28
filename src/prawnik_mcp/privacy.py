@@ -86,12 +86,12 @@ class _Tokens:
 
 def _scrub_text(text: str, toks: _Tokens) -> str:
     # 1) replace values already known from personal fields (longest first)
-    for (cat, val), tok in sorted(toks.by_value.items(), key=lambda kv: -len(kv[0][1])):
+    for (_cat, val), tok in sorted(toks.by_value.items(), key=lambda kv: -len(kv[0][1])):
         if val and len(val) >= 3:
             text = text.replace(val, tok)
     # 2) detect patterns in remaining free text
     for rx, cat in _VALUE_RULES:
-        text = rx.sub(lambda m: toks.token(cat, m.group(0)), text)
+        text = rx.sub(lambda m, cat=cat: toks.token(cat, m.group(0)), text)
     return text
 
 

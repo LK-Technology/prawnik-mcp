@@ -17,7 +17,7 @@ import json
 import re
 import unicodedata
 from dataclasses import dataclass, field
-from datetime import date, datetime, UTC
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -25,9 +25,9 @@ from typing import Any
 from pydantic import ValidationError
 
 from prawnik_mcp.contracts import (
-    ClaimType,
     CitationReport,
     CitationStatus,
+    ClaimType,
     ResultStatus,
     TemporalStatus,
     ToolResult,

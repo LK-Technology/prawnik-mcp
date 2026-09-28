@@ -1,0 +1,17 @@
+name: Bug report
+description: Something does not work as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "**Do not paste personal data or case files.** Use fictional data to reproduce."
+  - type: textarea
+    id: what
+    attributes: {label: What happened, description: Tool name, input and the returned status/warnings}
+    validations: {required: true}
+  - type: textarea
+    id: expected
+    attributes: {label: What you expected}
+  - type: input
+    id: version
+    attributes: {label: Version, description: "prawnik-mcp version and MCP client"}

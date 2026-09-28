@@ -1,0 +1,12 @@
+name: Data error
+description: Wrong text, wrong version, wrong metadata or broken parsing
+labels: [data]
+body:
+  - type: input
+    id: doc
+    attributes: {label: Document id and locator, placeholder: "eli:DU/2014/827 art. 27 / saos:31345"}
+    validations: {required: true}
+  - type: textarea
+    id: problem
+    attributes: {label: What is wrong, description: "Quote the official source (URL) and what the tool returned"}
+    validations: {required: true}

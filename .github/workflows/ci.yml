@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pypdf python-docx
+      - name: PII and forbidden-path scan
+        run: python scripts/pii_scan.py
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    needs: hygiene
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.12", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - name: Offline tests (network blocked by tests/conftest.py)
+        run: pytest -q -m "not online"
+
+  package:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install build
+      - run: python -m build
+      - name: Wheel contains only the package
+        run: |
+          python - <<'PY'
+          import glob, zipfile, sys
+          whl = glob.glob("dist/*.whl")[0]
+          bad = [n for n in zipfile.ZipFile(whl).namelist()
+                 if not (n.startswith("prawnik_mcp/") or ".dist-info/" in n)]
+          tpl = [n for n in zipfile.ZipFile(whl).namelist() if n.startswith("prawnik_mcp/templates/")]
+          print(whl, "unexpected:", bad, "templates:", len(tpl))
+          sys.exit(1 if bad or len(tpl) < 3 else 0)
+          PY
+      - name: Clean install + stdio smoke test
+        run: |
+          python -m venv /tmp/wheelenv
+          /tmp/wheelenv/bin/pip install dist/*.whl
+          /tmp/wheelenv/bin/python scripts/smoke_stdio.py /tmp/wheelenv/bin/prawnik-mcp
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

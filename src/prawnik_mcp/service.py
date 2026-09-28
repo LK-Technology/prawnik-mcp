@@ -212,7 +212,7 @@ def search_legal(
     if kind_enums:
         fts_kinds = sorted({"judgment" if k in (SourceKind.judgment, SourceKind.eu_judgment) else "provision" for k in kind_enums})
     rows = store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
-    for ref, kind, document_id, score, body in rows:
+    for ref, kind, document_id, score, _body in rows:
         if len(hits) >= limit:
             break
         if filters.get("document_id") and document_id != filters["document_id"]:

@@ -39,7 +39,7 @@ from prawnik_mcp.contracts import (
     normalize_text,
 )
 from prawnik_mcp.evidence.temporal import temporal_status_for
-from prawnik_mcp.store import Store, normalize_case_number
+from prawnik_mcp.store import Store
 
 SHORT_QUOTE_CHARS = 20
 SHORT_FRAGMENT_CHARS = 8
