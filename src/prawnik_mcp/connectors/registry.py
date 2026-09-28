@@ -16,10 +16,11 @@ def _registry() -> dict[str, BaseConnector]:
     from prawnik_mcp.connectors.kio import KioConnector
     from prawnik_mcp.connectors.saos import SaosConnector
     from prawnik_mcp.connectors.sn import SnConnector
+    from prawnik_mcp.connectors.tk import TkConnector
     from prawnik_mcp.connectors.uodo import UodoConnector
 
     conns: list[BaseConnector] = [EliConnector(), CellarConnector(), SaosConnector(), EurekaConnector(),
-                                  KioConnector(), UodoConnector(), CbosaConnector(), SnConnector()]
+                                  KioConnector(), UodoConnector(), CbosaConnector(), SnConnector(), TkConnector()]
     return {c.source_id: c for c in conns}
 
 

@@ -2,7 +2,7 @@
 
 Serwer MCP, który daje asystentom AI dokładne, wersjonowane teksty prawa polskiego i unijnego oraz walidator
 odrzucający cytaty, których nie ma w źródłach. Ustawy pochodzą z API ELI Sejmu, akty UE z EUR-Lex (Cellar), a
-orzeczenia i decyzje z SAOS, KIO, UODO, EUREKA i CBOSA.
+orzeczenia i decyzje z SAOS, Sądu Najwyższego, Trybunału Konstytucyjnego, KIO, UODO, EUREKA i CBOSA.
 
 [![CI](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
@@ -100,6 +100,7 @@ Gotowe procedury krok po kroku, które klient może wczytać. Prompty do zadań 
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | interpretacje podatkowe | eksperymentalne | 0.5 req/s | [warunki](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | orzeczenia | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
 | SN — Supreme Court rulings (sn.pl ruling database) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
+| TK — Constitutional Tribunal (rulings, trybunal.gov.pl) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
 | UODO — decisions of the President of the Personal Data Protection Office | decyzje | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | orzeczenia | planowane | 0.5 req/s | [warunki](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decyzje | planowane | 0.5 req/s | [warunki](https://uokik.gov.pl/) |
@@ -126,8 +127,9 @@ ustawy na dawną datę (jeszcze nieodtwarzane) ani spraw spoza prawa polskiego i
   dokumentacyjny.
 - Wyszukiwanie leksykalne (SQLite FTS5 z prostą obsługą odmiany), bez wyszukiwania semantycznego.
 - CBOSA nie jest przeszukiwana (robots.txt zabrania dostępu do wyszukiwarki); pobierane są tylko dokumenty o znanym id.
-- Orzecznictwo ma luki: w SAOS są orzeczenia SN tylko do 2016 r. i TK do 2015 r.; orzeczenia sądów powszechnych
-  są aktualne. Nie ma jeszcze orzecznictwa TSUE.
+- Orzecznictwo ma luki. Orzeczenia TK po 2015 r. są bez uzasadnień (trybunal.gov.pl publikuje tylko sentencję),
+  wyszukiwanie SN po frazie zwraca nieuszeregowane metadane, wyroki sądów administracyjnych można pobrać tylko
+  po id, a orzecznictwa TSUE jeszcze nie ma.
 - Wyszukiwanie w SAOS często trwa dłużej niż 8-sekundowy limit. Serwer kończy zapytanie w tle i zapisuje wynik
   w cache, więc ponowienie po chwili zwykle działa; `prawnik-mcp sync` całkowicie omija ten problem.
 - Błędy danych źródeł (np. daty z przyszłości) są oznaczane, nie poprawiane; prawomocność orzeczeń jest zwykle nieznana.

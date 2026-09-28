@@ -56,7 +56,7 @@ Polish statutes and official documents are excluded from copyright (art. 4 of th
     | Administrative courts | 0 | — |
 
     Supreme Court and Constitutional Tribunal rulings after 2016/2015 are **not** available through SAOS.
-    Current SN rulings come from the SN connector (below). KIO has its own, current connector. Administrative courts: CBOSA.
+    Current SN and TK rulings come from the SN and TK connectors (below). KIO has its own, current connector. Administrative courts: CBOSA.
   - SAOS search can be slow (15–30 s) and the whole service has maintenance windows, when it serves an HTML
     "Przerwa techniczna" page with status 200. The client reports that as unavailable, not as an empty result.
 
@@ -91,6 +91,36 @@ Status as of 2026-09-28. Technical description, **not legal advice**. "Unverifie
   - Forms other than wyrok/postanowienie/uchwała/zarządzenie become `judgment_type = UNKNOWN` with flag `judgment_type_unmapped:<form>`.
   - Overlap with SAOS (`courtType = SUPREME`, up to 2016): the same ruling can exist as `saos:<id>` and `sn:<id>`, and a case-number lookup then returns `ambiguous`.
   - Line-end hyphenation and letter-spaced emphasis ("o d d a l i ł") are kept as in the source.
+
+## TK — Constitutional Tribunal (Trybunał Konstytucyjny), trybunal.gov.pl
+
+Status as of 2026-09-28. Technical description, **not legal advice**. "Unverified" means no binding terms document was read.
+
+- **Host:** `https://trybunal.gov.pl` (TYPO3 site of the Tribunal; site search is EXT:solr). No public API or bulk export. SAOS has TK rulings only up to 2015.
+- **Endpoints (verified live 2026-09-28):**
+  - Ruling: `GET /postepowanie-i-orzeczenia/{wyroki|postanowienia}/art/{slug}`. The article holds the **operative part only**: case number, date, composition (chair, rapporteurs), operative part, voting and dissent markers. An unknown slug returns 404.
+  - Case page: `GET /s/{sig}`, the site's short link per case number: `sk-20-25` for current cases, `p-3512` for older ones (tried second). It links to the case's rulings. An unknown case returns 404.
+  - Search: `GET /wyszukiwarka?tx_solr[q]=…&tx_solr[filter][0]=category:Wyrok&tx_solr[filter][1]=category:Postanowienie&tx_solr[page]=N`, 10 hits per page, relevance order, snippet but no structured case number or date.
+  - Listings: `/postepowanie-i-orzeczenia/wyroki` (back to 2002) and `/postanowienia`, 12 per page, newest first. Pager links carry a TYPO3 `cHash` and are followed as-is.
+  - `robots.txt` disallows only `/typo3/` and `/typo3conf/`.
+  - Not used: IPO (`ipo.trybunal.gov.pl`, full texts with reasoning) and OTK ZU (`otkzu.trybunal.gov.pl`). On 2026-09-28 both accepted the connection but sent no response within 30–60 s. No challenge page was seen.
+- **How we use it:**
+  - Live search: a query that is exactly one TK case number (or the `case_number` filter) goes to `/s/{sig}` (1–2 requests); anything else goes to the site search restricted to rulings, at most 3 pages.
+  - `fetch("tk:<section>/<slug>")` gets the ruling page and stores the raw response as the snapshot (1 request).
+  - Bulk sync: listing scope (default, newest first, cursor = section and next pager URL, `since` stops a section), query scope (search pages) or one case. A page is committed only when all its items were handled.
+  - A 200 response without the expected block raises an error; it is never read as "0 hits".
+  - `finality = "final"` is set from art. 190 ust. 1 of the Constitution, not read from the source. Every record carries the flag `reasoning_not_included`.
+- **Terms actually read (2026-09-28):** `/informacja-publiczna-media/ponowne-wykorzystywanie` sets reuse conditions under art. 14–16 of the Act of 11 August 2021: state the source, when the information was created and obtained, and the author if known; state that it was processed; the Tribunal is not liable for processed information. Rulings are official documents (art. 4 pt 2 of the Copyright Act): our reading, **unverified**. Database rights **unverified**. No published rate limit; we use 0.5 req/s.
+- **Personal data:** judges and the court clerk are named; natural-person complainants appear by initials. The page header carries the Tribunal's institutional press e-mail, which is allowlisted in `scripts/pii_allowlist.txt`.
+- **Attribution:** "Źródło: Trybunał Konstytucyjny – trybunal.gov.pl (sentencje orzeczeń; informacja przetworzona: HTML → tekst)". Cite with the ruling date and the fetch date (snapshot `fetched_at`), as the reuse conditions ask.
+- **Code provenance:** original code; `fold` and `PL_MONTHS` come from `parsers/kio.py`.
+- **Known gaps:**
+  - No reasoning (uzasadnienie), no OTK ZU / Dz.U. publication reference, no preliminary-review rulings (Ts/Tw).
+  - The site search indexes only what the site publishes, so phrase recall is low; hits usually lack a case number and date until fetched.
+  - Older articles (seen: 2013–2014) carry the source's windows-1250 damage ("Sšdu"); the text is stored as-is and flagged `source_encoding_artifacts`.
+  - The ruling date comes from the text header; the listing date is only a cross-check.
+  - Ids are article slugs, stable as long as editors do not rename articles.
+  - Overlap with SAOS (`courtType = CONSTITUTIONAL_TRIBUNAL`, up to 2015): the same ruling can exist as `saos:<id>` and `tk:<section>/<slug>`, and a case-number lookup then returns `ambiguous`.
 
 ## Cellar — Publications Office of the EU
 

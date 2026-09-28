@@ -2,7 +2,7 @@
 
 An MCP server that gives AI assistants exact, versioned text of Polish and EU law, and a checker that rejects
 quotes the sources do not contain. Statutes come from the Sejm ELI API, EU acts from EUR-Lex (Cellar), and judgments
-and decisions from SAOS, KIO, UODO, EUREKA and CBOSA.
+and decisions from SAOS, the Supreme Court, the Constitutional Tribunal, KIO, UODO, EUREKA and CBOSA.
 
 [![CI](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
@@ -130,6 +130,7 @@ the tools returned, run `check_citations`, report gaps.
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | tax rulings | experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | judgments | experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
 | SN — Supreme Court rulings (sn.pl ruling database) | judgments | experimental | 0.5 req/s | [terms](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
+| TK — Constitutional Tribunal (rulings, trybunal.gov.pl) | judgments | experimental | 0.5 req/s | [terms](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
 | UODO — decisions of the President of the Personal Data Protection Office | decisions | experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | judgments | planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decisions | planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
@@ -163,8 +164,9 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
 - Search is lexical (SQLite FTS5 with simple Polish stemming). There is no semantic search.
 - CBOSA (administrative courts) cannot be searched: its robots.txt disallows the search endpoints, so only
   documents with a known id are fetched.
-- Case law has gaps: SAOS holds Supreme Court rulings only up to 2016 and Constitutional Tribunal rulings up to
-  2015; common court judgments are current. There is no CJEU case law yet.
+- Case law has gaps. Constitutional Tribunal rulings after 2015 come without reasoning (trybunal.gov.pl publishes
+  only the operative part), Supreme Court search by phrase returns unranked metadata, administrative courts can
+  only be fetched by id, and there is no CJEU case law yet.
 - SAOS search often takes longer than the 8-second live budget. The server keeps the request running and caches
   the result, so asking again a moment later usually works; `prawnik-mcp sync` avoids the problem entirely.
 - Source data errors (e.g. judgment dates in the future) are flagged, not corrected. Finality of judgments is mostly unknown.

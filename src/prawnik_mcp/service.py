@@ -27,6 +27,8 @@ from prawnik_mcp.contracts import (
     canonical_locator,
 )
 from prawnik_mcp.parsers.sn import SN_CASE_RE
+from prawnik_mcp.parsers.tk import TK_CASE_PATTERN
+from prawnik_mcp.parsers.tk import as_signature as tk_signature
 from prawnik_mcp.relevance import STOPWORDS
 from prawnik_mcp.store import Store
 
@@ -57,6 +59,7 @@ _CASE_RE = re.compile(
     r"|(?:SNO|SDI|KSP)\s+\d{1,5}/\d{2,4}"  # SN repertories written without a division numeral
     r"|[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}"  # UODO: DKN.5130.2215.2020
     r"|\d{4}-[A-Z0-9]{3,8}(?:-\d)?(?:\.\d+)*\.\d{4}(?:\.\d+)?(?:\.[A-Z]{1,4})?"  # KIS: 0114-KDIP1-2.4012.123.2024.1.AB
+    r"|" + TK_CASE_PATTERN +  # TK: K 1/20, SK 12/19, P 7/20
     r")\b")
 _ART_RE = re.compile(r"\bart\.?\s*\d+[a-z]?(?:\s*\^\s*\d+|\(\d+\)|[¹²³⁰-⁹]+)?(?:\s*(?:§|ust\.?|pkt|lit\.?)\s*\w+)*", re.I)
 
@@ -316,6 +319,8 @@ def _case_number_sources(case_number: str) -> list[str]:
         return ["eureka"]
     if SN_CASE_RE.fullmatch(c):
         return ["sn", "saos"]  # sn.pl is current; SAOS holds SN rulings up to 2016
+    if tk_signature(c):
+        return ["tk", "saos"]  # trybunal.gov.pl is current; SAOS holds TK rulings up to 2015
     return ["saos"]  # common courts, SN, TK, administrative courts (SAOS mirrors part of CBOSA)
 
 

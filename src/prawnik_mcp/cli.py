@@ -43,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("sync", help="download sources into the local corpus")
     s.add_argument("--offline", action="store_true", help="build the default corpus from recorded samples (no network)")
     s.add_argument("--fixtures", help="directory with recorded samples (default: tests/fixtures/raw in a checkout)")
-    s.add_argument("--source", help="bulk/targeted sync of one source: eli | cellar | saos | sn | eureka | kio | uodo | cbosa")
+    s.add_argument("--source", help="bulk/targeted sync of one source: eli | cellar | saos | sn | tk | eureka | kio | uodo | cbosa")
     s.add_argument("--query", help="scope query (saos full text, eli title words, cellar identifiers)")
     s.add_argument("--court-type",
                    help="saos: COMMON | SUPREME | ADMINISTRATIVE | CONSTITUTIONAL_TRIBUNAL | NATIONAL_APPEAL_CHAMBER")
