@@ -8,7 +8,7 @@ Otwarty serwer [Model Context Protocol](https://modelcontextprotocol.io), dzięk
 MCP wyszukuje przepisy i orzeczenia, cytuje **dokładne brzmienie z wersją i pochodzeniem**, sprawdza cytaty przed
 udzieleniem odpowiedzi i przygotowuje proste pisma — bez wymyślania prawa.
 
-[![CI](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
 [![Licencja: MIT](https://img.shields.io/badge/licencja-MIT-green)](LICENSE)
 [![Status](https://img.shields.io/badge/status-eksperymentalny-orange)](docs/quality.md)
@@ -43,7 +43,7 @@ stanowisko strony przedstawione jako pogląd sądu. `prawnik-mcp` każe asystent
 ## 🚀 Szybki start
 
 ```bash
-pipx install git+https://github.com/OWNER/prawnik-mcp     # po publikacji: pipx install prawnik-mcp
+pipx install git+https://github.com/LK-Technology/prawnik-mcp     # po publikacji: pipx install prawnik-mcp
 prawnik-mcp sync                                            # korpus startowy: KC, upk, dyrektywa 2011/83/UE, próbka orzeczeń
 claude mcp add prawnik -- prawnik-mcp serve                 # Claude Code
 ```
@@ -125,3 +125,11 @@ Zasady: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Kod: [MIT](LICENSE). Teksty prawne i orzeczenia nie są objęte licencją kodu — warunki poszczególnych źródeł:
 [docs/sources.md](docs/sources.md). Podziękowania i atrybucje: [NOTICE](NOTICE).
+
+---
+
+<div align="center">
+
+Tworzone przez **[LK Technology](https://lktech.pl)** · [lktech.pl](https://lktech.pl) · [GitHub](https://github.com/LK-Technology)
+
+</div>

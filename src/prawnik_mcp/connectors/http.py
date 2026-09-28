@@ -30,7 +30,7 @@ import httpx
 
 from prawnik_mcp import __version__
 
-USER_AGENT = f"prawnik-mcp/{__version__} (+https://github.com/OWNER/prawnik-mcp; open-source legal research tool)"
+USER_AGENT = f"prawnik-mcp/{__version__} (+https://github.com/LK-Technology/prawnik-mcp; open-source legal research tool)"
 RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 

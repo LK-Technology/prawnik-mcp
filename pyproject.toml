@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE", "NOTICE", "licenses/*"]
-authors = [{ name = "prawnik-mcp contributors" }]
+authors = [{ name = "LK Technology" }]
 keywords = ["mcp", "model-context-protocol", "law", "legal", "poland", "polish-law", "eli", "saos", "eur-lex", "citations"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -34,8 +34,9 @@ dev = ["pytest>=9", "reportlab>=4", "ruff>=0.6"]
 prawnik-mcp = "prawnik_mcp.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/OWNER/prawnik-mcp"
-Issues = "https://github.com/OWNER/prawnik-mcp/issues"
+Homepage = "https://github.com/LK-Technology/prawnik-mcp"
+Company = "https://lktech.pl"
+Issues = "https://github.com/LK-Technology/prawnik-mcp/issues"
 
 [build-system]
 requires = ["hatchling"]

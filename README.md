@@ -8,7 +8,7 @@ An open-source [Model Context Protocol](https://modelcontextprotocol.io) server 
 search Polish and EU statutes and case law, quote **exact provisions with their version and provenance**,
 verify citations before an answer is given, and draft simple letters — without inventing law.
 
-[![CI](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml)
+[![CI](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-stdio-purple)](https://modelcontextprotocol.io)
@@ -46,7 +46,7 @@ a party's argument quoted as the court's view. `prawnik-mcp` makes the assistant
 
 ```bash
 # 1. install (Python 3.12+)
-pipx install git+https://github.com/OWNER/prawnik-mcp     # PyPI: `pipx install prawnik-mcp` after the first release
+pipx install git+https://github.com/LK-Technology/prawnik-mcp     # PyPI: `pipx install prawnik-mcp` after the first release
 
 # 2. build a small starter corpus (Civil Code, Consumer Rights Act, Directive 2011/83/EU, a judgment sample)
 prawnik-mcp sync
@@ -77,7 +77,7 @@ Use an absolute path to the executable if your client does not inherit your shel
 <summary><b>From source</b></summary>
 
 ```bash
-git clone https://github.com/OWNER/prawnik-mcp && cd prawnik-mcp
+git clone https://github.com/LK-Technology/prawnik-mcp && cd prawnik-mcp
 python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/prawnik-mcp sync --offline     # corpus from recorded samples, no network
 .venv/bin/pytest -q                      # ~250 offline tests
@@ -211,3 +211,11 @@ were adapted from open-source projects — see [NOTICE](NOTICE).
 
 Code: [MIT](LICENSE). Legal texts and judgments are not covered by this licence; see
 [docs/sources.md](docs/sources.md) for the terms of each source.
+
+---
+
+<div align="center">
+
+Built by **[LK Technology](https://lktech.pl)** · [lktech.pl](https://lktech.pl) · [GitHub](https://github.com/LK-Technology)
+
+</div>
