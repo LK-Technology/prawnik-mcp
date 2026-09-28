@@ -41,6 +41,8 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: pip install -e ".[dev]"
       - run: ruff check .
+      - name: README sources table matches the catalog
+        run: python scripts/gen_sources_table.py --check
       - name: Offline tests (network blocked by tests/conftest.py)
         run: pytest -q -m "not online"
 

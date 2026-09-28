@@ -1,90 +1,213 @@
-# Prawnik MCP — wydanie eksperymentalne 0.1.0
+<div align="center">
 
-Lokalny serwer MCP do wyszukiwania wybranych źródeł polskiego prawa cywilnego i konsumenckiego, pobierania dokładnych fragmentów z wersją i snapshotem, kontroli przywołań oraz przygotowania trzech prostych projektów pism.
+# ⚖️ prawnik-mcp
 
-> **To nie jest porada prawna. Szablony, przypadki testowe i reguły nie zostały ocenione przez prawnika.** Kontrola cytatów sprawdza, czy źródło istnieje w lokalnym korpusie i czy cytat jest wierny. Nie ocenia, czy źródło wspiera twierdzenie ani czy prawo ma zastosowanie do faktów. Wynik nigdy nie jest oznaczany jako „prawnie bezbłędny”.
+**Polish & EU law for AI assistants — with sources you can check.**
 
-## Co działa
+An open-source [Model Context Protocol](https://modelcontextprotocol.io) server that lets Claude, Cursor or any MCP client
+search Polish and EU statutes and case law, quote **exact provisions with their version and provenance**,
+verify citations before an answer is given, and draft simple letters — without inventing law.
 
-| Narzędzie MCP | Działanie |
-|---|---|
-| `search_legal` | Identyfikatory (`art. 27 upk`, `art. 385^1 kc`, sygnatura) i pełny tekst (SQLite FTS5/BM25). Zwraca fragmenty ≤ 800 znaków, URL, `snapshot_id`, zakres przeszukania i status. |
-| `get_legal_document` | Dokładny tekst artykułu lub jednostki (`§`, `ust.`, `pkt`), wersję (obwieszczenie tekstu jednolitego), datę stanu prawnego, zmiany oczekujące, pominięte przepisy przejściowe oraz `temporal_status` dla `as_of`. Orzeczenia są zwracane stronami. |
-| `check_citations` | Sprawdza istnienie dokumentu, wierność cytatu (dokładną lub po normalizacji), lokalizator, wersję i metadane sygnatury. Twierdzenia prawne bez dowodu oznacza jako błąd krytyczny. Daje `report_id` powiązany z faktami i treścią pisma. |
-| `get_document_template` | Trzy szablony: `wezwanie_do_zaplaty`, `reklamacja_konsumencka`, `odstapienie_od_umowy_na_odleglosc`. |
-| `render_document` | Pismo w Markdown i DOCX oraz **osobny** raport źródeł i uwag. Blokuje eksport wypełnionego pisma, gdy brak raportu, raport jest nieaktualny (zmienione fakty, treść lub wersja szablonu), zawiera błędy krytyczne albo jego snapshoty zniknęły. Przy brakach tworzy tylko jawnie nieuzupełniony formularz. |
-| `sources_status` | Zakres korpusu, ostatnia synchronizacja, dostęp, znane luki i obszary nieobsługiwane. |
+[![CI](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/prawnik-mcp/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![MCP](https://img.shields.io/badge/MCP-stdio-purple)](https://modelcontextprotocol.io)
+[![Status](https://img.shields.io/badge/status-experimental-orange)](docs/quality.md)
 
-Dostępne są też prompty `procedura_analizy` i `recenzja_zastosowania` (procedura dla klienta AI i osobny przegląd zastosowania prawa) oraz zasób `prawnik://procedura`.
+[Quick start](#-quick-start) · [Tools](#-tools) · [Sources](#-data-sources) · [How it works](#-how-it-works) ·
+[Limitations](#-honest-limitations) · [Polski 🇵🇱](README.pl.md)
 
-Statusy wyników: `ok`, `not_found`, `ambiguous`, `source_unavailable`, `stale`, `out_of_scope`, `temporal_unknown`, `invalid_input`, `blocked`. Brak trafienia nie oznacza, że przepis lub orzeczenie nie istnieje.
+</div>
 
-## Instalacja
+> [!IMPORTANT]
+> **This is not legal advice and it is not a lawyer.** It gives your AI assistant verifiable sources, explicit
+> statuses and a citation checker. Whether the law *applies to your facts* still needs judgement — ideally a
+> lawyer's. No part of this project has been reviewed by a lawyer yet.
 
-Wymagania: Python 3.12+ i dostęp do sieci tylko przy synchronizacji na żywo. Nie potrzeba klucza API ani GPU.
+## Why
+
+LLMs are fluent in legal language and confidently wrong about the details: repealed wordings, invented case numbers,
+a party's argument quoted as the court's view. `prawnik-mcp` makes the assistant work from **primary sources**:
+
+- 📜 **Exact text, exact version.** Every provision comes with the consolidated text it was taken from
+  (e.g. *tekst jednolity Dz.U. 2026 poz. 795, stan prawny na 2026-05-19*), a snapshot hash and the source URL.
+- 🕰️ **Time-aware.** Ask *as of* an event date: amendments not yet in force, transitional rules and
+  unknown wordings are flagged as `temporal_unknown` — never silently assumed.
+- 🔎 **Citation checker.** Quotes are verified against the stored text (exact / normalised / wrong article /
+  wrong version / not found). Case numbers are checked against court and date.
+- 🚦 **Explicit statuses.** `not_found` in the local corpus is *not* "does not exist"; `source_unavailable`,
+  `ambiguous`, `stale`, `out_of_scope` are reported as such.
+- 🧾 **Letters with a gate.** Three civil/consumer templates export to DOCX/Markdown only when the citation report is
+  valid and bound to the exact facts; otherwise you get an explicitly incomplete form.
+- 🏠 **Local-first.** Sources are synced into a local SQLite + FTS5 store. No API keys, no GPU, no data leaves your
+  machine from the server.
+
+## 🚀 Quick start
 
 ```bash
-git clone <repo> prawnik-mcp && cd prawnik-mcp   # lub rozpakuj katalog
-python3.12 -m venv .venv
-.venv/bin/pip install -r requirements.lock        # wersje przypięte
-.venv/bin/pip install -e ".[dev]"
+# 1. install (Python 3.12+)
+pipx install git+https://github.com/OWNER/prawnik-mcp     # PyPI: `pipx install prawnik-mcp` after the first release
 
-# Korpus: offline z próbek repozytorium (rzeczywiste odpowiedzi API z 26.09.2026)...
-.venv/bin/prawnik-mcp --data ./data sync --offline
-# ...albo na żywo: 2 PDF tekstów jednolitych (~1,8 MB), dyrektywa (~0,3 MB), ≤ 30 orzeczeń SAOS
-.venv/bin/prawnik-mcp --data ./data sync
+# 2. build a small starter corpus (Civil Code, Consumer Rights Act, Directive 2011/83/EU, a judgment sample)
+prawnik-mcp sync
 
-.venv/bin/prawnik-mcp --data ./data status
-.venv/bin/prawnik-mcp --data ./data search "odstąpienie od umowy zawartej na odległość"
-.venv/bin/prawnik-mcp --data ./data get eli:DU/2014/827 "art. 38 ust. 1 pkt 3"
-.venv/bin/pytest -q                                # testy offline
-.venv/bin/python evals/run_offline.py --data-dir ./data
+# 3. connect your client — Claude Code:
+claude mcp add prawnik -- prawnik-mcp serve
 ```
 
-### Podłączenie klienta MCP (stdio)
+<details>
+<summary><b>Claude Desktop / Cursor / other MCP clients</b></summary>
 
-Claude Code:
-
-```bash
-claude mcp add prawnik -- /ABS/ŚCIEŻKA/prawnik-mcp/.venv/bin/prawnik-mcp --data /ABS/ŚCIEŻKA/prawnik-mcp/data serve
-```
-
-Claude Desktop i inne klienty zgodne z MCP (`mcpServers` w pliku konfiguracyjnym):
+Add to the client's MCP configuration (`claude_desktop_config.json`, `.cursor/mcp.json`, …):
 
 ```json
-{ "mcpServers": { "prawnik": {
-    "command": "/ABS/ŚCIEŻKA/prawnik-mcp/.venv/bin/prawnik-mcp",
-    "args": ["--data", "/ABS/ŚCIEŻKA/prawnik-mcp/data", "serve"] } } }
+{
+  "mcpServers": {
+    "prawnik": { "command": "prawnik-mcp", "args": ["serve"] }
+  }
+}
 ```
 
-Serwer używa oficjalnego SDK `mcp==2.2.0`. Transport stdio działa: test uruchamia go jako podproces. Zgodność z konkretnymi klientami desktopowymi **nie została sprawdzona** (patrz raport jakości).
+Use an absolute path to the executable if your client does not inherit your shell `PATH`
+(`which prawnik-mcp`). Data lives in the per-user data directory; override with `--data DIR` or
+`PRAWNIK_MCP_DATA`.
+</details>
 
-Model: analizę prawną wykonuje model użytkownika (zalecany możliwie silny model). Serwer sam nie wywołuje żadnego modelu.
+<details>
+<summary><b>From source</b></summary>
 
-## Granice (ważne)
-
-- **MCP nie wymusza zachowania klienta.** Serwer dostarcza dowody, walidatory i procedurę. Nie może zmusić klienta AI do wywołania `check_citations`, wykonania osobnego przeglądu ani pokazania raportu. Blokuje tylko to, co kontroluje: eksport pisma przez `render_document`. Tekst wygenerowany przez model poza tym narzędziem nie przechodzi przez żadną bramkę.
-- Wyniki przeglądu semantycznego przekazane przez klienta (`client_review`) są zapisywane jako **zgłoszone przez klienta**. `reviewer_type=llm` nie oznacza przeglądu przez prawnika.
-- **Wersje w czasie:** korpus zawiera bieżące teksty jednolite, bez historii brzmień. Tekst jednolity może obejmować zmiany jeszcze nieobowiązujące (KC: Dz.U. 2026 poz. 507, data w ELI 2028-11-01). Zmiany są przypisane do całego aktu, nie do artykułów. Dlatego dla większości dat zdarzenia wynik to `temporal_unknown` z uzasadnieniem, a nie ciche założenie.
-- **Prywatność:** lokalny MCP nie oznacza lokalnego przetwarzania. Fakty wpisane do klienta AI trafiają do dostawcy modelu, a serwer nie może tego zmienić. Moduł `privacy.py` (pseudonimizacja i przywracanie) jest przeznaczony dla przyszłego kontrolowanego runnera i w trybie MCP nie jest wywoływany. Pseudonimizacja nie gwarantuje anonimowości. Logi nie zawierają treści zapytań ani faktów. Eksporty i raporty są w `data/`.
-- Treść źródeł jest traktowana jako dane, nie polecenia.
-- Poza zakresem: pozwy, apelacje, kasacje, terminy procesowe, przedawnienie, odsetki (kwoty), podatki, sprawy karne, rodzinne, migracyjne, nieruchomości, prywatne PDF/OCR.
-
-## Struktura
-
+```bash
+git clone https://github.com/OWNER/prawnik-mcp && cd prawnik-mcp
+python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/prawnik-mcp sync --offline     # corpus from recorded samples, no network
+.venv/bin/pytest -q                      # ~210 offline tests
 ```
-src/prawnik_mcp/contracts.py   wspólne modele i statusy     store.py      SQLite + FTS5 + snapshoty
-src/prawnik_mcp/connectors/    ELI, SAOS, Cellar + PoliteClient (allowlista, Retry-After, SSRF)
-src/prawnik_mcp/parsers/       PDF TJ (indeksy górne), SAOS JSON, Cellar XHTML
-src/prawnik_mcp/evidence/      check_citations, temporal_status_for
-src/prawnik_mcp/documents/     szablony, walidacja, eksport MD/DOCX, bramka eksportu
-src/prawnik_mcp/workflow/      procedura klienta, prompt recenzenta, walidator analizy
-src/prawnik_mcp/service.py     logika narzędzi      mcp_server/server.py   serwer MCP     cli.py
-src/prawnik_mcp/templates/  examples/  evals/  docs/  scripts/
+</details>
+
+Then just ask your assistant, e.g.:
+
+> *Kupiłem kurtkę przez internet 14 września, odebrałem 17. Czy mogę jeszcze odstąpić od umowy? Podaj przepisy z wersją
+> i sprawdź cytaty.*
+
+## 🧰 Tools
+
+| Tool | What it does |
+|---|---|
+| `search_legal` | Find provisions and judgments by identifier (`art. 27 upk`, `I ACa 772/13`, `Dz.U. 2024 poz. 1061`, `RODO`, `dyrektywa 2011/83/UE`) or by description. Local full-text first; **live search** in source APIs when needed (`live`). |
+| `get_legal_document` | Exact text of an article / § / ust. / pkt or a judgment, with version, snapshot and URL. Missing documents are **fetched on demand**. |
+| `check_citations` | Verify claims and quotes: document exists, quote is faithful and in the cited article and version, case number matches court/date. Produces a `report_id`. |
+| `get_citations` | Citation graph: what a judgment cites (statutes, articles, other judgments) and which local judgments cite a given act/article. |
+| `list_act_versions` | Timeline of a Polish act: consolidated texts, which are available, amending acts and pending changes. |
+| `sources_status` | What the local corpus covers, freshness, terms, known gaps, catalog of all sources. |
+| `get_document_template` / `render_document` | Three letters (payment demand, consumer complaint, withdrawal from a distance contract) → DOCX + Markdown + a separate sources report, gated by a valid citation report. |
+
+Prompts: `analysis_procedure` (how the client model should analyse a case) and `applicability_review`
+(a separate reviewer pass that checks whether the law actually applies).
+
+## 📚 Data sources
+
+<!-- sources:start -->
+| Source | Content | Status | Polite rate | Terms |
+|---|---|---|---|---|
+| **Cellar — Publications Office of the EU (EUR-Lex)** | EU acts | 🔵 beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
+| **ELI API — Dziennik Ustaw (Chancellery of the Sejm)** | statutes | 🔵 beta | 1 req/s | [terms](https://api.sejm.gov.pl/eli_pl.html) |
+| **SAOS — court judgments (ICM, University of Warsaw)** | judgments | 🔵 beta | 1 req/s | [terms](https://www.saos.org.pl/) |
+| **CBOSA — administrative courts (NSA/WSA)** | judgments | ⚪ planned | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
+| **EUREKA — tax interpretations (Ministry of Finance)** | tax rulings | ⚪ planned | 1 req/s | [terms](https://podatki.gov.pl/narzedzia/eureka) |
+| **KIO — National Appeal Chamber (public procurement)** | judgments | ⚪ planned | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/) |
+| **Portal Orzeczeń Sądów Powszechnych (common courts portal)** | judgments | ⚪ planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
+| **UODO — data protection authority decisions** | decisions | ⚪ planned | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
+| **UOKiK — competition and consumer protection decisions** | decisions | ⚪ planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
+<!-- sources:end -->
+
+Everything is fetched from **official public sources**, politely (identifiable User-Agent, per-host rate limits,
+`Retry-After`, no CAPTCHA/WAF bypass). **This repository ships no legal corpus** — you sync it yourself, so the
+source terms apply to you. Details, endpoints and known gaps: [docs/sources.md](docs/sources.md).
+
+### Growing your corpus
+
+```bash
+prawnik-mcp sync --source saos --court-type SUPREME --query "przedawnienie" --limit 500   # Supreme Court judgments
+prawnik-mcp sync --source saos --since 2026-01-01 --max-gb 2        # bulk dump of all courts for a date window
+prawnik-mcp sync --source eli --act DU/2018/1000 --act DU/1964/16   # specific acts (consolidated text if available)
+prawnik-mcp sync --source eli --query "ochronie danych osobowych" --limit 5
+prawnik-mcp sync --source cellar --celex 32016R0679                  # GDPR
 ```
 
-Dokumenty: [architektura (ADR 0001)](docs/adr/0001-architecture.md), [źródła i warunki danych](docs/sources.md), [raport jakości](docs/quality.md), [evals](evals/README.md).
+Bulk syncs are checkpointed per page — interrupt with Ctrl-C and run the same command again to resume.
+`PRAWNIK_MCP_OFFLINE=1` disables all network access.
 
-## Licencje
+## 🧠 How it works
 
-Kod: MIT (`LICENSE`). Dane nie są objęte licencją kodu i nie są redystrybuowane poza małymi próbkami testowymi. Akty normatywne i dokumenty urzędowe są wyłączone z prawa autorskiego (art. 4 pr. aut.). Warunki baz danych SAOS i Cellar opisuje `docs/sources.md` (częściowo niezweryfikowane). Przy wykorzystaniu danych podawaj źródła: Dziennik Ustaw (API ELI Kancelarii Sejmu), SAOS, EUR-Lex/Cellar.
+```mermaid
+flowchart LR
+  subgraph Sources
+    ELI[ELI API<br/>Dziennik Ustaw]
+    SAOS[SAOS<br/>court judgments]
+    CEL[Cellar<br/>EU law]
+    MORE[EUREKA · KIO · UODO · CBOSA …]
+  end
+  Sources -- polite HTTP<br/>allowlist · rate limits --> SNAP[(Snapshots<br/>sha256 · URL · time)]
+  SNAP --> PARSE[Parsers<br/>articles · superscripts · versions]
+  PARSE --> DB[(SQLite + FTS5<br/>provisions · judgments · citations)]
+  DB --> TOOLS[MCP tools]
+  Sources -. live search / lazy fetch .-> TOOLS
+  TOOLS <--> CLIENT[Your AI client<br/>Claude · Cursor · …]
+  CLIENT --> CHECK[check_citations<br/>+ separate review]
+  CHECK --> DOCS[Letters<br/>DOCX · MD · report]
+```
+
+- **Provenance first.** Every stored record points to a raw snapshot (hash, URL, fetch time, parser version).
+- **Versions, not just texts.** Polish acts are read from the latest *obwieszczenie* (consolidated text) with its
+  state-of-law date, included future amendments and excluded transitional provisions. Acts without a consolidated text
+  are stored as *published text* and flagged.
+- **Hybrid access.** Local FTS5 search (with Polish inflection heuristics) first; live source search under a time
+  budget with a 24 h cache; unknown documents are fetched and snapshotted on demand.
+- **The MCP boundary.** A server cannot force a client to follow the procedure or show the report. `prawnik-mcp`
+  provides evidence, validators and instructions, and blocks only what it controls — exporting a filled letter.
+
+## 🧪 Quality
+
+~210 offline tests (network is blocked in the test suite), CI on Linux/macOS × Python 3.12/3.13, nightly online checks
+against the live sources, a PII scanner and gitleaks on every push. See [docs/quality.md](docs/quality.md) for what is
+verified — and what is **not** (no lawyer review, no measured legal accuracy yet).
+
+## ⚠️ Honest limitations
+
+- **Not legal advice.** Citation checks verify *that a quote is real*, not *that the law applies*.
+- **Statute history is partial.** Only the latest consolidated text is parsed; older wordings are not reconstructed.
+  Many event dates therefore return `temporal_unknown` — by design, instead of guessing.
+- **Search is lexical.** FTS5 with simple Polish stemming heuristics; no semantic search yet.
+- **Coverage depends on what you sync** and on the sources themselves (SAOS has gaps and occasional data errors,
+  which are flagged, not corrected).
+- **Letters** cover three narrow civil/consumer situations and do not compute deadlines or interest.
+- **Your model provider** receives whatever your client sends. A local MCP server does not make a hosted LLM local.
+
+## 🔒 Privacy
+
+The server stores everything in your local data directory and logs no case facts. Nothing is sent anywhere except
+requests to the public legal sources. `prawnik_mcp.privacy` offers pseudonymisation helpers for controlled
+pipelines (pseudonymisation ≠ anonymisation). Please do not paste personal data into public issues.
+
+## 🗺️ Roadmap
+
+- Portal Orzeczeń Sądów Powszechnych, UOKiK decisions, CJEU case law, Monitor Polski
+- Historical wordings from amending acts; per-article pending changes
+- Optional local embeddings for semantic retrieval (only if it beats the lexical baseline on the eval set)
+- A curated, lawyer-reviewed evaluation set (80+ cases)
+
+## 🤝 Contributing
+
+Issues and PRs are welcome — especially new sources, parser fixes and evaluation cases.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) (no personal data, no invented legal text, polite scraping, compatible licences).
+
+## 🙏 Acknowledgements
+
+Public data from the **Chancellery of the Sejm (ELI API)**, **SAOS (ICM, University of Warsaw)**, the **Publications
+Office of the EU (Cellar/EUR-Lex)** and other Polish public authorities. Endpoint knowledge and some connector code
+were adapted from open-source projects — see [NOTICE](NOTICE).
+
+## License
+
+Code: [MIT](LICENSE). Legal texts and judgments are not covered by this licence; see
+[docs/sources.md](docs/sources.md) for the terms of each source.
