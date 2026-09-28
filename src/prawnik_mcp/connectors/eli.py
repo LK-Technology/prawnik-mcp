@@ -362,8 +362,9 @@ class EliConnector(BaseConnector):
 
     def coverage(self, store: Store) -> tuple[str, list[str]]:
         parts, ivs = [], []
-        for d in store.list_documents():
-            if not d.document_id.startswith("eli:") or not d.metadata.get("consolidated_versions"):
+        for d in store.list_documents("eli"):
+            if not d.metadata.get("consolidated_versions"):
+                parts.append(f"{d.title}: tekst ogłoszony {d.publication or ''}".strip())
                 continue
             cur = d.metadata["consolidated_versions"][0]
             iv = f"{d.title}: TJ {cur.get('publication')}, stan prawny na {cur.get('state_date')}"

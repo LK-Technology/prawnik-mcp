@@ -39,23 +39,25 @@ def _cache_key(source_id: str, query: str, filters: dict, limit: int) -> str:
 
 def live_search(store: Store, query: str, *, kinds: set[str] | None, filters: dict | None, limit: int,
                 budget_s: float = DEFAULT_BUDGET_S, source_ids: list[str] | None = None,
-                ) -> tuple[list[tuple[str, RemoteHit, str]], list[str], list[str]]:
-    """Returns ([(source_id, hit, origin 'live'|'cache')], warnings, unavailable_source_ids)."""
+                ) -> tuple[list[tuple[str, RemoteHit, str]], list[str], list[str], list[str]]:
+    """Returns ([(source_id, hit, origin 'live'|'cache')], warnings, unavailable_source_ids, searched_source_ids)."""
     filters = dict(filters or {})
     conns = [c for c in registry.all_connectors() if c.supports_search
              and (not kinds or set(c.info.kinds) & kinds) and (not source_ids or c.source_id in source_ids)]
     results: list[tuple[str, RemoteHit, str]] = []
     warnings: list[str] = []
     unavailable: list[str] = []
+    searched: list[str] = []
     todo = []
     for c in conns:
         cached = store.cache_get(_cache_key(c.source_id, query, filters, limit))
         if cached is not None:
             results += [(c.source_id, RemoteHit.model_validate(h), "cache") for h in json.loads(cached)]
+            searched.append(c.source_id)
         else:
             todo.append(c)
     if not todo:
-        return results, warnings, unavailable
+        return results, warnings, unavailable, searched
     client = CLIENT_FACTORY()
     pool = ThreadPoolExecutor(max_workers=len(todo))
     try:
@@ -77,10 +79,11 @@ def live_search(store: Store, query: str, *, kinds: set[str] | None, filters: di
                             json.dumps([h.model_dump(mode="json") for h in hits], ensure_ascii=False),
                             ttl=SEARCH_TTL, source_id=c.source_id)
             results += [(c.source_id, h, "live") for h in hits]
+            searched.append(c.source_id)
     finally:
         pool.shutdown(wait=False, cancel_futures=True)
         client.close()
-    return results, warnings, unavailable
+    return results, warnings, unavailable, searched
 
 
 def lazy_fetch(store: Store, document_id: str) -> tuple[bool, str | None]:

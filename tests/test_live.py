@@ -77,7 +77,7 @@ def test_time_budget_reports_slow_source(tmp_path, mock_live):
     _, state = mock_live
     state["eli_delay"] = 1.0
     store = Store(tmp_path)
-    hits, warnings, unavailable = live.live_search(store, "ochrona danych", kinds=None, filters=None, limit=3,
+    hits, warnings, unavailable, _ = live.live_search(store, "ochrona danych", kinds=None, filters=None, limit=3,
                                                    budget_s=0.3)
     assert "eli" in unavailable and any("eli" in w for w in warnings)
     assert {sid for sid, _, _ in hits} == {"saos"}
@@ -109,3 +109,22 @@ def test_identifier_resolution():
     assert service._resolve_act("DU/1964/93 art. 471") == "eli:DU/1964/93"
     assert service._resolve_act("art. 5 dyrektywy 93/13/EWG") == "celex:31993L0013"
     assert json.dumps(service._resolve_act("art. 27 upk")) == '"eli:DU/2014/827"'
+
+
+def test_case_number_routing():
+    assert service._case_number_sources("KIO 1234/24") == ["kio", "saos"]
+    assert service._case_number_sources("DKN.5130.2215.2020") == ["uodo"]
+    assert service._case_number_sources("0114-KDIP1-2.4012.123.2024.1.AB") == ["eureka"]
+    assert service._case_number_sources("II SA/Wa 1553/24") == ["saos"]
+
+
+def test_local_pagination_does_not_skip_rows(tmp_path):
+    from prawnik_mcp.sync import sync_corpus
+
+    store = Store(tmp_path)
+    sync_corpus(store, offline_fixtures=FX)
+    first = service.search_legal(store, "umowa konsument", limit=3, live=False)
+    ids1 = [h["document_id"] + str(h.get("locator")) for h in first.data["hits"]]
+    second = service.search_legal(store, "umowa konsument", limit=3, live=False, cursor=first.data["next_cursor"])
+    ids2 = [h["document_id"] + str(h.get("locator")) for h in second.data["hits"]]
+    assert first.data["next_cursor"] == "3" and not set(ids1) & set(ids2)

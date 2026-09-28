@@ -50,3 +50,23 @@ def test_act_versions_timeline(store):
     assert r.data["consolidated_texts"][0] == {"eli": "DU/2026/795", "parsed_locally": True}
     assert any(a["id"] == "DU/2026/507" and a["pending"] for a in r.data["pending_amendments"])
     assert service.list_act_versions(store, "celex:32011L0083").status.value == "out_of_scope"
+
+
+def test_saos_reference_without_comma_and_superscript_articles():
+    doc = LegalDocument(document_id="saos:2", kind=SourceKind.judgment, title="t", original_url="https://x",
+                        snapshot_id="s", sha256="h", metadata={"referenced_regulations_struct": [{
+                            "year": 2013, "entry": 1222,
+                            "text": "Obwieszczenie (Dz. U. z 2013 r. Nr 0 poz. 1222 - art. 4 ust. 11, art. 171(1) ust. 1)"}]})
+    assert {e.locator for e in edges_for(doc)} == {"art. 4 ust. 11", "art. 171^1 ust. 1"}
+
+
+def test_incoming_includes_citations_of_consolidated_text_notices(store):
+    doc = LegalDocument(document_id="saos:3", kind=SourceKind.judgment, title="t", original_url="https://x",
+                        snapshot_id="s", sha256="h", metadata={"referenced_regulations_struct": [{
+                            "year": 2026, "entry": 795, "text": "Obwieszczenie (Dz. U. z 2026 r. poz. 795 - art. 471)"}]})
+    store.upsert_document(doc)
+    r = service.get_citations(store, "eli:DU/1964/93", direction="incoming", locator="art. 471")
+    assert any(i["document_id"] == "saos:3" for i in r.data["incoming"])
+    out = service.get_citations(store, "saos:3", direction="outgoing").data["outgoing"][0]
+    assert out["status"] == "in_corpus" and out["resolved_act"] == "eli:DU/1964/93"
+    store.delete_document("saos:3")

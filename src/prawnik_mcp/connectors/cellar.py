@@ -240,9 +240,14 @@ class CellarConnector(BaseConnector):
         return res
 
     def coverage(self, store: Store) -> tuple[str, list[str]]:
-        docs = [d for d in store.list_documents() if d.document_id.startswith("celex:")]
-        parts = [f"{d.document_id} ({len(store.get_provisions(d.document_id))} articles, original OJ text)" for d in docs]
-        return ("; ".join(parts) or "no local data"), [f"{d.document_id}: original OJ publication" for d in docs]
+        docs = store.list_documents("cellar")
+        parts, ivs = [], []
+        for d in docs:
+            label = ("consolidated " + d.metadata.get("consolidated_celex", "")) if d.metadata.get("consolidated") \
+                else "original OJ text"
+            parts.append(f"{d.document_id} ({label})")
+            ivs.append(f"{d.document_id}: {label}")
+        return ("; ".join(parts) or "no local data"), ivs
 
     def sync_bulk(self, store: Store, client: PoliteClient, params: dict, limits: BulkLimits,
                   progress=None) -> SourceSyncResult:

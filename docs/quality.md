@@ -1,41 +1,50 @@
-# Quality report — v0.1.0 (2026-09-26)
+# Quality report
 
-**Experimental release.** No legal validation has been performed: no lawyer has reviewed the code, the templates or the evaluation cases.
+**Experimental.** No legal validation has been performed: no lawyer has reviewed the code, templates or evaluation
+cases. What follows is technical verification only.
 
-## Verified
+## Automated checks
 
-| Check | Result |
+| Check | Result (2026-09-28) |
 |---|---|
-| `pytest -m "not online"` (no network, no LLM key) | 189 passed, 1 skipped (the online smoke test runs only with `PRAWNIK_ONLINE=1`) |
-| Full path over MCP with an in-process client, for all 3 templates: search, exact text, claims, `check_citations`, `render_document` | pass. Changing the facts after the check → `blocked`. An unfaithful quote → critical error and `blocked`. |
-| stdio server run as a subprocess, listing and calling tools | pass |
-| Live sync | Civil Code, consumer rights act, Directive 2011/83/EU, 30 SAOS judgments. A second run reuses the stored snapshots. |
-| `evals/run_offline.py` on the offline corpus | 19 machine checks pass. 1 is not run, because it needs network fault injection. |
-| Real client | Claude Code (`claude mcp add` → Connected). One fictional case in a headless session used all 6 tools. |
-| DOCX look | Checked visually on macOS Quick Look previews only, not in Word or LibreOffice. |
+| Offline test suite (`pytest -m "not online"`, network blocked) | 252 passed |
+| Connector contract tests (recorded real responses, mocked transport) | ELI, SAOS, Cellar, EUREKA, KIO, UODO, CBOSA |
+| Online golden test of the ELI parser on 20 major acts (KC, KPC, KK, KPK, KP, KSH, VAT, Ordynacja, KPA, PPSA, …) | 20/20 pass: articles found, numbering monotonic, bounded superscript warnings |
+| Full path through MCP (search → exact text → `check_citations` → `render_document`) for all 3 templates | pass; changed facts → `blocked`; unfaithful quote → critical error and `blocked` |
+| Live search smoke (2026-09-28) | SAOS, ELI, KIO (≈6 s), UODO (<1 s), EUREKA (<1 s); Cellar lookup by identifier |
+| Clean wheel install + stdio smoke test | pass (CI job `package`) |
+| PII scan / gitleaks | 0 findings |
 
-Footprint of the offline corpus (1,407 provisions, 9 judgments):
-- sync takes about 4.5 s;
-- the SQLite database is about 9 MB, plus 2.5 MB of snapshots;
-- a search takes under 1 ms.
+## Real client
+
+Claude Code (`claude mcp add`): headless sessions used all tools on fictional cases — search, exact provisions,
+citation checks, citation graph, act versions, letter rendering. One-off runs are not an evaluation of answer quality.
 
 ## Not verified
 
-- **Evaluation set:** 80 labelled cases (40 dev + 40 held-out). Only 24 AI-generated candidate cases exist.
-- **Legal accuracy:** zero critical legal errors, 100% support of claims by their sources, and the useful-answer rate have not been measured. That would need model runs and a lawyer.
-- **Retrieval:** Recall@10 on hand-labelled relevant sources has not been measured.
-- **Clients:** a second real client (Claude Desktop, Cursor, a GPT client) has not been tested.
-- **Comparison:** no-MCP vs plain retrieval vs the full workflow has not been measured.
-- **Data terms:** the reuse terms of SAOS and Cellar are only partly checked.
+- **Legal accuracy.** Zero critical legal errors, the share of claims supported by their sources, and the rate of
+  useful answers are not measured. Measuring them needs model runs and a lawyer-labelled evaluation set.
+- **Retrieval.** Recall@k on hand-labelled relevant sources is not measured.
+- **Evaluation set.** There are 24 AI-generated candidate cases (`evals/`). They are not a gold standard; no held-out
+  set exists.
+- **Other clients.** Claude Desktop, Cursor and GPT clients are expected to work over stdio but have not been tested.
+- **Source terms.** Reuse terms of SAOS, Cellar, EUREKA, KIO, UODO and CBOSA are only partly verified; see
+  [sources.md](sources.md).
 
 ## Known technical limits
 
-- **Statute versions:**
-  - Only the latest consolidated text is held; there is no history of wordings. `valid_from` and `valid_to` are empty.
-  - Pending changes are tracked per act, not per article. As a result, most event dates return `temporal_unknown`.
-- **EU law:** directives are stored in their original Official Journal wording, and there is no CJEU case law yet.
-- **SAOS:** only a small topical sample. Finality of judgments is unknown. Data errors are flagged, not corrected.
-- **Parsing and search:**
-  - Superscript restoration is heuristic and was checked on two PDFs only.
-  - Full-text search truncates word endings instead of lemmatising, and there is no semantic search.
-  - Extracting a § / ust. / pkt from an article is heuristic. When it fails, the tool returns the whole article with a warning.
+- **Statute history.**
+  - Only the latest consolidated text per act is parsed; older wordings are not reconstructed.
+  - Pending changes are tracked per act, not per article, so many event dates return `temporal_unknown`.
+- **Acts without a consolidated text** are stored as the original publication and flagged. They are
+  `temporal_unknown` for any date after publication.
+- **EU law.**
+  - Cellar consolidated versions are documentation only.
+  - Old acts may lack a Polish XHTML manifestation (the source answers 404).
+  - There is no CJEU case law yet.
+- **Search** is lexical (FTS5 with simple Polish stemming), with no semantic search. Live search in Cellar works by
+  identifier only.
+- **Data quality.**
+  - Source data errors are flagged, not corrected: future dates in SAOS and KIO, missing dates.
+  - Finality of judgments is mostly unknown.
+- **CBOSA** cannot be searched automatically (robots.txt); only documents with a known id can be fetched.

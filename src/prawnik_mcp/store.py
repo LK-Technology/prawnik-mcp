@@ -154,8 +154,12 @@ class Store:
         row = self.db.execute("SELECT json FROM documents WHERE document_id=?", (document_id,)).fetchone()
         return LegalDocument.model_validate_json(row[0]) if row else None
 
-    def list_documents(self) -> list[LegalDocument]:
-        return [LegalDocument.model_validate_json(r[0]) for r in self.db.execute("SELECT json FROM documents")]
+    def list_documents(self, source_id: str | None = None) -> list[LegalDocument]:
+        if source_id:
+            rows = self.db.execute("SELECT json FROM documents WHERE source_id=? ORDER BY rowid", (source_id,))
+        else:
+            rows = self.db.execute("SELECT json FROM documents ORDER BY rowid")
+        return [LegalDocument.model_validate_json(r[0]) for r in rows]
 
     def delete_document(self, document_id: str) -> None:
         """Propagate a source-side removal/correction to all indexes."""
@@ -264,9 +268,17 @@ class Store:
             "SELECT src, target, target_locator, kind, raw FROM citations WHERE src=? ORDER BY kind, target, target_locator",
             (document_id,))]
 
-    def citations_to(self, document_id: str, locator: str | None = None, *, limit: int = 20,
+    def act_for_consolidated_text(self, tj_eli: str) -> LegalDocument | None:
+        """Logical act whose consolidated-text notices include `tj_eli` (e.g. 'DU/2026/795')."""
+        row = self.db.execute("SELECT json FROM documents WHERE source_id='eli' AND json LIKE ? LIMIT 1",
+                              (f'%"{tj_eli}"%',)).fetchone()
+        doc = LegalDocument.model_validate_json(row[0]) if row else None
+        return doc if doc and tj_eli in (doc.metadata.get("consolidated_text_refs") or []) else None
+
+    def citations_to(self, document_id: str | list[str], locator: str | None = None, *, limit: int = 20,
                      offset: int = 0) -> tuple[list[dict], int]:
-        where, args = "target=?", [document_id]
+        targets = [document_id] if isinstance(document_id, str) else list(document_id)
+        where, args = "target IN ({})".format(",".join("?" * len(targets))), list(targets)
         if locator:
             where += " AND (target_locator=? OR target_locator LIKE ?)"
             args += [locator, locator + " %"]

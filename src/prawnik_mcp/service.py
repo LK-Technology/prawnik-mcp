@@ -198,10 +198,11 @@ def search_legal(
     if case and (not kind_enums or any(k in RECORD_KINDS for k in kind_enums)):
         found = store.find_judgments_by_case_number(case.group(1))
         if not found and use_live:
-            remote, lw, unavailable = live_mod.live_search(
+            remote, lw, unavailable, searched = live_mod.live_search(
                 store, query, kinds={k.value for k in RECORD_KINDS}, filters={**filters, "case_number": case.group(1)},
-                limit=limit)
+                limit=limit, source_ids=_case_number_sources(case.group(1)))
             cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
+            cov.sources_searched += [x for x in searched if x not in cov.sources_searched]
             if remote:
                 rh = [_remote_hit(sid, h, origin) for sid, h, origin in remote]
                 status = ResultStatus.ambiguous if len(rh) > 1 else ResultStatus.ok
@@ -250,9 +251,11 @@ def search_legal(
     if kind_enums:
         fts_kinds = sorted({"judgment" if k in RECORD_KINDS else "provision" for k in kind_enums})
     rows = [] if empty else store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
+    consumed = 0
     for ref, kind, document_id, score, _body in rows:
         if len(hits) >= limit:
             break
+        consumed += 1
         if filters.get("document_id") and document_id != filters["document_id"]:
             continue
         if kind == "judgment":
@@ -274,12 +277,14 @@ def search_legal(
                 fetched_at=snap.fetched_at if snap else None, score=round(-score, 3),
                 metadata={"version_label": p.version_label, "temporal_status": ts.value, "temporal_notes": reasons,
                           "origin": "local"}))
-    more = len(rows) > limit
+    more = consumed < len(rows)  # unread local rows remain
+    live_searched: list[str] = []
     if use_live and offset == 0 and (live is True or len(hits) < limit):
-        remote, lw, unavailable = live_mod.live_search(
+        remote, lw, unavailable, live_searched = live_mod.live_search(
             store, query, kinds={k.value for k in kind_enums} if kind_enums else None, filters=filters, limit=limit)
         warnings += lw
         cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
+        cov.sources_searched += [x for x in live_searched if x not in cov.sources_searched]
         seen = {h.document_id for h in hits}
         for sid, h, origin in remote:
             if h.document_id not in seen and len(hits) < limit + (limit if live is True else 0):
@@ -287,15 +292,29 @@ def search_legal(
                 seen.add(h.document_id)
     status = ResultStatus.ok if hits else ResultStatus.not_found
     if not hits:
-        warnings.append("Brak trafień w lokalnym korpusie (KC, upk, dyrektywa 2011/83/UE, próbka SAOS). "
+        warnings.append("Brak trafień w przeszukanych źródłach (zob. coverage). "
                         "To nie oznacza, że przepis lub orzeczenie nie istnieje.")
     if cov.sources_unavailable:
         warnings.append(f"Niedostępne/niezsynchronizowane źródła: {', '.join(cov.sources_unavailable)} — wynik niepełny.")
     return ToolResult(status=status, coverage=cov, warnings=warnings, data={
         "hits": [h.model_dump(mode="json") for h in hits],
-        "next_cursor": str(offset + limit * 4) if more else None,
-        "search_scope": "FTS5/BM25 po lokalnym korpusie; bez wyszukiwania semantycznego",
+        "next_cursor": str(offset + consumed) if more else None,
+        "search_scope": "FTS5/BM25 po lokalnym korpusie" + (
+            f"; wyszukiwanie na żywo: {', '.join(live_searched)}" if live_searched else "")
+            + "; bez wyszukiwania semantycznego",
     })
+
+
+def _case_number_sources(case_number: str) -> list[str]:
+    """Which live sources can resolve a given case-number format."""
+    c = case_number.strip()
+    if c.upper().startswith("KIO"):
+        return ["kio", "saos"]
+    if re.fullmatch(r"[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}", c):
+        return ["uodo"]
+    if re.match(r"\d{4}-", c):
+        return ["eureka"]
+    return ["saos"]  # common courts, SN, TK, administrative courts (SAOS mirrors part of CBOSA)
 
 
 def _remote_hit(source_id: str, h, origin: str) -> SearchHit:
@@ -464,7 +483,18 @@ def _get_legal_document_local(
 
 
 def sources_status(store: Store) -> ToolResult:
+    from prawnik_mcp.connectors import registry
+
     synced = store.get_sources()
+    for rec in synced:  # refresh catalog fields and coverage (lazy fetches do not rewrite source records)
+        info = sources.catalog().get(rec.source_id)
+        if info:
+            rec.name, rec.maturity, rec.terms_url = info.name, info.maturity, info.terms_url
+            rec.known_gaps, rec.terms_of_use, rec.required_attribution = list(info.known_gaps), info.terms, info.attribution
+        try:
+            rec.coverage, rec.supported_intervals = registry.get(rec.source_id).coverage(store)
+        except KeyError:
+            pass
     warnings = _stale_warnings(store)
     if not synced:
         warnings.append("Brak zsynchronizowanych źródeł. Uruchom `prawnik-mcp sync`.")
@@ -573,6 +603,10 @@ def get_citations(store: Store, document_id: str, direction: str = "both", locat
                 g["status"], g["reason"] = "unresolved", "no_source_id (sygnatura bez identyfikatora w źródle)"
             else:
                 tdoc = store.get_document(g["target"])
+                if not tdoc and g["target"].startswith("eli:"):
+                    tdoc = store.act_for_consolidated_text(g["target"].removeprefix("eli:"))
+                    if tdoc:
+                        g["resolved_act"] = tdoc.document_id  # cited via its consolidated-text notice
                 g["status"] = "in_corpus" if tdoc else "out_of_corpus"
                 if tdoc:
                     g["title"] = tdoc.title
@@ -581,7 +615,9 @@ def get_citations(store: Store, document_id: str, direction: str = "both", locat
             out.append(g)
         data["outgoing"] = out
     if direction in ("both", "incoming"):
-        rows, total = store.citations_to(document_id, loc, limit=limit, offset=offset)
+        # judgments often cite a consolidated-text notice (obwieszczenie) instead of the act itself
+        targets = [document_id] + [f"eli:{e}" for e in ((doc.metadata.get("consolidated_text_refs") or []) if doc else [])]
+        rows, total = store.citations_to(targets, loc, limit=limit, offset=offset)
         incoming = []
         for r in rows:
             j = store.get_judgment(r["src"])
@@ -631,9 +667,15 @@ def list_act_versions(store: Store, document_id: str, live: bool | None = None) 
             "status": md.get("status"), "in_force": md.get("in_force"), "entry_into_force": md.get("entry_into_force"),
             "current_version_id": md.get("current_version_id"),
             "consolidated_texts": [{"eli": e, "parsed_locally": e in parsed} for e in md.get("consolidated_text_refs") or []],
-            "parsed_versions": [{k: v.get(k) for k in ("version_id", "publication", "state_date", "announcement_date",
-                                                        "pending_changes", "provision_count")}
+            "parsed_versions": [{**{k: v.get(k) for k in ("version_id", "publication", "state_date", "announcement_date",
+                                                           "provision_count")},
+                                 "changes_after_state_date": [
+                                     {**c, "in_force_by_today": bool(c.get("date") and c["date"] <= today)}
+                                     for c in v.get("pending_changes") or []]}
                                 for v in md.get("consolidated_versions") or []],
+            "note": ("changes_after_state_date: amendments included in the consolidated text that enter into force "
+                     "after its state-of-law date (dates from the notice text or ELI). amendments[].date is the single "
+                     "ELI date per amending act; parts of an act may enter into force on other dates."),
             "amendments": amendments,
             "pending_amendments": [a for a in amendments if a["pending"]],
         })

@@ -72,7 +72,13 @@ def _v3(db: sqlite3.Connection) -> None:
             db.execute("INSERT INTO citations VALUES (?,?,?,?,?)", (e.src, e.target, e.locator, e.kind, e.raw))
 
 
-MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3}
+def _v4(db: sqlite3.Connection) -> None:
+    """Rebuild citation edges (parser fixes: 'Nr N poz.' without comma, 'art. 171(1)')."""
+    db.execute("DELETE FROM citations")
+    _v3(db)
+
+
+MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3, 4: _v4}
 LATEST = max(MIGRATIONS)
 
 

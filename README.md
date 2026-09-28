@@ -80,7 +80,7 @@ Use an absolute path to the executable if your client does not inherit your shel
 git clone https://github.com/OWNER/prawnik-mcp && cd prawnik-mcp
 python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
 .venv/bin/prawnik-mcp sync --offline     # corpus from recorded samples, no network
-.venv/bin/pytest -q                      # ~210 offline tests
+.venv/bin/pytest -q                      # ~250 offline tests
 ```
 </details>
 
@@ -168,7 +168,7 @@ flowchart LR
 
 ## 🧪 Quality
 
-~210 offline tests (network is blocked in the test suite), CI on Linux/macOS × Python 3.12/3.13, nightly online checks
+~250 offline tests (network is blocked in the test suite), CI on Linux/macOS × Python 3.12/3.13, nightly online checks
 against the live sources, a PII scanner and gitleaks on every push. See [docs/quality.md](docs/quality.md) for what is
 verified — and what is **not** (no lawyer review, no measured legal accuracy yet).
 
@@ -191,7 +191,7 @@ pipelines (pseudonymisation ≠ anonymisation). Please do not paste personal dat
 
 ## 🗺️ Roadmap
 
-- Portal Orzeczeń Sądów Powszechnych, UOKiK decisions, CJEU case law, Monitor Polski
+- CJEU case law, Portal Orzeczeń Sądów Powszechnych, UOKiK decisions, Monitor Polski
 - Historical wordings from amending acts; per-article pending changes
 - Optional local embeddings for semantic retrieval (only if it beats the lexical baseline on the eval set)
 - A curated, lawyer-reviewed evaluation set (80+ cases)

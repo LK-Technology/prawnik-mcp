@@ -13,8 +13,9 @@ from dataclasses import dataclass
 from prawnik_mcp.contracts import LegalDocument, canonical_locator
 
 # "(Dz. U. z 1964 r. Nr 16, poz. 93 - art. 23; art. 24 § 1)"
-_DZU_REF = re.compile(r"\((?:Dz\.\s*U\.|M\.\s*P\.)\s*z\s*(\d{4})\s*r\.\s*(?:Nr\s*\d+\s*,\s*)?poz\.\s*(\d+)\s*(?:-\s*(.*))?\)\s*$")
-_ART = re.compile(r"art\.\s*\d+[a-z]{0,3}(?:\s*(?:§|ust\.|pkt)\s*\d+[a-z]?)*", re.I)
+_DZU_REF = re.compile(
+    r"\((?:Dz\.\s*U\.|M\.\s*P\.)\s*z\s*(\d{4})\s*r\.\s*(?:Nr\s*\d+\s*,?\s*)?poz\.\s*(\d+)\s*(?:-\s*(.*))?\)\s*$")
+_ART = re.compile(r"art\.\s*\d+[a-z]{0,3}(?:\(\d+\)|\^\d+)?(?:\s*(?:§|ust\.|pkt)\s*\d+[a-z]?(?:\(\d+\))?)*", re.I)
 
 
 @dataclass(frozen=True)
