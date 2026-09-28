@@ -80,7 +80,8 @@ terms_url = "https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eu
 terms_checked_at = "2026-09-26"
 attribution = "© European Union, https://eur-lex.europa.eu"
 known_gaps = [
-  "Original Official Journal text, not consolidated versions.",
+  "Both the Official Journal text and the latest consolidated version (Cellar CELEX 0YYYY…-YYYYMMDD) are stored; EU consolidated versions are documentation only — the OJ texts are legally binding.",
+  "Only the latest consolidated version is fetched; earlier consolidations are listed (consolidated_versions_available) but not stored.",
   "Recitals and annexes are not stored as provisions.",
   "The EUR-Lex website serves a bot challenge (202); it is not used or bypassed.",
   "Older acts (e.g. pre-2004 directives) may have no Polish XHTML manifestation in Cellar (404); PDF/Formex are not parsed yet.",

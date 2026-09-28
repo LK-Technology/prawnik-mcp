@@ -53,7 +53,8 @@ Polish statutes and official documents are excluded from copyright (art. 4 of th
 - **Terms:** reuse is allowed with attribution, according to the EUR-Lex reuse page (Commission Decision 2011/833/EU). This has not been legally verified.
 - **Attribution:** "© European Union, https://eur-lex.europa.eu".
 - **Known gaps:**
-  - We store the **original Official Journal text, not the consolidated version**.
+  - We store the **Official Journal text** and, as a separate version, the **latest consolidated version**
+    (found via SPARQL, CELEX `0YYYY…-YYYYMMDD`). Consolidations are documentation only; the OJ texts are binding.
   - Recitals and annexes are not stored as provisions.
   - The EUR-Lex website itself is not used, because it serves a bot challenge.
 

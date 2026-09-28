@@ -6,10 +6,12 @@ REST content negotiation is. The text is the ORIGINAL publication (no consolidat
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import urlencode
 
 from prawnik_mcp.connectors.base import BaseConnector, BulkLimits, RemoteHit, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
@@ -18,6 +20,7 @@ from prawnik_mcp.parsers.cellar import PARSER_VERSION, parse_cellar_xhtml
 from prawnik_mcp.store import Store
 
 CELLAR = "https://publications.europa.eu/resource/celex"
+SPARQL = "https://publications.europa.eu/webapi/rdf/sparql"
 EURLEX_HUMAN = "https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:{celex}"
 SOURCE_ID = "cellar"
 ACCEPT = "application/xhtml+xml"
@@ -38,26 +41,53 @@ class CellarIngest:
     warnings: list[str] = field(default_factory=list)
 
 
+_CONS_RE = re.compile(r"^0(\d{4}[A-Z]\d{4})-(\d{4})(\d{2})(\d{2})$")
+
+
+def consolidated_versions(client: PoliteClient, celex: str) -> list[str]:
+    """CELEX numbers of consolidated versions of an act ("02011L0083-20260927"), newest first (SPARQL)."""
+    base = "0" + celex[1:]
+    q = ("PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> SELECT DISTINCT ?c WHERE { "
+         "?w cdm:resource_legal_id_celex ?c . FILTER(STRSTARTS(STR(?c), \"" + base + "-\")) } LIMIT 200")
+    r = client.get(f"{SPARQL}?{urlencode({'query': q})}", accept="application/sparql-results+json")
+    vals = [b["c"]["value"] for b in json.loads(r.content).get("results", {}).get("bindings", [])]
+    return sorted((v for v in vals if _CONS_RE.match(v)), reverse=True)
+
+
 def ingest_xhtml(store: Store, celex: str, content: bytes, url: str, fetched_at: datetime | None = None,
-                 *, fetched_now: bool = True) -> CellarIngest:
+                 *, fetched_now: bool = True, consolidated_celex: str | None = None) -> CellarIngest:
     snap = store.put_snapshot(SOURCE_ID, url, content, "application/xhtml+xml",
                               parser_version=PARSER_VERSION, fetched_at=fetched_at)
     parsed = parse_cellar_xhtml(content)
     if not parsed.articles:
         raise SourceUnavailable(url, "odpowiedź Cellar nie zawiera artykułów (nieoczekiwany format)")
     doc_id = f"celex:{celex}"
-    version_id = f"{doc_id}:oj"
-    label = "tekst pierwotny, Dz.U. UE " + (parsed.oj_reference or "?") + (f" z {parsed.oj_date}" if parsed.oj_date else "")
+    state_date = None
+    if consolidated_celex:
+        m = _CONS_RE.match(consolidated_celex)
+        state_date = date(int(m.group(2)), int(m.group(3)), int(m.group(4))) if m else None
+        version_id = f"{doc_id}:consolidated:{state_date}"
+        label = (f"wersja skonsolidowana {consolidated_celex} (stan na {state_date}); "
+                 "konsolidacja UE ma charakter dokumentacyjny — moc prawną mają teksty w Dz.U. UE")
+        basis = TemporalStatus.consolidated_text
+    else:
+        version_id = f"{doc_id}:oj"
+        label = "tekst pierwotny, Dz.U. UE " + (parsed.oj_reference or "?") + (f" z {parsed.oj_date}" if parsed.oj_date else "")
+        basis = TemporalStatus.original_publication
     provs = [
         ProvisionVersion(
             provision_id=f"{doc_id}#{a.locator}@{version_id}",
             document_id=doc_id, locator=a.locator, text=a.text,
-            version_id=version_id, version_label=label,
-            temporal_basis=TemporalStatus.original_publication,
-            snapshot_id=snap.snapshot_id,
+            version_id=version_id, version_label=label, text_state_date=state_date,
+            temporal_basis=basis, snapshot_id=snap.snapshot_id,
         )
         for a in parsed.articles
     ]
+    prev = store.get_document(doc_id)
+    if prev and consolidated_celex is None and prev.metadata.get("consolidated"):
+        # keep the consolidated document metadata; only add the OJ version's provisions
+        store.replace_provisions(doc_id, version_id, provs, title=prev.title)
+        return CellarIngest(doc_id, version_id, len(provs), snap.snapshot_id, fetched_now, parsed.warnings)
     doc = LegalDocument(
         document_id=doc_id, kind=SourceKind.eu_act, celex=celex, title=parsed.title,
         publication=f"Dz.U. UE {parsed.oj_reference}" if parsed.oj_reference else None,
@@ -69,8 +99,11 @@ def ingest_xhtml(store: Store, celex: str, content: bytes, url: str, fetched_at:
             "oj_reference": parsed.oj_reference,
             "oj_date": parsed.oj_date,
             "language": LANG,
-            "consolidated": False,
-            "note": "Tekst w brzmieniu z Dz.U. UE (bez konsolidacji); późniejsze zmiany dyrektywy nie są uwzględnione.",
+            "consolidated": bool(consolidated_celex),
+            "consolidated_celex": consolidated_celex,
+            "note": ("Wersja skonsolidowana z Cellar (dokumentacyjna); obok zachowany tekst z Dz.U. UE."
+                     if consolidated_celex else
+                     "Tekst w brzmieniu z Dz.U. UE (bez konsolidacji); późniejsze zmiany aktu nie są uwzględnione."),
             "article_headings": {a.locator: a.heading for a in parsed.articles},
             "parse_warnings": parsed.warnings,
             "parser_version": PARSER_VERSION,
@@ -81,23 +114,50 @@ def ingest_xhtml(store: Store, celex: str, content: bytes, url: str, fetched_at:
     return CellarIngest(doc_id, version_id, len(provs), snap.snapshot_id, fetched_now, parsed.warnings)
 
 
-def sync_celex(store: Store, client: PoliteClient, celex: str, *, force: bool = False) -> CellarIngest:
-    url = celex_url(celex)
+def _fetch_xhtml(store: Store, client: PoliteClient, url: str, *, force: bool) -> tuple[bytes, datetime, bool, str]:
     if not force:
         snap = store.find_snapshot_by_url(url)
         content = store.read_snapshot_bytes(snap.snapshot_id) if snap else None
         if snap and content is not None:
-            return ingest_xhtml(store, celex, content, url, snap.fetched_at, fetched_now=False)
+            return content, snap.fetched_at, False, url
     r = client.get(url, accept=ACCEPT, headers={"Accept-Language": LANG})
     if b"<html" not in r.content[:2000].lower():
         raise SourceUnavailable(url, f"nieoczekiwany typ odpowiedzi Cellar: {r.content_type}", r.status)
+    return r.content, r.fetched_at, True, r.url
+
+
+def sync_celex(store: Store, client: PoliteClient, celex: str, *, force: bool = False,
+               consolidated: bool = True) -> CellarIngest:
+    """OJ text of the act, plus (by default) its latest consolidated version as a separate version."""
+    url = celex_url(celex)
+    content, fetched_at, fresh, final_url = _fetch_xhtml(store, client, url, force=force)
     # snapshot keyed by the requested (canonical) URL so resume works; final URL kept in metadata
-    res = ingest_xhtml(store, celex, r.content, url, r.fetched_at)
+    res = ingest_xhtml(store, celex, content, url, fetched_at, fetched_now=fresh)
+    if not consolidated:
+        return res
+    try:
+        versions = consolidated_versions(client, celex)
+    except Exception as e:  # noqa: BLE001 - consolidation is optional; OJ text is stored
+        res.warnings.append(f"lista wersji skonsolidowanych niedostępna: {type(e).__name__}")
+        return res
+    if not versions:
+        return res
+    latest = versions[0]
+    try:
+        c_content, c_at, c_fresh, _ = _fetch_xhtml(store, client, celex_url(latest), force=force)
+        cres = ingest_xhtml(store, celex, c_content, celex_url(latest), c_at, fetched_now=c_fresh,
+                            consolidated_celex=latest)
+    except Exception as e:  # noqa: BLE001
+        res.warnings.append(f"{latest}: wersja skonsolidowana niedostępna ({type(e).__name__})")
+        return res
     doc = store.get_document(res.document_id)
-    if doc and r.url != url:
-        doc.metadata["cellar_final_url"] = r.url
+    if doc:
+        doc.metadata["consolidated_versions_available"] = versions
+        if final_url != url:
+            doc.metadata["cellar_final_url"] = final_url
         store.upsert_document(doc)
-    return res
+    cres.warnings += res.warnings
+    return cres
 
 
 # --------------------------------------------------------------------------- connector
