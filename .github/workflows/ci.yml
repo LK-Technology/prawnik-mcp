@@ -21,10 +21,11 @@ jobs:
       - run: pip install pypdf python-docx
       - name: PII and forbidden-path scan
         run: python scripts/pii_scan.py
-      - name: Secret scan
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Secret scan (gitleaks CLI; the GitHub Action needs a licence for organisations)
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz \
+            | tar xz gitleaks
+          ./gitleaks detect --source . --redact --verbose
 
   test:
     needs: hygiene
