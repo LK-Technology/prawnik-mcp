@@ -1,0 +1,16 @@
+
+{ "head": { "link": [], "vars": ["rel", "val"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "32012Q0929(01)" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "12008E267" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62009CJ0173" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "31993L0013" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62017CJ0413" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62021CJ0430" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62019CJ0083" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62020CJ0019" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62020CJ0205" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62022CJ0537" }},
+    { "rel": { "type": "literal", "value": "interprets" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "12008E267" }},
+    { "rel": { "type": "literal", "value": "subject" }	, "val": { "type": "literal", "value": "CONS" }},
+    { "rel": { "type": "literal", "value": "subject" }	, "val": { "type": "literal", "value": "RAPL" }} ] } }

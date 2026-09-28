@@ -1,0 +1,18 @@
+
+{ "head": { "link": [], "vars": ["rel", "val"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "12008E263" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "61984CJ0042" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62011TJ0204" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "32006R1925" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62009CJ0343" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62015TJ0115" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62013TJ0134" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "32012R0307" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62014CJ0448" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62016CJ0090" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62019TJ0246" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62019TJ0549" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "32021R0468" }},
+    { "rel": { "type": "literal", "value": "cites" }	, "val": { "type": "literal", "datatype": "http://www.w3.org/2001/XMLSchema#string", "value": "62020CJ0525" }},
+    { "rel": { "type": "literal", "value": "subject" }	, "val": { "type": "literal", "value": "CONS" }} ] } }

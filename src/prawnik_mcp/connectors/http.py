@@ -132,6 +132,7 @@ class PoliteClient:
             transport=transport,
             timeout=timeout,
             follow_redirects=False,
+            http2=True,  # negotiated via ALPN; ipo.trybunal.gov.pl never answers HTTP/1.1 requests
             headers={"User-Agent": USER_AGENT},
         )
 

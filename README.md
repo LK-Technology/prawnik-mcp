@@ -123,14 +123,14 @@ the tools returned, run `check_citations`, report gaps.
 <!-- sources:start -->
 | Source | Content | Status | Rate limit | Terms |
 |---|---|---|---|---|
-| Cellar — Publications Office of the EU (EUR-Lex) | EU acts | beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
+| Cellar — Publications Office of the EU (EUR-Lex): acts and CJEU case law | EU acts, EU judgments | beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
 | ELI API — Dziennik Ustaw (Chancellery of the Sejm) | statutes | beta | 1 req/s | [terms](https://api.sejm.gov.pl/eli_pl.html) |
 | SAOS — court judgments (ICM, University of Warsaw) | judgments | beta | 1 req/s | [terms](https://www.saos.org.pl/) |
 | CBOSA — administrative courts (NSA/WSA) | judgments | experimental | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | tax rulings | experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | judgments | experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
 | SN — Supreme Court rulings (sn.pl ruling database) | judgments | experimental | 0.5 req/s | [terms](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
-| TK — Constitutional Tribunal (rulings, trybunal.gov.pl) | judgments | experimental | 0.5 req/s | [terms](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
+| TK — Constitutional Tribunal (rulings: trybunal.gov.pl, IPO) | judgments | experimental | 0.5 req/s | [terms](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
 | UODO — decisions of the President of the Personal Data Protection Office | decisions | experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | judgments | planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decisions | planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
@@ -178,9 +178,15 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
 - CBOSA (administrative courts) cannot be searched: its robots.txt disallows the search endpoints, so only
   documents with a known id are fetched. Paste the link of a ruling page (found with a web search such as
   `site:orzeczenia.nsa.gov.pl …`) into `get_legal_document` to fetch it.
-- Case law has gaps. Constitutional Tribunal rulings after 2015 come without reasoning (trybunal.gov.pl publishes
-  only the operative part), Supreme Court search by phrase returns unranked metadata, administrative courts can
-  only be fetched by id, and there is no CJEU case law yet.
+- Case law has gaps. Constitutional Tribunal rulings after 2015 are fetched with reasoning from the Tribunal's IPO
+  portal (one extra request per ruling; without it, e.g. if IPO is down, only the operative part is stored and the
+  record is flagged; dissenting opinions are not included, and search by phrase covers only the operative parts),
+  Supreme Court search by phrase returns unranked metadata, administrative courts can
+  only be fetched by id. CJEU case law (Court of Justice and General Court, from Cellar) is found by case number,
+  ECLI or CELEX, and by words in the title, parties and keywords (only when `kinds` includes `eu_judgment`);
+  Cellar has no full-text search of the reasoning, so topic recall is limited. Some documents have no Polish text
+  (English or French is then stored and flagged), and cited cases and legislation from Cellar metadata are not yet
+  used by the citation graph.
 - SAOS search often takes longer than the 8-second live budget. The server keeps the request running and caches
   the result, so asking again a moment later usually works; `prawnik-mcp sync` avoids the problem entirely.
 - Source data errors (e.g. judgment dates in the future) are flagged, not corrected. Finality of judgments is mostly unknown.

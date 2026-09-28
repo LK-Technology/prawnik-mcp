@@ -93,14 +93,14 @@ Gotowe procedury krok po kroku, które klient może wczytać. Prompty do zadań 
 <!-- sources:start -->
 | Źródło | Zawartość | Status | Limit zapytań | Warunki |
 |---|---|---|---|---|
-| Cellar — Publications Office of the EU (EUR-Lex) | akty UE | beta | 1 req/s | [warunki](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
+| Cellar — Publications Office of the EU (EUR-Lex): acts and CJEU case law | akty UE, orzeczenia TSUE | beta | 1 req/s | [warunki](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
 | ELI API — Dziennik Ustaw (Chancellery of the Sejm) | ustawy | beta | 1 req/s | [warunki](https://api.sejm.gov.pl/eli_pl.html) |
 | SAOS — court judgments (ICM, University of Warsaw) | orzeczenia | beta | 1 req/s | [warunki](https://www.saos.org.pl/) |
 | CBOSA — administrative courts (NSA/WSA) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://orzeczenia.nsa.gov.pl/cbo/query) |
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | interpretacje podatkowe | eksperymentalne | 0.5 req/s | [warunki](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | orzeczenia | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
 | SN — Supreme Court rulings (sn.pl ruling database) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
-| TK — Constitutional Tribunal (rulings, trybunal.gov.pl) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
+| TK — Constitutional Tribunal (rulings: trybunal.gov.pl, IPO) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
 | UODO — decisions of the President of the Personal Data Protection Office | decyzje | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | orzeczenia | planowane | 0.5 req/s | [warunki](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decyzje | planowane | 0.5 req/s | [warunki](https://uokik.gov.pl/) |
@@ -142,9 +142,15 @@ ustawy na dawną datę (jeszcze nieodtwarzane) ani spraw spoza prawa polskiego i
 - CBOSA nie jest przeszukiwana (robots.txt zabrania dostępu do wyszukiwarki); pobierane są tylko dokumenty o znanym id.
   Link do strony orzeczenia (znaleziony wyszukiwarką internetową, np. `site:orzeczenia.nsa.gov.pl …`) można wkleić
   do `get_legal_document`.
-- Orzecznictwo ma luki. Orzeczenia TK po 2015 r. są bez uzasadnień (trybunal.gov.pl publikuje tylko sentencję),
+- Orzecznictwo ma luki. Orzeczenia TK po 2015 r. są pobierane wraz z uzasadnieniem z portalu IPO Trybunału (jedno
+  dodatkowe zapytanie na orzeczenie; gdy IPO nie odpowiada, zapisywana jest tylko sentencja z oznaczeniem w rekordzie;
+  zdania odrębne nie są dołączane, a wyszukiwanie po frazie obejmuje tylko sentencje),
   wyszukiwanie SN po frazie zwraca nieuszeregowane metadane, wyroki sądów administracyjnych można pobrać tylko
-  po id, a orzecznictwa TSUE jeszcze nie ma.
+  po id. Orzecznictwo TSUE (Trybunał i Sąd, z Cellar) znajdziesz po sygnaturze, ECLI lub numerze CELEX oraz po
+  słowach z tytułu, stron i słów kluczowych (tylko gdy `kinds` zawiera `eu_judgment`); Cellar nie ma wyszukiwania
+  pełnotekstowego po uzasadnieniach, więc trafność tematyczna jest ograniczona. Część dokumentów nie ma polskiego
+  tekstu (zapisywany jest wtedy angielski lub francuski z oznaczeniem), a powołane sprawy i akty z metadanych Cellar
+  nie zasilają jeszcze grafu cytowań.
 - Wyszukiwanie w SAOS często trwa dłużej niż 8-sekundowy limit. Serwer kończy zapytanie w tle i zapisuje wynik
   w cache, więc ponowienie po chwili zwykle działa; `prawnik-mcp sync` całkowicie omija ten problem.
 - Błędy danych źródeł (np. daty z przyszłości) są oznaczane, nie poprawiane; prawomocność orzeczeń jest zwykle nieznana.

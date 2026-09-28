@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<head id="j_idt3">
+			<meta http-equiv="X-UA-Compatible" content="IE=10" />
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+			<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+			<meta http-equiv="Pragma" content="no-cache" />			
+			<meta http-equiv="Expires" content="0" />
+		<title>Sprawa K 21/24</title><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/theme.css.xhtml?ln=primefaces-aristo" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/theme.css.xhtml" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/wyrok.css.xhtml" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=7.0" /><script type="text/javascript" src="/ipo/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/core.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/components.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='pl';}</script>
+
+		<script type="text/javascript">
+		PrimeFaces.locales['pl'] = {
+			    closeText: 'Zamknij',
+			    prevText: 'Poprzedni',
+			    nextText: 'Następny',
+			    monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+			    monthNamesShort: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+			    dayNames: ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'],
+			    dayNamesShort: ['Nie','Pon','Wt','Śr','Czw','Pt','So'],
+			    dayNamesMin: ['N','Po','Wt','Śr','Cz','Pt','So'],
+			    weekHeader: 'Tydzień',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: 'rok',
+			    timeOnlyTitle: 'Tylko czas',
+			    timeText: 'Czas',
+			    hourText: 'Godzina',
+			    minuteText: 'Minuta',
+			    secondText: 'Sekunda',
+			    currentText: 'Teraz',
+			    ampm: false,
+			    month: 'Miesiąc',
+			    week: 'Tydzień',
+			    day: 'Dzień',
+			    allDayText : 'Cały dzień'
+			};
+		
+	</script></head><body id="bodyRoot" class="body bodyRoot font-size-normal">
+<form id="j_idt9" name="j_idt9" method="post" action="/ipo/Sprawa" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt9" value="j_idt9" />
+<div xmlns="http://www.w3.org/1999/xhtml"><div id="j_idt9:j_idt11" class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" role="menubar"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all ui-state-disabled" style="font-weight:bold; opacity: 1 !important;" href="#" onclick="return false;"><span class="ui-menuitem-text">Wyszukiwanie:</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/Start"><span class="ui-menuitem-text">Orzeczenia</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/StartSprawy"><span class="ui-menuitem-text">Sprawy</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/StartZO"><span class="ui-menuitem-text">Zdania odrębne</span></a></li><li class="ui-menuitem ui-menubar-options ui-widget ui-corner-all" role="menuitem"><a href="/ipo/instrukcja_ipo.pdf" target="_blank" class="ui-menuitem-link ">Instrukcja</a><button id="j_idt9:j_idt26" name="j_idt9:j_idt26" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar normalny" type="submit"><span class="ui-button-text ui-c">A</span></button><script id="j_idt9:j_idt26_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt26",{id:"j_idt9:j_idt26"});});</script><button id="j_idt9:j_idt27" name="j_idt9:j_idt27" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar powiększony" type="submit"><span class="ui-button-text ui-c">A+</span></button><script id="j_idt9:j_idt27_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt27",{id:"j_idt9:j_idt27"});});</script><button id="j_idt9:j_idt28" name="j_idt9:j_idt28" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar duży" type="submit"><span class="ui-button-text ui-c">A++</span></button><script id="j_idt9:j_idt28_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt28",{id:"j_idt9:j_idt28"});});</script></li></ul></div><script id="j_idt9:j_idt11_s" type="text/javascript">$(function(){PrimeFaces.cw("Menubar","widget_j_idt9_j_idt11",{id:"j_idt9:j_idt11",autoDisplay:true});});</script>
+	
+
+</div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-1276905160233191486:-8359502464357647695" autocomplete="off" />
+</form>
+
+		<div class="body"><div id="messages" class="ui-messages ui-widget" aria-live="polite"></div><div id="proszeCzekac"></div><script id="proszeCzekac_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_proszeCzekac",{id:"proszeCzekac",start:function(){PF('statusDialog').show();},success:function(){PF('statusDialog').hide();}});});</script><div id="j_idt31" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt31_title" class="ui-dialog-title">Proszę czekać trwa pobieranie danych</span></div><div class="ui-dialog-content ui-widget-content" id="j_idt31_content"><img id="j_idt32" src="/ipo/resources/images/ajaxloadingbar.gif?pfdrid_c=true" alt="" /></div></div><script id="j_idt31_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","statusDialog",{id:"j_idt31",draggable:false,resizable:false,modal:true});});</script><div id="body">
+<form id="sprawaForm" name="sprawaForm" method="post" action="/ipo/Sprawa?cid=1" enctype="application/x-www-form-urlencoded" style="width: 100%">
+<input type="hidden" name="sprawaForm" value="sprawaForm" />
+<div id="sprawaForm:tabView" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-hidden-container ui-tabs-top" style="width: 100%" data-widget="tabView"><ul class="ui-tabs-nav ui-helper-reset ui-widget-header ui-corner-all" role="tablist"><li class="ui-tabs-header ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false" data-index="0"><a href="#sprawaForm:tabView:metryka" tabindex="-1">Metryka K 21/24</a></li><li class="ui-tabs-header ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false" data-index="1"><a href="#sprawaForm:tabView:dok_25657" tabindex="-1">Postanowienie - umorzenie z dnia 12 sierpnia 2026</a></li><li class="ui-tabs-header ui-state-default ui-tabs-selected ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" data-index="2"><a href="#sprawaForm:tabView:dokumentyWSprawie" tabindex="-1">Dokumenty w sprawie </a></li></ul><div class="ui-tabs-panels"><div id="sprawaForm:tabView:metryka" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-helper-hidden" role="tabpanel" aria-hidden="true" data-index="0"><div id="sprawaForm:tabView:j_idt35" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt35"><div id="sprawaForm:tabView:j_idt35_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Sygnatura
+            
+        </span>
+        <span class="value"><span class="sygnaturaBig">K 21/24</span>
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data wpływu do TK
+            
+        </span>
+        <span class="value">10 maja 2024
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data wpływu do STK
+            
+        </span>
+        <span class="value">24 maja 2024
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+		
+		
+		<div style="clear: both"></div></div></div><script id="sprawaForm:tabView:j_idt35_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt35",{id:"sprawaForm:tabView:j_idt35"});});</script><img id="sprawaForm:tabView:spacer2_27924" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><img id="sprawaForm:tabView:j_idt158" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><div id="sprawaForm:tabView:j_idt159" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder" data-widget="widget_sprawaForm_tabView_j_idt159"><div id="sprawaForm:tabView:j_idt159_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Podmiot w sprawie</span></div><div id="sprawaForm:tabView:j_idt159_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt161" class="ui-datalist ui-widget"><div id="sprawaForm:tabView:j_idt161_content" class="ui-datalist-content ui-widget-content"><ul id="sprawaForm:tabView:j_idt161_list" class="ui-datalist-data" type="disc"><li class="ui-datalist-item ">Prezydent Rzeczypospolitej Polskiej  - wnioskodawca</li><li class="ui-datalist-item ">Prokurator Generalny  - uczestnik postępowania</li><li class="ui-datalist-item ">Sejm Rzeczypospolitej Polskiej  - uczestnik postępowania</li></ul></div></div><script id="sprawaForm:tabView:j_idt161_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_sprawaForm_tabView_j_idt161",{id:"sprawaForm:tabView:j_idt161"});});</script></div></div><script id="sprawaForm:tabView:j_idt159_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt159",{id:"sprawaForm:tabView:j_idt159"});});</script><img id="sprawaForm:tabView:spacer3_27924" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><table>
+<tbody>
+<tr class="table300px">
+<td class="table300px"><div id="sprawaForm:tabView:j_idt169" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder table300px tableWhiteSpace" data-widget="widget_sprawaForm_tabView_j_idt169"><div id="sprawaForm:tabView:j_idt169_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Przedmiot sprawy</span></div><div id="sprawaForm:tabView:j_idt169_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt171" class="ui-tree ui-widget ui-widget-content ui-corner-all tableWhiteSpace" role="tree" tabindex="0" aria-multiselectable="false"><ul class="ui-tree-container"><li id="sprawaForm:tabView:j_idt171:0" data-rowkey="0" data-nodetype="AktNormatywnySlownik" class="ui-treenode ui-treenode-parent ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-tree-toggler ui-icon ui-icon-triangle-1-s"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem"><span style="font-weight: bold;">Ustawa z dnia 12. 04. 2024r. zmieniająca ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami </span></span></span><ul class="ui-treenode-children" role="group"><li id="sprawaForm:tabView:j_idt171:0_0" data-rowkey="0_0" data-nodetype="AktNormatywnyPrzedmiot" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem"> cała</span></span><ul class="ui-treenode-children" role="group"></ul></li></ul></li></ul><input type="hidden" id="sprawaForm:tabView:j_idt171_scrollState" name="sprawaForm:tabView:j_idt171_scrollState" autocomplete="off" value="0,0" /></div><script id="sprawaForm:tabView:j_idt171_s" type="text/javascript">$(function(){PrimeFaces.cw("VerticalTree","widget_sprawaForm_tabView_j_idt171",{id:"sprawaForm:tabView:j_idt171",dynamic:false,cache:false,iconStates:{}});});</script></div></div><script id="sprawaForm:tabView:j_idt169_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt169",{id:"sprawaForm:tabView:j_idt169"});});</script>
+			<div style="clear: both"></div></td>
+<td><div id="sprawaForm:tabView:j_idt180" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder table300px" data-widget="widget_sprawaForm_tabView_j_idt180"><div id="sprawaForm:tabView:j_idt180_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Wzorce</span></div><div id="sprawaForm:tabView:j_idt180_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt182" class="ui-tree ui-widget ui-widget-content ui-corner-all tableWhiteSpace" role="tree" tabindex="0" aria-multiselectable="false"><ul class="ui-tree-container"><li id="sprawaForm:tabView:j_idt182:0" data-rowkey="0" data-nodetype="AktNormatywnySlownik" class="ui-treenode ui-treenode-parent ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-tree-toggler ui-icon ui-icon-triangle-1-s"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem"><span style="font-weight: bold;">Konstytucja z dnia 2. 04. 1997r. Konstytucja Rzeczypospolitej Polskiej </span></span></span><ul class="ui-treenode-children" role="group"><li id="sprawaForm:tabView:j_idt182:0_0" data-rowkey="0_0" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 4, art. 7, art. 104 ust. 1 w zw. z art. 106 oraz art. 96 ust. 1</span></span><ul class="ui-treenode-children" role="group"></ul></li></ul></li></ul><input type="hidden" id="sprawaForm:tabView:j_idt182_scrollState" name="sprawaForm:tabView:j_idt182_scrollState" autocomplete="off" value="0,0" /></div><script id="sprawaForm:tabView:j_idt182_s" type="text/javascript">$(function(){PrimeFaces.cw("VerticalTree","widget_sprawaForm_tabView_j_idt182",{id:"sprawaForm:tabView:j_idt182",dynamic:false,cache:false,iconStates:{}});});</script>
+				<div style="clear: both"></div></div></div><script id="sprawaForm:tabView:j_idt180_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt180",{id:"sprawaForm:tabView:j_idt180"});});</script>
+			<div style="clear: both"></div></td>
+</tr>
+</tbody>
+</table>
+<img id="sprawaForm:tabView:spacer4_27924" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><div id="sprawaForm:tabView:j_idt198" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt198"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><span class="ui-icon ui-icon-triangle-1-e"></span>Postanowienie - umorzenie z dnia 12 sierpnia 2026</div><div id="sprawaForm:tabView:j_idt198:metrykaTab_sprawa_25657" class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden" role="tabpanel" aria-hidden="true"><div id="sprawaForm:tabView:j_idt198:j_idt284" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt198_j_idt284"><div id="sprawaForm:tabView:j_idt198:j_idt284_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Postanowienie - umorzenie
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">12 sierpnia 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Tryb uchwalenia ustawy
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/96" target="_blank">OTK ZU A/2026, poz. 96 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:j_idt198:dataTable_25657" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:j_idt198:dataTable_25657_head"><tr role="row"><th id="sprawaForm:tabView:j_idt198:dataTable_25657:j_idt373" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:j_idt198:dataTable_25657:j_idt378" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:j_idt198:dataTable_25657_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=652">Stanisław Piotrowicz</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=670">Bartłomiej Sochański</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell">sprawozdawca</td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr></tbody></table></div></div><script id="sprawaForm:tabView:j_idt198:dataTable_25657_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_j_idt198_dataTable_25657",{id:"sprawaForm:tabView:j_idt198:dataTable_25657",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt198:j_idt284_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt198_j_idt284",{id:"sprawaForm:tabView:j_idt198:j_idt284"});});</script><img id="sprawaForm:tabView:j_idt198:spacer_25657" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><input type="hidden" id="sprawaForm:tabView:j_idt198_active" name="sprawaForm:tabView:j_idt198_active" value="1" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt198_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt198",{id:"sprawaForm:tabView:j_idt198"});});</script><div class="wyrownaj_do_prawej" style="font-style: italic;">Stan na: 28-09-2026</div>	
+	
+	<div style="clear: both"></div><img id="sprawaForm:tabView:spacer5_27924" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><div id="sprawaForm:tabView:dok_25657" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-helper-hidden" role="tabpanel" aria-hidden="true" data-index="1"><div id="sprawaForm:tabView:j_idt1269" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt1269"><div id="sprawaForm:tabView:j_idt1269_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Postanowienie - umorzenie
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">12 sierpnia 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Tryb uchwalenia ustawy
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/96" target="_blank">OTK ZU A/2026, poz. 96 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:dataTable_25657" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:dataTable_25657_head"><tr role="row"><th id="sprawaForm:tabView:dataTable_25657:j_idt1300" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:dataTable_25657:j_idt1305" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:dataTable_25657_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=652">Stanisław Piotrowicz</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=670">Bartłomiej Sochański</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell">sprawozdawca</td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr></tbody></table></div></div><script id="sprawaForm:tabView:dataTable_25657_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_dataTable_25657",{id:"sprawaForm:tabView:dataTable_25657",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt1269_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt1269",{id:"sprawaForm:tabView:j_idt1269"});});</script><img id="sprawaForm:tabView:spacer_25657" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><a id="sprawaForm:tabView:pobierzDoc25657" name="sprawaForm:tabView:pobierzDoc25657" href="/ipo/downloadOrzeczenieDoc?dok=125099" class="wyrownaj_do_prawej"><img src="/ipo/javax.faces.resource/052.png.xhtml?ln=images" style="vertical-align: middle;" /><div id="sprawaForm:tabView:j_idt727" class="ui-tooltip ui-widget ui-tooltip-right"><div class="ui-tooltip-arrow"></div><div class="ui-tooltip-text ui-shadow ui-corner-all">Pobierz orzeczenie w formacie doc</div></div><script id="sprawaForm:tabView:j_idt727_s" type="text/javascript">$(function(){PrimeFaces.cw("Tooltip","widget_sprawaForm_tabView_j_idt727",{id:"sprawaForm:tabView:j_idt727",showEffect:"fade",hideEffect:"fade",target:"sprawaForm:tabView:pobierzDoc25657"});});</script>
+								<br />Pobierz [83 KB]</a><table>
+<tbody>
+<tr class="table300px">
+<td class="table300px"><div id="sprawaForm:tabView:j_idt634725" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt634725"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span>Spis treści</div><div id="sprawaForm:tabView:j_idt634725:j_idt634726" class="ui-accordion-content ui-helper-reset ui-widget-content" role="tabpanel" aria-hidden="false"><div id="sprawaForm:tabView:j_idt634725:j_idt634727" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt634725_j_idt634727"><div id="sprawaForm:tabView:j_idt634725:j_idt634727_content" class="ui-panel-content ui-widget-content"><table class="wyrok_wyrokTK" width="100%">
+<tbody>
+<tr>
+<td><strong>Postanowienie z dnia 12 sierpnia 2026 r. sygn. akt K 21/24</strong></td>
+</tr>
+<tr>
+<td><span class="wyrok_sklad_small">przewodniczący: 
+                      Jarosław Wyrembak</span></td>
+</tr>
+<tr>
+<td><span class="wyrok_sklad_small">sprawozdawca: 
+                      Bogdan Święczkowski</span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#komparycja_25657">Komparycja</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#tenor_25657">Tenor</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin, display_inline_block"><a href="#postanawia_25657">
+                        <div class="spis_tresci_txt_margin">postanawia</div></a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#uzasadnienie_25657">Uzasadnienie</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin"><a href="#uzasadnienia_czesc_25657_I">I - część historyczna</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin"><a href="#uzasadnienia_czesc_25657_II">II - uzasadnienie prawne</a></span></td>
+</tr>
+</tbody>
+</table>
+</div></div><script id="sprawaForm:tabView:j_idt634725:j_idt634727_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt634725_j_idt634727",{id:"sprawaForm:tabView:j_idt634725:j_idt634727"});});</script></div><input type="hidden" id="sprawaForm:tabView:j_idt634725_active" name="sprawaForm:tabView:j_idt634725_active" value="0" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt634725_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt634725",{id:"sprawaForm:tabView:j_idt634725"});});</script></td>
+<td><div id="sprawaForm:tabView:j_idt634751" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt634751"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span>Metryka orzeczenia</div><div id="sprawaForm:tabView:j_idt634751:j_idt634752" class="ui-accordion-content ui-helper-reset ui-widget-content" role="tabpanel" aria-hidden="false"><div id="sprawaForm:tabView:j_idt634751:j_idt634755" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt634751_j_idt634755"><div id="sprawaForm:tabView:j_idt634751:j_idt634755_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Postanowienie - umorzenie
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">12 sierpnia 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Tryb uchwalenia ustawy
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/96" target="_blank">OTK ZU A/2026, poz. 96 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:j_idt634751:dataTable_25657" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:j_idt634751:dataTable_25657_head"><tr role="row"><th id="sprawaForm:tabView:j_idt634751:dataTable_25657:j_idt634815" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:j_idt634751:dataTable_25657:j_idt634820" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:j_idt634751:dataTable_25657_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=652">Stanisław Piotrowicz</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=670">Bartłomiej Sochański</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell">sprawozdawca</td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr></tbody></table></div></div><script id="sprawaForm:tabView:j_idt634751:dataTable_25657_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_j_idt634751_dataTable_25657",{id:"sprawaForm:tabView:j_idt634751:dataTable_25657",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt634751:j_idt634755_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt634751_j_idt634755",{id:"sprawaForm:tabView:j_idt634751:j_idt634755"});});</script><img id="sprawaForm:tabView:j_idt634751:spacer_25657" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><input type="hidden" id="sprawaForm:tabView:j_idt634751_active" name="sprawaForm:tabView:j_idt634751_active" value="0" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt634751_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt634751",{id:"sprawaForm:tabView:j_idt634751"});});</script></td>
+</tr>
+</tbody>
+</table>
+
+   <div id="tekst_25657"><span class="wyrok_wyrokTK"><a name="komparycja_25657"></a><p align="center"><strong>96/A/2026</strong></p><table class="postanowienie_data">
+<tbody>
+<tr>
+<td><strong>POSTANOWIENIE</strong></td>
+</tr>
+<tr>
+<td><div class="postanowienie_data">
+               			z dnia 12 sierpnia 2026 r.
+               		
+            </div></td>
+</tr>
+<tr>
+<td><strong>Sygn. akt K 21/24</strong></td>
+</tr>
+</tbody>
+</table>
+
+         <div class="wyrok_sklad">
+            <p><strong>Trybunał  Konstytucyjny w składzie:</strong></p><table>
+<tbody>
+<tr>
+<td> Jarosław Wyrembak - przewodniczący
+               </td>
+</tr>
+<tr>
+<td> Stanisław Piotrowicz</td>
+</tr>
+<tr>
+<td> Bartłomiej Sochański</td>
+</tr>
+<tr>
+<td> Bogdan Święczkowski - sprawozdawca
+               </td>
+</tr>
+<tr>
+<td> Rafał Wojciechowski,
+               </td>
+</tr>
+</tbody>
+</table>
+
+         </div>
+         <div class="wyrok_zaskarzenie">
+            <div class="wyrok_zaskarzenie_tytul">po rozpoznaniu, na posiedzeniu niejawnym w dniu 12 sierpnia 2026 r., wniosku Prezydenta Rzeczypospolitej Polskiej o zbadanie
+               zgodności: 
+            </div>
+            <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">ustawy z dnia 12 kwietnia 2024 r. zmieniającej ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami (Dz. U.
+               poz. 647) z art. 4, art. 7, art. 104 ust. 1 w związku z art. 106 oraz art. 96 ust. 1 Konstytucji, 
+            </div>
+         </div>
+         <div class="wyrok_sentencja"><a name="tenor_25657"></a><a name="postanawia_25657"></a><div style="text-align: center;"><font class="wyrok_sentencja_tytul">postanawia:</font></div>
+            
+            <div class="wyrok_sentencja_czesc">
+               
+               <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">
+                  <font class="wyrok_wytluszczenie">umorzyć postępowanie.</font>
+                  
+               </div>
+               
+               <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">
+                  <font class="wyrok_wytluszczenie">Orzeczenie zapadło jednogłośnie.</font>
+                  
+               </div>
+               
+            </div>
+            
+         </div>
+         <div class="wyrok_uzasadnienie"><a name="uzasadnienie_25657"></a><div class="wyrok_naglowekNumerowany">
+               <p class="wyrok_uzasadnienie_tytul">Uzasadnienie</p>
+            </div>
+            
+            <div class="wyrok_uzasadnienie_czesc"><a name="uzasadnienia_czesc_25657_I"></a><div class="wyrok_naglowekNumerowany">
+                  <p align="center"><strong>I</strong></p>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit1">1</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1. W piśmie z 9 maja 2024 r. Prezydent Rzeczypospolitej Polskiej (dalej: Prezydent lub Wnioskodawca) wystąpił do Trybunału
+                     Konstytucyjnego z wnioskiem o zbadanie zgodności ustawy z dnia 12 kwietnia 2024 r. zmieniającej ustawę o zmianie ustawy o
+                     ochronie zabytków i opiece nad zabytkami (Dz. U. poz. 647; dalej: kontrolowana ustawa) z art. 4, art. 7, art. 104 ust. 1 w
+                     związku z art. 106 oraz art. 96 ust. 1 Konstytucji.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit2">2</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1.1. Prezydent zakwestionował konstytucyjność procesu legislacyjnego prowadzącego do uchwalenia kontrolowanej ustawy. Jako
+                     przyczynę niekonstytucyjności Wnioskodawca wskazał bezprawną odmowę dopuszczania przez Marszałka Sejmu X kadencji do prac
+                     sejmowych – w tym do udziału w głosowaniach nad przyjęciem kontrolowanej ustawy – posłów na Sejm Rzeczypospolitej Polskiej
+                     X kadencji Mariusza Kamińskiego oraz Macieja Wąsika. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit3">3</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1.2. Prezydent wyraził także wątpliwość, czy faktyczne obsadzenie niewakującego wówczas mandatu po pośle Mariuszu Kamińskim,
+                     przez umożliwienie udziału w pracach Sejmu Monice Pawłowskiej, może być kwalifikowane na płaszczyźnie ustrojowej jako ważne
+                     i skuteczne.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit4">4</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1.3. Wnioskodawca zaprezentował analizę przebiegu procesu legislacyjnego nad kontrolowaną ustawą oraz szczegółowo opisał wydarzenia
+                     poprzedzające prace sejmowe nad uchwaleniem tego aktu normatywnego, dotyczące przebiegu postępowania karnego, przeprowadzonego
+                     wobec posłów Mariusza Kamińskiego oraz Macieja Wąsika, poruszył też kwestię zastosowania wobec wskazanych posłów prezydenckiego
+                     prawa łaski, a także przytoczył poglądy Trybunału Konstytucyjnego wyrażone w odniesieniu do prezydenckiej prerogatywy mającej
+                     swoją podstawę w art. 139 Konstytucji. Wnioskodawca scharakteryzował działania podjęte przez Marszałka Sejmu uniemożliwiające
+                     posłom Mariuszowi Kamińskiemu oraz Maciejowi Wąsikowi wykonywanie uprawnień wynikających z mandatu poselskiego, w tym w toku
+                     prac sejmowych nad kontrolowaną ustawą, odnosząc się przy tym do negatywnej weryfikacji wskazanych działań Marszałka Sejmu,
+                     przeprowadzonej przez Sąd Najwyższy, Izbę Kontroli Nadzwyczajnej i Spraw Publicznych, ze szczególnym uwzględnieniem znaczenia
+                     prawnego wydania przez ten sąd dwóch postanowień: z 4 stycznia 2024 r. (sygn. akt I NSW 1268/23) oraz z 5 stycznia 2024 r.
+                     (sygn. akt I NSW 1267/23), którymi uchylono postanowienia Marszałka Sejmu stwierdzające wygaśnięcie mandatów poselskich posła
+                     Macieja Wąsika oraz posła Mariusza Kamińskiego. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit5">5</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W uzasadnieniu wniosku Prezydent zaprezentował wykładnię powołanych wzorców oraz przedstawił argumentację popierającą podnoszone
+                     zarzuty naruszenia poszczególnych przepisów Konstytucji. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit6">6</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Zdaniem Wnioskodawcy, niezgodność kontrolowanej ustawy z wzorcami kontroli ma swoje źródło przede wszystkim w uniemożliwieniu
+                     przez Marszałka Sejmu wykonywania mandatów legalnie wybranym posłom na Sejm X kadencji Mariuszowi Kamińskiemu oraz Maciejowi
+                     Wąsikowi w toku prac legislacyjnych nad kontrolowaną ustawą przy uwzględnieniu, że konstytucyjne pojęcie reprezentacji łączy
+                     się z kompetencją do podejmowania decyzji w imieniu Narodu. Bezprawne pozbawienie możliwości brania czynnego udziału w pracach
+                     legislacyjnych nad kontrolowaną ustawą przez posłów Mariusza Kamińskiego i Macieja Wąsika, zdaniem Wnioskodawcy, musi prowadzić
+                     do uznania, że kwestionowany akt nie został przyjęty w trybie właściwym dla uchwalania ustaw. Jednym z kluczowych elementów
+                     wpływających na zgodność stanowienia prawa ze standardami wyznaczonymi przez Konstytucję jest bowiem właściwy skład Sejmu
+                     będącego organem przedstawicielskim, wyposażonym przez ustrojodawcę w funkcję prawodawczą. W ocenie Prezydenta, za niezgodne
+                     z Konstytucją należy uznać każde działanie skutkujące pozbawieniem posła na Sejm warunków do skutecznego, czyli rzetelnego
+                     i efektywnego, wypełniania obowiązków poselskich.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit7">7</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Prezydent podkreślił, że w demokratycznym państwie prawnym wszelkie organy państwa, z uwagi na zasadę legalizmu wyrażoną w
+                     art. 7 Konstytucji, mogą podejmować działania władcze wyłącznie na podstawie przepisów prawa i w jego granicach. W konsekwencji,
+                     wszelkie naruszenia kompetencji czy uchybienia proceduralne w stanowieniu ustaw, w stosunku do nadrzędnych norm rangi konstytucyjnej
+                     regulujących tryb ustawodawczy, muszą być oceniane tak samo, jako niezgodność treści stanowionych przepisów z normami rangi
+                     konstytucyjnej. Z tych względów za niezgodny z Konstytucją należy uznać akt normatywny uchwalony przez organ niespełniający
+                     konstytucyjnych wymogów przedstawicielstwa i sprawowania mandatu poselskiego, co według Prezydenta – z przyczyn opisanych
+                     powyżej – odnosi się do ustawy kontrolowanej w niniejszej sprawie. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit8">8</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">2. W piśmie z 3 czerwca 2024 r. Rzecznik Praw Obywatelskich poinformował, że nie zgłasza udziału w niniejszym postępowaniu.</div>
+               </div>
+               
+            </div>
+            
+            <div class="wyrok_uzasadnienie_czesc"><a name="uzasadnienia_czesc_25657_II"></a><div class="wyrok_naglowekNumerowany">
+                  <p align="center"><strong>II</strong></p>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit9">9</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Trybunał Konstytucyjny zważył, co następuje:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit10">10</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1. Istota wątpliwości konstytucyjnych przedstawionych we wniosku Prezydenta Rzeczypospolitej Polskiej (dalej: Prezydent lub
+                     Wnioskodawca) dotyczy zgodności z Konstytucją procesu prawodawczego przeprowadzonego w Sejmie X kadencji w celu uchwalenia
+                     ustawy z dnia 12 kwietnia 2024 r. zmieniającej ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami (Dz. U.
+                     poz. 647; dalej: kontrolowana ustawa). Jego niekonstytucyjność wynikała, zdaniem Wnioskodawcy, z pozbawionego podstaw prawnych
+                     niedopuszczenia do udziału w pracach sejmowych nad kontrolowaną ustawą posłów na Sejm Rzeczypospolitej Polskiej Mariusza Kamińskiego
+                     oraz Macieja Wąsika. Prezydent wyraził także wątpliwość w zakresie ustrojowej ważności i skuteczności faktycznego objęcia
+                     – w miejsce Mariusza Kamińskiego – mandatu poselskiego przez Monikę Pawłowską. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit11">11</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Trybunał zapoznał się kolejno z następującymi zagadnieniami problemowymi podnoszonymi przez Wnioskodawcę dla uargumentowania
+                     zarzutów niekonstytucyjności kontrolowanej ustawy: 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit12">12</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– analizą przebiegu postępowania karnego przeprowadzonego wobec posłów Mariusza Kamińskiego i Macieja Wąsika; </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit13">13</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– dotychczas wydanymi orzeczeniami dotyczącymi prezydenckiego prawa łaski;</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit14">14</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– opisem działań Marszałka Sejmu podjętych wobec posłów Mariusza Kamińskiego i Macieja Wąsika, poprzedzających prace legislacyjne
+                     nad kontrolowaną ustawą.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit15">15</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">2. Według utrwalonego orzecznictwa, Trybunał Konstytucyjny – w każdym stadium postępowania, aż do wydania orzeczenia kończącego
+                     postępowanie – zobowiązany jest kontrolować, czy w sprawie nie zaistniała przeszkoda procesowa skutkująca koniecznością umorzenia
+                     postępowania (por. postanowienia TK z: 20 listopada 2019 r., sygn. K 2/18, OTK ZU A/2019, poz. 63; 9 listopada 2022 r., sygn.
+                     K 26/20, OTK ZU A/2022, poz. 70). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit16">16</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">2.1. Stosownie do art. 47 ust. 1 ustawy z dnia 30 listopada 2016 r. o organizacji i trybie postępowania przed Trybunałem Konstytucyjnym
+                     (Dz. U. z 2019 r. poz. 2393; dalej: u.o.t.p.TK): „[w]niosek złożony przez podmiot, o którym mowa w art. 191 ust. 1 pkt 1-5
+                     Konstytucji, zawiera: 1) oznaczenie podmiotu uprawnionego do złożenia wniosku; 2) podanie podstawy prawnej działania podmiotu
+                     uprawnionego do złożenia wniosku; 3) oznaczenie rodzaju pisma procesowego; 4) określenie kwestionowanego aktu normatywnego
+                     lub jego części; 5) wskazanie wzorca kontroli; 6) uzasadnienie”. Zgodnie natomiast z art. 47 ust. 2 u.o.t.p.TK: „[u]zasadnienie,
+                     o którym mowa w ust. 1 pkt 6, zawiera: 1) przywołanie treści kwestionowanego wnioskiem przepisu wraz z jego wykładnią; 2)
+                     przywołanie treści wzorców kontroli wraz z ich wykładnią; 3) określenie problemu konstytucyjnego i zarzutu niekonstytucyjności;
+                     4) wskazanie argumentów lub dowodów na poparcie zarzutu niekonstytucyjności”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit17">17</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Wniosek o dokonanie kontroli konstytucyjności aktu normatywnego w niniejszej sprawie pochodzi od Prezydenta, a zatem od podmiotu
+                     legitymowanego w rozumieniu art. 191 ust. 1 pkt 1 Konstytucji. Przedmiotem kontroli Prezydent uczynił (zaskarżoną w całości)
+                     ustawę z 12 kwietnia 2024 r. zmieniającą ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit18">18</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Jako wzorce kontroli Wnioskodawca przyjął następujące jednostki redakcyjne Konstytucji: </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit19">19</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 4 (ust. 1 „[w]ładza zwierzchnia w Rzeczypospolitej Polskiej należy do Narodu”; ust. 2 „[n]aród sprawuje władzę przez
+                     swoich przedstawicieli lub bezpośrednio”); 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit20">20</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 7 („[o]rgany władzy publicznej działają na podstawie i w granicach prawa”);</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit21">21</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany"> – art. 104 ust. 1 („[p]osłowie są przedstawicielami Narodu. Nie wiążą ich instrukcje wyborców”); </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit22">22</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 106 („[w]arunki niezbędne do skutecznego wypełniania obowiązków poselskich oraz ochronę praw wynikających ze sprawowania
+                     mandatu określa ustawa”); 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit23">23</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 96 ust. 1 („[s]ejm składa się z 460 posłów”). </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit24">24</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">2.2. Trybunał wobec powyższego stwierdził, że w niniejszej sprawie: </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit25">25</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– z wnioskiem wystąpił podmiot uprawniony, którego legitymacja do inicjowania abstrakcyjnej kontroli prawa nie budzi wątpliwości;
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit26">26</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– przedmiotem kontroli uczyniono ustawę zaskarżoną w całości; </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit27">27</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– jako wzorce wskazane zostały wybrane jednostki redakcyjne Konstytucji.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit28">28</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">3. Kontrolowana ustawa została uchwalona przez Sejm Rzeczypospolitej Polskiej X kadencji. Poselski projekt ustawy o uchyleniu
+                     ustawy z dnia 13 lipca 2023 r. o zmianie ustawy o ochronie zabytków i opiece nad zabytkami wpłynął do Sejmu 20 marca 2024
+                     r. i został zarejestrowany jako druk sejmowy nr 257. Pierwsze czytanie projektu kontrolowanej ustawy odbyło się 9 kwietnia
+                     2024 r. na posiedzeniu sejmowej Komisji Kultury, Dziedzictwa Narodowego i Środków Przekazu. 10 kwietnia 2024 r. odbyło się
+                     drugie czytanie projektu kontrolowanej ustawy na posiedzeniu Sejmu, podczas którego zgłoszono wniosek o odrzucenie projektu
+                     ustawy oraz dwie poprawki, które w miejsce uchylenia ustawy z 13 lipca 2023 r. o zmianie ustawy o ochronie zabytków i opiece
+                     nad zabytkami, zakładały wydłużenie jej <font class="wyrok_kursywa">vacatio legis</font> o kolejny rok. Projekt skierowano ponownie do komisji w celu rozpatrzenia wniosku i poprawek zgłoszonych w drugim czytaniu.
+                     11 kwietnia 2024 r. Komisja Kultury, Dziedzictwa Narodowego i Środków Przekazu przedstawiła dodatkowe sprawozdanie, a następnego
+                     dnia Sejm przystąpił do trzeciego czytania, w którym projekt z wnioskowanymi poprawkami został uchwalony. Głosowanie nad całością
+                     projektu kontrolowanej ustawy odbyło się 12 kwietnia 2024 r. W głosowaniu brało udział 442 posłów. Za przyjęciem kontrolowanej
+                     ustawy głosowało 245 posłów, przeciw głosowało 195 posłów, a 2 posłów wstrzymało się od głosu. Nie głosowało 15 posłów. 15
+                     kwietnia 2024 r. kontrolowaną ustawę przekazano Marszałkowi Senatu. Senat, po rozpatrzeniu ustawy na posiedzeniu 18 kwietnia
+                     2024 r., przyjął ustawę bez poprawek. Następnego dnia, tj. 19 kwietnia 2024 r., kontrolowana ustawa została przekazana przez
+                     Marszałka Sejmu do podpisu Prezydentowi. 25 kwietnia 2024 r. Prezydent podpisał kontrolowaną ustawę i zarządził jej ogłoszenie
+                     w Dzienniku Ustaw Rzeczypospolitej Polskiej. 26 kwietnia 2024 r. kontrolowana ustawa została ogłoszona pod poz. 647.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit29">29</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Trybunał odnotował, że w głosowaniu nad projektem kontrolowanej ustawy 12 kwietnia 2024 r. nie brali udziału posłowie: Mariusz
+                     Kamiński i Maciej Wąsik, a w głosowaniu brała udział – zakwalifikowana przez Marszałka Sejmu jako poseł – Monika Pawłowska.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit30">30</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">3.1. Celem kontrolowanej ustawy było przesunięcie terminu wejścia w życie ustawy z dnia 13 lipca 2023 r. o zmianie ustawy
+                     o ochronie zabytków i opiece nad zabytkami (Dz. U. poz. 1904). Ustawa nowelizująca przesunęła o rok termin wejścia w życie
+                     tej ustawy – z dnia 1 maja 2024 r. na dzień 1 maja 2025 r. Kontrolowana ustawa weszła w życie 1 maja 2024 r. Treść ustawy
+                     zawierała się w dwóch jednostkach redakcyjnych brzmiących: „Art. 1. W ustawie z dnia 13 lipca 2023 r. o zmianie ustawy o ochronie
+                     zabytków i opiece nad zabytkami (Dz. U. poz. 1904) art. 3 otrzymuje brzmienie: «Art. 3. Ustawa wchodzi w życie z dniem 1 maja
+                     2025 r.». Art. 2. Ustawa wchodzi w życie z dniem 1 maja 2024 r.”. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit31">31</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">3.2. 4 kwietnia 2025 r. Sejm przyjął ustawę zmieniającą ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami
+                     (Dz. U. poz. 537; dalej: ustawa zmieniająca z 2025 r.), ustalającą treść art. 3 ustawy zmienianej kontrolowaną ustawą, nadając
+                     mu brzmienie: „Ustawa wchodzi w życie z dniem 1 stycznia 2027 r.”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit32">32</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">3.3. Jak wynika z opisu zawartego w punkcie 3.1. i 3.2. powyżej, materia, do której odnosi się treść kontrolowanej ustawy
+                     (wyłącznie), została przez ustawodawcę uregulowana w późniejszym akcie prawnym w sposób odmienny. Mimo więc nieuchylenia <font class="wyrok_kursywa">explicite</font> ustawy kontrolowanej, przez przyjęcie odmiennej regulacji w przedmiotowym zakresie ustawa ta, w myśl reguły kolizyjnej następstwa
+                     czasowego <font class="wyrok_kursywa">lex posterior derogat legi priori</font>, utraciła swą moc obowiązującą. Z porównania przy tym zawartości normatywnej kontrolowanej ustawy w brzmieniu zaskarżonym
+                     i w brzmieniu nadanym ustawą zmieniającą z 2025 r. jednoznacznie wynika, że przez uchwalenie ustawy zmieniającej z 2025 r.
+                     ustawodawca uchylił ustawę kontrolowaną. Z treści derogowanego przepisu wynika ponadto, że nie może on być stosowany w jakichkolwiek
+                     sytuacjach z przeszłości, teraźniejszości lub przyszłości, czyli został skutecznie wyłączony z systemu prawa. Podkreślić należy,
+                     że przedmiotowa regulacja ma charakter proceduralny.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit33">33</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">4. Jak już wskazano uprzednio, Trybunał na każdym etapie postępowania obowiązany jest badać, czy nie zachodzą obligatoryjne
+                     przesłanki umorzenia postępowania. Jedną z takich przesłanek jest utrata mocy obowiązującej przepisu przed wydaniem orzeczenia,
+                     podczas oceny konstytucyjności treści normy prawnej miarodajny bowiem jest stan konstytucyjny z dnia orzekania. Teza ta została
+                     utrwalona w orzecznictwie Trybunału (zob. np. wyroki z: 12 lipca 2005 r., sygn. P 11/03, OTK ZU nr 7/A/2005, poz. 80; 16 marca
+                     2011 r., sygn. K 35/08, OTK ZU nr 2/A/2011, poz. 11).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit34">34</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">4.1. Trybunał zważył, że rozstrzygając zasadność umorzenia postępowania na podstawie art. 59 ust. l pkt 4 u.o.t.p.TK, ocenić
+                     należy, czy w rzeczywistości nastąpiło wyłączenie z systemu prawa niekonstytucyjnego przepisu. Zdaniem Trybunału, po ustaleniu,
+                     że uchylony przepis nie może być zastosowany, w szczególności nie wywiera już określonych skutków dla obywateli, należy umorzyć
+                     postępowanie (por. także wyrok z 19 grudnia 2017 r., sygn. U 1/14, OTK ZU A/2018, poz. 5 oraz postanowienie z 17 września
+                     2012 r., sygn. SK 12/10, OTK ZU nr 8/A/2012, poz. 100). Istotne przy tym jest, że nie tylko uchylenie wprost danego aktu normatywnego,
+                     lecz także nadanie mu nowego brzmienia jest równoznaczne z utratą jego mocy obowiązującej (np.: wyrok z 14 grudnia 2010 r.,
+                     sygn. K 20/08, OTK ZU nr 10/A/2010, poz. 129 i postanowienia z: 21 października 2003 r., sygn. K 10/02, OTK ZU nr 8/A/2003,
+                     poz. 88 i l września 2004 r., sygn. P 17/02, OTK ZU nr 8/A/2004, poz. 85). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit35">35</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">4.2. Trybunał zwrócił przy tym uwagę, iż „w dotychczasowym orzecznictwie TK ustalił się pogląd, że utrata mocy obowiązującej
+                     musi mieć charakter rzeczywisty, a nie pozorny (…). Przepis obowiązuje w danym systemie prawa, jeżeli można go stosować do
+                     sytuacji z przeszłości, teraźniejszości lub przyszłości” (postanowienie o sygn. P 17/02, a także postanowienie z 11 października
+                     2022 r., sygn. K 4/22, OTK ZU A/2022, poz. 56 oraz przytoczone tam orzecznictwo).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit36">36</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Zgodnie więc z utrwalonym orzecznictwem trybunalskim, przepis obowiązuje, jeżeli na jego podstawie są lub mogą być podejmowane
+                     indywidualne decyzje stosowania prawa. Jeżeli nie ma możliwości stosowania prawa na podstawie uchylonego przepisu, a taki
+                     stan ma miejsce w przedmiotowej sprawie, to w takim wypadku aktualizuje się przesłanka umorzenia postępowania wynikająca z
+                     art. 59 ust. 1 pkt 4 u.o.t.p.TK. Przytoczyć w tym miejscu można stwierdzenie Trybunału w przywołanym wyżej postanowieniu o
+                     sygn. P 17/02, uznające, że „[p]roceduralny charakter zakwestionowanego przepisu przesądza, iż zmiana dotychczasowego brzmienia
+                     jest równoznaczna z uchyleniem jego dotychczasowej treści. Tym samym należy uznać, iż utracił on moc obowiązującą w rozumieniu
+                     art. 39 ust. 1 pkt 3 ustawy o Trybunale Konstytucyjnym” (orzeczenie wydane na gruncie ustawy z dnia 1 sierpnia 1997 r. o Trybunale
+                     Konstytucyjnym, Dz. U. Nr 102, poz. 643, ze zm.).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit37">37</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">4.3. W świetle poczynionych wyżej ustaleń Trybunał stwierdził, że zaskarżona przez Prezydenta ustawa z 12 kwietnia 2024 r.
+                     zmieniająca ustawę o zmianie ustawy o ochronie zabytków i opiece nad zabytkami utraciła moc obowiązującą przed wydaniem orzeczenia
+                     przez Trybunał, przez co zaktualizowała się przesłanka umorzenia postępowania, o której mowa w art. 59 ust. 1 pkt 4 u.o.t.p.TK.
+                     Jednocześnie Trybunał stwierdził, że nie zachodzą w sprawie przesłanki dopuszczalności oceny nieobowiązującego przepisu, określone
+                     w art. 59 ust. 3 u.o.t.p.TK, tj. w wypadku, gdy wydanie orzeczenia w postępowaniu zainicjowanym skargą konstytucyjną jest
+                     konieczne dla ochrony konstytucyjnych wolności i praw.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit38">38</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z tych też względów Trybunał Konstytucyjny postanowił jak w sentencji.</div>
+               </div>
+               
+            </div>
+            
+         </div></span>
+   </div>	
+							 
+							<script type="text/javascript">
+
+									function zaznacz_teze (dokumentId, tezaId, akapitIdLista){
+										for	(index = 0; index < akapitIdLista.length; index++) {
+											zaznacz_teze_akapit(dokumentId, tezaId, akapitIdLista[index]);
+										}
+									}
+									
+									function zaznacz_teze_akapit(dokumentId, tezaId, akapitId){																				
+										var element = $( "div[id='sprawaForm:tabView:dok_"+dokumentId+"'] a[name='akapit"+akapitId+"']" );
+										var elementParent = element.parent().parent();										 
+										elementParent.addClass('wyrok_teza');
+										elementParent.attr('title', "Wyróżniony fragment to teza - szczegóły kliknij 2 razy");
+										elementParent.dblclick(function() {											
+											var x = $("div[id='sprawaForm:tabView:dok_"+dokumentId+"'] a[name='teza"+tezaId+"']");
+											$(window).scrollTop(x.offset().top);
+										});
+									}
+
+
+									
+																
+								</script>
+									
+							<div style="clear: both"></div></div><div id="sprawaForm:tabView:dokumentyWSprawie" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="false" data-index="2"><div id="sprawaForm:tabView:j_idt206" class="ui-datalist ui-widget"><div class="ui-datalist-header ui-widget-header ui-corner-top">Dokumenty w sprawie</div><div id="sprawaForm:tabView:j_idt206_content" class="ui-datalist-content ui-widget-content"><ul id="sprawaForm:tabView:j_idt206_list" class="ui-datalist-data" type="disc"><li class="ui-datalist-item x35"><a href="/ipo/dok?dok=cd0164de-904c-487c-ad17-498fa8ca8c28%2FK_21_24_wns_2024_05_09_ADO.pdf">K 21/24 - wniosek Prezydenta RP [740 KB]</a></li><li class="ui-datalist-item x35"><a href="/ipo/dok?dok=a6451e98-1f30-45e8-a6cc-468f4b2dd919%2FK_21_24_pg_2025_10_30_ADO.pdf">K 21/24 - pismo Prokuratora Generalnego [100 KB]</a></li></ul></div></div><script id="sprawaForm:tabView:j_idt206_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_sprawaForm_tabView_j_idt206",{id:"sprawaForm:tabView:j_idt206"});});</script><img id="sprawaForm:tabView:j_idt215" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div></div><input type="hidden" id="sprawaForm:tabView_activeIndex" name="sprawaForm:tabView_activeIndex" value="2" autocomplete="off" /></div><script id="sprawaForm:tabView_s" type="text/javascript">$(function(){PrimeFaces.cw("TabView","tabView",{id:"sprawaForm:tabView",effectDuration:"normal",scrollable:false});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="-1276905160233191486:-8359502464357647695" autocomplete="off" />
+</form></div>
+
+		</div><div class="footer" xmlns="http://www.w3.org/1999/xhtml"><hr id="separator_footer" class="ui-separator ui-state-default ui-corner-all" /><span style="margin-left: 50px; float: right;"> Created by Łukasz Baranek </span><span style="margin-right: 50px; float: left;">Internetowy Portal Orzeczeń Trybunału Konstytucyjnego 1.7.5 [Internet-A:ipo]</span>
+			
+			<div style="clear: both"></div><img id="j_idt270" height="25" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" />Strona korzysta z plików cookies w celu realizacji usług. Możesz określić warunki przechowywania lub dostępu do plików cookies w Twojej przeglądarce.
+		
+
+</div>
+<form id="j_idt279" name="j_idt279" method="post" action="/ipo/Sprawa?cid=1" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt279" value="j_idt279" />
+<div id="j_idt279:exceptionDialog_ViewExpiredException" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt279:exceptionDialog_ViewExpiredException_title" class="ui-dialog-title">Twoja sesja wygasła!</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="j_idt279:exceptionDialog_ViewExpiredException_content">						
+								
+				Twoja sesja wygasła <br />
+				musisz odświeżyć  stronę klikając na przycisk poniżej<br /></div></div><script id="j_idt279:exceptionDialog_ViewExpiredException_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","exceptionDialog_ViewExpiredException",{id:"j_idt279:exceptionDialog_ViewExpiredException",width:"500px",height:"100px"});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="-1276905160233191486:-8359502464357647695" autocomplete="off" />
+</form></body>

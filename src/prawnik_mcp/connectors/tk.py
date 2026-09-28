@@ -1,10 +1,10 @@
 """TK (Trybunał Konstytucyjny) connector: Constitutional Tribunal rulings from trybunal.gov.pl.
 
-SAOS holds TK rulings only up to 2015; the Tribunal's own services are the current source. Its portal of
-full texts (IPO, ipo.trybunal.gov.pl) and the official collection (otkzu.trybunal.gov.pl) did not answer
-during recon (2026-09-28: TLS and request accepted, no HTTP response within 30–60 s; IPO 7 requests incl.
-robots.txt, OTK ZU 1), so this connector reads the Tribunal's main TYPO3 site, which publishes every ruling
-as an article with the **operative part only** (no reasoning). All endpoints verified live 2026-09-28:
+SAOS holds TK rulings only up to 2015; the Tribunal's own services are the current source. The main TYPO3
+site (trybunal.gov.pl) publishes every ruling as an article with the **operative part only**; the full text
+with the reasoning (uzasadnienie) is on the Tribunal's portal IPO (ipo.trybunal.gov.pl), which `fetch` adds
+(see below). The official collection (otkzu.trybunal.gov.pl) is not used. All endpoints verified live
+2026-09-28:
 
 - ruling: `GET /postepowanie-i-orzeczenia/{wyroki|postanowienia}/art/{slug}` (1 request per ruling; the raw
   page is the snapshot; unknown slugs answer 404);
@@ -15,6 +15,17 @@ as an article with the **operative part only** (no reasoning). All endpoints ver
 - listings: `GET /postepowanie-i-orzeczenia/{wyroki|postanowienia}`, newest first, pager links carry a TYPO3
   `cHash` and are followed as-is (wyroki back to 2002, postanowienia similar).
 
+Full text (verified live 2026-09-28, robots.txt of IPO answers 404, i.e. no restrictions):
+
+- `GET https://ipo.trybunal.gov.pl/ipo/Sprawa?pokaz=dokumenty&sygnatura=K%201/20` – the deep link the ruling
+  articles themselves carry. One request, no cookies/ViewState/JavaScript needed: the JSF page is rendered
+  server-side, one tab per ruling of the case, each with the full text (komparycja, tenor, uzasadnienie,
+  then the dissenting opinions). The tab is matched to the article by kind (wyrok/postanowienie) and date.
+  The server answers **HTTP/2 only**: an HTTP/1.1 request is accepted and never answered (this is why earlier
+  recon "did not respond"), so `PoliteClient` negotiates HTTP/2 (`httpx[http2]`);
+- unknown case numbers answer 200 with a redirect to `/ipo/exception/sprawaId.xhtml`; any IPO failure leaves
+  the operative-part record and flags it `ipo_full_text_unavailable`.
+
 Document ids are `tk:<section>/<slug>` (e.g. `tk:wyroki/11300-planowanie-rodziny-...`): the slug is the only
 stable key the site exposes on every page (the tt_news uid shows only in search results and older slugs, and
 no uid-only URL works without a cHash). Polite rate: catalog `rate_per_s` (0.5 req/s).
@@ -23,12 +34,13 @@ no uid-only URL works without a cHash). Polite rate: catalog `rate_per_s` (0.5 r
 from __future__ import annotations
 
 import re
+from dataclasses import dataclass, field
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
 from prawnik_mcp.connectors.base import BaseConnector, BulkLimits, RemoteHit, SourceSyncResult, mtime, scope_key
-from prawnik_mcp.connectors.http import NotFoundUpstream, PoliteClient
+from prawnik_mcp.connectors.http import NotFoundUpstream, PoliteClient, UpstreamError
 from prawnik_mcp.contracts import Judgment
 from prawnik_mcp.parsers.tk import (
     COURT_NAME,
@@ -38,6 +50,8 @@ from prawnik_mcp.parsers.tk import (
     PARSER_VERSION,
     SECTIONS,
     TEXT_SCOPE,
+    TEXT_SCOPE_FULL,
+    IpoDocument,
     TkCasePage,
     TkLink,
     TkSearchPage,
@@ -45,9 +59,11 @@ from prawnik_mcp.parsers.tk import (
     case_slugs,
     case_url,
     doc_id,
+    ipo_case_url,
     listing_url,
     normalize_signature,
     parse_case_page,
+    parse_ipo_case,
     parse_listing,
     parse_ruling_page,
     parse_search,
@@ -55,14 +71,17 @@ from prawnik_mcp.parsers.tk import (
     path_to_id,
     ruling_url,
     search_url,
+    select_ipo_document,
 )
 from prawnik_mcp.store import Store
 
 SOURCE_ID = "tk"
 ACCEPT_HTML = "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5"
+IPO_CONTENT_TYPE = "text/html; charset=UTF-8"
+MAX_IPO_CASE_NUMBERS = 2  # joined cases list several numbers; try at most the first two on IPO
 CONTENT_TYPE = "text/html; charset=utf-8"
 MAX_SEARCH_PAGES = 3  # live search budget: at most 3 Solr pages
-QUIET_FLAGS = {"reasoning_not_included"}  # true of every record; not repeated as a sync warning
+QUIET_FLAGS = {"reasoning_not_included"}  # rulings without reasoning; an IPO failure has its own flag
 _JTYPE_SECTION = {"SENTENCE": "wyroki", "WYROK": "wyroki", "DECISION": "postanowienia",
                   "POSTANOWIENIE": "postanowienia"}
 
@@ -103,13 +122,94 @@ def _listing_for(store: Store, did: str) -> dict | None:
     return (doc.metadata.get("listing") or None) if doc else None
 
 
+@dataclass
+class IpoFetch:
+    """Outcome of the IPO lookup for one ruling: the matching tab plus the raw page to snapshot, or an error."""
+
+    doc: IpoDocument | None = None
+    raw: bytes | None = None
+    url: str | None = None
+    fetched_at: datetime | None = None
+    case_number: str | None = None
+    error: str | None = None
+    fetched_now: bool = False
+    notes: list[str] = field(default_factory=list)
+
+
+def _match_ipo(raw: bytes, sig: str, section: str, jdate: date | None) -> IpoDocument:
+    """Validate an IPO case page against the wanted case and ruling; ValueError says why it cannot be used."""
+    case = parse_ipo_case(raw)
+    if normalize_signature(case.signature) != sig:
+        raise ValueError(f"IPO returned case {case.signature!r}, wanted {sig!r}")
+    doc = select_ipo_document(case, section, jdate)
+    if doc is None:
+        raise ValueError(f"no single {section} tab dated {jdate} in the IPO case {sig} "
+                         f"({'; '.join(d.label for d in case.documents)})")
+    return doc
+
+
+def lookup_ipo(store: Store | None, client: PoliteClient | None, page: dict, section: str, *, force: bool = False,
+               pages: dict[str, tuple[bytes, datetime]] | None = None) -> IpoFetch:
+    """Find the full text of a ruling on IPO (1 request per case number tried, usually 1).
+
+    Sources of the IPO page, in order: recorded `pages` (offline fixtures, by case number), the stored snapshot
+    of the same URL (unless `force`), the live portal (needs `client`). Never raises for upstream trouble:
+    the error is returned so the caller can keep the operative-part record and flag it."""
+    sigs = page["case_numbers"][:MAX_IPO_CASE_NUMBERS]
+    if not sigs:
+        return IpoFetch(error="no case number on the ruling page; IPO lookup impossible")
+    errors: list[str] = []
+    for sig in sigs:
+        url = ipo_case_url(sig)
+        raw: bytes | None = None
+        fetched_at: datetime | None = None
+        now = False
+        if pages is not None:
+            if sig not in pages:
+                continue
+            raw, fetched_at = pages[sig]
+        else:
+            snap = store.find_snapshot_by_url(url) if (store and not force) else None
+            raw = store.read_snapshot_bytes(snap.snapshot_id) if (snap and store) else None
+            fetched_at = snap.fetched_at if snap else None
+            if raw is None:
+                if client is None:
+                    continue
+                try:
+                    r = client.get(url, accept=ACCEPT_HTML)
+                except NotFoundUpstream:
+                    errors.append(f"{sig}: 404 on IPO")
+                    continue
+                except UpstreamError as e:
+                    errors.append(f"{sig}: {e.reason}")
+                    continue
+                raw, fetched_at, now = r.content, r.fetched_at, True
+        try:
+            doc = _match_ipo(raw, sig, section, page["judgment_date"])
+        except ValueError as e:
+            errors.append(f"{sig}: {e}")
+            continue
+        return IpoFetch(doc=doc, raw=raw, url=url, fetched_at=fetched_at, case_number=sig, fetched_now=now)
+    return IpoFetch(error="; ".join(errors) if errors else None)
+
+
 def ingest_ruling(store: Store, section: str, slug: str, content: bytes, url: str, fetched_at: datetime | None,
-                  listing: dict | None = None, content_type: str = CONTENT_TYPE) -> Judgment:
+                  listing: dict | None = None, content_type: str = CONTENT_TYPE,
+                  ipo: IpoFetch | None = None) -> Judgment:
     parse_ruling_page(content)  # validate before anything is written (a 200 without the article = layout change)
     snap = store.put_snapshot(SOURCE_ID, url, content, content_type, parser_version=PARSER_VERSION,
                               fetched_at=fetched_at)
+    ipo_doc, ipo_info = None, {}
+    if ipo and ipo.doc and ipo.raw is not None and ipo.url:
+        isnap = store.put_snapshot(SOURCE_ID, ipo.url, ipo.raw, IPO_CONTENT_TYPE, parser_version=PARSER_VERSION,
+                                   fetched_at=ipo.fetched_at)
+        ipo_doc = ipo.doc
+        ipo_info = {"url": ipo.url, "case_number": ipo.case_number, "snapshot_id": isnap.snapshot_id,
+                    "sha256": isnap.sha256, "fetched_at": isnap.fetched_at}
+    elif ipo and ipo.error:
+        ipo_info = {"error": ipo.error}
     judgment, doc = parse_tk_ruling(content, section, slug, snapshot_id=snap.snapshot_id, sha256=snap.sha256,
-                                    fetched_at=snap.fetched_at, listing=listing)
+                                    fetched_at=snap.fetched_at, listing=listing, ipo=ipo_doc, ipo_info=ipo_info)
     store.upsert_document(doc)
     store.upsert_judgment(judgment, title=doc.title)
     return judgment
@@ -117,18 +217,26 @@ def ingest_ruling(store: Store, section: str, slug: str, content: bytes, url: st
 
 def fetch_ruling(store: Store, client: PoliteClient, section: str, slug: str, *, force: bool = False,
                  listing: dict | None = None) -> tuple[Judgment, bool]:
-    """Returns (judgment, fetched_now). A stored snapshot is re-parsed instead of re-fetched.
+    """Returns (judgment, fetched_now). Stored snapshots are re-parsed instead of re-fetched.
 
+    Requests: 1 for the article + 1 for the IPO case page (full text with reasoning). If IPO fails, the
+    operative-part record is stored and flagged `ipo_full_text_unavailable`; a later fetch retries IPO only.
     An unknown slug gives `NotFoundUpstream` (the site answers 404); nothing is stored."""
     url = ruling_url(section, slug)
     listing = listing or _listing_for(store, doc_id(section, slug))
+    content, fetched_at, ctype, now = None, None, CONTENT_TYPE, False
     if not force:
         snap = store.find_snapshot_by_url(url)
         content = store.read_snapshot_bytes(snap.snapshot_id) if snap else None
         if snap and content is not None:
-            return ingest_ruling(store, section, slug, content, url, snap.fetched_at, listing, snap.content_type), False
-    r = client.get(url, accept=ACCEPT_HTML)
-    return ingest_ruling(store, section, slug, r.content, url, r.fetched_at, listing, r.content_type), True
+            fetched_at, ctype = snap.fetched_at, snap.content_type
+    if content is None:
+        r = client.get(url, accept=ACCEPT_HTML)
+        content, fetched_at, ctype, now = r.content, r.fetched_at, r.content_type, True
+    page = parse_ruling_page(content)  # validate before any IPO request (layout change / wrong page)
+    ipo = lookup_ipo(store, client, page, section, force=force)
+    return (ingest_ruling(store, section, slug, content, url, fetched_at, listing, ctype, ipo),
+            now or ipo.fetched_now)
 
 
 def _fixture_dir(fixtures: Path) -> Path:
@@ -147,7 +255,8 @@ def _hit(lk: TkLink, total: int | None) -> RemoteHit:
         original_url=ruling_url(lk.section, lk.slug),  # type: ignore[arg-type]
         metadata={"court": COURT_NAME, "court_type": COURT_TYPE, "case_numbers": lk.case_numbers,
                   "judgment_date": d, "judgment_date_raw": lk.date_raw, "judgment_type": jtype,
-                  "subject": lk.title or None, "tt_news_uid": lk.uid, "text_scope": TEXT_SCOPE, "total": total,
+                  "subject": lk.title or None, "tt_news_uid": lk.uid, "text_scope": TEXT_SCOPE, "text_scope_after_fetch": TEXT_SCOPE_FULL,
+                  "total": total,
                   "source": SOURCE_ID})
 
 
@@ -155,7 +264,7 @@ def _hit(lk: TkLink, total: int | None) -> RemoteHit:
 
 
 class TkConnector(BaseConnector):
-    """Constitutional Tribunal rulings (wyroki, postanowienia) from trybunal.gov.pl – operative part only."""
+    """Constitutional Tribunal rulings (wyroki, postanowienia): trybunal.gov.pl (operative part) + IPO (full text)."""
 
     source_id = "tk"
     supports_search = True
@@ -170,7 +279,7 @@ class TkConnector(BaseConnector):
         through the case page `/s/<sig>` (1–2 requests; exact, with dates). Anything else goes to the site's
         Solr search restricted to rulings (up to 3 pages); its hits carry a title and snippet, and a case
         number/date only when the snippet shows the ruling header. Solr indexes what the site publishes:
-        the operative part, not the reasoning.
+        the operative part, not the reasoning (`fetch` adds the reasoning from IPO).
 
         filters: case_number (non-TK numbers return []), judgment_type (SENTENCE|DECISION), date_from/date_to
         (ruling date, applied locally: hits without a known date are dropped when a window is set),
@@ -281,7 +390,8 @@ class TkConnector(BaseConnector):
     # ------------------------------------------------------------------ offline
     def sync_offline(self, store: Store, fixtures: Path) -> SourceSyncResult:
         """Build from recorded ruling pages `tk/ruling_*.html` (id taken from the page's canonical link);
-        `tk/listing_*.html` and `tk/case_*.html` add listing metadata (date/case-number cross-check)."""
+        `tk/listing_*.html` and `tk/case_*.html` add listing metadata (date/case-number cross-check);
+        `tk/ipo_*.html` (recorded IPO case pages) add the full text with reasoning to the matching rulings."""
         res = SourceSyncResult(source_id=self.source_id)
         base = _fixture_dir(fixtures)
         listings: dict[str, dict] = {}
@@ -299,6 +409,13 @@ class TkConnector(BaseConnector):
                         listings.setdefault(lk.document_id, lk.listing())
             except Exception as e:  # noqa: BLE001 - listing metadata is optional
                 res.warnings.append(f"{p.name}: {type(e).__name__}: {e}")
+        ipo_pages: dict[str, tuple[bytes, datetime]] = {}
+        for p in sorted(base.glob("ipo_*.html")):  # recorded IPO case pages, keyed by the case number they show
+            try:
+                raw = p.read_bytes()
+                ipo_pages[normalize_signature(parse_ipo_case(raw).signature) or ""] = (raw, mtime(p))
+            except Exception as e:  # noqa: BLE001 - IPO pages are optional
+                res.warnings.append(f"{p.name}: {type(e).__name__}: {e}")
         n = 0
         for p in sorted(base.glob("ruling_*.html")):
             try:
@@ -307,7 +424,9 @@ class TkConnector(BaseConnector):
                 sid = path_to_id(m.group(1).decode()) if m else None
                 if not sid:
                     raise ValueError("no canonical ruling URL in the page")
-                j = ingest_ruling(store, sid[0], sid[1], raw, ruling_url(*sid), mtime(p), listings.get(doc_id(*sid)))
+                ipo = lookup_ipo(None, None, parse_ruling_page(raw), sid[0], pages=ipo_pages) if ipo_pages else None
+                j = ingest_ruling(store, sid[0], sid[1], raw, ruling_url(*sid), mtime(p), listings.get(doc_id(*sid)),
+                                  ipo=ipo)
                 n += 1
                 self._flag_warning(res, j)
             except Exception as e:  # noqa: BLE001
@@ -425,4 +544,4 @@ class TkConnector(BaseConnector):
 
     def coverage(self, store: Store) -> tuple[str, list[str]]:
         n = store.stats_by_source().get(self.source_id, {}).get("judgments", 0)
-        return f"{n} TK rulings stored locally (sample; operative part only; trybunal.gov.pl)", []
+        return f"{n} TK rulings stored locally (sample; full text with reasoning from IPO where available, else operative part; trybunal.gov.pl)", []

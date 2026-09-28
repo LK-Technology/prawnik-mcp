@@ -1,0 +1,1197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<head id="j_idt3">
+			<meta http-equiv="X-UA-Compatible" content="IE=10" />
+			<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+			<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+			<meta http-equiv="Pragma" content="no-cache" />			
+			<meta http-equiv="Expires" content="0" />
+		<title>Sprawa SK 20/25</title><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/theme.css.xhtml?ln=primefaces-aristo" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/theme.css.xhtml" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/wyrok.css.xhtml" /><link type="text/css" rel="stylesheet" href="/ipo/javax.faces.resource/components.css.xhtml?ln=primefaces&amp;v=7.0" /><script type="text/javascript" src="/ipo/javax.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/core.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript" src="/ipo/javax.faces.resource/components.js.xhtml?ln=primefaces&amp;v=7.0"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='pl';}</script>
+
+		<script type="text/javascript">
+		PrimeFaces.locales['pl'] = {
+			    closeText: 'Zamknij',
+			    prevText: 'Poprzedni',
+			    nextText: 'Następny',
+			    monthNames: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+			    monthNamesShort: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+			    dayNames: ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'],
+			    dayNamesShort: ['Nie','Pon','Wt','Śr','Czw','Pt','So'],
+			    dayNamesMin: ['N','Po','Wt','Śr','Cz','Pt','So'],
+			    weekHeader: 'Tydzień',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: 'rok',
+			    timeOnlyTitle: 'Tylko czas',
+			    timeText: 'Czas',
+			    hourText: 'Godzina',
+			    minuteText: 'Minuta',
+			    secondText: 'Sekunda',
+			    currentText: 'Teraz',
+			    ampm: false,
+			    month: 'Miesiąc',
+			    week: 'Tydzień',
+			    day: 'Dzień',
+			    allDayText : 'Cały dzień'
+			};
+		
+	</script></head><body id="bodyRoot" class="body bodyRoot font-size-normal">
+<form id="j_idt9" name="j_idt9" method="post" action="/ipo/Sprawa" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt9" value="j_idt9" />
+<div xmlns="http://www.w3.org/1999/xhtml"><div id="j_idt9:j_idt11" class="ui-menu ui-menubar ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" role="menubar"><div tabindex="0" class="ui-helper-hidden-accessible"></div><ul class="ui-menu-list ui-helper-reset"><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all ui-state-disabled" style="font-weight:bold; opacity: 1 !important;" href="#" onclick="return false;"><span class="ui-menuitem-text">Wyszukiwanie:</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/Start"><span class="ui-menuitem-text">Orzeczenia</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/StartSprawy"><span class="ui-menuitem-text">Sprawy</span></a></li><li class="ui-menuitem ui-widget ui-corner-all" role="menuitem"><a tabindex="-1" class="ui-menuitem-link ui-corner-all" href="/ipo/StartZO"><span class="ui-menuitem-text">Zdania odrębne</span></a></li><li class="ui-menuitem ui-menubar-options ui-widget ui-corner-all" role="menuitem"><a href="/ipo/instrukcja_ipo.pdf" target="_blank" class="ui-menuitem-link ">Instrukcja</a><button id="j_idt9:j_idt26" name="j_idt9:j_idt26" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar normalny" type="submit"><span class="ui-button-text ui-c">A</span></button><script id="j_idt9:j_idt26_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt26",{id:"j_idt9:j_idt26"});});</script><button id="j_idt9:j_idt27" name="j_idt9:j_idt27" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar powiększony" type="submit"><span class="ui-button-text ui-c">A+</span></button><script id="j_idt9:j_idt27_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt27",{id:"j_idt9:j_idt27"});});</script><button id="j_idt9:j_idt28" name="j_idt9:j_idt28" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="" title="rozmiar duży" type="submit"><span class="ui-button-text ui-c">A++</span></button><script id="j_idt9:j_idt28_s" type="text/javascript">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt9_j_idt28",{id:"j_idt9:j_idt28"});});</script></li></ul></div><script id="j_idt9:j_idt11_s" type="text/javascript">$(function(){PrimeFaces.cw("Menubar","widget_j_idt9_j_idt11",{id:"j_idt9:j_idt11",autoDisplay:true});});</script>
+	
+
+</div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-3381879903346360046:2904214814353187415" autocomplete="off" />
+</form>
+
+		<div class="body"><div id="messages" class="ui-messages ui-widget" aria-live="polite"></div><div id="proszeCzekac"></div><script id="proszeCzekac_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_proszeCzekac",{id:"proszeCzekac",start:function(){PF('statusDialog').show();},success:function(){PF('statusDialog').hide();}});});</script><div id="j_idt31" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt31_title" class="ui-dialog-title">Proszę czekać trwa pobieranie danych</span></div><div class="ui-dialog-content ui-widget-content" id="j_idt31_content"><img id="j_idt32" src="/ipo/resources/images/ajaxloadingbar.gif?pfdrid_c=true" alt="" /></div></div><script id="j_idt31_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","statusDialog",{id:"j_idt31",draggable:false,resizable:false,modal:true});});</script><div id="body">
+<form id="sprawaForm" name="sprawaForm" method="post" action="/ipo/Sprawa?cid=1" enctype="application/x-www-form-urlencoded" style="width: 100%">
+<input type="hidden" name="sprawaForm" value="sprawaForm" />
+<div id="sprawaForm:tabView" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-hidden-container ui-tabs-top" style="width: 100%" data-widget="tabView"><ul class="ui-tabs-nav ui-helper-reset ui-widget-header ui-corner-all" role="tablist"><li class="ui-tabs-header ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false" data-index="0"><a href="#sprawaForm:tabView:metryka" tabindex="-1">Metryka SK 20/25</a></li><li class="ui-tabs-header ui-state-default ui-corner-top" role="tab" aria-expanded="false" aria-selected="false" data-index="1"><a href="#sprawaForm:tabView:dok_25615" tabindex="-1">Wyrok z dnia 23 czerwca 2026</a></li><li class="ui-tabs-header ui-state-default ui-tabs-selected ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" data-index="2"><a href="#sprawaForm:tabView:dokumentyWSprawie" tabindex="-1">Dokumenty w sprawie </a></li></ul><div class="ui-tabs-panels"><div id="sprawaForm:tabView:metryka" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-helper-hidden" role="tabpanel" aria-hidden="true" data-index="0"><div id="sprawaForm:tabView:j_idt35" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt35"><div id="sprawaForm:tabView:j_idt35_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Sygnatura
+            
+        </span>
+        <span class="value"><span class="sygnaturaBig">SK 20/25</span>
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data wpływu do TK
+            
+        </span>
+        <span class="value">19 lutego 2024
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data wpływu do STK
+            
+        </span>
+        <span class="value">27 lutego 2025
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Pochodzi z 
+            
+        </span>
+        <span class="value"><a id="sprawaForm:tabView:j_idt75:sprawaLink" name="sprawaForm:tabView:j_idt75:sprawaLink" href="/ipo/Sprawa?cid=1&amp;sprawa=27628"><span class="sygnatura">Ts 29/24</span></a>
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+		
+		
+		<div style="clear: both"></div></div></div><script id="sprawaForm:tabView:j_idt35_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt35",{id:"sprawaForm:tabView:j_idt35"});});</script><img id="sprawaForm:tabView:spacer2_28466" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><img id="sprawaForm:tabView:j_idt158" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><div id="sprawaForm:tabView:j_idt159" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder" data-widget="widget_sprawaForm_tabView_j_idt159"><div id="sprawaForm:tabView:j_idt159_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Podmiot w sprawie</span></div><div id="sprawaForm:tabView:j_idt159_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt161" class="ui-datalist ui-widget"><div id="sprawaForm:tabView:j_idt161_content" class="ui-datalist-content ui-widget-content"><ul id="sprawaForm:tabView:j_idt161_list" class="ui-datalist-data" type="disc"><li class="ui-datalist-item ">Prokurator Generalny  - uczestnik postępowania</li><li class="ui-datalist-item ">Sejm Rzeczypospolitej Polskiej  - uczestnik postępowania</li></ul></div></div><script id="sprawaForm:tabView:j_idt161_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_sprawaForm_tabView_j_idt161",{id:"sprawaForm:tabView:j_idt161"});});</script></div></div><script id="sprawaForm:tabView:j_idt159_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt159",{id:"sprawaForm:tabView:j_idt159"});});</script><img id="sprawaForm:tabView:spacer3_28466" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><table>
+<tbody>
+<tr class="table300px">
+<td class="table300px"><div id="sprawaForm:tabView:j_idt169" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder table300px tableWhiteSpace" data-widget="widget_sprawaForm_tabView_j_idt169"><div id="sprawaForm:tabView:j_idt169_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Przedmiot sprawy</span></div><div id="sprawaForm:tabView:j_idt169_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt171" class="ui-tree ui-widget ui-widget-content ui-corner-all tableWhiteSpace" role="tree" tabindex="0" aria-multiselectable="false"><ul class="ui-tree-container"><li id="sprawaForm:tabView:j_idt171:0" data-rowkey="0" data-nodetype="AktNormatywnySlownik" class="ui-treenode ui-treenode-parent ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-tree-toggler ui-icon ui-icon-triangle-1-s"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem"><span style="font-weight: bold;">Ustawa z dnia 23. 04. 1964r. Kodeks cywilny </span></span></span><ul class="ui-treenode-children" role="group"><li id="sprawaForm:tabView:j_idt171:0_0" data-rowkey="0_0" data-nodetype="AktNormatywnyPrzedmiot" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 223 par. 1</span></span><ul class="ui-treenode-children" role="group"></ul></li><li id="sprawaForm:tabView:j_idt171:0_1" data-rowkey="0_1" data-nodetype="AktNormatywnyPrzedmiot" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 223 par. 1 w zw. z art. 222 par. 1</span></span><ul class="ui-treenode-children" role="group"></ul></li></ul></li></ul><input type="hidden" id="sprawaForm:tabView:j_idt171_scrollState" name="sprawaForm:tabView:j_idt171_scrollState" autocomplete="off" value="0,0" /></div><script id="sprawaForm:tabView:j_idt171_s" type="text/javascript">$(function(){PrimeFaces.cw("VerticalTree","widget_sprawaForm_tabView_j_idt171",{id:"sprawaForm:tabView:j_idt171",dynamic:false,cache:false,iconStates:{}});});</script></div></div><script id="sprawaForm:tabView:j_idt169_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt169",{id:"sprawaForm:tabView:j_idt169"});});</script>
+			<div style="clear: both"></div></td>
+<td><div id="sprawaForm:tabView:j_idt180" class="ui-panel ui-widget ui-widget-content ui-corner-all datalist-noborder table300px" data-widget="widget_sprawaForm_tabView_j_idt180"><div id="sprawaForm:tabView:j_idt180_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Wzorce</span></div><div id="sprawaForm:tabView:j_idt180_content" class="ui-panel-content ui-widget-content"><div id="sprawaForm:tabView:j_idt182" class="ui-tree ui-widget ui-widget-content ui-corner-all tableWhiteSpace" role="tree" tabindex="0" aria-multiselectable="false"><ul class="ui-tree-container"><li id="sprawaForm:tabView:j_idt182:0" data-rowkey="0" data-nodetype="AktNormatywnySlownik" class="ui-treenode ui-treenode-parent ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-tree-toggler ui-icon ui-icon-triangle-1-s"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem"><span style="font-weight: bold;">Konstytucja z dnia 2. 04. 1997r. Konstytucja Rzeczypospolitej Polskiej </span></span></span><ul class="ui-treenode-children" role="group"><li id="sprawaForm:tabView:j_idt182:0_0" data-rowkey="0_0" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 2</span></span><ul class="ui-treenode-children" role="group"></ul></li><li id="sprawaForm:tabView:j_idt182:0_1" data-rowkey="0_1" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 30</span></span><ul class="ui-treenode-children" role="group"></ul></li><li id="sprawaForm:tabView:j_idt182:0_2" data-rowkey="0_2" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 32 ust. 1</span></span><ul class="ui-treenode-children" role="group"></ul></li><li id="sprawaForm:tabView:j_idt182:0_3" data-rowkey="0_3" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 75 ust. 1</span></span><ul class="ui-treenode-children" role="group"></ul></li><li id="sprawaForm:tabView:j_idt182:0_4" data-rowkey="0_4" data-nodetype="AktNormatywnyWzorzec" class="ui-treenode ui-treenode-leaf ui-treenode-unselected"><span class="ui-treenode-content" role="treeitem" aria-expanded="true" aria-selected="false"><span class="ui-treenode-leaf-icon"></span><span></span><span class="ui-treenode-label ui-corner-all" tabindex="-1" role="treeitem">art. 75 ust. 1 w zw. z art. 30, art. 32 ust. 1 i art. 2</span></span><ul class="ui-treenode-children" role="group"></ul></li></ul></li></ul><input type="hidden" id="sprawaForm:tabView:j_idt182_scrollState" name="sprawaForm:tabView:j_idt182_scrollState" autocomplete="off" value="0,0" /></div><script id="sprawaForm:tabView:j_idt182_s" type="text/javascript">$(function(){PrimeFaces.cw("VerticalTree","widget_sprawaForm_tabView_j_idt182",{id:"sprawaForm:tabView:j_idt182",dynamic:false,cache:false,iconStates:{}});});</script>
+				<div style="clear: both"></div></div></div><script id="sprawaForm:tabView:j_idt180_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt180",{id:"sprawaForm:tabView:j_idt180"});});</script>
+			<div style="clear: both"></div></td>
+</tr>
+</tbody>
+</table>
+<img id="sprawaForm:tabView:spacer4_28466" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><div id="sprawaForm:tabView:j_idt198" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt198"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><span class="ui-icon ui-icon-triangle-1-e"></span>Wyrok z dnia 23 czerwca 2026</div><div id="sprawaForm:tabView:j_idt198:metrykaTab_sprawa_25615" class="ui-accordion-content ui-helper-reset ui-widget-content ui-helper-hidden" role="tabpanel" aria-hidden="true"><div id="sprawaForm:tabView:j_idt198:j_idt284" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt198_j_idt284"><div id="sprawaForm:tabView:j_idt198:j_idt284_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Wyrok
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">23 czerwca 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Wyłączenie przedawnienia roszczenia windykacyjnego dotyczącego nieruchomości
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/91" target="_blank">OTK ZU A/2026, poz. 91 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:j_idt198:dataTable_25615" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:j_idt198:dataTable_25615_head"><tr role="row"><th id="sprawaForm:tabView:j_idt198:dataTable_25615:j_idt373" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:j_idt198:dataTable_25615:j_idt378" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:j_idt198:dataTable_25615_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=630">Wojciech Sych</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell"></td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=570">Andrzej Zielonacki</a></td><td role="gridcell">sprawozdawca</td></tr></tbody></table></div></div><script id="sprawaForm:tabView:j_idt198:dataTable_25615_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_j_idt198_dataTable_25615",{id:"sprawaForm:tabView:j_idt198:dataTable_25615",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt198:j_idt284_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt198_j_idt284",{id:"sprawaForm:tabView:j_idt198:j_idt284"});});</script><img id="sprawaForm:tabView:j_idt198:spacer_25615" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><input type="hidden" id="sprawaForm:tabView:j_idt198_active" name="sprawaForm:tabView:j_idt198_active" value="1" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt198_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt198",{id:"sprawaForm:tabView:j_idt198"});});</script><div class="wyrownaj_do_prawej" style="font-style: italic;">Stan na: 28-09-2026</div>	
+	
+	<div style="clear: both"></div><img id="sprawaForm:tabView:spacer5_28466" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><div id="sprawaForm:tabView:dok_25615" class="ui-tabs-panel ui-widget-content ui-corner-bottom ui-helper-hidden" role="tabpanel" aria-hidden="true" data-index="1"><div id="sprawaForm:tabView:j_idt1269" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt1269"><div id="sprawaForm:tabView:j_idt1269_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Wyrok
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">23 czerwca 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Wyłączenie przedawnienia roszczenia windykacyjnego dotyczącego nieruchomości
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/91" target="_blank">OTK ZU A/2026, poz. 91 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:dataTable_25615" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:dataTable_25615_head"><tr role="row"><th id="sprawaForm:tabView:dataTable_25615:j_idt1300" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:dataTable_25615:j_idt1305" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:dataTable_25615_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=630">Wojciech Sych</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell"></td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=570">Andrzej Zielonacki</a></td><td role="gridcell">sprawozdawca</td></tr></tbody></table></div></div><script id="sprawaForm:tabView:dataTable_25615_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_dataTable_25615",{id:"sprawaForm:tabView:dataTable_25615",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt1269_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt1269",{id:"sprawaForm:tabView:j_idt1269"});});</script><img id="sprawaForm:tabView:spacer_25615" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /><a id="sprawaForm:tabView:pobierzDoc25615" name="sprawaForm:tabView:pobierzDoc25615" href="/ipo/downloadOrzeczenieDoc?dok=124788" class="wyrownaj_do_prawej"><img src="/ipo/javax.faces.resource/052.png.xhtml?ln=images" style="vertical-align: middle;" /><div id="sprawaForm:tabView:j_idt727" class="ui-tooltip ui-widget ui-tooltip-right"><div class="ui-tooltip-arrow"></div><div class="ui-tooltip-text ui-shadow ui-corner-all">Pobierz orzeczenie w formacie doc</div></div><script id="sprawaForm:tabView:j_idt727_s" type="text/javascript">$(function(){PrimeFaces.cw("Tooltip","widget_sprawaForm_tabView_j_idt727",{id:"sprawaForm:tabView:j_idt727",showEffect:"fade",hideEffect:"fade",target:"sprawaForm:tabView:pobierzDoc25615"});});</script>
+								<br />Pobierz [114 KB]</a><table>
+<tbody>
+<tr class="table300px">
+<td class="table300px"><div id="sprawaForm:tabView:j_idt634517" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt634517"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span>Spis treści</div><div id="sprawaForm:tabView:j_idt634517:j_idt634518" class="ui-accordion-content ui-helper-reset ui-widget-content" role="tabpanel" aria-hidden="false"><div id="sprawaForm:tabView:j_idt634517:j_idt634519" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt634517_j_idt634519"><div id="sprawaForm:tabView:j_idt634517:j_idt634519_content" class="ui-panel-content ui-widget-content"><table class="wyrok_wyrokTK" width="100%">
+<tbody>
+<tr>
+<td><strong>Wyrok z dnia 23 czerwca 2026 r. sygn. akt SK 20/25</strong></td>
+</tr>
+<tr>
+<td><span class="wyrok_sklad_small">przewodniczący: 
+                      Wojciech Sych</span></td>
+</tr>
+<tr>
+<td><span class="wyrok_sklad_small">sprawozdawca: 
+                      Andrzej Zielonacki</span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#komparycja_25615">Komparycja</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#tenor_25615">Tenor</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin, display_inline_block"><a href="#orzeka_25615">
+                        <div class="spis_tresci_txt_margin">orzeka</div></a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin, display_inline_block"><a href="#ponadto_postanawia_25615">
+                        <div class="spis_tresci_txt_margin">ponadto postanawia</div></a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt"><a href="#uzasadnienie_25615">Uzasadnienie</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin"><a href="#uzasadnienia_czesc_25615_I">I - część historyczna</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin"><a href="#uzasadnienia_czesc_25615_II">II - część na rozprawie/posiedzeniu</a></span></td>
+</tr>
+<tr>
+<td><span class="spis_tresci_txt_margin"><a href="#uzasadnienia_czesc_25615_III">III - uzasadnienie prawne</a></span></td>
+</tr>
+</tbody>
+</table>
+</div></div><script id="sprawaForm:tabView:j_idt634517:j_idt634519_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt634517_j_idt634519",{id:"sprawaForm:tabView:j_idt634517:j_idt634519"});});</script></div><input type="hidden" id="sprawaForm:tabView:j_idt634517_active" name="sprawaForm:tabView:j_idt634517_active" value="0" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt634517_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt634517",{id:"sprawaForm:tabView:j_idt634517"});});</script></td>
+<td><div id="sprawaForm:tabView:j_idt634547" class="ui-accordion ui-widget ui-helper-reset ui-hidden-container" role="tablist" data-widget="widget_sprawaForm_tabView_j_idt634547"><div class="ui-accordion-header ui-helper-reset ui-state-default ui-state-active ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span>Metryka orzeczenia</div><div id="sprawaForm:tabView:j_idt634547:j_idt634548" class="ui-accordion-content ui-helper-reset ui-widget-content" role="tabpanel" aria-hidden="false"><div id="sprawaForm:tabView:j_idt634547:j_idt634551" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_sprawaForm_tabView_j_idt634547_j_idt634551"><div id="sprawaForm:tabView:j_idt634547:j_idt634551_content" class="ui-panel-content ui-widget-content">
+
+    <div class="prop">
+        <span class="name">Rodzaj orzeczenia
+            
+        </span>
+        <span class="value">Wyrok
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Data
+            
+        </span>
+        <span class="value">23 czerwca 2026
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name">Dotyczy
+            
+        </span>
+        <span class="value">Wyłączenie przedawnienia roszczenia windykacyjnego dotyczącego nieruchomości
+        </span>
+    </div>
+	
+	<div style="clear: both"></div>
+
+    <div class="prop">
+        <span class="name"><span style="vertical-align: middle;  margin-right: 5px;">Miejsce publikacji</span>
+            
+        </span>
+        <span class="value"><table>
+<tbody>
+<tr>
+<td><span style="font-weight: bold;"><a href="https://otkzu.trybunal.gov.pl/2026/A/91" target="_blank">OTK ZU A/2026, poz. 91 </a></span></td>
+</tr>
+</tbody>
+</table>
+
+        </span>
+    </div>
+	
+	<div style="clear: both"></div><div style="margin:5px"><span style="font-weight: bold;"></span></div>
+
+		
+		<div style="clear: both"></div><div id="sprawaForm:tabView:j_idt634547:dataTable_25615" class="ui-datatable ui-widget maxWidth500"><div class="ui-datatable-header ui-widget-header ui-corner-top">				
+				Skład				
+			</div><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="sprawaForm:tabView:j_idt634547:dataTable_25615_head"><tr role="row"><th id="sprawaForm:tabView:j_idt634547:dataTable_25615:j_idt634611" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Sędzia</span></th><th id="sprawaForm:tabView:j_idt634547:dataTable_25615:j_idt634616" class="ui-state-default" role="columnheader" scope="col"><span class="ui-column-title">Funkcja</span></th></tr></thead><tbody id="sprawaForm:tabView:j_idt634547:dataTable_25615_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=630">Wojciech Sych</a></td><td role="gridcell">przewodniczący</td></tr><tr data-ri="1" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=690">Bogdan Święczkowski</a></td><td role="gridcell"></td></tr><tr data-ri="2" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=656">Rafał Wojciechowski</a></td><td role="gridcell"></td></tr><tr data-ri="3" class="ui-widget-content ui-datatable-odd" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=610">Jarosław Wyrembak</a></td><td role="gridcell"></td></tr><tr data-ri="4" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell"><a href="/ipo/Szukaj?sedzia=570">Andrzej Zielonacki</a></td><td role="gridcell">sprawozdawca</td></tr></tbody></table></div></div><script id="sprawaForm:tabView:j_idt634547:dataTable_25615_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","widget_sprawaForm_tabView_j_idt634547_dataTable_25615",{id:"sprawaForm:tabView:j_idt634547:dataTable_25615",groupColumnIndexes:[],disableContextMenuIfEmpty:false});});</script></div></div><script id="sprawaForm:tabView:j_idt634547:j_idt634551_s" type="text/javascript">$(function(){PrimeFaces.cw("Panel","widget_sprawaForm_tabView_j_idt634547_j_idt634551",{id:"sprawaForm:tabView:j_idt634547:j_idt634551"});});</script><img id="sprawaForm:tabView:j_idt634547:spacer_25615" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div><input type="hidden" id="sprawaForm:tabView:j_idt634547_active" name="sprawaForm:tabView:j_idt634547_active" value="0" autocomplete="off" /></div><script id="sprawaForm:tabView:j_idt634547_s" type="text/javascript">$(function(){PrimeFaces.cw("AccordionPanel","widget_sprawaForm_tabView_j_idt634547",{id:"sprawaForm:tabView:j_idt634547"});});</script></td>
+</tr>
+</tbody>
+</table>
+
+   <div id="tekst_25615"><span class="wyrok_wyrokTK"><a name="komparycja_25615"></a><p align="center"><strong>91/A/2026</strong></p><table class="postanowienie_data">
+<tbody>
+<tr>
+<td><strong>WYROK</strong></td>
+</tr>
+<tr>
+<td><div class="postanowienie_data">
+               			z dnia 23 czerwca 2026 r.
+               		
+            </div></td>
+</tr>
+<tr>
+<td><strong>Sygn. akt SK 20/25</strong></td>
+</tr>
+<tr>
+<td><br /><p align="center"><strong>W IMIENIU RZECZYPOSPOLITEJ POLSKIEJ</strong></p></td>
+</tr>
+</tbody>
+</table>
+
+         <div class="wyrok_sklad">
+            <p><strong>Trybunał  Konstytucyjny w składzie:</strong></p><table>
+<tbody>
+<tr>
+<td> Wojciech Sych - przewodniczący
+               </td>
+</tr>
+<tr>
+<td> Bogdan Święczkowski</td>
+</tr>
+<tr>
+<td> Rafał Wojciechowski</td>
+</tr>
+<tr>
+<td> Jarosław Wyrembak</td>
+</tr>
+<tr>
+<td> Andrzej Zielonacki - sprawozdawca,
+               </td>
+</tr>
+<tr>
+<td>
+               <blockquote></td>
+</tr>
+<tr>
+<td><table class="wyrok_sklad_protokolant">
+<tbody>
+<tr>
+<td class="wyrok_sklad_protokolant">protokolant:</td>
+<td>Agnieszka Krawczyk,</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+               </blockquote></td>
+</tr>
+</tbody>
+</table>
+
+         </div>
+         <div class="wyrok_zaskarzenie">
+            <div class="wyrok_zaskarzenie_tytul">po rozpoznaniu, z udziałem skarżącej, na rozprawie w dniu 23 czerwca 2026 r., skargi konstytucyjnej M.P. o zbadanie zgodności:</div>
+            <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">art. 223 § 1 w związku z art. 222 § 1 ustawy z dnia 23 kwietnia 1964 r. – Kodeks cywilny (Dz. U. z 2023 r. poz. 1610, ze zm.)
+               z art. 75 ust. 1, art. 30 i art. 32 ust. 1 w związku z art. 2 Konstytucji Rzeczypospolitej Polskiej,
+            </div>
+         </div>
+         <div class="wyrok_sentencja"><a name="tenor_25615"></a><a name="orzeka_25615"></a><div class="wyrok_sentencja_tytul">orzeka:</div>
+            
+            <div class="wyrok_sentencja_czesc">
+               
+               <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">
+                  <font class="wyrok_wytluszczenie">Art. 223 § 1 ustawy z dnia 23 kwietnia 1964 r. – Kodeks cywilny</font> (Dz. U. z 2026 r. poz. 795) <font class="wyrok_wytluszczenie">jest zgodny z art. 75 ust. 1 w związku z art. 30, art. 32 ust. 1 i art. 2 Konstytucji Rzeczypospolitej Polskiej.</font>
+                  
+               </div>
+               
+            </div>
+            
+         </div>
+         <div class="wyrok_sentencja"><a name="tenor_25615"></a><a name="ponadto_postanawia_25615"></a><div style="text-align: center;"><font>ponadto </font><font class="wyrok_sentencja_tytul">postanawia:</font></div>
+            
+            <div class="wyrok_sentencja_czesc">
+               
+               <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">
+                  <font class="wyrok_wytluszczenie">umorzyć postępowanie w pozostałym zakresie.</font>
+                  
+               </div>
+               
+               <div class="wyrok_wyrownanie_wyjustowane wyrok_akapit">
+                  <font class="wyrok_wytluszczenie">Orzeczenie zapadło jednogłośnie.</font>
+                  
+               </div>
+               
+            </div>
+            
+         </div>
+         <div class="wyrok_uzasadnienie"><a name="uzasadnienie_25615"></a><div class="wyrok_naglowekNumerowany">
+               <p class="wyrok_uzasadnienie_tytul">Uzasadnienie</p>
+            </div>
+            
+            <div class="wyrok_uzasadnienie_czesc"><a name="uzasadnienia_czesc_25615_I"></a><div class="wyrok_naglowekNumerowany">
+                  <p align="center"><strong>I</strong></p>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit1">1</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1. W sporządzonej przez radcę prawnego skardze konstytucyjnej z 14 lutego 2024 r., wniesionej do Trybunału Konstytucyjnego
+                     tego samego dnia (data stempla pocztowego), M.P. (dalej: skarżąca) zarzuciła niezgodność art. 223 § 1 w związku z art. 222
+                     § 1 ustawy z dnia 23 kwietnia 1964 r. – Kodeks cywilny (Dz. U. z 2023 r. poz. 1610, ze zm.; dalej: k.c.) z art. 75 ust. 1,
+                     art. 30 i art. 32 ust. 1 w związku z art. 2 Konstytucji Rzeczypospolitej Polskiej.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit2">2</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1.1. Skarga została wniesiona w związku z następującym stanem faktycznym:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit3">3</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Skarżąca jest najemcą lokalu komunalnego należącego do Miasta Stołecznego Warszawy.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit4">4</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Prawomocnym wyrokiem zaocznym z 24 października 2005 r. (sygn. akt […]) Sąd Rejonowy dla m.st. Warszawy w Warszawie, w sprawie
+                     z powództwa Miasta Stołecznego Warszawy, nakazał skarżącej opuszczenie i opróżnienie zajmowanego lokalu w związku z zadłużeniem
+                     w wysokości 3773,21 zł.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit5">5</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Powyższy wyrok został zaopatrzony w klauzulę wykonalności 21 lutego 2006 r.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit6">6</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W dniu 19 listopada 2018 r. Miasto Stołeczne Warszawa złożyło wniosek o wszczęcie postępowania egzekucyjnego.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit7">7</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Pozwem z 24 kwietnia 2019 r. skarżąca wniosła o pozbawienie wykonalności tytułu wykonawczego, podnosząc zarzut przedawnienia.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit8">8</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Wyrokiem z 1 kwietnia 2021 r. (sygn. akt  […]) Sąd Rejonowy dla m.st. Warszawy w Warszawie oddalił powództwo skarżącej, wskazując
+                     że na mocy art. 223 § 1 k.c. roszczenia właściciela przewidziane w art. 222 k.c. w odniesieniu do nieruchomości nie ulegają
+                     przedawnieniu. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit9">9</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Apelacja skarżącej od powyższego orzeczenia została oddalona przez Sąd Okręgowy w Warszawie w wyroku z 4 października 2023
+                     r. (sygn. akt  […]).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit10">10</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">1.2. W świetle argumentacji przedstawionej w uzasadnieniu skargi konstytucyjnej oraz uzupełniającym ją piśmie procesowym z
+                     31 maja 2024 r. kwestionowane przepisy naruszają – zdaniem skarżącej – prawo do zaspokojenia potrzeb mieszkaniowych w związku
+                     z zasadami godności, równości i demokratycznego państwa prawnego poprzez wyłączenie przedawnienia roszczeń właściciela nieruchomości
+                     odnośnie do jej wydania, gdyż – jak podnosi – „[n]a gruncie zasady równości całkowite wyłączenie przedawnienia w zaskarżonych
+                     przepisach nie znajduje uzasadnienia, zwłaszcza jako wyjątek od zasady. O ile zrozumiałe i akceptowalne wydaje się różnicowanie
+                     terminów przedawnienia w zgodzie z Konstytucją RP i aktualnym preferencjami ustawodawcy, o tyle brak przedawnienia nie ma
+                     aksjologicznego uzasadnienia. Nie budzi przecież wątpliwości, że właściciel może utracić prawo własności, np. wskutek zasiedzenia.
+                     Wprawdzie terminy zasiedzenia są zróżnicowane, jednak nie ma całkowitego wyłączenia zasiedzenia nieruchomości. Ma to tym większe
+                     znaczenie w przedmiotowej sprawie, że w tym wypadku właściciel nie utraci swojego prawa, lecz odzyska je – z natury rzeczy
+                     – po upływie pewnego czasu”. Skarżąca wskazała również, iż „[t]rudno przyjąć, że utrzymywanie stanu «niepewności eksmisyjnej»
+                     przez blisko 13 lat od wyroku «eksmisyjnego» z 2005 r. nie narusza wprost na gruncie rozpatrywanego przypadku godności ludzkiej,
+                     tym bardziej, że nieograniczony w czasie nakaz eksmisyjny mógł być realizowany wcześniej, gdy Skarżąca miała jeszcze szansę
+                     na «odbudowanie» sytuacji mieszkaniowej. Obecnie, 73[-]letnia schorowana i samotna kobieta zamieszkująca ponad 55 lat w przedmiotowym
+                     lokalu nie ma w praktyce szans na odbudowanie swojej sytuacji mieszkaniowej. Na gruncie specyficznych okoliczności sprawy
+                     wyważenia wymaga nieograniczona w czasie i niepodlegająca przedawnieniu możliwość eksmisji jako kolidująca z zasadą godności
+                     ludzkiej (art. 30 Konstytucji RP) i przeciwdziałaniu bezdomności (art. 75 ust. 1 Konstytucji). Podkreślenia przy tym wymaga,
+                     że właściciel i tak zrealizuje w pełni swoje uprawnienia w rozumieniu art. 64 Konstytucji RP”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit11">11</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">2. Postanowieniem z 11 lutego 2025 r., sygn. Ts 29/24 (OTK ZU B/2025, poz. 124) Trybunał Konstytucyjny nadał dalszy bieg skardze
+                     konstytucyjnej.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit12">12</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">3. W piśmie z 20 marca 2025 r. (znak: IV.7217.7.2025.KD) Rzecznik Praw Obywatelskich poinformował Trybunał, że nie zgłasza
+                     udziału w niniejszym postępowaniu.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit13">13</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">4. W piśmie procesowym z 24 lipca 2025 r. (znak: 1001-8.TK.25.2025) Prokurator Generalny odmówił przedstawienia stanowiska
+                     w sprawie.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit14">14</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">5. Do dnia wydania wyroku w niniejszej sprawie występujący w imieniu Sejmu Rzeczypospolitej Polskiej Marszałek Sejmu nie przedstawił
+                     stanowiska pisemnego.
+                  </div>
+               </div>
+               
+            </div>
+            
+            <div class="wyrok_uzasadnienie_czesc"><a name="uzasadnienia_czesc_25615_II"></a><div class="wyrok_naglowekNumerowany">
+                  <p align="center"><strong>II</strong></p>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit15">15</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Na rozprawę w dniu 23 czerwca 2026 r. stawił się pełnomocnik skarżącej, który podtrzymał skargę.</div>
+               </div>
+               
+            </div>
+            
+            <div class="wyrok_uzasadnienie_czesc"><a name="uzasadnienia_czesc_25615_III"></a><div class="wyrok_naglowekNumerowany">
+                  <p align="center"><strong>III</strong></p>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit16">16</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Trybunał Konstytucyjny zważył, co następuje:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit17">17</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">1. Uwaga ogólna.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit18">18</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Na wstępie Trybunał przypomina, że model skargi konstytucyjnej, przyjęty w polskim porządku prawnym, ma przede wszystkim<font class="wyrok_kursywa"> </font>na celu eliminację z systemu prawnego niekonstytucyjnych norm, co odróżnia ten środek prawny od skargi wnoszonej do sądu konstytucyjnego,
+                     będącej instrumentem konstytucyjnej korekty rozstrzygnięć indywidualnych (np. w Niemczech). Wskazana cecha charakterystyczna
+                     skargi ujawnia się przede wszystkim w tym, że ostateczne rozstrzygnięcie nie jest bezpośrednim przedmiotem oceny konstytucyjności
+                     przez Trybunał Konstytucyjny. Kontrola Trybunału koncentruje się tu na normach leżących u podstaw tego rozstrzygnięcia. Inicjujący
+                     kontrolę konstytucyjności normy w trybie skargowym musi spełnić wszystkie przesłanki wymagane dla kontroli abstrakcyjnej,
+                     a także musi się legitymować ostatecznym rozstrzygnięciem własnej, konkretnej sprawy, w której doszło do naruszenia jego konstytucyjnego
+                     prawa podmiotowego, przy czym źródłem naruszenia musi być zastosowanie niekonstytucyjnej normy.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit19">19</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W dotychczasowym orzecznictwie Trybunał Konstytucyjny opowiadał się wyraźnie za „publicznym” charakterem swoich rozstrzygnięć
+                     wydawanych w ramach kontroli inicjowanej skargą konstytucyjną, polegającym na <font class="wyrok_kursywa">sui generis </font>„oderwaniu” przedmiotu rozstrzygnięcia od sprawy, która legła u podstaw rozpoznania skargi. W wyroku z 21 maja 2001 r. o sygn.
+                     SK 15/00 (OTK ZU nr 4/2001, poz. 85) Trybunał wskazał bowiem, że „rozpoznając skargę, rozstrzyga (…) o zgodności aktu normatywnego
+                     z Konstytucją. Orzeczenie [jego] zaś tylko pośrednio dotyczy sprawy indywidualnej skarżącego w tym sensie, iż rozstrzyga o
+                     dopuszczalności stosowania określonego aktu normatywnego. Orzeczenie rozstrzygające merytorycznie skargę konstytucyjną ma
+                     więc niewątpliwie walor ogólny, jest skuteczne <font class="wyrok_kursywa">erga omnes</font>; ma moc powszechnie obowiązującą (art. 190 ust. 1 Konstytucji). Ustalenie przez TK niezgodności aktu normatywnego z Konstytucją
+                     powoduje eliminację takiego aktu z porządku prawnego, a więc konsekwencje dotyczące nie tylko skarżącego, ale również innych
+                     uczestników obrotu prawnego”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit20">20</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z kolei w wyroku z 24 października 2007 r. o sygn. SK 7/06 (OTK ZU nr 9/A/2007, poz. 108) Trybunał w pełnym składzie podkreślił,
+                     że „[z] uwagi na swe charakterystyczne cechy konstrukcyjne, skarga konstytucyjna służy w polskim systemie prawnym w pierwszym
+                     rzędzie ochronie konstytucyjności porządku prawnego, natomiast eliminacja z obrotu niekonstytucyjnych rozstrzygnięć indywidualnych
+                     dokonuje się tylko w ramach regulacji następstw orzeczenia o niekonstytucyjności”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit21">21</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">2. Problem konstytucyjny.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit22">22</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Przedstawiony Trybunałowi Konstytucyjnemu problem konstytucyjny dotyczy dopuszczalności wyłączenia przedawnienia roszczenia
+                     właściciela nieruchomości odnośnie do jej wydania. Zdaniem skarżącej norma wywiedziona z art. 75 ust. 1, art. 30, art. 32
+                     ust. 1 i art. 2 Konstytucji wskazuje na obowiązek ustawodawcy kształtowania regulacji prawnych, które „będą sprzyjały wygaszeniu
+                     – wraz z upływem czasu – stanu niepewności, jako przejaw zasady bezpieczeństwa prawnego wynikającej z zasady demokratycznego
+                     państwa prawnego”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit23">23</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3. Kwestie formalne.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit24">24</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.1. Uwaga wstępna.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit25">25</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W sprawach inicjowanych skargą konstytucyjną Trybunał Konstytucyjny na każdym etapie postępowania bada, czy nie zachodzi któraś
+                     z ujemnych przesłanek procesowych, skutkująca umorzeniem postępowania. Dotyczy to wszelkich kwestii wstępnych, jak również
+                     przesłanek formalnych, wspólnych dla kontroli inicjowanej w trybie skargi konstytucyjnej, wniosku lub pytania prawnego. Merytoryczne
+                     rozpoznanie zarzutów sformułowanych w skardze konstytucyjnej jest uzależnione od spełnienia wszystkich warunków jej dopuszczalności.
+                     Podkreślić również należy, że składu rozpoznającego sprawę <font class="wyrok_kursywa">in merito</font> nie wiąże stanowisko zajęte w postanowieniu o nadaniu skardze konstytucyjnej dalszego biegu lub postanowieniu o uwzględnieniu
+                     zażalenia skarżącego na postanowienie w przedmiocie odmowy nadania dalszego biegu skardze konstytucyjnej (zob. m.in. wyrok
+                     pełnego składu TK z 25 września 2019 r., sygn. SK 31/16, OTK ZU A/2019, poz. 53 oraz powołane tam orzecznictwo).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit26">26</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.2. Zaskarżone przepisy oraz umorzenie postępowania odnośnie do części przedmiotu kontroli.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit27">27</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W niniejszej sprawie przedmiotem kontroli uczyniono art. 223 § 1 w związku z art. 222 § 1 ustawy z dnia 23 kwietnia 1964 r.
+                     – Kodeks cywilny (Dz. U. z 2023 r. poz. 1610, ze zm.; obowiązujący tekst jednolity: Dz. U. z 2026 r. poz. 795; dalej: k.c.).
+                     Przepisy te stanowią odpowiednio, co następuje:
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit28">28</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 222 § 1:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit29">29</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Właściciel może żądać od osoby, która włada faktycznie jego rzeczą, ażeby rzecz została mu wydana, chyba że osobie tej przysługuje
+                     skuteczne względem właściciela uprawnienie do władania rzeczą”;
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit30">30</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">– art. 223 § 1:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit31">31</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Roszczenia właściciela przewidziane w artykule poprzedzającym nie ulegają przedawnieniu, jeżeli dotyczą nieruchomości”.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit32">32</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Analiza stanu faktycznego w kontekście uzasadnienia zarzutów rozpatrywanej skargi konstytucyjnej prowadzi do wniosku, że przedmiotem
+                     skargi konstytucyjnej nie jest zawarta w art. 222 § 1 k.c. instytucja żądania przez właściciela nieruchomości jej wydania
+                     od faktycznego posiadacza, a jedynie wyłączenie przedawnienia takiego roszczenia, które zostało uregulowane w art. 223 § 1
+                     k.c. W tym miejscu Trybunał przypomina, że z konstrukcji skargi konstytucyjnej, określonej w art. 79 ust. 1 Konstytucji, wynika,
+                     iż celem jej jest ochrona przysługujących skarżącemu konstytucyjnych praw i wolności, naruszonych na skutek wydania ostatecznego
+                     rozstrzygnięcia na podstawie przepisu (normy prawnej), którego konstytucyjność jest kwestionowana. Aby uznać skargę konstytucyjną
+                     za dopuszczalną, musi występować ścisła relacja (związek) pomiędzy treścią orzeczenia, zaskarżonym przepisem aktu normatywnego
+                     (normą prawną) a postawionym zarzutem niezgodności tego przepisu z określoną normą konstytucyjną (por. wyrok TK z 23 kwietnia
+                     2020 r., sygn. SK 66/19, OTK ZU A/2020, poz. 13 oraz powołane tam orzecznictwo). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit33">33</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W związku z powyższym – na podstawie art. 59 ust. 1 pkt 2 ustawy z dnia 30 listopada 2016 r. o organizacji i trybie postępowania
+                     przed Trybunałem Konstytucyjnym (Dz. U. z 2019 r. poz. 2393; dalej: u.o.t.p.TK) – postępowanie w zakresie badania konstytucyjności
+                     art. 222 § 1 k.c. podlega umorzeniu. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit34">34</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.3. Wzorce kontroli.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit35">35</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.3.1. Uwaga wstępna.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit36">36</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W niniejszej sprawie w odniesieniu do przedmiotu zaskarżenia jako wzorzec kontroli występuje norma wywiedziona z art. 75 ust.
+                     1, art. 30, art. 32 ust. 1 i art. 2 Konstytucji. W świetle zaś konstytucyjnych oraz ustawowych przesłanek skargi konstytucyjnej,
+                     należy rozważyć dopuszczalność badania rozpatrywanej skargi pod kątem wskazanych wzorców kontroli (por. np. wyroki TK z: 18
+                     listopada 2014 r., sygn. SK 7/11, OTK ZU nr 10/A/2014, poz. 112; 21 czerwca 2017 r., sygn. SK 35/15, OTK ZU A/2017, poz. 51
+                     oraz 23 kwietnia 2020 r., sygn. SK 66/19), nawet w sytuacji, gdy inicjator postępowania powołuje odnośne przepisy Konstytucji
+                     łącznie – w celu wywiedzenia określonej normy.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit37">37</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.3.2. Powołanie art. 75 ust. 1 Konstytucji jako wzorca kontroli.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit38">38</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Artykuł 75 ust. 1 ustawy zasadniczej ma następujące brzmienie:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit39">39</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Władze publiczne prowadzą politykę sprzyjającą zaspokojeniu potrzeb mieszkaniowych obywateli, w szczególności przeciwdziałają
+                     bezdomności, wspierają rozwój budownictwa socjalnego oraz popierają działania obywateli zmierzające do uzyskania własnego
+                     mieszkania”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit40">40</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Zacytowany przepis nakłada na władze publiczne ogólnie sformułowany obowiązek prowadzenia polityki sprzyjającej zaspokojeniu
+                     potrzeb mieszkaniowych obywateli. W wyrokach z 9 września 2003 r., sygn. SK 28/03 (OTK ZU nr 7/A/2003, poz. 74) oraz 15 listopada
+                     2017 r., sygn. SK 29/16 (OTK ZU A/2017, poz. 75) uznano, że może on stanowić „samodzielny” wzorzec kontroli w sprawach skargowych.
+                     W świetle zaś sformułowanych w skardze zarzutów względem art. 223 § 1 k.c. i okoliczności stanu faktycznego art. 75 ust. 1
+                     ustawy zasadniczej należy uznać za adekwatny punkt odniesienia dla badanej regulacji.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit41">41</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W związku z powyższym Trybunał stwierdza, że skarżąca w sposób prawidłowy powołała art. 75 ust. 1 Konstytucji jako wzorzec
+                     główny dla zaskarżonego przepisu. Tym samym nie zachodzi przesłanka umorzenia postępowania we wskazanym zakresie na podstawie
+                     art. 59 ust. 1 pkt 2 u.o.t.p.TK.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit42">42</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.3.3. Powołanie art. 30 Konstytucji jako wzorca kontroli.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit43">43</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Artykuł 30 ustawy zasadniczej ma następujące brzmienie:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit44">44</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Przyrodzona i niezbywalna godność człowieka stanowi źródło wolności i praw człowieka i obywatela. Jest ona nienaruszalna,
+                     a jej poszanowanie i ochrona jest obowiązkiem władz publicznych”.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit45">45</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Zacytowany przepis określa aksjologiczne i normatywne podstawy całego systemu prawa. W wyroku pełnego składu z 8 grudnia 1999
+                     r., sygn. SK 19/99 (OTK ZU nr 7/1999, poz. 161) oraz wyrokach z: 15 października 2002 r., sygn. SK 6/02 (OTK ZU nr 5/A/2002,
+                     poz. 65), 15 listopada 2017 r., sygn. SK 29/16 i 16 grudnia 2020 r., sygn. SK 26/16 (OTK ZU A/2020, poz. 69) Trybunał Konstytucyjny
+                     uznał za dopuszczalne powołanie art. 30 Konstytucji jako wzorca „samodzielnego” w sprawach skargowych. Ponadto w wyroku z
+                     w sprawie o sygn. SK 29/16 Trybunał dopuścił powoływanie tego przepisu jako wzorca kontroli w sprawach dotyczących – ujmowanej
+                     szeroko – problematyki mieszkaniowej. Podzielając to stanowisko, Trybunał uznaje, że w niniejszej sprawie nie występuje podstawa
+                     do umorzenia postępowania w oparciu o art. 59 ust. 1 pkt 2 u.o.t.p.TK w zakresie badania zgodności zaskarżonego przepisu z
+                     art. 30 Konstytucji, tym bardziej, że z argumentacji skargi wynika, iż skarżąca powołała wskazaną regulację ustawy zasadniczej
+                     jako wzorzec związkowy względem art. 75 ust. 1 Konstytucji.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit46">46</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.3.4. Powołanie art. 2 oraz art. 32 ust. 1 Konstytucji jako wzorców kontroli.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit47">47</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Artykuł 2 Konstytucji stanowi:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit48">48</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Rzeczpospolita Polska jest demokratycznym państwem prawnym, urzeczywistniającym zasady sprawiedliwości społecznej”.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit49">49</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z kolei art. 32 ust. 1 ustawy zasadniczej ma następujące brzmienie:</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit50">50</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">„Wszyscy są wobec prawa równi. Wszyscy mają prawo do równego traktowania przez władze publiczne”.</div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit51">51</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Przytoczone przepisy – jak wynika z <font class="wyrok_kursywa">petitum </font>skargi i jej uzasadnienia oraz uzupełniającego skargę pisma procesowego – powołane zostały przez skarżącą jako związkowe wzorce
+                     kontroli do art. 75 ust. 1 ustawy zasadniczej. Argumentacja skarżącej prowadzi do wniosku, że w niniejszej sprawie powołanie
+                     art. 2 i art. 32 ust. 1 Konstytucji – tak jak i art. 30 – stanowiło konkretyzację zarzutów ograniczenia ochrony jednostki.
+                     Tym samym nie zachodzi przesłanka umorzenia postępowania – odnośnie do badania zgodności zaskarżonego przepisu z art. 2 i
+                     art. 32 ust. 1 Konstytucji – na podstawie art. 59 ust. 1 pkt 2 u.o.t.p.TK.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit52">52</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.4. Uzasadnienie skargi konstytucyjnej.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit53">53</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Odnosząc się do uzasadnienia skargi konstytucyjnej, należy przypomnieć, że w wyroku z 15 grudnia 2020 r. o sygn. SK 12/20
+                     (OTK ZU A/2021, poz. 2) Trybunał Konstytucyjny zwrócił uwagę, iż „o dopuszczalności orzekania merytorycznego w sprawie zainicjowanej
+                     skargą konstytucyjną nie decyduje objętość jej uzasadnienia, lecz zasadność (trafność) poruszonego przez skarżącego problemu
+                     (…). Trybunał Konstytucyjny jest zaś obowiązany samodzielnie uzasadnić określone rozstrzygnięcie, nie ograniczając się do
+                     weryfikacji stanowisk uczestników postępowania, co wynika z niekwestionowanej na gruncie naszej kultury prawnej zasady <font class="wyrok_kursywa">iura novit curia</font> oraz normy wyrażonej w art. 69 ust. 1 uotpTK, nakazującej Trybunałowi w toku postępowania zbadać wszystkie istotne okoliczności
+                     w celu wszechstronnego wyjaśnienia sprawy”. Stanowisko to zostało podzielone w wyrokach z: 7 czerwca 2022 r., sygn. SK 68/19
+                     (OTK ZU A/2022, poz. 34), 22 czerwca 2022 r., sygn. SK 3/20 (OTK ZU A/2022, poz. 46), 4 października 2023 r., sygn. SK 105/20
+                     (OTK ZU A/2023, poz. 82), 13 grudnia 2023 r., sygn. SK 109/20 (OTK ZU A/2024, poz. 25), 5 listopada 2024 r., sygn. SK 67/20
+                     (OTK ZU A/2025, poz. 28), 26 lutego 2025 r., sygn. SK 100/22 (OTK ZU A/2025, poz. 65) oraz 27 maja 2025 r., sygn. SK 43/22
+                     (OTK ZU A/2025, poz. 55).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit54">54</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Skład orzekający w niniejszej sprawie – aprobując to stanowisko – stwierdza, że uzasadnienie rozpatrywanej skargi konstytucyjnej,<font class="wyrok_kursywa"> </font>uzupełnione przez pismo procesowe z 31 maja 2024 r., spełnia wymóg z art. 53 ust. 1 pkt 2 i 3 u.o.t.p.TK. Tym samym nie zachodzi
+                     przesłanka umorzenia postępowania na podstawie art. 59 ust. 1 pkt 2 u.o.t.p.TK.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit55">55</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">3.5. Konkluzja.</font></div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit56">56</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W tym stanie rzeczy Trybunał Konstytucyjny stwierdza, że w niniejszej sprawie rozpatrywać będzie problem zgodności art. 223
+                     § 1 k.c. z art. 75 ust. 1 w związku z art. 30, art. 32 ust. 1 i art. 2 Konstytucji.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit57">57</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4. Ocena konstytucyjności zaskarżonej regulacji.</font>
+                     
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit58">58</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.1. </font>W pierwszej kolejności należy zwrócić uwagę, że w prawie prywatnym instytucja przedawnienia jest – obok prekluzji, zasiedzenia
+                     i przemilczenia – jednym z przypadków tzw. dawności, instytucji wiążącej skutki prawne z upływem czasu. Instytucja przedawnienia
+                     doczekała się bogatego dorobku doktryny, w tym również w zakresie uzasadnienia jej istoty. Instytucja przedawnienia jest zróżnicowana
+                     i znajduje uzasadnienie w pewnych wartościach, uznanych przez cały system prawa. Skutek przedawnienia następuje po upływie
+                     określonego czasu i polega na tym, że wprawdzie roszczenie istnieje nadal, ale ten, przeciwko któremu jest ono skierowane,
+                     może uchylić się od jego zaspokojenia, powołując się właśnie na upływ tego czasu (por. np. P. Machnikowski, [w:] <font class="wyrok_kursywa">Kodeks cywilny. Komentarz</font>, red. E. Gniewek, wyd. 4, Warszawa 2010, s. 270-274). Przedawnione roszczenie nie wygasa, tylko zamienia się w tzw. zobowiązanie
+                     niezupełne, naturalne (por. np. S. Dmowski, S. Rudnicki, <font class="wyrok_kursywa">Komentarz do Kodeksu cywilnego. Księga pierwsza.</font> <font class="wyrok_kursywa">Część ogólna</font>, wyd. 9, Warszawa 2009, s. 499).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit59">59</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Odwołując się do uzasadnienia instytucji przedawnienia, w doktrynie i orzecznictwie wskazuje się na jego różne funkcje: funkcję
+                     oczyszczającą obrót prawny z pewnych zaszłości, funkcję stabilizującą istniejące stosunki (zob. wyrok SN z 12 lutego 1991
+                     r., sygn. akt III CRN 500/90, OSNCP nr 7-8/1992, poz. 137), funkcję wychowawczą i dyscyplinującą oddziaływującą na osoby uprawnione
+                     do terminowego dochodzenia swoich roszczeń (por. np. A. Jedliński, [w:] <font class="wyrok_kursywa">Kodeks cywilny. Komentarz</font>,<font class="wyrok_kursywa"> </font>t. 1: <font class="wyrok_kursywa">Część ogólna</font>, red. A. Kidyba, wyd. 2, Warszawa 2012, s. 729). Funkcja ochronna dłużnika wyraża się przede wszystkim w trudnościach dowodowych,
+                     jakie napotyka się w procesie o roszczenia sprzed lat, poza tym chroni dłużnika, aby nie musiał przez długi czas pozostawać
+                     w gotowości do spełnienia świadczenia i w niepewności co do tego, czy wierzyciel będzie chciał dochodzić swoich uprawnień.
+                     Przedawnienie jest zatem wynikiem kompromisu pomiędzy konkurującymi ze sobą wartościami: zasadą ochrony praw podmiotowych
+                     – z jednej strony i innymi, do których należy zaliczyć stabilność prawną – z drugiej. Jego rolą nie jest krzywdzenie wierzyciela,
+                     ale wprowadzenie zagrożenia utraty pewnych możliwości (por. T. Pałdyna, <font class="wyrok_kursywa">Przedawnienie w polskim prawie cywilnym</font>, Warszawa 2012, s. 74), dyscyplinując go do dochodzenia swoich roszczeń w racjonalnych ramach czasowych. Ustawodawca uznał,
+                     że takie rozwiązanie z punktu widzenia zasad państwa prawa, do których należy obiektywna przewidywalność skutków zachowań
+                     podmiotów prawa cywilnego oraz pewność i bezpieczeństwo obrotu prawnego, jest ważniejsze od wątpliwości, jakie mogą jawić
+                     się na tle przyjętych rozwiązań w zakresie przedawnienia. Te wymienione wyżej wartości całego systemu prawnego legły u podstaw
+                     regulacji całej instytucji przedawnienia. Cel i funkcja instytucji przedawnienia w kodeksie cywilnym sprowadzają się do usunięcia
+                     stanu niepewności prawnej w sytuacji, gdy uprawniony przez bardzo długi czas nie wykonuje swoich praw podmiotowych, nie realizuje
+                     przysługujących mu roszczeń.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit60">60</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Ponadto ustawodawca – aby wzmocnić stabilność stosunków prawnych – przewidział w art. 125 § 1 k.c. instytucję przedawnienia
+                     roszczenia stwierdzonego prawomocnym orzeczeniem sądu, innego właściwego organu, orzeczeniem sądu polubownego albo wynikającego
+                     z ugody.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit61">61</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.2.</font> Wyjątek od ogólnej zasady przedawnienia w prawie prywatnym ustawodawca wprowadził w art. 223 § 1 k.c., wedle którego nie
+                     przedawniają się roszczenia windykacyjne, które stanowią środek ochrony prawa własności nieruchomości (por.: wyrok SN z 8
+                     grudnia 2006 r., sygn. akt V CSK 296/06, Legalis; wyrok SA w Warszawie z 27 czerwca 2019 r., sygn. akt I ACa 246/18, Legalis).
+                     Ponadto przepis ten ustanawia wyjątek, który – zgodnie z zasadą <font class="wyrok_kursywa">exceptiones non sunt extendendae</font> – nie podlega dodatkowo wykładni rozszerzającej (por. A. Sylwestrzak,<font class="wyrok_kursywa"> Użytkowanie. Konstrukcja prawna</font>, Warszawa 2013, s. 333). Skoro art. 223 § 1 k.c. jest wyjątkiem od zasady, w myśl której roszczenia majątkowe ulegają przedawnieniu,
+                     wykluczone jest stosowanie analogii przy rozstrzyganiu kwestii przedawnienia innych roszczeń dotyczących nieruchomości.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit62">62</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z uwagi na treść art. 223 § 1 k.c. zarzut przedawnienia, podniesiony w procesie windykacyjnym lub negatoryjnym dotyczącym
+                     nieruchomości, jest bezskuteczny. W literaturze wskazuje się, że właściciel nieruchomości może bez ograniczeń czasowych dochodzić
+                     tych roszczeń tak długo, jak przysługuje mu prawo własności; a więc utraci taką możliwość np. z chwilą zasiedzenia własności
+                     nieruchomości lub jej zbycia innej osobie. Wyłączenie przedawnienia roszczenia windykacyjnego odnośnie do nieruchomości oznacza,
+                     że uprawniona osoba może występować z roszczeniem windykacyjnym tak długo, jak długo pozostaje właścicielem nieruchomości
+                     (por. E. Skowrońska-Bocian, [w:] <font class="wyrok_kursywa">Kodeks cywilny. Komentarz</font>, t. 1, red. K. Pietrzykowski, wyd. 5, Warszawa 2008, s. 704). Roszczenie windykacyjne przysługuje danej osobie tak długo,
+                     jak długo prawo własności trwa lub jak długo dana osoba jest właścicielem rzeczy. Roszczenie windykacyjne danej osoby wygasa
+                     dopiero wówczas, gdy ustaje prawo własności dotychczasowego właściciela lub gdy prawo własności danej nieruchomości nabywa
+                     ktoś inny (por. S. Wójcik, [w:] <font class="wyrok_kursywa">System prawa cywilnego</font>, t. 2: <font class="wyrok_kursywa">Prawo własności i inne prawa rzeczowe</font>, red. J. Ignatowicz, Wrocław 1977, s. 508).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit63">63</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z uwagi na przyjętą w polskim systemie prawnym zasadę, właściciel rzeczy nie może przenieść (przelać) roszczenia windykacyjnego
+                     bez przeniesienia tytułu własności, z którym jest immanentnie związane. Roszczenia windykacyjnego i negatoryjnego nie można
+                     również znieść umownie lub się go skutecznie zrzec. Dopiero wygaśnięcie tytułu własności pociąga za sobą wygaśnięcie roszczenia
+                     windykacyjnego. Stąd roszczenie windykacyjne dotyczące nieruchomości nie ulega przedawnieniu, nawet (a raczej zwłaszcza wówczas),
+                     gdy zostało stwierdzone prawomocnym orzeczeniem sądu. Jeżeli zatem roszczenie eksmisyjne, które jest rodzajem roszczenia windykacyjnego,
+                     realizowane jest przez właściciela nieruchomości, to przyjąć należy, że art. 223 k.c. znajduje do niego zastosowanie, a także
+                     że nie dochodzi do jego przedawnienia na podstawie art. 125 k.c. (por. wyrok SA w Krakowie z 28 sierpnia 2014 r., sygn. akt
+                     I ACa 726/14, Legalis oraz wyrok SR w Gliwicach z 23 stycznia 2018 r., sygn. akt I C 1692/16, Legalis).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit64">64</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3. </font>W ocenie Trybunału zarzuty rozpatrywanej skargi nie obalają domniemania konstytucyjności regulacji przyjętej w art. 223 §
+                     1 k.c. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit65">65</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3.1.</font> Trybunał zwraca uwagę, że powołany przez skarżącą jako wzorzec główny art. 75 ust. 1 Konstytucji, stanowi, iż „władze publiczne
+                     prowadzą politykę sprzyjającą zaspokojeniu potrzeb mieszkaniowych obywateli, w szczególności przeciwdziałają bezdomności,
+                     wspierają rozwój budownictwa socjalnego oraz popierają działania obywateli zmierzające do uzyskania własnego mieszkania”.
+                     Przepis ten nakłada na władze publiczne ogólnie sformułowany obowiązek prowadzenia polityki sprzyjającej zaspokojeniu potrzeb
+                     mieszkaniowych obywateli. W równie ogólny sposób kształtuje kierunki takiej polityki, którymi są zaspokojenie potrzeb mieszkaniowych
+                     obywateli, w szczególności przeciwdziałanie bezdomności, wspieranie rozwoju budownictwa socjalnego, popieranie działań obywateli
+                     zmierzających do uzyskania własnego mieszkania (por. np. wyrok TK z 18 stycznia 2011 r., sygn. P 44/08, OTK ZU nr 1/A/2011,
+                     poz. 1). Sformułowanie art. 75 Konstytucji sprawia, że o niezgodności z nim można mówić jedynie w sytuacjach wyjątkowych,
+                     w szczególności gdy ustawodawca wyznaczy obowiązki władz publicznych na takim poziomie, że uniemożliwi to realizację tych
+                     obowiązków i pozbawi art. 75 Konstytucji jego rzeczywistej treści (zob. postanowienie TK z 15 listopada 2000 r., sygn. Ts
+                     86/00, OTK ZU nr 8/2000, poz. 308; wyrok TK z 14 maja 2001 r., sygn. SK 1/00, OTK ZU nr 4/2001, poz. 84), ustawodawca podejmie
+                     działania utrudniające obywatelom zaspokajanie ich potrzeb mieszkaniowych (zob. postanowienie TK z 12 stycznia 2000 r., sygn.
+                     Ts 62/99, OTK ZU nr 4/B/2002, poz. 240) albo nałoży ciężar realizacji tych obowiązków na podmioty prywatne, a nie władze publiczne
+                     (zob. wyrok TK z 10 października 2000 r., sygn. P 8/99, OTK ZU nr 6/2000, poz. 190).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit66">66</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z kolei przez pryzmat art. 30 Konstytucji Trybunał uznał, że poszanowanie godności ludzkiej wymaga, aby w razie orzeczenia
+                     eksmisji, przynajmniej pewnym kategoriom podmiotów – ze względu na ich szczególną sytuację osobistą, rodzinną lub materialną
+                     – udzielono ochrony (zob. wyroki z: 4 kwietnia 2001 r., sygn. K 11/00, OTK ZU nr 3/2001, poz. 54 i 2 października 2002 r.,
+                     sygn. K 48/01, OTK ZU nr 5/A/2002, poz. 62).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit67">67</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Z art. 2 oraz art. 32 ust. 1 Konstytucji wynika natomiast nakaz traktowania przez ustawodawcę sytuacji podobnych jakościowo
+                     w sposób równy (por. np. wyrok TK z 20 grudnia 2022 r., sygn. SK 78/21, OTK ZU A/2023, poz. 20). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit68">68</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3.2. </font>W wyroku z 9 września 2003 r. o sygn. SK 28/03 Trybunał Konstytucyjny zwrócił uwagę, że „zaspokojenie potrzeb mieszkaniowych
+                     widzieć można od strony negatywnej, tj. jako zachowanie dotychczasowych uprawnień i możliwości faktycznego korzystania z mieszkania,
+                     oraz od strony pozytywnej, tj. jako umożliwienie nabycia tytułu prawnego do lokalu mieszkalnego i zamieszkania we własnym
+                     mieszkaniu. Konstytucja wyraża przykładowo pewne formy «polityki mieszkaniowej» w postaci przeciwdziałania bezdomności (aspekt
+                     negatywny) oraz wspierania budownictwa socjalnego i popierania działań obywateli zmierzających do uzyskania własnego mieszkania
+                     (aspekt pozytywny). Nakaz przeciwdziałania bezdomności nie może być jednak rozumiany w ten sposób, że nikt, kto zamieszkał
+                     w jakimś lokalu, nie może być z niego usunięty”. Przedmiotem ochrony w zaskarżonym art. 223 § 1 k.c. ustawodawca uczynił zaś
+                     realizację prawa własności, która – z punktu widzenia unormowań konstytucyjnych – podlega szczególnej ochronie jako zarówno
+                     zasada ustrojowa (art. 21 ust. 1), jak i publiczne prawo podmiotowe (art. 64 ust. 1). W niniejszej sprawie natomiast skarżąca
+                     – co należy podkreślić – nie ma przymiotu właściciela nieruchomości, a jedynie status najemcy; z kolei wydane w jej sprawie
+                     orzeczenia sądowe, kształtujące jej sytuację prawną, stanowią pokłosie prawomocnego wyroku orzekającego jej eksmisję z wynajmowanego
+                     lokalu komunalnego. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit69">69</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Co nie mniej istotne, najem w ogólności jest wyłącznie stosunkiem obligacyjnym, w którym wynajmujący będący właścicielem nie
+                     traci ani <font class="wyrok_kursywa">corporis</font>, ani <font class="wyrok_kursywa">animi</font> przedmiotu najmu. I tym – w kontekście argumentów podniesionych w skardze – różni się pozycja prawna najemcy, względem którego
+                     wydano na wniosek wynajmującego prawomocny wyrok nakazujący eksmisję, od pozycji posiadacza samoistnego nieruchomości, który
+                     sprawuje władztwo <font class="wyrok_kursywa">quasi dominus ad possessionem adversam</font> przy całkowitej bierności (braku zainteresowania) właściciela.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit70">70</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3.3. </font>Mając na uwadze powyższe, Trybunał wskazuje, że rozpatrywana skarga konstytucyjna wydaje się opierać na mylnie zidentyfikowanej
+                     hierarchii wartości. Wysuwa ona bowiem na pierwszy plan argumenty związane z celami przedawnienia jako takiego i jego znaczeniem
+                     dla sytuacji obrotu prawnego <font class="wyrok_kursywa">in toto</font>, nie odnosząc się natomiast do istoty oraz charakteru prawnego ochrony właściciela nieruchomości.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit71">71</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W ocenie Trybunału rozumowanie skarżącej – wprawdzie z jej osobistej perspektywy, zdeterminowanej okolicznościami stanu faktycznego
+                     sprawy, nawet zrozumiałe – nie może być zaakceptowane na gruncie prawa prywatnego w skali ogólnej. Zasady przedawniania się
+                     roszczeń windykacyjnych odnośnie do nieruchomości należy rozpatrywać w perspektywie – wskazywanych już – art. 21 i art. 64
+                     ust. 1 Konstytucji, ustanawiających ochronę własności. Artykuł art. 64 ust. 1 Konstytucji, odczytywany zarówno samodzielnie,
+                     jak i w kontekście innych przepisów mówiących o ochronie własności (art. 64 ust. 2 i art. 21 ust. 1 Konstytucji), stanowi
+                     podstawę publicznego prawa podmiotowego, którego treścią jest gwarantowana konstytucyjnie wolność nabywania mienia, jego zachowania
+                     oraz dysponowania nim. Dysponowanie mieniem obejmuje w szczególności wykonywanie skutecznego władztwa nad nim<font class="wyrok_kursywa">. </font>Oparte na tym przepisie konstytucyjne prawo podmiotowe może – ale nie musi – zostać ograniczone przez ustawodawcę zwykłego
+                     i to tylko w granicach wynikających z art. 31 ust. 3 i art. 64 ust. 3 Konstytucji (por. wyrok TK z 17 kwietnia 2024 r., sygn.
+                     SK 123/20, OTK ZU A/2024, poz. 44).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit72">72</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Zważyć należy, że obowiązująca Konstytucja: </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit73">73</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">a) z jednej strony – nie zawiera wprost uregulowań odnoszących się do problematyki przedawnienia ani nie formułuje ogólnej
+                     zasady przedawnienia, która wymagałaby rozwinięcia i skonkretyzowania w poszczególnych gałęziach prawa, 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit74">74</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">b) z drugiej strony – tylko w trzech przepisach jedynie ustanowiła wyjątki wyłączające lub ograniczające stosowanie instytucji
+                     przedawnienia w prawie karnym (art. 43 wyklucza możliwość przedawnienia zbrodni wojennych i zbrodni przeciwko ludzkości; art.
+                     44 wprowadza zawieszenie biegu przedawnienia w stosunku do przestępstw, nieściganych z przyczyn politycznych, popełnionych
+                     przez funkcjonariuszy publicznych lub na ich zlecenie, do czasu ustania tych przyczyn; art. 105 ust. 3 zawiesza bieg terminu
+                     przedawnienia w postępowaniu karnym, jeśli postępowanie to zostało wszczęte wobec danej osoby przed dniem wyboru jej na posła
+                     i uległo na żądanie Sejmu zawieszeniu do czasu wygaśnięcia mandatu).
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit75">75</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Nieuzasadnione byłoby zatem wyprowadzanie z ustawy zasadniczej – choćby właśnie przez pryzmat art. 75 ust. 1 w związku z art.
+                     30, art. 32 ust. 1 i art. 2 – konstytucyjnego prawa do przedawnienia czy choćby ekspektatywy takiego prawa. Przedawnienie
+                     <font class="wyrok_kursywa">de lege fundamentali lata </font>nie jest bowiem podmiotowym prawem konstytucyjnym i nawet, gdyby ustawodawca zwykły nie przewidział tej instytucji w przepisach
+                     prawa prywatnego, nie można byłoby twierdzić, że jakieś konstytucyjne prawa lub wolności zostały w ten sposób naruszone (por.
+                     wyroki TK z: 25 maja 2004 r., sygn. SK 44/03, OTK ZU nr 5/A/2004, poz. 46 oraz 19 czerwca 2012 r., sygn. P 41/10, OTK ZU nr
+                     6/A/2012, poz. 65). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit76">76</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Wobec zatem braku konstytucyjnej regulacji problematyki przedawnienia roszczeń prywatnoprawnych – w ocenie Trybunału – należy
+                     uznać, że wprowadzenie do systemu prawnego tej instytucji, jak również nadanie jej konkretnego kształtu, w tym określenie
+                     terminu przedawnienia czy wyłączenia przedawnienia odnośnie do poszczególnych roszczeń, pozostaje wyłącznie w sferze uznania
+                     ustawodawcy. 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit77">77</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3.4.</font> Bez wątpienia ustawodawca w art. 223 § 1 k.c. ustanowił silniejszą ochronę roszczeń właścicieli nieruchomości formułowanych
+                     na gruncie art. 222 § 1 k.c. Jest to jednak uzasadnione – choćby w kontekście stosunku najmu (jak w niniejszej sprawie) –
+                     pozycją właściciela, którą gwarantuje art. 64 ust. 1 Konstytucji. Mając zaś na uwadze, że własność może zostać ograniczona
+                     tylko w ustawie i tylko w granicach nienaruszających jej istotę (art. 64 ust. 3 i art. 31 ust. 3 Konstytucji), dopuszczalna
+                     jest regulacja prawna gwarantująca właścicielowi nieruchomości nieograniczoną czasowo możliwość wyegzekwowania orzeczenia
+                     sądowego dotyczącego ochrony realizacji jego prawa własności nieruchomości.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit78">78</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">Wprawdzie w realiach niniejszej sprawy istotnie występuje duża rozpiętość czasowa pomiędzy wyrokiem eksmisyjnym a wystąpieniem
+                     przez gminę o wszczęcie postępowania egzekucyjnego. Niemniej jednak – choć jest to zachowanie osobliwe – nie wpływa ono samoistnie
+                     na ocenę art. 223 § 1 k.c.; można je zakwalifikować jedynie do sfery stosowania prawa, która leży poza oceną prawną Trybunału
+                     Konstytucyjnego. Także kwestia ewentualnego przedawnienia wykonalności roszczenia właściciela nieruchomości względem najemcy
+                     – jak w niniejszej sprawie – w celu „stymulowania” tego pierwszego do sprawnego podejmowania działań w celu ochrony jego prawa
+                     wykraczałaby poza kognicję Trybunału i co najwyżej stanowić powinna przedmiot prac legislacyjnych parlamentu.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit79">79</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.3.5.</font> Wobec powyższego należy uznać, że chronione przez art. 64 ust. 2 i art. 21 ust. 1 Konstytucji prawo własności nieruchomości,
+                     gdy jest naruszane przez najemcę (np. – jak w niniejszej sprawie – poprzez niepłacenie należnego czynszu), a z którym wiążą
+                     się nieograniczone w czasie środki ochronne (np. – jak w niniejszej sprawie – wykonanie orzeczonego nakazu eksmisji), nie
+                     stoi w sprzeczności z art. 75 ust. 1, art. 30, art. 32 ust. 1 ani art. 2 Konstytucji, tak ujmowanymi samodzielnie, jak i łącznie.
+                     Jednostka nie może bowiem oczekiwać korzyści, które mogłyby wyniknąć dla niej w związku z naruszeniem przepisów prawa czy
+                     postanowień umowy (np. umowy najmu w zakresie zapłaty czynszu), gdyż prawo nie ochrania tych, którzy poszukują poprawy własnej
+                     sytuacji w swoich działaniach godzących w ukształtowany względem nich porządek prawny, co zresztą wynika wprost z zasady <font class="wyrok_kursywa">nemo ex suo delicto meliorem suam condictionem facere potest </font>(<font class="wyrok_kursywa">Iustiniani Augusti Digesta seu Pandectae</font>, księga L, tytuł XVII, <font class="wyrok_kursywa">lex</font> CXXXIV, paragraf I). 
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit80">80</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">
+                     <font class="wyrok_wytluszczenie">4.4.</font> Reasumując – w ocenie Trybunału – na gruncie obowiązującej Konstytucji ustawodawca dysponuje szerokim marginesem swobody
+                     ustalenia zasad przedawnienia odnośnych roszczeń, z wyłączeniem przedawnienia poszczególnych ich kategorii włącznie. Tym samym
+                     art. 223 § 1 k.c. jest zgodny z art. 75 ust. 1 w związku z art. 30, art. 32 ust. 1 i art. 2 Konstytucji.
+                  </div>
+               </div>
+               
+               <div class="wyrok_akapitCaly">
+                  <div class="wyrok_akapitNr"><a name="akapit81">81</a></div>
+                  <div class="wyrok_wyrownanie_wyjustowane wyrok_akapitNumerowany">W tym stanie rzeczy orzeczono jak w sentencji.</div>
+               </div>
+               
+            </div>
+            
+         </div></span>
+   </div>	
+							 
+							<script type="text/javascript">
+
+									function zaznacz_teze (dokumentId, tezaId, akapitIdLista){
+										for	(index = 0; index < akapitIdLista.length; index++) {
+											zaznacz_teze_akapit(dokumentId, tezaId, akapitIdLista[index]);
+										}
+									}
+									
+									function zaznacz_teze_akapit(dokumentId, tezaId, akapitId){																				
+										var element = $( "div[id='sprawaForm:tabView:dok_"+dokumentId+"'] a[name='akapit"+akapitId+"']" );
+										var elementParent = element.parent().parent();										 
+										elementParent.addClass('wyrok_teza');
+										elementParent.attr('title', "Wyróżniony fragment to teza - szczegóły kliknij 2 razy");
+										elementParent.dblclick(function() {											
+											var x = $("div[id='sprawaForm:tabView:dok_"+dokumentId+"'] a[name='teza"+tezaId+"']");
+											$(window).scrollTop(x.offset().top);
+										});
+									}
+
+
+									
+																
+								</script>
+									
+							<div style="clear: both"></div></div><div id="sprawaForm:tabView:dokumentyWSprawie" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-hidden="false" data-index="2"><div id="sprawaForm:tabView:j_idt206" class="ui-datalist ui-widget"><div class="ui-datalist-header ui-widget-header ui-corner-top">Dokumenty w sprawie</div><div id="sprawaForm:tabView:j_idt206_content" class="ui-datalist-content ui-widget-content"><ul id="sprawaForm:tabView:j_idt206_list" class="ui-datalist-data" type="disc"><li class="ui-datalist-item x35"><a href="/ipo/dok?dok=7ccacc95-f0f3-424a-868a-81321c64e3e8%2FSK_20_25_skr_2024_02_14_ADO.pdf">SK 20/25 - skarga konstytucyjna [503 KB]</a><div id="sprawaForm:tabView:j_idt206:0:j_idt211" class="ui-datalist ui-widget datalist-noborder x30"><div id="sprawaForm:tabView:j_idt206:0:j_idt211_content" class="ui-datalist-content ui-widget-content"><dl id="sprawaForm:tabView:j_idt206:0:j_idt211_list" class="ui-datalist-data"><dt class="ui-datalist-item x35"><a href="/ipo/dok?dok=e372b383-95ce-4fd8-8551-681cfa3d4baf%2FSK_20_25_skr_2024_05_31_ADO.pdf" style="margin-left: 50px">uzupełnienie braków formalnych [171 KB]</a></dt></dl></div></div><script id="sprawaForm:tabView:j_idt206:0:j_idt211_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_sprawaForm_tabView_j_idt206_0_j_idt211",{id:"sprawaForm:tabView:j_idt206:0:j_idt211"});});</script></li><li class="ui-datalist-item x35"><a href="/ipo/dok?dok=50f1da4c-a5be-44ca-811b-463425323b7e%2FSK_20_25_pg_2025_07_24_ADO.pdf">SK 20/25 - pismo Prokuratora Generalnego [55 KB]</a></li><li class="ui-datalist-item x35"><a href="/ipo/dok?dok=ad82a45c-bc87-48e9-b9c6-978a7d285114%2FSK_20_25_2026_06_23_transkrypcja.pdf">SK 20/25 - transkrypcja rozprawy [300 KB]</a></li></ul></div></div><script id="sprawaForm:tabView:j_idt206_s" type="text/javascript">$(function(){PrimeFaces.cw("DataList","widget_sprawaForm_tabView_j_idt206",{id:"sprawaForm:tabView:j_idt206"});});</script><img id="sprawaForm:tabView:j_idt215" height="10" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" /></div></div><input type="hidden" id="sprawaForm:tabView_activeIndex" name="sprawaForm:tabView_activeIndex" value="2" autocomplete="off" /></div><script id="sprawaForm:tabView_s" type="text/javascript">$(function(){PrimeFaces.cw("TabView","tabView",{id:"sprawaForm:tabView",effectDuration:"normal",scrollable:false});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:1" value="-3381879903346360046:2904214814353187415" autocomplete="off" />
+</form></div>
+
+		</div><div class="footer" xmlns="http://www.w3.org/1999/xhtml"><hr id="separator_footer" class="ui-separator ui-state-default ui-corner-all" /><span style="margin-left: 50px; float: right;"> Created by Łukasz Baranek </span><span style="margin-right: 50px; float: left;">Internetowy Portal Orzeczeń Trybunału Konstytucyjnego 1.7.5 [Internet-A:ipo]</span>
+			
+			<div style="clear: both"></div><img id="j_idt270" height="25" alt="" src="/ipo/javax.faces.resource/spacer/dot_clear.gif.xhtml?ln=primefaces&amp;v=7.0" />Strona korzysta z plików cookies w celu realizacji usług. Możesz określić warunki przechowywania lub dostępu do plików cookies w Twojej przeglądarce.
+		
+
+</div>
+<form id="j_idt279" name="j_idt279" method="post" action="/ipo/Sprawa?cid=1" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt279" value="j_idt279" />
+<div id="j_idt279:exceptionDialog_ViewExpiredException" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt279:exceptionDialog_ViewExpiredException_title" class="ui-dialog-title">Twoja sesja wygasła!</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content" id="j_idt279:exceptionDialog_ViewExpiredException_content">						
+								
+				Twoja sesja wygasła <br />
+				musisz odświeżyć  stronę klikając na przycisk poniżej<br /></div></div><script id="j_idt279:exceptionDialog_ViewExpiredException_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","exceptionDialog_ViewExpiredException",{id:"j_idt279:exceptionDialog_ViewExpiredException",width:"500px",height:"100px"});});</script><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:2" value="-3381879903346360046:2904214814353187415" autocomplete="off" />
+</form></body>

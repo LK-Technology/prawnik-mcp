@@ -6,8 +6,13 @@ All notable changes to this project are documented here. The format follows
 ## [Unreleased]
 
 ### Added
+- **CJEU case law (Cellar):** judgments, orders and Advocate General opinions of the Court of Justice and the General
+  Court as `celex:6…` records with the Polish text (XHTML, else legacy HTML; English/French fallback is flagged).
+  Lookup by case number (`C-260/18`, `T-123/20`), CELEX and ECLI; title-word search through Virtuoso `bif:contains`
+  when `kinds` includes `eu_judgment` (no full-text search of the reasoning exists); `sync --source cellar --celex 6…`.
+  Metadata: date, ECLI, parties, keywords, cited cases and legislation (not yet in the citation graph).
 - **Sources:** SN (Supreme Court rulings from sn.pl, current; SAOS stops in 2016), TK (Constitutional Tribunal
-  rulings from trybunal.gov.pl, operative part only; SAOS stops in 2015), EUREKA (tax interpretations), KIO (procurement rulings), UODO (data protection decisions),
+  rulings from trybunal.gov.pl and, with the reasoning, from IPO; SAOS stops in 2015), EUREKA (tax interpretations), KIO (procurement rulings), UODO (data protection decisions),
   CBOSA (administrative courts; single documents only — robots.txt honoured); EU consolidated versions from Cellar.
 - **Hybrid access:** live search across sources with a time budget and 24 h cache, lazy fetch of documents missing
   locally, `PRAWNIK_MCP_OFFLINE=1`.

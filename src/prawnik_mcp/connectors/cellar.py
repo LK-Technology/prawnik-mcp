@@ -1,7 +1,9 @@
-"""Cellar (publications.europa.eu) connector: EU act XHTML as published in the OJ.
+"""Cellar (publications.europa.eu) connector: EU act XHTML as published in the OJ, and CJEU case law.
 
 EUR-Lex web pages are not used (they answer bots with a 202 challenge); Cellar's
-REST content negotiation is. The text is the ORIGINAL publication (no consolidation).
+REST content negotiation is. The text of an act is the ORIGINAL publication (no consolidation).
+Judgments, orders and Advocate General opinions of the Court of Justice / General Court (CELEX sector 6)
+are handled in `cellar_case` and stored as `Judgment` records with the id `celex:6YYYYTTNNNN`.
 """
 
 from __future__ import annotations
@@ -198,7 +200,7 @@ def celex_candidates(query: str) -> list[str]:
 
 
 class CellarConnector(BaseConnector):
-    """EU acts by CELEX number from the Publications Office (original OJ text)."""
+    """EU acts by CELEX number from the Publications Office (original OJ text) and CJEU case law (sector 6)."""
 
     source_id = "cellar"
     supports_fetch = True
@@ -206,20 +208,35 @@ class CellarConnector(BaseConnector):
 
     def search(self, client: PoliteClient, query: str, *, limit: int = 5,
                filters: dict | None = None) -> list[RemoteHit]:
-        """Identifier-based lookup only (full-text SPARQL over Cellar is too slow for interactive use)."""
-        return [RemoteHit(document_id=f"celex:{c}", kind="eu_act", title=f"CELEX {c}",
+        """Acts: identifier lookup only, no request. CJEU case law: case number / CELEX / ECLI lookup (1 SPARQL
+        request) and, only when `filters["kinds"]` contains eu_judgment, a title-word search (Cellar has no
+        full-text index of the judgments' texts)."""
+        from prawnik_mcp.connectors.cellar_case import search_cases
+
+        hits = [RemoteHit(document_id=f"celex:{c}", kind="eu_act", title=f"CELEX {c}",
                           snippet="Akt UE rozpoznany po identyfikatorze; pełny tekst: get_legal_document.",
                           original_url=EURLEX_HUMAN.format(celex=c), metadata={"celex": c, "source": "cellar"})
                 for c in celex_candidates(query)[:limit]]
+        return (hits + search_cases(client, query, limit=limit, filters=filters))[:limit]
+
+    def _sync_one(self, store: Store, client: PoliteClient, celex: str, res: SourceSyncResult, *, force: bool) -> None:
+        from prawnik_mcp.connectors.cellar_case import sync_case
+        from prawnik_mcp.parsers.cellar_case import is_case_celex
+
+        if is_case_celex(celex):
+            ing = sync_case(store, client, celex, force=force)
+            res.counts[celex] = 1
+        else:
+            ing = sync_celex(store, client, celex, force=force)
+            res.counts[celex] = ing.provisions
+        res.warnings += ing.warnings
 
     def sync_defaults(self, store: Store, client: PoliteClient, *, force: bool = False,
                       limit: int | None = None) -> SourceSyncResult:
         res = SourceSyncResult(source_id=self.source_id)
         for celex in list(self.info.defaults.get("celex", []))[: limit or None]:
             try:
-                ing = sync_celex(store, client, celex, force=force)
-                res.counts[celex] = ing.provisions
-                res.warnings += ing.warnings
+                self._sync_one(store, client, celex, res, force=force)
             except Exception as e:  # noqa: BLE001
                 res.errors.append(f"{celex}: {e}")
         res.ok = not res.errors
@@ -235,32 +252,67 @@ class CellarConnector(BaseConnector):
                 res.counts[celex] = ing.provisions
             except Exception as e:  # noqa: BLE001
                 res.errors.append(f"{celex}: {type(e).__name__}: {e}")
+        self._sync_offline_cases(store, fixtures, res)
         res.ok = bool(res.counts) and not res.errors
         self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=True)
         return res
+
+    def _sync_offline_cases(self, store: Store, fixtures: Path, res: SourceSyncResult) -> None:
+        """Recorded CJEU cases: `cellar/case_<CELEX>.core.json` (+ `.rel.json`) and `.pol.xhtml` / `.pol.html`."""
+        from prawnik_mcp.connectors.cellar_case import (
+            _sparql_url,
+            core_query,
+            ingest_case,
+            relations_query,
+            variant_url,
+        )
+
+        d = fixtures if fixtures.name == SOURCE_ID else fixtures / SOURCE_ID
+        for core_p in sorted(d.glob("case_*.core.json")):
+            celex = core_p.name.split("_", 1)[1].split(".", 1)[0]
+            try:
+                lang, fmt, cp = next(((lg, f, q) for lg, f in (("pol", "xhtml"), ("pol", "html"))
+                                      if (q := core_p.with_name(f"case_{celex}.{lg}.{f}")).exists()))
+                rel_p = core_p.with_name(f"case_{celex}.rel.json")
+                _, warns = ingest_case(
+                    store, celex, core_p.read_bytes(), _sparql_url(core_query([celex])), mtime(core_p),
+                    rel_p.read_bytes() if rel_p.exists() else None, _sparql_url(relations_query(celex)),
+                    mtime(rel_p) if rel_p.exists() else None, cp.read_bytes(), variant_url(celex, lang, fmt),
+                    mtime(cp), lang, fmt)
+                res.warnings += warns  # not in res.counts: those describe the acts
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{celex}: {type(e).__name__}: {e}")
 
     def coverage(self, store: Store) -> tuple[str, list[str]]:
         docs = store.list_documents("cellar")
         parts, ivs = [], []
         for d in docs:
-            label = ("consolidated " + d.metadata.get("consolidated_celex", "")) if d.metadata.get("consolidated") \
-                else "original OJ text"
+            if d.kind == SourceKind.eu_judgment:
+                label = f"CJEU case law ({d.metadata.get('text_language', '?')} text, Cellar)"
+            else:
+                label = ("consolidated " + d.metadata.get("consolidated_celex", "")) if d.metadata.get("consolidated") \
+                    else "original OJ text"
             parts.append(f"{d.document_id} ({label})")
             ivs.append(f"{d.document_id}: {label}")
         return ("; ".join(parts) or "no local data"), ivs
 
     def sync_bulk(self, store: Store, client: PoliteClient, params: dict, limits: BulkLimits,
                   progress=None) -> SourceSyncResult:
-        """Sync explicit CELEX numbers (`params["celex"]`) or identifiers recognised in `params["query"]`."""
+        """Sync explicit CELEX numbers (`params["celex"]`, acts and CJEU case law) or identifiers recognised in
+        `params["query"]` (act identifiers; CJEU case numbers / ECLI are resolved with one SPARQL request each)."""
+        from prawnik_mcp.connectors.cellar_case import search_cases
+
         res = SourceSyncResult(source_id=self.source_id)
-        ids = [c.removeprefix("celex:") for c in params.get("celex") or []]
+        ids = [c.removeprefix("celex:").upper() for c in params.get("celex") or []]
         if params.get("query"):
             ids += celex_candidates(params["query"])
+            try:
+                ids += [h.metadata["celex"] for h in search_cases(client, params["query"], limit=10)]
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"query {params['query']!r}: {e}")
         for celex in list(dict.fromkeys(ids))[: limits.limit or None]:
             try:
-                ing = sync_celex(store, client, celex, force=not limits.resume)
-                res.counts[celex] = ing.provisions
-                res.warnings += ing.warnings
+                self._sync_one(store, client, celex, res, force=not limits.resume)
             except Exception as e:  # noqa: BLE001
                 res.errors.append(f"{celex}: {e}")
             if progress:
@@ -272,4 +324,10 @@ class CellarConnector(BaseConnector):
     def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
         if not document_id.startswith("celex:"):
             return None
-        return sync_celex(store, client, document_id.removeprefix("celex:"), force=force).document_id
+        from prawnik_mcp.connectors.cellar_case import sync_case
+        from prawnik_mcp.parsers.cellar_case import is_case_celex
+
+        celex = document_id.removeprefix("celex:")
+        if is_case_celex(celex):
+            return sync_case(store, client, celex, force=force).document_id
+        return sync_celex(store, client, celex, force=force).document_id

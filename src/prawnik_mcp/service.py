@@ -26,6 +26,7 @@ from prawnik_mcp.contracts import (
     article_of,
     canonical_locator,
 )
+from prawnik_mcp.parsers.cellar_case import CJEU_CASE_PATTERN, CJEU_IDENT_PATTERN, canonical_case, is_case_celex
 from prawnik_mcp.parsers.sn import SN_CASE_RE
 from prawnik_mcp.parsers.tk import TK_CASE_PATTERN
 from prawnik_mcp.parsers.tk import as_signature as tk_signature
@@ -60,7 +61,9 @@ _CASE_RE = re.compile(
     r"|[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}"  # UODO: DKN.5130.2215.2020
     r"|\d{4}-[A-Z0-9]{3,8}(?:-\d)?(?:\.\d+)*\.\d{4}(?:\.\d+)?(?:\.[A-Z]{1,4})?"  # KIS: 0114-KDIP1-2.4012.123.2024.1.AB
     r"|" + TK_CASE_PATTERN +  # TK: K 1/20, SK 12/19, P 7/20
+    r"|" + CJEU_CASE_PATTERN +  # CJEU: C-260/18, T-123/20, C-489/19 PPU
     r")\b")
+_CJEU_IDENT_RE = re.compile(r"\b(?:" + CJEU_IDENT_PATTERN + r")\b", re.I)  # ECLI:EU:C:2019:819, 62018CJ0260
 _ART_RE = re.compile(r"\bart\.?\s*\d+[a-z]?(?:\s*\^\s*\d+|\(\d+\)|[¹²³⁰-⁹]+)?(?:\s*(?:§|ust\.?|pkt|lit\.?)\s*\w+)*", re.I)
 
 
@@ -198,12 +201,16 @@ def search_legal(
 
     # 1. exact identifiers: case numbers
     case = _CASE_RE.search(query)
-    if case and (not kind_enums or any(k in RECORD_KINDS for k in kind_enums)):
-        found = store.find_judgments_by_case_number(case.group(1))
+    ident = case.group(1) if case else None
+    if ident is None and (m := _CJEU_IDENT_RE.search(query)):
+        ident = m.group(0).upper()  # ECLI or CELEX of a CJEU document
+    if ident and (not kind_enums or any(k in RECORD_KINDS for k in kind_enums)):
+        ident = canonical_case(ident) or ident
+        found = _local_by_identifier(store, ident)
         if not found and use_live:
             remote, lw, unavailable, searched = live_mod.live_search(
-                store, query, kinds={k.value for k in RECORD_KINDS}, filters={**filters, "case_number": case.group(1)},
-                limit=limit, source_ids=_case_number_sources(case.group(1)))
+                store, query, kinds={k.value for k in RECORD_KINDS}, filters={**filters, "case_number": ident},
+                limit=limit, source_ids=_case_number_sources(ident))
             cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
             cov.sources_searched += [x for x in searched if x not in cov.sources_searched]
             if remote:
@@ -217,11 +224,11 @@ def search_legal(
             warnings += lw
         if not found:
             return ToolResult(status=ResultStatus.not_found, coverage=cov, warnings=warnings + [
-                f"Sygnatury {case.group(1)} nie znaleziono w lokalnym korpusie ani w przeszukanych źródłach. "
+                f"Sygnatury {ident} nie znaleziono w lokalnym korpusie ani w przeszukanych źródłach. "
                 "To nie dowodzi, że orzeczenie nie istnieje; nie cytuj go bez pobrania ze źródła."])
         for j in found:
             doc = store.get_document(j.document_id)
-            hits.append(_judgment_hit(store, j, doc, [case.group(1)]))
+            hits.append(_judgment_hit(store, j, doc, [ident]))
         status = ResultStatus.ambiguous if len(hits) > 1 else ResultStatus.ok
         if status is ResultStatus.ambiguous:
             warnings.append("Ta sama sygnatura występuje w kilku dokumentach — rozróżnij po sądzie, dacie i rodzaju.")
@@ -294,7 +301,8 @@ def search_legal(
     live_searched: list[str] = []
     if use_live and offset == 0 and (live is True or len(hits) < limit):
         remote, lw, unavailable, live_searched = live_mod.live_search(
-            store, query, kinds={k.value for k in kind_enums} if kind_enums else None, filters=filters, limit=limit)
+            store, query, kinds={k.value for k in kind_enums} if kind_enums else None, limit=limit,
+            filters={**filters, "kinds": sorted(k.value for k in kind_enums)} if kind_enums else filters)
         warnings += lw
         cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
         cov.sources_searched += [x for x in live_searched if x not in cov.sources_searched]
@@ -319,9 +327,19 @@ def search_legal(
     })
 
 
+def _local_by_identifier(store: Store, ident: str):
+    """Stored judgments for a case number or ECLI (both indexed as case numbers), or a CJEU CELEX id."""
+    if is_case_celex(ident):
+        j = store.get_judgment(f"celex:{ident.upper()}")
+        return [j] if j else []
+    return store.find_judgments_by_case_number(ident)
+
+
 def _case_number_sources(case_number: str) -> list[str]:
     """Which live sources can resolve a given case-number format."""
     c = case_number.strip()
+    if canonical_case(c) or is_case_celex(c) or c.upper().startswith("ECLI:EU:"):
+        return ["cellar"]  # CJEU case number, CELEX (sector 6) or ECLI
     if c.upper().startswith("KIO"):
         return ["kio", "saos"]
     if re.fullmatch(r"[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}", c):

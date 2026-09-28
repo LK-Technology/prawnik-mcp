@@ -37,7 +37,7 @@ def default_data_dir() -> Path:
 
 
 def normalize_case_number(s: str) -> str:
-    return " ".join(s.upper().replace(" ", " ").split())
+    return " ".join(s.upper().replace(" ", " ").replace("\u2011", "-").split())  # U+2011: CJEU case numbers, "C\u2011260/18"
 
 
 class Store:

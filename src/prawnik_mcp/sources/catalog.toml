@@ -67,12 +67,12 @@ queries = [
 ]
 
 [sources.cellar]
-name = "Cellar — Publications Office of the EU (EUR-Lex)"
+name = "Cellar — Publications Office of the EU (EUR-Lex): acts and CJEU case law"
 publisher = "Publications Office of the European Union – Cellar"
 base_url = "https://publications.europa.eu/resource/celex"
 hosts = ["publications.europa.eu"]
 rate_per_s = 1.0
-kinds = ["eu_act"]
+kinds = ["eu_act", "eu_judgment"]
 id_prefix = "celex:"
 maturity = "beta"
 terms = "Reuse permitted with attribution per the EUR-Lex reuse notice (Commission Decision 2011/833/EU); not legally verified."
@@ -85,7 +85,11 @@ known_gaps = [
   "Recitals and annexes are not stored as provisions.",
   "The EUR-Lex website serves a bot challenge (202); it is not used or bypassed.",
   "Older acts (e.g. pre-2004 directives) may have no Polish XHTML manifestation in Cellar (404); PDF/Formex are not parsed yet.",
-  "Full-text search over Cellar (SPARQL) is too slow for interactive use; live lookup works by identifier (CELEX, 'dyrektywa 2011/83/UE', 'RODO').",
+  "Acts are looked up by identifier only (CELEX, 'dyrektywa 2011/83/UE', 'RODO'); there is no topic search over acts.",
+  "CJEU case law (Court of Justice, General Court; CELEX sector 6): judgments (CJ, TJ), orders (CO, TO) and Advocate General opinions (CC, flagged advocate_general_opinion_not_a_ruling) are stored as records celex:6YYYYTTNNNN with the Polish text (XHTML, else legacy HTML). Notices in the OJ (CN, CA), summaries, and the Civil Service Tribunal pre-2016 are only reachable by explicit CELEX/case number.",
+  "CJEU lookup works by case number (C-260/18, T-123/20, optional PPU/P suffix), CELEX (62018CJ0260) and ECLI. Other search is a title-word search (party names, subject, keywords, ANDed, word prefixes, newest first) that runs only when kinds include eu_judgment: Cellar has no full-text index of the rulings' reasoning, so topic recall is limited to what the titles and keywords say. A judgment in a joined-case group carries the CELEX of the first case only; other case numbers are found through the group's identifier.",
+  "When the Polish text is missing (some orders, General Court judgments), the English then French text is stored and flagged language_fallback:<lang>; if no variant exists the document is not stored. Legacy HTML is flagged legacy_html_format. Cellar texts are documentary; the authentic publication is the European Court Reports / curia.europa.eu.",
+  "Cited legislation and cases come from Cellar metadata (cdm:work_cites_work, cdm:case-law_interpretes_resource_legal) and may be incomplete; the citation graph does not use them yet. General Court rulings are flagged appeal_status_not_checked; later overruling or reinterpretation is not tracked.",
 ]
 
 [sources.cellar.defaults]
@@ -245,23 +249,25 @@ queries = [
 ]
 
 [sources.tk]
-name = "TK — Constitutional Tribunal (rulings, trybunal.gov.pl)"
+name = "TK — Constitutional Tribunal (rulings: trybunal.gov.pl, IPO)"
 publisher = "Trybunał Konstytucyjny; serwis internetowy trybunal.gov.pl (Kancelaria Trybunału Konstytucyjnego)"
 base_url = "https://trybunal.gov.pl"
-hosts = ["trybunal.gov.pl"]
+hosts = ["trybunal.gov.pl", "ipo.trybunal.gov.pl"]
 rate_per_s = 0.5
 kinds = ["judgment"]
 id_prefix = "tk:"
 maturity = "experimental"
-terms = "Reuse conditions of the Chancellery of the Tribunal (read 2026-09-28, /informacja-publiczna-media/ponowne-wykorzystywanie; basis: art. 14–16 of the Act of 11 August 2021 on open data and the reuse of public sector information): (1) state the source, the time the information was created and obtained, and the author if known; (2) state that the information was processed, if it was; (3) the Tribunal and its Chancellery are not liable for processed information. robots.txt allows everything except /typo3/ and /typo3conf/. Rulings are official documents (art. 4 pt 2 of the Copyright Act) — unverified legal reading; database rights unverified. Rulings name judges and the court clerk; parties who are natural persons appear by initials. The corpus is not redistributed."
+terms = "Reuse conditions of the Chancellery of the Tribunal (read 2026-09-28, /informacja-publiczna-media/ponowne-wykorzystywanie; basis: art. 14–16 of the Act of 11 August 2021 on open data and the reuse of public sector information): (1) state the source, the time the information was created and obtained, and the author if known; (2) state that the information was processed, if it was; (3) the Tribunal and its Chancellery are not liable for processed information. robots.txt allows everything except /typo3/ and /typo3conf/. IPO (ipo.trybunal.gov.pl, the Tribunal's portal of full texts; read 2026-09-28): robots.txt answers 404 (no restrictions), the portal shows no terms of its own (the user manual has none either), so the conditions above of the same publisher are applied; only the public server-rendered case pages are read, no search form, CAPTCHA or protection is involved. Rulings are official documents (art. 4 pt 2 of the Copyright Act) — unverified legal reading; database rights unverified. Rulings name judges and the court clerk; parties who are natural persons appear by initials. The corpus is not redistributed."
 terms_url = "https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie"
 terms_checked_at = "2026-09-28"
-attribution = "Źródło: Trybunał Konstytucyjny – trybunal.gov.pl (sentencje orzeczeń; informacja przetworzona: HTML → tekst)"
+attribution = "Źródło: Trybunał Konstytucyjny – trybunal.gov.pl (orzeczenia wraz z uzasadnieniami; informacja przetworzona: HTML → tekst, bez zdań odrębnych)"
 known_gaps = [
-  "Operative part only (sentencja, composition, voting): trybunal.gov.pl does not publish the reasoning. Full texts are on IPO (ipo.trybunal.gov.pl) and in OTK ZU (otkzu.trybunal.gov.pl), which did not respond during recon on 2026-09-28 and are not used.",
+  "Full text with reasoning comes from IPO (ipo.trybunal.gov.pl) when the ruling is found there (case page fetched by case number, tab matched by kind and date); otherwise, or when IPO fails, only the operative part from trybunal.gov.pl is stored and the record is flagged reasoning_not_included / ipo_full_text_unavailable. OTK ZU (otkzu.trybunal.gov.pl) is not used.",
+  "IPO answers HTTP/2 only (an HTTP/1.1 request is never answered), so the client needs the h2 package (httpx[http2]).",
+  "Dissenting opinions (zdania odrębne) are on IPO after the ruling text; they are kept in the IPO snapshot but not in the stored text. Only their authors' names (from the ruling article) are in metadata.",
   "Scraped TYPO3 site without an API or bulk export; layout changes raise errors instead of returning empty results.",
-  "Only a sample is stored; each ruling costs 1 request (plus 1 per listing page of 12, per search page of 10, or 1–2 per case-number lookup).",
-  "Phrase search is the site's Solr index of published articles (operative parts and titles), relevance-ordered; recall is low and hits usually carry no case number or date until fetched.",
+  "Only a sample is stored; each ruling costs 2 requests (article + IPO case page, up to 1 MB) (plus 1 per listing page of 12, per search page of 10, or 1–2 per case-number lookup).",
+  "Phrase search is the site's Solr index of published articles (operative parts and titles), relevance-ordered; recall is low and hits usually carry no case number or date until fetched; the reasoning is not searchable remotely.",
   "Preliminary-review rulings (Ts, Tw; OTK ZU series B) are not on the site; their case numbers answer 404.",
   "Older articles contain encoding damage made by the source (e.g. 'Sšdu' for 'Sądu', lost 'ś' and dashes); the text is stored as-is and flagged source_encoding_artifacts; names in metadata are repaired.",
   "No OTK ZU or Dziennik Ustaw publication reference on the site; `publication` is filled only if the page text quotes an OTK ZU reference.",

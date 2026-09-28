@@ -15,6 +15,14 @@ The Tribunal's TYPO3 site publishes every ruling as a news article. Four kinds o
    (`tx_ttnews[pointer]` + TYPO3 `cHash`, which cannot be computed, so the pager links are followed).
    Newest ruling first; each item reads "K 21/26, 22 IX 2026".
 
+5. IPO case page (Internetowy Portal Orzeczeń, ipo.trybunal.gov.pl) – `GET /ipo/Sprawa?pokaz=dokumenty&sygnatura=K%201/20`
+   (the deep link the ruling articles themselves carry): a server-rendered JSF page, readable without
+   JavaScript, cookies or ViewState. One tab per ruling of the case; each holds the **full text**
+   (`div#tekst_<dokument>`: komparycja, tenor, uzasadnienie, then the dissenting opinions after
+   `a[name=zdanieodrebne_<dokument>_n]`). The ruling text is stored without the dissenting opinions
+   (they are not the Tribunal's reasoning; they stay in the snapshot). Unknown case numbers redirect
+   (200) to `/ipo/exception/sprawaId.xhtml` ("Nie odnaleziono sprawy").
+
 Ruling text is data, never instructions: it is converted to plain text and stored as-is (older articles
 contain encoding damage made by the source, e.g. "Sšdu" for "Sądu"; it is flagged, never repaired).
 """
@@ -25,13 +33,13 @@ import html as htmllib
 import re
 from dataclasses import dataclass, field
 from datetime import date, datetime
-from urllib.parse import urlencode, urlsplit
+from urllib.parse import quote, urlencode, urlsplit
 
 from prawnik_mcp.contracts import Judgment, LegalDocument, SourceKind
 from prawnik_mcp.parsers.html_text import html_to_text
 from prawnik_mcp.parsers.kio import PL_MONTHS, fold  # shared helpers (see parsers/kio.py for provenance)
 
-PARSER_VERSION = "tk-html-0.1.0"
+PARSER_VERSION = "tk-html-0.2.0"
 BASE_URL = "https://trybunal.gov.pl"
 SEARCH_URL = f"{BASE_URL}/wyszukiwarka"
 IPO_BASE = "https://ipo.trybunal.gov.pl"
@@ -47,6 +55,7 @@ SECTION_CATEGORY = {"wyroki": "Wyrok", "postanowienia": "Postanowienie"}  # Solr
 CATEGORY_SECTION = {"wyrok": "wyroki", "postanowienie": "postanowienia"}
 DOC_TYPES_PL = {"SENTENCE": "Wyrok", "DECISION": "Postanowienie"}
 TEXT_SCOPE = "operative_part_only"
+TEXT_SCOPE_FULL = "full_text_with_reasoning"  # operative part + uzasadnienie from IPO (dissenting opinions excluded)
 
 ROMAN_MONTHS = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10,
                 "XI": 11, "XII": 12}
@@ -506,14 +515,34 @@ def parse_ruling_page(content: bytes | str) -> dict:
     }
 
 
+def _ipo_metadata(ipo: IpoDocument | None, info: dict) -> dict:
+    out: dict = {k: (v.isoformat() if isinstance(v, (date, datetime)) else v) for k, v in info.items()}
+    if ipo:
+        out.update({"dokument": ipo.dok_id, "label": ipo.label, "download_doc_url": ipo.download_url,
+                    "reasoning_chars": ipo.reasoning_chars, "has_reasoning": ipo.has_reasoning,
+                    "dissenting_opinions_in_snapshot": ipo.dissenting_opinions})
+    return out
+
+
 def parse_tk_ruling(content: bytes, section: str, slug: str, *, snapshot_id: str, sha256: str,
-                    fetched_at: datetime, listing: dict | None = None) -> tuple[Judgment, LegalDocument]:
+                    fetched_at: datetime, listing: dict | None = None, ipo: IpoDocument | None = None,
+                    ipo_info: dict | None = None) -> tuple[Judgment, LegalDocument]:
     """Build Judgment + LegalDocument from a ruling article. `listing` (from a listing, case page or
-    search hit) is used only to cross-check or, when the page has no date, as a flagged fallback."""
+    search hit) is used only to cross-check or, when the page has no date, as a flagged fallback.
+
+    `ipo` is the matching ruling tab of the IPO case page and `ipo_info` its provenance (`url`, `snapshot_id`,
+    `sha256`, `fetched_at`, `case_number`) or, when IPO could not be used, `{"error": reason}`. With a
+    reasoning in `ipo` the stored text is the IPO text (komparycja, tenor, uzasadnienie) and text_scope
+    becomes `full_text_with_reasoning`; otherwise the operative part of the article is kept and flagged
+    `reasoning_not_included` (plus `ipo_full_text_unavailable` when IPO failed)."""
     d = parse_ruling_page(content)
     listing = listing or {}
-    text = d["text"]
-    flags: list[str] = ["reasoning_not_included"]  # trybunal.gov.pl publishes the operative part only
+    ipo_info = ipo_info or {}
+    with_reasoning = bool(ipo and ipo.has_reasoning and ipo.text)
+    text = ipo.text if with_reasoning else d["text"]  # type: ignore[union-attr]
+    flags: list[str] = [] if with_reasoning else ["reasoning_not_included"]
+    if ipo_info.get("error"):
+        flags.append("ipo_full_text_unavailable")
     if not text:
         flags.append("text_empty")
     if _MOJIBAKE_RE.search(text):
@@ -573,7 +602,7 @@ def parse_tk_ruling(content: bytes, section: str, slug: str, *, snapshot_id: str
     doc = LegalDocument(
         document_id=did, kind=SourceKind.judgment, title=title, original_url=url,
         snapshot_id=snapshot_id, sha256=sha256,
-        publication=d["otk_reference"],
+        publication=d["otk_reference"] or (ipo.publication if ipo else None),
         metadata={
             "tk_section": section,
             "tt_news_uid": uid,
@@ -590,9 +619,11 @@ def parse_tk_ruling(content: bytes, section: str, slug: str, *, snapshot_id: str
             "operative_part": d["operative_part"],
             "otk_reference": d["otk_reference"],
             "case_url": d["case_url"],
-            "ipo_case_url": d["ipo_case_url"],
+            "ipo_case_url": d["ipo_case_url"] or ipo_info.get("url"),
             "press_release_url": d["press_release_url"],
-            "text_scope": TEXT_SCOPE,
+            "text_scope": TEXT_SCOPE_FULL if with_reasoning else TEXT_SCOPE,
+            "reasoning_included": with_reasoning,
+            "ipo": _ipo_metadata(ipo, ipo_info) if (ipo or ipo_info) else None,
             "finality_basis": FINALITY_BASIS,
             "listing": listing or None,
             "data_quality_flags": flags,
@@ -600,3 +631,105 @@ def parse_tk_ruling(content: bytes, section: str, slug: str, *, snapshot_id: str
         },
     )
     return judgment, doc
+
+
+# --------------------------------------------------------------------------- IPO case page
+
+
+def ipo_case_url(signature: str) -> str:
+    """Deep link to a case on IPO; the ruling articles link to the same page (`?&pokaz=dokumenty&sygnatura=`)."""
+    return f"{IPO_BASE}/ipo/Sprawa?pokaz=dokumenty&sygnatura={quote(signature, safe='/')}"
+
+
+@dataclass
+class IpoDocument:
+    """One ruling tab of an IPO case page."""
+
+    dok_id: str
+    label: str  # tab title, e.g. "Wyrok z dnia 22 października 2020"
+    judgment_type: str | None  # SENTENCE | DECISION (from the label)
+    date: date | None
+    subject: str | None  # "Dotyczy"
+    publication: str | None  # e.g. "OTK ZU A/2026, poz. 64"
+    download_url: str | None  # the .doc download (absolute)
+    text: str | None  # komparycja + tenor + uzasadnienie, dissenting opinions excluded
+    has_reasoning: bool
+    reasoning_chars: int
+    dissenting_opinions: int  # number of separate opinions found after the text (kept in the snapshot only)
+
+
+@dataclass
+class IpoCase:
+    signature: str
+    documents: list[IpoDocument] = field(default_factory=list)
+
+
+_IPO_TITLE_RE = re.compile(r"<title>\s*Sprawa\s+([^<]+?)\s*</title>")
+_IPO_TAB_RE = re.compile(r'data-index="\d+"><a href="#sprawaForm:tabView:dok_(\d+)"[^>]*>([^<]*)</a>')
+_DIV_TOKEN_RE = re.compile(r"<div\b[^>]*?(/?)>|</div\s*>")
+MIN_REASONING_CHARS = 200
+
+
+def _div_end(page: str, start: int) -> int:
+    """Index just after the `</div>` closing the `<div ...>` that begins at `start` (len(page) if unbalanced)."""
+    depth = 0
+    for m in _DIV_TOKEN_RE.finditer(page, start):
+        if m.group(0).startswith("</"):
+            depth -= 1
+            if depth == 0:
+                return m.end()
+        elif not m.group(1):
+            depth += 1
+    return len(page)
+
+
+def _label_type(label: str) -> str | None:
+    f = fold(label).lower()
+    return "SENTENCE" if f.startswith("wyrok") else "DECISION" if f.startswith(("postanowienie", "zarzadzenie")) else None
+
+
+def parse_ipo_case(content: bytes | str) -> IpoCase:
+    """Parse an IPO case page. Raises ValueError when it is not a case page (unknown case, layout change)."""
+    page = content.decode("utf-8", errors="replace") if isinstance(content, bytes) else content
+    t = _IPO_TITLE_RE.search(page)
+    if not t:
+        raise ValueError("not an IPO case page (case unknown or layout changed)")
+    case = IpoCase(signature=_plain(t.group(1)))
+    for m in _IPO_TAB_RE.finditer(page):
+        dok, label = m.group(1), _plain(m.group(2))
+        panel = page.find(f'id="sprawaForm:tabView:dok_{dok}"')
+        tekst = page.find(f'<div id="tekst_{dok}">', max(panel, 0))
+        head = page[max(panel, 0): tekst if tekst > 0 else (panel + 30000 if panel >= 0 else 0)]
+        subj = re.search(r'<span class="name">\s*Dotyczy\s*</span>\s*<span class="value">(.*?)</span>', head, re.S)
+        pub = _OTK_RE.search(_plain(head))  # the "Miejsce publikacji" links also include ISAP etc.
+        dl = re.search(r'href="(/ipo/downloadOrzeczenieDoc\?dok=\d+)"', head)
+        text = None
+        has_reasoning, reasoning_chars, dissents = False, 0, 0
+        if tekst > 0:
+            body = page[tekst: _div_end(page, tekst)]
+            dissents = len(re.findall(rf'<a name="zdanieodrebne_{dok}_\d+"', body))
+            cut = re.search(rf'<a name="zdanieodrebne_{dok}_\d+"', body)
+            main = body[: cut.start()] if cut else body
+            text = "\n".join(_lines(html_to_text(main))) or None
+            uz = re.search(rf'<a name="uzasadnienie_{dok}"', main)
+            if uz:
+                reasoning_chars = len("\n".join(_lines(html_to_text(main[uz.start():]))))
+                has_reasoning = reasoning_chars >= MIN_REASONING_CHARS
+        case.documents.append(IpoDocument(
+            dok_id=dok, label=label, judgment_type=_label_type(label), date=parse_pl_date(label),
+            subject=_plain(subj.group(1)) or None if subj else None,
+            publication=re.sub(r"\s+", " ", pub.group(0)) if pub else None,
+            download_url=f"{IPO_BASE}{dl.group(1)}" if dl else None,
+            text=text, has_reasoning=has_reasoning, reasoning_chars=reasoning_chars, dissenting_opinions=dissents))
+    if not case.documents:
+        raise ValueError("IPO case page without ruling tabs (layout changed?)")
+    return case
+
+
+def select_ipo_document(case: IpoCase, section: str, jdate: date | None) -> IpoDocument | None:
+    """The tab that is the same ruling as the trybunal.gov.pl article: same kind (wyrok/postanowienie) and,
+    when the article's date is known, the same date. None when nothing or more than one tab fits."""
+    cands = [d for d in case.documents if d.judgment_type == SECTIONS[section] and d.text]
+    if jdate:
+        cands = [d for d in cands if d.date == jdate]
+    return cands[0] if len(cands) == 1 else None
