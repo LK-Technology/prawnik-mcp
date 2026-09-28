@@ -394,6 +394,24 @@ def _extract_unit(article_text: str, loc: str) -> str | None:
     return unit.strip()
 
 
+_URL_IDS = (
+    (re.compile(r"^https?://orzeczenia\.nsa\.gov\.pl/doc/([0-9A-Fa-f]{10})/?(?:[?#].*)?$"), "cbosa:{}"),
+    (re.compile(r"^https?://www\.saos\.org\.pl/judgments/(\d+)/?(?:[?#].*)?$"), "saos:{}"),
+    (re.compile(r"^https?://eureka\.mf\.gov\.pl/informacje/podglad/(\d+)/?(?:[?#].*)?$"), "eureka:{}"),
+)
+
+
+def document_id_from_url(value: str) -> str:
+    """A pasted link to a supported portal (e.g. a CBOSA page found through a web search) becomes a document id.
+    Anything else is returned unchanged."""
+    v = value.strip()
+    for rx, tpl in _URL_IDS:
+        m = rx.match(v)
+        if m:
+            return tpl.format(m.group(1).upper() if tpl.startswith("cbosa") else m.group(1))
+    return v
+
+
 def get_legal_document(
     store: Store, document_id: str, locator: str | None = None, as_of: str | None = None,
     snapshot_id: str | None = None, cursor: str | None = None, live: bool | None = None,
@@ -402,6 +420,7 @@ def get_legal_document(
     (unless `live=False` or PRAWNIK_MCP_OFFLINE=1)."""
     from prawnik_mcp import live as live_mod
 
+    document_id = document_id_from_url(document_id)
     notes: list[str] = []
     if live is not False and live_mod.live_enabled() and store.get_document(document_id) is None:
         stored, note = live_mod.lazy_fetch(store, document_id)

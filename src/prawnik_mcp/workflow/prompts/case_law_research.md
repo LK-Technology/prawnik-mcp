@@ -16,7 +16,12 @@ Cel: ustalić, jak sądy i organy rozstrzygają wskazane zagadnienie, z orzeczen
 5. Dla każdego orzeczenia ustal: sąd, datę, sygnaturę, rozstrzygnięcie, pogląd sądu (nie strony)
    i czy jest prawomocne (zwykle nieznane — napisz to).
 6. Szukaj aktywnie stanowisk przeciwnych. Jeśli ich nie znalazłeś, napisz, gdzie szukałeś.
-7. `get_citations` pokaże, jakie przepisy i orzeczenia cytuje dane orzeczenie; użyj tego, żeby znaleźć
+7. Sądów administracyjnych (NSA, WSA) serwer nie przeszukuje, bo robots.txt CBOSA zabrania dostępu do
+   wyszukiwarki. Jeśli masz własne wyszukiwanie w sieci, znajdź orzeczenie zapytaniem z
+   `site:orzeczenia.nsa.gov.pl` i podaj adres strony orzeczenia (`https://orzeczenia.nsa.gov.pl/doc/…`)
+   w `get_legal_document`: pobranie pojedynczego dokumentu robots.txt dopuszcza. Nie zgaduj treści
+   orzeczenia z wyniku wyszukiwania.
+8. `get_citations` pokaże, jakie przepisy i orzeczenia cytuje dane orzeczenie; użyj tego, żeby znaleźć
    orzeczenia wiodące.
 
 Wynik: tabela (sąd, data, sygnatura, teza własnymi słowami, cytat z uzasadnienia, za/przeciw),

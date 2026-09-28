@@ -163,7 +163,8 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
   documentation only.
 - Search is lexical (SQLite FTS5 with simple Polish stemming). There is no semantic search.
 - CBOSA (administrative courts) cannot be searched: its robots.txt disallows the search endpoints, so only
-  documents with a known id are fetched.
+  documents with a known id are fetched. Paste the link of a ruling page (found with a web search such as
+  `site:orzeczenia.nsa.gov.pl …`) into `get_legal_document` to fetch it.
 - Case law has gaps. Constitutional Tribunal rulings after 2015 come without reasoning (trybunal.gov.pl publishes
   only the operative part), Supreme Court search by phrase returns unranked metadata, administrative courts can
   only be fetched by id, and there is no CJEU case law yet.

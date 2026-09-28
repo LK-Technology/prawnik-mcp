@@ -59,7 +59,7 @@ def build_server(store: Store | None = None) -> MCPServer:
                                     live).model_dump(mode="json")
 
     @mcp.tool(description="Return the exact text of a provision or a judgment with its version and provenance. "
-              "Provision: document_id + locator, such as 'eli:DU/2014/827' + 'art. 27 ust. 1'; judgment: 'saos:<id>' (paged with cursor). as_of = event date (YYYY-MM-DD) for the version check. "
+              "Provision: document_id + locator, such as 'eli:DU/2014/827' + 'art. 27 ust. 1'; judgment: 'saos:<id>' (paged with cursor); a pasted link to a CBOSA (NSA/WSA), SAOS or EUREKA page also works. as_of = event date (YYYY-MM-DD) for the version check. "
               "Documents missing locally are fetched from the source first (live=false to disable). "
               "Returns the text version, snapshot_id and source URL, or an explicit 'not found'.")
     def get_legal_document(document_id: str, locator: str | None = None, as_of: str | None = None,

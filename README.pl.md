@@ -127,6 +127,8 @@ ustawy na dawną datę (jeszcze nieodtwarzane) ani spraw spoza prawa polskiego i
   dokumentacyjny.
 - Wyszukiwanie leksykalne (SQLite FTS5 z prostą obsługą odmiany), bez wyszukiwania semantycznego.
 - CBOSA nie jest przeszukiwana (robots.txt zabrania dostępu do wyszukiwarki); pobierane są tylko dokumenty o znanym id.
+  Link do strony orzeczenia (znaleziony wyszukiwarką internetową, np. `site:orzeczenia.nsa.gov.pl …`) można wkleić
+  do `get_legal_document`.
 - Orzecznictwo ma luki. Orzeczenia TK po 2015 r. są bez uzasadnień (trybunal.gov.pl publikuje tylko sentencję),
   wyszukiwanie SN po frazie zwraca nieuszeregowane metadane, wyroki sądów administracyjnych można pobrać tylko
   po id, a orzecznictwa TSUE jeszcze nie ma.
