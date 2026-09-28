@@ -1,0 +1,39 @@
+{
+  "case_id": "dev-005",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Kupiłem w sklepie internetowym czajnik 10.08.2026, dostarczony 12.08.2026, 18.09.2026 przestał grzać. Chcę wymiany. Napisz reklamację.",
+  "facts": {
+    "kupujacy": "konsument",
+    "sprzedawca": "sklep (przedsiębiorca)",
+    "data_zakupu": "2026-08-10",
+    "data_dostarczenia": "2026-08-12",
+    "wada": "nie grzeje",
+    "zadanie": "wymiana"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43b"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43c"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43d"
+      }
+    ],
+    "must_ask": [
+      "dane sprzedawcy",
+      "adres kupującego"
+    ],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

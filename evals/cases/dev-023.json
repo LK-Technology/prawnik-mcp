@@ -1,0 +1,31 @@
+{
+  "case_id": "dev-023",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Kupiłem buty w niemieckim sklepie internetowym jako konsument z Polski. Ile mam dni na odstąpienie według dyrektywy?",
+  "facts": {
+    "sprzedawca": "sklep w Niemczech",
+    "kupujacy": "konsument w Polsce"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "celex:32011L0083",
+        "locator": "art. 9"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [
+      "prawo właściwe dla umowy",
+      "czy sklep kierował ofertę do Polski"
+    ],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

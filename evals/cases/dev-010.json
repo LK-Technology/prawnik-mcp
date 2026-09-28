@@ -1,0 +1,41 @@
+{
+  "case_id": "dev-010",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Zamówiłem kurtkę przez internet 14.09.2026, odebrałem 17.09.2026, chcę ją oddać bez podania przyczyny. Napisz oświadczenie o odstąpieniu.",
+  "facts": {
+    "sposob_zawarcia": "na odległość",
+    "data_zawarcia": "2026-09-14",
+    "data_odebrania": "2026-09-17",
+    "konsument": "tak"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 28"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 30"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 38"
+      }
+    ],
+    "must_ask": [
+      "czy towar nie podlega wyłączeniom (np. wykonany na zamówienie)",
+      "dane przedsiębiorcy"
+    ],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

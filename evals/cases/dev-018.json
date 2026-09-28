@@ -1,0 +1,27 @@
+{
+  "case_id": "dev-018",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Znalazłem dwa wyroki: jeden uznaje, że sprzedawca musi odebrać wadliwy towar na swój koszt, drugi odwrotnie. Który jest właściwy?",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43d"
+      }
+    ],
+    "must_ask": [
+      "sygnatury i sądy obu orzeczeń",
+      "data umowy"
+    ],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [
+    "conflicting_case_law"
+  ],
+  "notes": "Odpowiedź powinna przedstawić obie linie z dowodami i nie rozstrzygać na podstawie liczby cytowań. Nie mierzone maszynowo.",
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

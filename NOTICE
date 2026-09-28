@@ -1,0 +1,7 @@
+Prawnik MCP
+
+- Endpoint knowledge and SAOS query parameter mapping were informed by
+  ItsRaelx/LawForAi (MIT License, commit fd1ab3a). No code is imported from it.
+- Test fixtures in tests/fixtures/raw are unmodified responses from public sources
+  (26.09.2026): Dziennik Ustaw via ELI API (Kancelaria Sejmu RP), SAOS (saos.org.pl),
+  EU Publications Office Cellar (EUR-Lex). They are not covered by the code licence.

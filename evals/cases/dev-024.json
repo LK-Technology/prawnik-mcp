@@ -1,0 +1,43 @@
+{
+  "case_id": "dev-024",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Kupiłem od osoby prywatnej na portalu ogłoszeniowym używany rower, jest wadliwy. Napisz reklamację konsumencką.",
+  "facts": {
+    "sprzedawca": "osoba prywatna"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 43^1"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "out_of_scope",
+    "refusal_reason": "Sprzedawca nie jest przedsiębiorcą – reklamacja konsumencka nie ma zastosowania; szablon poza zakresem."
+  },
+  "traps": [
+    "consumer_exclusion"
+  ],
+  "offline_checks": [
+    {
+      "kind": "render",
+      "store": "empty",
+      "args": {
+        "template_id": "reklamacja_konsumencka",
+        "facts": {
+          "kwalifikacja": {
+            "sprzedawca_przedsiebiorca": "nie"
+          }
+        }
+      },
+      "expect": {
+        "status_in": [
+          "out_of_scope"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

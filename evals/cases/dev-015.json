@@ -1,0 +1,56 @@
+{
+  "case_id": "dev-015",
+  "split": "dev",
+  "area": "payments",
+  "question": "Do uzasadnienia wezwania za niezapłaconą fakturę dodaj cytat z wyroku I ACa 772/13: „wraz z ustawowymi odsetkami od dnia 23 maja 2012 roku do dnia zapłaty”.",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 481"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "Cytat jest prawdziwy, ale pochodzi ze sprawy o zadośćuczynienie (dobra osobiste) – nie wspiera twierdzenia w sprawie o zapłatę faktury; wymaga oceny semantycznej."
+  },
+  "traps": [
+    "irrelevant_real_quote"
+  ],
+  "offline_checks": [
+    {
+      "kind": "check_citations",
+      "store": "corpus",
+      "args": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "Dłużnikowi należą się odsetki ustawowe od niezapłaconej faktury.",
+            "type": "law",
+            "evidence_ids": [
+              "e1"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "e1",
+            "document_id": "saos:31345",
+            "quote": "wraz z ustawowymi odsetkami od dnia 23 maja 2012 roku do dnia zapłaty"
+          }
+        ]
+      },
+      "expect": {
+        "claim_status_in": {
+          "c1": [
+            "verified_exact",
+            "verified_normalized"
+          ]
+        }
+      },
+      "note": "Maszynowo sprawdzamy tylko wierność cytatu; nieadekwatność sprawy wymaga recenzji semantycznej (not measured)."
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

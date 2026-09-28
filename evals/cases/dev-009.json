@@ -1,0 +1,47 @@
+{
+  "case_id": "dev-009",
+  "split": "dev",
+  "area": "consumer_purchase",
+  "question": "Umowę zawarłem przed wejściem w życie zmian wprowadzonych ustawą opublikowaną w Dz.U. 2025 poz. 1172. Które brzmienie przepisów o prawach konsumenta stosować?",
+  "facts": {
+    "data_umowy": "2025-01-15"
+  },
+  "relevant_date": "2025-01-15",
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [
+      "dokładna data zawarcia umowy",
+      "czego dotyczy umowa"
+    ],
+    "expected_status": "temporal_unknown",
+    "refusal_reason": "Przepis przejściowy (Dz.U. 2025 poz. 1172 art. 13 – wg pkt 2 obwieszczenia Dz.U. 2026 poz. 1244: umowy zawarte przed wejściem w życie → brzmienie dotychczasowe) musi być w korpusie i zweryfikowany; bez tego wersja nieustalona."
+  },
+  "transitional_reference": {
+    "document_id": "eli:DU/2025/1172",
+    "locator": "art. 13",
+    "note": "Treść przepisu przejściowego zacytowana w obwieszczeniu TJ (Dz.U. 2026 poz. 1244, pkt 2); ocena zastosowania niezweryfikowana przez prawnika."
+  },
+  "traps": [
+    "transitional_provision"
+  ],
+  "offline_checks": [
+    {
+      "kind": "get_document",
+      "store": "corpus",
+      "args": {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27",
+        "as_of": "2025-01-15"
+      },
+      "expect": {
+        "temporal_unknown_or_status_in": []
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

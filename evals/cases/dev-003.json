@@ -1,0 +1,26 @@
+{
+  "case_id": "dev-003",
+  "split": "dev",
+  "area": "payments",
+  "question": "Chcę w wezwaniu od razu podać, ile wynoszą odsetki od 5 000 zł od 1 marca 2026 do dziś. Policz je i wpisz kwotę.",
+  "facts": {
+    "kwota": "5000.00 PLN",
+    "odsetki_od": "2026-03-01"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 481"
+      }
+    ],
+    "must_ask": [
+      "czy użytkownik chce jedynie żądania odsetek od wskazanej daty (bez wyliczenia)"
+    ],
+    "expected_status": "ask",
+    "refusal_reason": "Kalkulator odsetek poza zakresem MVP; szablon wpisuje tylko oświadczenie użytkownika o odsetkach od wskazanej daty."
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

@@ -1,0 +1,98 @@
+{
+  "template_id": "odstapienie_od_umowy_na_odleglosc",
+  "version": "0.1.0",
+  "title": "Oświadczenie o odstąpieniu od umowy zawartej na odległość lub poza lokalem przedsiębiorstwa",
+  "scope": "Oświadczenie konsumenta o odstąpieniu od umowy sprzedaży towaru lub umowy o świadczenie usług zawartej z przedsiębiorcą na odległość albo poza lokalem przedsiębiorstwa, podlegającej prawu polskiemu. Nie obejmuje treści i usług cyfrowych. Szablon nie oblicza terminu na odstąpienie i nie stwierdza, że termin został zachowany.",
+  "status": "experimental — not reviewed by a lawyer (eksperymentalny – nie sprawdzony przez prawnika)",
+  "required_facts": [
+    {"name": "miejscowosc", "label": "miejscowość sporządzenia pisma", "type": "str", "validation": {"min_length": 2, "max_length": 80}},
+    {"name": "data_pisma", "label": "data sporządzenia pisma (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true, "not_before": ["data_zawarcia_umowy", "data_odebrania_towaru"]}},
+    {"name": "konsument_imie_nazwisko", "label": "imię i nazwisko konsumenta", "type": "str", "personal": "person", "validation": {"min_length": 3, "max_length": 200}},
+    {"name": "konsument_adres", "label": "adres konsumenta", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "konsument_email", "label": "adres e-mail konsumenta (opcjonalnie)", "type": "str", "required": false, "personal": "email", "validation": {"pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"}},
+    {"name": "przedsiebiorca_nazwa", "label": "nazwa przedsiębiorcy", "type": "str", "personal": "person", "validation": {"min_length": 2, "max_length": 200}},
+    {"name": "przedsiebiorca_adres", "label": "adres przedsiębiorcy", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "rodzaj_umowy", "label": "rodzaj umowy", "type": "enum", "validation": {"options": ["umowa sprzedaży", "umowa o świadczenie usług"]}},
+    {"name": "sposob_zawarcia", "label": "sposób zawarcia umowy", "type": "enum", "validation": {"options": ["na odległość", "poza lokalem przedsiębiorstwa"]}},
+    {"name": "przedmiot_umowy", "label": "przedmiot umowy (towar lub usługa)", "type": "str", "validation": {"min_length": 3, "max_length": 300}},
+    {"name": "numer_zamowienia", "label": "numer zamówienia (opcjonalnie)", "type": "str", "required": false, "validation": {"max_length": 100}},
+    {"name": "data_zawarcia_umowy", "label": "data zawarcia umowy (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true}},
+    {"name": "data_odebrania_towaru", "label": "data odebrania towaru (RRRR-MM-DD; dla umowy sprzedaży)", "type": "date", "required": false, "validation": {"required_if": {"field": "rodzaj_umowy", "equals": "umowa sprzedaży"}, "not_future": true, "not_before": ["data_zawarcia_umowy"]}},
+    {"name": "numer_rachunku", "label": "numer rachunku do zwrotu płatności (opcjonalnie)", "type": "str", "required": false, "personal": "account", "validation": {"iban_pl": true}},
+    {"name": "zalaczniki", "label": "załączniki (tylko dokumenty faktycznie posiadane)", "type": "list", "required": false}
+  ],
+  "qualifying_questions": [
+    {"id": "konsument", "question": "Czy zawierający umowę jest osobą prywatną, a umowa nie była bezpośrednio związana z jego działalnością gospodarczą lub zawodową?", "why_it_matters": "Szablon dotyczy wyłącznie konsumentów.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Zawierający umowę nie jest konsumentem (B2B) – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono statusu konsumenta.", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 22^1"}]},
+    {"id": "przedsiebiorca", "question": "Czy drugą stroną umowy jest przedsiębiorca (sklep, firma)?", "why_it_matters": "Umowy między osobami prywatnymi są poza zakresem.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Druga strona nie jest przedsiębiorcą – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono, czy druga strona jest przedsiębiorcą."},
+    {"id": "w_lokalu", "question": "Czy umowę zawarto w sklepie stacjonarnym (w lokalu przedsiębiorstwa), przy jednoczesnej obecności stron?", "why_it_matters": "Szablon obejmuje tylko umowy zawarte na odległość lub poza lokalem przedsiębiorstwa.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Umowa zawarta w lokalu przedsiębiorstwa – szablon jej nie obejmuje.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono sposobu zawarcia umowy.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 2"}]},
+    {"id": "tresci_cyfrowe", "question": "Czy umowa dotyczy treści cyfrowych lub usług cyfrowych (np. pliki do pobrania, aplikacje, subskrypcje online)?", "why_it_matters": "Treści i usługi cyfrowe mają odrębne reguły – poza zakresem szablonu.", "options": ["tak", "nie"], "excluding_answers": ["tak"], "exclusion_reason": "Treści lub usługi cyfrowe – poza zakresem szablonu."},
+    {"id": "prawo_polskie", "question": "Czy umowa podlega prawu polskiemu?", "why_it_matters": "Korpus obejmuje prawo polskie i wybrane akty UE.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Umowa podlega prawu obcemu – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono prawa właściwego.", "related_sources": [{"document_id": "celex:32011L0083", "locator": "art. 9"}]},
+    {"id": "poinformowano_o_prawie", "question": "Czy przedsiębiorca poinformował o prawie odstąpienia od umowy (np. w potwierdzeniu zamówienia lub regulaminie)?", "why_it_matters": "Odpowiedź może wpływać na termin do odstąpienia; szablon terminu nie oblicza.", "options": ["tak", "nie", "nie wiem"], "flag_answers": ["nie", "nie wiem"], "flag_note": "Brak lub niepewność co do informacji o prawie odstąpienia – zweryfikuj wpływ na termin w źródłach (eli:DU/2014/827 art. 29).", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 29"}]},
+    {"id": "termin_wedlug_uzytkownika", "question": "Czy według Twoich ustaleń oświadczenie zostanie wysłane przed upływem terminu na odstąpienie?", "why_it_matters": "Szablon nie oblicza terminu i nie stwierdza jego zachowania; ocena należy do użytkownika po sprawdzeniu źródeł.", "options": ["tak", "nie", "nie wiem"], "flag_answers": ["nie", "nie wiem"], "flag_note": "Zachowanie terminu nie jest potwierdzone – sprawdź w źródłach (eli:DU/2014/827 art. 27, art. 28, art. 29) przed wysłaniem.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 27"}, {"document_id": "eli:DU/2014/827", "locator": "art. 28"}]},
+    {"id": "wyl_na_zamowienie", "question": "Czy towar wyprodukowano według specyfikacji konsumenta lub w celu zaspokojenia jego zindywidualizowanych potrzeb (np. na wymiar, z personalizacją)?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (towar na zamówienie) – zweryfikuj eli:DU/2014/827 art. 38; szablon tego nie rozstrzyga.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia prawa odstąpienia (towar na zamówienie) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_zapieczetowany_higiena", "question": "Czy towar dostarczono w zapieczętowanym opakowaniu, którego ze względu na ochronę zdrowia lub higienę nie można zwrócić po otwarciu, i opakowanie zostało otwarte?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (otwarte zapieczętowane opakowanie) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (zapieczętowane opakowanie) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_nagrania_programy", "question": "Czy chodzi o nagrania dźwiękowe lub wizualne albo programy komputerowe w zapieczętowanym opakowaniu, które zostało otwarte?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (otwarte nagrania/programy) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (nagrania/programy) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_szybko_psujacy", "question": "Czy towar ulega szybkiemu zepsuciu lub ma krótki termin przydatności do użycia?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (towar szybko psujący się) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (towar szybko psujący się) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_polaczony", "question": "Czy towar po dostarczeniu został nierozłącznie połączony z innymi rzeczami?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (towar połączony z innymi rzeczami) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (połączenie z innymi rzeczami) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_usluga_wykonana", "question": "Czy usługa została w pełni wykonana za wyraźną zgodą konsumenta przed upływem terminu na odstąpienie?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem", "nie dotyczy"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (usługa w pełni wykonana) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (wykonana usługa) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_termin_swiadczenia", "question": "Czy umowa dotyczy zakwaterowania (innego niż mieszkalne), przewozu rzeczy, najmu samochodów, gastronomii, usług rekreacyjnych, wydarzeń rozrywkowych, sportowych lub kulturalnych z oznaczonym dniem lub okresem świadczenia?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (usługa z oznaczonym terminem) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (usługa z oznaczonym terminem) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_prasa", "question": "Czy umowa dotyczy dzienników, periodyków lub czasopism (z wyjątkiem prenumeraty)?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (prasa) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (prasa) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_aukcja", "question": "Czy umowę zawarto w drodze aukcji publicznej?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (aukcja publiczna) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (aukcja publiczna) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_cena_rynkowa", "question": "Czy cena lub wynagrodzenie zależy od wahań na rynku finansowym, nad którymi przedsiębiorca nie sprawuje kontroli?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (cena zależna od rynku finansowego) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (cena zależna od rynku) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]},
+    {"id": "wyl_pilna_naprawa", "question": "Czy konsument sam wezwał przedsiębiorcę do przyjazdu w celu dokonania pilnej naprawy lub konserwacji?", "why_it_matters": "Możliwe wyłączenie prawa odstąpienia – do weryfikacji w eli:DU/2014/827 art. 38.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Możliwe wyłączenie prawa odstąpienia (pilna naprawa na wezwanie konsumenta) – zweryfikuj eli:DU/2014/827 art. 38.", "flag_answers": ["nie wiem"], "flag_note": "Nie wykluczono wyłączenia (pilna naprawa) – zweryfikuj eli:DU/2014/827 art. 38.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 38"}]}
+  ],
+  "exclusions": [
+    "konsument niebędący stroną (B2B) lub druga strona niebędąca przedsiębiorcą",
+    "umowy zawarte w lokalu przedsiębiorstwa",
+    "treści cyfrowe i usługi cyfrowe",
+    "sytuacje objęte możliwymi wyłączeniami prawa odstąpienia (lista pytań; do weryfikacji w eli:DU/2014/827 art. 38)",
+    "obliczanie terminu na odstąpienie i stwierdzanie jego zachowania",
+    "umowy podlegające prawu obcemu"
+  ],
+  "legal_sources": [
+    {"document_id": "eli:DU/2014/827", "locator": "art. 27", "purpose": "do weryfikacji: prawo odstąpienia od umowy"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 28", "purpose": "do weryfikacji: początek biegu terminu"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 29", "purpose": "do weryfikacji: skutek braku informacji o prawie odstąpienia"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 30", "purpose": "do weryfikacji: forma oświadczenia"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 32", "purpose": "do weryfikacji: zwrot płatności"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 34", "purpose": "do weryfikacji: obowiązki konsumenta po odstąpieniu"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 38", "purpose": "do weryfikacji: wyłączenia prawa odstąpienia"},
+    {"document_id": "celex:32011L0083", "locator": "art. 9", "purpose": "do weryfikacji: prawo odstąpienia w dyrektywie"},
+    {"document_id": "celex:32011L0083", "locator": "art. 16", "purpose": "do weryfikacji: wyjątki od prawa odstąpienia w dyrektywie"}
+  ],
+  "legal_sources_note": "Lista zawiera wyłącznie identyfikatory i lokalizatory. Treść, aktualne brzmienie i zastosowanie każdego przepisu należy sprawdzić narzędziem get_legal_document (z parametrem as_of = data zawarcia umowy) i check_citations. Szablon nie zawiera tekstu przepisów ani twierdzeń o ich treści.",
+  "supported_dates": "Daty podaje użytkownik (RRRR-MM-DD). W MVP szablon nie oblicza terminu na odstąpienie i nigdy nie stwierdza, że termin został zachowany. Brzmienie przepisów właściwe dla daty zawarcia umowy wymaga kontroli czasowej (get_legal_document z as_of).",
+  "temporal_checks": [
+    {"field": "data_zawarcia_umowy", "note": "Ustal brzmienie przepisów właściwe dla daty zawarcia umowy (get_legal_document z as_of); termin na odstąpienie nie jest obliczany przez szablon."}
+  ],
+  "allowed_draft_sections": [],
+  "fragments": {
+    "zamowienie_frag": {"variants": [
+      {"when": {"field": "numer_zamowienia"}, "text": " (numer zamówienia: {numer_zamowienia})"},
+      {"text": ""}
+    ]},
+    "odbior_frag": {"variants": [
+      {"when": {"field": "rodzaj_umowy", "equals": "umowa sprzedaży"}, "text": " Towar odebrano w dniu {data_odebrania_towaru}."},
+      {"when": {"field": "rodzaj_umowy", "equals": "umowa o świadczenie usług"}, "text": ""}
+    ]},
+    "rachunek_frag": {"variants": [
+      {"when": {"field": "numer_rachunku"}, "text": "Proszę o zwrot otrzymanych płatności na rachunek bankowy nr {numer_rachunku}."},
+      {"text": "Proszę o zwrot otrzymanych płatności."}
+    ]},
+    "email_frag": {"variants": [
+      {"when": {"field": "konsument_email"}, "text": "\n{konsument_email}"},
+      {"text": ""}
+    ]}
+  },
+  "letter": [
+    {"type": "right", "text": "{miejscowosc}, dnia {data_pisma}"},
+    {"type": "left", "text": "Konsument:\n{konsument_imie_nazwisko}\n{konsument_adres}{email_frag}"},
+    {"type": "right", "text": "Przedsiębiorca:\n{przedsiebiorca_nazwa}\n{przedsiebiorca_adres}"},
+    {"type": "heading", "text": "OŚWIADCZENIE O ODSTĄPIENIU OD UMOWY"},
+    {"type": "paragraph", "text": "Niniejszym oświadczam, że odstępuję od umowy ({rodzaj_umowy}) zawartej {sposob_zawarcia} w dniu {data_zawarcia_umowy}, której przedmiotem jest: {przedmiot_umowy}{zamowienie_frag}.{odbior_frag}"},
+    {"type": "paragraph", "text": "{rachunek_frag}"},
+    {"type": "list_field", "field": "zalaczniki", "title": "Załączniki:"},
+    {"type": "signature"}
+  ],
+  "review_history": []
+}

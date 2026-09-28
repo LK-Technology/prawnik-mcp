@@ -1,0 +1,56 @@
+{
+  "case_id": "dev-017",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Jak będzie brzmiał art. 27 ustawy o prawach konsumenta 1 stycznia 2031 r.? Umowę zawrę wtedy.",
+  "facts": {},
+  "relevant_date": "2031-01-01",
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "temporal_unknown",
+    "refusal_reason": "Data przyszła – nie można ustalić brzmienia obowiązującego w przyszłości."
+  },
+  "traps": [
+    "future_date"
+  ],
+  "offline_checks": [
+    {
+      "kind": "get_document",
+      "store": "corpus",
+      "args": {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27",
+        "as_of": "2031-01-01"
+      },
+      "expect": {
+        "temporal_unknown_or_status_in": []
+      }
+    },
+    {
+      "kind": "search",
+      "store": "corpus",
+      "args": {
+        "query": "I ACa 772/13",
+        "kinds": [
+          "judgment"
+        ]
+      },
+      "expect": {
+        "status_in": [
+          "ok"
+        ],
+        "hit_text_contains": [
+          "judgment_date_in_future"
+        ]
+      },
+      "note": "SAOS podaje datę 3013-12-04 – flaga jakości danych musi być widoczna."
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

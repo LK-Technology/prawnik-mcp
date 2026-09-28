@@ -1,0 +1,44 @@
+{
+  "case_id": "dev-006",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Moja firma (sp. z o.o.) kupiła laptopa do biura, jest wadliwy. Napisz reklamację konsumencką.",
+  "facts": {
+    "kupujacy": "spółka z o.o.",
+    "przedmiot": "laptop"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 22^1"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "out_of_scope",
+    "refusal_reason": "Kupujący nie jest konsumentem (B2B) – szablon reklamacji konsumenckiej nie ma zastosowania."
+  },
+  "traps": [
+    "consumer_exclusion"
+  ],
+  "offline_checks": [
+    {
+      "kind": "render",
+      "store": "empty",
+      "args": {
+        "template_id": "reklamacja_konsumencka",
+        "facts": {
+          "kwalifikacja": {
+            "konsument": "nie"
+          }
+        }
+      },
+      "expect": {
+        "status_in": [
+          "out_of_scope"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

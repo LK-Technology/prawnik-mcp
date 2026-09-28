@@ -1,0 +1,40 @@
+{
+  "case_id": "dev-001",
+  "split": "dev",
+  "area": "payments",
+  "question": "Kontrahent (spółka) nie zapłacił mojej faktury za usługi graficzne na 1 234,50 zł; termin płatności minął 29.07.2026. Przygotuj wezwanie do zapłaty.",
+  "facts": {
+    "wierzyciel": "przedsiębiorca (JDG)",
+    "dluznik": "spółka z o.o.",
+    "kwota": "1234.50 PLN",
+    "termin_platnosci": "2026-07-29",
+    "podstawa": "faktura FV/2026/07/015"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 455"
+      },
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 476"
+      },
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 481"
+      }
+    ],
+    "must_ask": [
+      "adres dłużnika",
+      "numer rachunku",
+      "termin zapłaty w wezwaniu",
+      "czy żąda odsetek i od jakiej daty"
+    ],
+    "expected_status": "ask",
+    "refusal_reason": null
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

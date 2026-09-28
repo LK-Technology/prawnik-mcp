@@ -1,0 +1,7 @@
+# Values known to be fictional or public. Keep this list short and justified.
+# Fictional account number used in templates/examples/tests (bank code 9999 does not exist).
+91999999990000000000001234
+# Fictional phone number in tests/test_privacy.py.
+48600100200
+# Reviewed image previews of fictional example documents (regenerate with examples/generate_examples.py).
+path:examples/podglad/

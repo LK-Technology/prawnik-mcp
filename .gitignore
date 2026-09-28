@@ -1,0 +1,22 @@
+# Python / tooling
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+build/
+
+# Local data — never commit (synced corpora, SQLite, exports, private case files)
+data/
+*.sqlite3
+*.sqlite3-*
+.env
+.env.*
+
+# OS / tool artifacts
+.DS_Store
+.playwright-mcp/
+*.log
+.pii-denylist

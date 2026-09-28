@@ -1,0 +1,49 @@
+{
+  "case_id": "dev-008",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Kupiłam pralkę 15.06.2022 w sklepie stacjonarnym, teraz się zepsuła. Jakie mam prawa i na jakiej podstawie?",
+  "facts": {
+    "data_zakupu": "2022-06-15",
+    "kupujacy": "konsument"
+  },
+  "relevant_date": "2022-06-15",
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 556"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43a"
+      }
+    ],
+    "must_ask": [
+      "kiedy ujawniła się wada",
+      "czy wcześniej zgłaszano wadę"
+    ],
+    "expected_status": "temporal_unknown",
+    "refusal_reason": "Nie ustalono, które brzmienie przepisów (reżim odpowiedzialności) ma zastosowanie do umowy z 2022 r. bez przepisów przejściowych w korpusie."
+  },
+  "traps": [
+    "amended_provision"
+  ],
+  "offline_checks": [
+    {
+      "kind": "get_document",
+      "store": "corpus",
+      "args": {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43a",
+        "as_of": "2022-06-15"
+      },
+      "expect": {
+        "temporal_unknown_or_status_in": [
+          "not_found"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

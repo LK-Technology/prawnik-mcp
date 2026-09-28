@@ -1,0 +1,64 @@
+{
+  "case_id": "dev-013",
+  "split": "dev",
+  "area": "payments",
+  "question": "W wezwaniu powołam się na wyrok Sądu Apelacyjnego w Łodzi I ACa 9999/31, który potwierdza moje roszczenie. Sprawdź cytat.",
+  "facts": {},
+  "expected": {
+    "sources": [],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "Sygnatura nie istnieje w korpusie – cytat nie może zostać zaakceptowany (document_not_found / not_found)."
+  },
+  "traps": [
+    "fictional_case_number"
+  ],
+  "offline_checks": [
+    {
+      "kind": "search",
+      "store": "corpus",
+      "args": {
+        "query": "I ACa 9999/31",
+        "kinds": [
+          "judgment"
+        ]
+      },
+      "expect": {
+        "status_in": [
+          "not_found"
+        ]
+      }
+    },
+    {
+      "kind": "check_citations",
+      "store": "corpus",
+      "args": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "Sąd Apelacyjny w Łodzi w wyroku I ACa 9999/31 potwierdził roszczenie.",
+            "type": "law",
+            "evidence_ids": [
+              "e1"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "e1",
+            "document_id": "saos:999999999",
+            "quote": "zasądza od pozwanego na rzecz powoda"
+          }
+        ]
+      },
+      "expect": {
+        "claim_status_in": {
+          "c1": [
+            "document_not_found"
+          ]
+        }
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

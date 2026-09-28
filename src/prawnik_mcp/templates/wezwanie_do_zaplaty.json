@@ -1,0 +1,80 @@
+{
+  "template_id": "wezwanie_do_zaplaty",
+  "version": "0.1.0",
+  "title": "Wezwanie do zapłaty",
+  "scope": "Przedsądowe wezwanie do zapłaty wymagalnej należności pieniężnej wynikającej z umowy lub faktury, gdy obie strony podlegają prawu polskiemu, a sprawa nie jest w toku postępowania sądowego ani egzekucyjnego. Szablon nie oblicza odsetek ani terminów.",
+  "status": "experimental — not reviewed by a lawyer (eksperymentalny – nie sprawdzony przez prawnika)",
+  "required_facts": [
+    {"name": "miejscowosc", "label": "miejscowość sporządzenia pisma", "type": "str", "validation": {"min_length": 2, "max_length": 80}},
+    {"name": "data_pisma", "label": "data sporządzenia pisma (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true}},
+    {"name": "wierzyciel_nazwa", "label": "imię i nazwisko lub nazwa wierzyciela", "type": "str", "personal": "person", "validation": {"min_length": 3, "max_length": 200}},
+    {"name": "wierzyciel_adres", "label": "adres wierzyciela", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "wierzyciel_nip", "label": "NIP wierzyciela (jeśli dotyczy)", "type": "str", "required": false, "personal": "id_number", "validation": {"pattern": "^(PL)?\\d{3}-?\\d{3}-?\\d{2}-?\\d{2}$"}},
+    {"name": "dluznik_nazwa", "label": "imię i nazwisko lub nazwa dłużnika", "type": "str", "personal": "person", "validation": {"min_length": 3, "max_length": 200}},
+    {"name": "dluznik_adres", "label": "adres dłużnika", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "kwota", "label": "kwota należności głównej", "type": "money", "validation": {"currencies": ["PLN", "EUR", "USD"]}, "help": "Obiekt {\"amount\": \"1234.50\", \"currency\": \"PLN\"}. Kwota > 0, najwyżej 2 miejsca po przecinku."},
+    {"name": "kwota_slownie", "label": "kwota słownie", "type": "str", "required": false, "help": "Opcjonalnie; jeśli podana, musi odpowiadać kwocie cyframi."},
+    {"name": "podstawa", "label": "podstawa należności (np. numer i data faktury lub umowy)", "type": "str", "validation": {"min_length": 5, "max_length": 500}},
+    {"name": "termin_wymagalnosci", "label": "termin płatności wynikający z faktury lub umowy (RRRR-MM-DD)", "type": "date", "validation": {"not_after": ["data_pisma"]}},
+    {"name": "termin_zaplaty", "label": "termin zapłaty wyznaczony w wezwaniu (RRRR-MM-DD)", "type": "date", "validation": {"after": ["data_pisma"]}},
+    {"name": "numer_rachunku", "label": "numer rachunku bankowego wierzyciela", "type": "str", "personal": "account", "validation": {"iban_pl": true}},
+    {"name": "zadanie_odsetek", "label": "czy wierzyciel żąda odsetek ustawowych za opóźnienie", "type": "enum", "validation": {"options": ["tak", "nie"]}},
+    {"name": "odsetki_od_dnia", "label": "data, od której wierzyciel żąda odsetek (RRRR-MM-DD, wskazana przez użytkownika)", "type": "date", "required": false, "validation": {"required_if": {"field": "zadanie_odsetek", "equals": "tak"}, "not_before": ["termin_wymagalnosci"]}, "help": "Szablon nie oblicza odsetek ani daty początkowej; wpisuje wyłącznie datę podaną przez użytkownika."},
+    {"name": "zalaczniki", "label": "załączniki (tylko dokumenty faktycznie posiadane)", "type": "list", "required": false}
+  ],
+  "qualifying_questions": [
+    {"id": "prawo_polskie", "question": "Czy obie strony mają siedzibę lub miejsce zamieszkania w Polsce, a umowa podlega prawu polskiemu?", "why_it_matters": "Szablon i korpus źródeł obejmują wyłącznie prawo polskie.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Sprawa z elementem zagranicznym lub prawem obcym – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono prawa właściwego – wymaga wyjaśnienia przed wysłaniem."},
+    {"id": "wymagalnosc", "question": "Czy termin zapłaty wynikający z faktury lub umowy już upłynął?", "why_it_matters": "Szablon obsługuje wyłącznie należności, których termin płatności minął.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Należność nie jest jeszcze wymagalna według użytkownika – szablon nie obsługuje wezwań przed terminem płatności.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono terminu płatności – sprawdź fakturę lub umowę.", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 455"}]},
+    {"id": "postepowanie_w_toku", "question": "Czy w sprawie toczy się już postępowanie sądowe, egzekucyjne, upadłościowe lub restrukturyzacyjne dotyczące dłużnika?", "why_it_matters": "W toku takiego postępowania samodzielne wezwanie może być niewłaściwym krokiem.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["tak"], "exclusion_reason": "Toczy się postępowanie dotyczące dłużnika lub należności – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie wiadomo, czy toczy się postępowanie – sprawdź przed wysłaniem."},
+    {"id": "naleznosc_sporna", "question": "Czy dłużnik kwestionuje istnienie lub wysokość należności (np. złożył reklamację lub zarzuty)?", "why_it_matters": "Szablon nie odnosi się do zarzutów dłużnika.", "options": ["tak", "nie", "nie wiem"], "flag_answers": ["tak", "nie wiem"], "flag_note": "Należność może być sporna – szablon nie uwzględnia zarzutów dłużnika; rozważ konsultację z profesjonalnym pełnomocnikiem."},
+    {"id": "mozliwe_przedawnienie", "question": "Czy od terminu płatności minęło więcej niż 2 lata?", "why_it_matters": "Upływ czasu może mieć znaczenie dla przedawnienia; szablon nie ocenia przedawnienia.", "options": ["tak", "nie"], "flag_answers": ["tak"], "flag_note": "Wymagana weryfikacja przedawnienia w źródłach (szablon jej nie wykonuje).", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 117"}, {"document_id": "eli:DU/1964/93", "locator": "art. 118"}]},
+    {"id": "dluznik_konsument", "question": "Czy dłużnik jest osobą prywatną (konsumentem), a nie przedsiębiorcą?", "why_it_matters": "Wobec konsumentów mogą obowiązywać odrębne reguły, które należy sprawdzić.", "options": ["tak", "nie", "nie wiem"], "flag_answers": ["tak", "nie wiem"], "flag_note": "Dłużnik może być konsumentem – sprawdź w źródłach reguły szczególne dotyczące konsumentów.", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 22^1"}]}
+  ],
+  "exclusions": [
+    "należności niewymagalne (termin płatności nie upłynął)",
+    "sprawy w toku postępowania sądowego, egzekucyjnego, upadłościowego lub restrukturyzacyjnego",
+    "sprawy z elementem zagranicznym lub podlegające prawu obcemu",
+    "obliczanie odsetek, kosztów windykacji i rekompensat (poza zakresem MVP)",
+    "wezwania przedprocesowe o świadczenia niepieniężne"
+  ],
+  "legal_sources": [
+    {"document_id": "eli:DU/1964/93", "locator": "art. 455", "purpose": "do weryfikacji: termin spełnienia świadczenia"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 476", "purpose": "do weryfikacji: opóźnienie dłużnika"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 481", "purpose": "do weryfikacji: odsetki za opóźnienie (tylko jeśli użytkownik ich żąda)"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 117", "purpose": "do weryfikacji: przedawnienie"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 118", "purpose": "do weryfikacji: terminy przedawnienia"}
+  ],
+  "legal_sources_note": "Lista zawiera wyłącznie identyfikatory i lokalizatory. Treść, aktualne brzmienie i zastosowanie każdego przepisu należy sprawdzić narzędziem get_legal_document (z parametrem as_of) i check_citations. Szablon nie zawiera tekstu przepisów ani twierdzeń o ich treści.",
+  "supported_dates": "Daty podaje użytkownik (RRRR-MM-DD). Szablon nie oblicza terminów ani odsetek i nie przesądza, które brzmienie przepisów obowiązuje w datach sprawy – to wymaga kontroli czasowej przez get_legal_document z parametrem as_of.",
+  "temporal_checks": [
+    {"field": "termin_wymagalnosci", "note": "Ustal brzmienie przepisów właściwe dla daty wymagalności (get_legal_document z as_of)."}
+  ],
+  "allowed_draft_sections": ["uzasadnienie"],
+  "fragments": {
+    "kwota_slownie_frag": {"variants": [
+      {"when": {"field": "kwota_slownie"}, "text": " (słownie: {kwota_slownie})"},
+      {"text": ""}
+    ]},
+    "nip_frag": {"variants": [
+      {"when": {"field": "wierzyciel_nip"}, "text": "\nNIP: {wierzyciel_nip}"},
+      {"text": ""}
+    ]},
+    "klauzula_odsetek": {"variants": [
+      {"when": {"field": "zadanie_odsetek", "equals": "tak"}, "text": " wraz z odsetkami ustawowymi za opóźnienie od dnia {odsetki_od_dnia} do dnia zapłaty"},
+      {"when": {"field": "zadanie_odsetek", "equals": "nie"}, "text": ""}
+    ]}
+  },
+  "letter": [
+    {"type": "right", "text": "{miejscowosc}, dnia {data_pisma}"},
+    {"type": "left", "text": "Wierzyciel:\n{wierzyciel_nazwa}\n{wierzyciel_adres}{nip_frag}"},
+    {"type": "right", "text": "Dłużnik:\n{dluznik_nazwa}\n{dluznik_adres}"},
+    {"type": "heading", "text": "WEZWANIE DO ZAPŁATY"},
+    {"type": "paragraph", "text": "Wzywam do zapłaty kwoty {kwota}{kwota_slownie_frag}{klauzula_odsetek} tytułem: {podstawa}. Termin płatności tej należności przypadał na dzień {termin_wymagalnosci}."},
+    {"type": "paragraph", "text": "Należność proszę uregulować w terminie do dnia {termin_zaplaty} na rachunek bankowy nr {numer_rachunku}."},
+    {"type": "draft", "section": "uzasadnienie", "title": "Uzasadnienie"},
+    {"type": "paragraph", "text": "W przypadku braku zapłaty w wyznaczonym terminie rozważę podjęcie dalszych kroków w celu odzyskania należności."},
+    {"type": "list_field", "field": "zalaczniki", "title": "Załączniki:"},
+    {"type": "signature"}
+  ],
+  "review_history": []
+}

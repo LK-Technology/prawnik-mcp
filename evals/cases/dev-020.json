@@ -1,0 +1,38 @@
+{
+  "case_id": "dev-020",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Znajdź przepisy o odstąpieniu od umowy zawartej na odległość.",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "Przy pustej bazie: jawny brak (not_found/stale/source_unavailable), nigdy fikcyjne trafienia."
+  },
+  "traps": [
+    "empty_database"
+  ],
+  "offline_checks": [
+    {
+      "kind": "search",
+      "store": "empty",
+      "args": {
+        "query": "odstąpienie od umowy zawartej na odległość"
+      },
+      "expect": {
+        "status_in": [
+          "not_found",
+          "stale",
+          "source_unavailable"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

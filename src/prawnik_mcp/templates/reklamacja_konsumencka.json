@@ -1,0 +1,99 @@
+{
+  "template_id": "reklamacja_konsumencka",
+  "version": "0.1.0",
+  "title": "Reklamacja konsumencka towaru",
+  "scope": "Reklamacja składana przez konsumenta sprzedawcy-przedsiębiorcy z powodu wady (niezgodności z umową) rzeczy ruchomej kupionej na podstawie umowy podlegającej prawu polskiemu. Nie obejmuje treści cyfrowych, usług cyfrowych, usług, gwarancji ani zakupów B2B. Szablon nie przesądza, który reżim odpowiedzialności sprzedawcy ma zastosowanie – wymaga kontroli czasowej według daty zawarcia umowy.",
+  "status": "experimental — not reviewed by a lawyer (eksperymentalny – nie sprawdzony przez prawnika)",
+  "required_facts": [
+    {"name": "miejscowosc", "label": "miejscowość sporządzenia pisma", "type": "str", "validation": {"min_length": 2, "max_length": 80}},
+    {"name": "data_pisma", "label": "data sporządzenia pisma (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true, "not_before": ["data_stwierdzenia_wady"]}},
+    {"name": "kupujacy_imie_nazwisko", "label": "imię i nazwisko kupującego", "type": "str", "personal": "person", "validation": {"min_length": 3, "max_length": 200}},
+    {"name": "kupujacy_adres", "label": "adres kupującego", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "kupujacy_email", "label": "adres e-mail kupującego (opcjonalnie)", "type": "str", "required": false, "personal": "email", "validation": {"pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"}},
+    {"name": "sprzedawca_nazwa", "label": "nazwa sprzedawcy", "type": "str", "personal": "person", "validation": {"min_length": 2, "max_length": 200}},
+    {"name": "sprzedawca_adres", "label": "adres sprzedawcy", "type": "str", "personal": "address", "validation": {"min_length": 5, "max_length": 300}},
+    {"name": "towar_opis", "label": "opis towaru (nazwa, model)", "type": "str", "validation": {"min_length": 3, "max_length": 300}},
+    {"name": "dowod_zakupu", "label": "numer paragonu, faktury lub zamówienia (opcjonalnie)", "type": "str", "required": false, "validation": {"max_length": 100}},
+    {"name": "cena", "label": "cena towaru (opcjonalnie)", "type": "money", "required": false, "validation": {"currencies": ["PLN", "EUR"]}},
+    {"name": "data_zakupu", "label": "data zawarcia umowy / zakupu (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true}},
+    {"name": "data_dostarczenia", "label": "data dostarczenia (wydania) towaru (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true, "not_before": ["data_zakupu"]}},
+    {"name": "data_stwierdzenia_wady", "label": "data stwierdzenia wady (RRRR-MM-DD)", "type": "date", "validation": {"not_future": true, "not_before": ["data_dostarczenia"]}},
+    {"name": "opis_wady", "label": "opis wady / niezgodności z umową", "type": "str", "validation": {"min_length": 10, "max_length": 3000}},
+    {"name": "zadanie", "label": "żądanie wybrane przez kupującego", "type": "enum", "validation": {"options": ["naprawa", "wymiana", "obniżenie ceny", "odstąpienie od umowy"]}},
+    {"name": "numer_rachunku", "label": "numer rachunku do zwrotu środków (opcjonalnie)", "type": "str", "required": false, "personal": "account", "validation": {"iban_pl": true}},
+    {"name": "zalaczniki", "label": "załączniki (tylko dokumenty faktycznie posiadane)", "type": "list", "required": false}
+  ],
+  "qualifying_questions": [
+    {"id": "konsument", "question": "Czy kupujący kupił towar jako osoba prywatna, a zakup nie był bezpośrednio związany z jego działalnością gospodarczą lub zawodową?", "why_it_matters": "Szablon obejmuje wyłącznie reklamacje konsumenckie; zakupy firmowe (B2B) podlegają innym regułom.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Kupujący nie jest konsumentem (zakup B2B lub związany z działalnością) – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono statusu konsumenta – ustal przed wysłaniem.", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 22^1"}]},
+    {"id": "zakup_na_firme", "question": "Czy kupujący prowadzi jednoosobową działalność gospodarczą i kupił towar na firmę (np. faktura na NIP)?", "why_it_matters": "Zakupy na firmę wymagają odrębnej oceny, której szablon nie obejmuje.", "options": ["tak", "nie"], "excluding_answers": ["tak"], "exclusion_reason": "Zakup na firmę (jednoosobowa działalność) – wymaga odrębnej oceny, poza zakresem szablonu."},
+    {"id": "sprzedawca_przedsiebiorca", "question": "Czy sprzedawca sprzedał towar w ramach prowadzonej działalności gospodarczej (sklep, firma), a nie jako osoba prywatna?", "why_it_matters": "Reklamacja konsumencka dotyczy umów z przedsiębiorcą; sprzedaż między osobami prywatnymi jest poza zakresem.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Sprzedawca nie jest przedsiębiorcą (sprzedaż prywatna) – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono, czy sprzedawca jest przedsiębiorcą.", "related_sources": [{"document_id": "eli:DU/1964/93", "locator": "art. 43^1"}]},
+    {"id": "przedmiot", "question": "Czego dotyczy reklamacja?", "why_it_matters": "Szablon obejmuje wyłącznie rzeczy ruchome (towary); treści i usługi cyfrowe oraz usługi mają odrębne reguły.", "options": ["towar (rzecz ruchoma)", "towar z elementami cyfrowymi", "treść cyfrowa", "usługa cyfrowa", "usługa (niecyfrowa)", "nieruchomość"], "excluding_answers": ["treść cyfrowa", "usługa cyfrowa", "usługa (niecyfrowa)", "nieruchomość"], "exclusion_reason": "Przedmiot reklamacji to treść cyfrowa, usługa lub nieruchomość – poza zakresem szablonu.", "flag_answers": ["towar z elementami cyfrowymi"], "flag_note": "Towar z elementami cyfrowymi – sprawdź w źródłach, czy wada dotyczy elementu cyfrowego i jakie reguły mają zastosowanie."},
+    {"id": "umowa_przed_zmiana_przepisow", "question": "Czy umowę zawarto przed zmianą przepisów o odpowiedzialności sprzedawcy wobec konsumenta? (datę graniczną ustal w źródłach; szablon jej nie przesądza)", "why_it_matters": "Od daty zawarcia umowy może zależeć, które brzmienie przepisów i który reżim odpowiedzialności ma zastosowanie.", "options": ["tak", "nie", "nie wiem"], "flag_answers": ["tak", "nie wiem"], "flag_note": "Wymagana kontrola czasowa: ustal, które brzmienie przepisów (w tym przepisy przejściowe) stosuje się do umowy zawartej w dniu zakupu. Szablon nie przesądza reżimu odpowiedzialności.", "related_sources": [{"document_id": "eli:DU/2014/827", "locator": "art. 43a"}, {"document_id": "eli:DU/1964/93", "locator": "art. 556"}]},
+    {"id": "prawo_polskie", "question": "Czy umowa podlega prawu polskiemu (np. zakup w polskim sklepie lub od sprzedawcy kierującego ofertę do Polski)?", "why_it_matters": "Korpus źródeł obejmuje prawo polskie i wybrane akty UE.", "options": ["tak", "nie", "nie wiem"], "excluding_answers": ["nie"], "exclusion_reason": "Umowa podlega prawu obcemu – poza zakresem szablonu.", "flag_answers": ["nie wiem"], "flag_note": "Nie ustalono prawa właściwego."},
+    {"id": "gwarancja", "question": "Czy chcesz skorzystać z gwarancji producenta (karta gwarancyjna) zamiast reklamacji u sprzedawcy?", "why_it_matters": "Gwarancja jest odrębną podstawą; szablon dotyczy reklamacji kierowanej do sprzedawcy.", "options": ["tak", "nie"], "excluding_answers": ["tak"], "exclusion_reason": "Roszczenie z gwarancji – poza zakresem szablonu."}
+  ],
+  "exclusions": [
+    "kupujący niebędący konsumentem (B2B) oraz zakupy na firmę",
+    "sprzedaż między osobami prywatnymi",
+    "treści cyfrowe, usługi cyfrowe, usługi niecyfrowe, nieruchomości",
+    "gwarancja producenta",
+    "umowy podlegające prawu obcemu",
+    "przesądzanie reżimu odpowiedzialności bez kontroli czasowej"
+  ],
+  "legal_sources": [
+    {"document_id": "eli:DU/2014/827", "locator": "art. 43a", "purpose": "do weryfikacji: zgodność towaru z umową (brzmienie właściwe dla daty umowy)"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 43b", "purpose": "do weryfikacji: kryteria zgodności towaru z umową"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 43c", "purpose": "do weryfikacji: odpowiedzialność przedsiębiorcy"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 43d", "purpose": "do weryfikacji: żądania naprawy lub wymiany"},
+    {"document_id": "eli:DU/2014/827", "locator": "art. 43e", "purpose": "do weryfikacji: obniżenie ceny i odstąpienie od umowy"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 22^1", "purpose": "do weryfikacji: definicja konsumenta"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 43^1", "purpose": "do weryfikacji: definicja przedsiębiorcy"},
+    {"document_id": "eli:DU/1964/93", "locator": "art. 556", "purpose": "do kontroli czasowej: przepisy o rękojmi (brzmienie dla umów zawartych w innym okresie)"}
+  ],
+  "legal_sources_note": "Lista zawiera wyłącznie identyfikatory i lokalizatory. Treść, aktualne brzmienie i zastosowanie każdego przepisu należy sprawdzić narzędziem get_legal_document (z parametrem as_of = data zawarcia umowy) i check_citations. Szablon nie zawiera tekstu przepisów ani twierdzeń o ich treści.",
+  "supported_dates": "Daty podaje użytkownik (RRRR-MM-DD). Szablon nie oblicza terminów reklamacji ani terminu odpowiedzi sprzedawcy i nie przesądza reżimu odpowiedzialności. Dla każdej daty zakupu wymagana jest kontrola czasowa (get_legal_document z as_of = data zakupu, przepisy przejściowe).",
+  "temporal_checks": [
+    {"field": "data_zakupu", "note": "Wymagana kontrola czasowa: ustal brzmienie przepisów i przepisy przejściowe właściwe dla daty zawarcia umowy; szablon nie przesądza reżimu."}
+  ],
+  "allowed_draft_sections": ["uzasadnienie"],
+  "fragments": {
+    "dowod_frag": {"variants": [
+      {"when": {"field": "dowod_zakupu"}, "text": " (dowód zakupu: {dowod_zakupu})"},
+      {"text": ""}
+    ]},
+    "cena_frag": {"variants": [
+      {"when": {"field": "cena"}, "text": " w cenie {cena}"},
+      {"text": ""}
+    ]},
+    "zadanie_zdanie": {"variants": [
+      {"when": {"field": "zadanie", "equals": "naprawa"}, "text": "W związku z powyższym żądam nieodpłatnej naprawy towaru."},
+      {"when": {"field": "zadanie", "equals": "wymiana"}, "text": "W związku z powyższym żądam wymiany towaru na wolny od wad."},
+      {"when": {"field": "zadanie", "equals": "obniżenie ceny"}, "text": "W związku z powyższym żądam obniżenia ceny towaru."},
+      {"when": {"field": "zadanie", "equals": "odstąpienie od umowy"}, "text": "W związku z powyższym oświadczam, że odstępuję od umowy, i żądam zwrotu zapłaconej ceny."}
+    ]},
+    "rachunek_frag": {"variants": [
+      {"when": {"field": "numer_rachunku"}, "text": "Ewentualny zwrot środków proszę przekazać na rachunek bankowy nr {numer_rachunku}."},
+      {"text": ""}
+    ]},
+    "kontakt_frag": {"variants": [
+      {"when": {"field": "kupujacy_email"}, "text": "Proszę o odpowiedź na piśmie na powyższy adres lub na adres e-mail: {kupujacy_email}."},
+      {"text": "Proszę o odpowiedź na piśmie na powyższy adres."}
+    ]}
+  },
+  "letter": [
+    {"type": "right", "text": "{miejscowosc}, dnia {data_pisma}"},
+    {"type": "left", "text": "Kupujący:\n{kupujacy_imie_nazwisko}\n{kupujacy_adres}"},
+    {"type": "right", "text": "Sprzedawca:\n{sprzedawca_nazwa}\n{sprzedawca_adres}"},
+    {"type": "heading", "text": "REKLAMACJA TOWARU"},
+    {"type": "paragraph", "text": "Informuję, że towar: {towar_opis}{dowod_frag}, kupiony w dniu {data_zakupu}{cena_frag} i dostarczony w dniu {data_dostarczenia}, jest wadliwy (niezgodny z umową)."},
+    {"type": "paragraph", "text": "Opis wady: {opis_wady}"},
+    {"type": "paragraph", "text": "Wadę stwierdzono w dniu {data_stwierdzenia_wady}."},
+    {"type": "paragraph", "text": "{zadanie_zdanie}"},
+    {"type": "draft", "section": "uzasadnienie", "title": "Uzasadnienie"},
+    {"type": "paragraph", "text": "{rachunek_frag}", "when": {"field": "numer_rachunku"}},
+    {"type": "paragraph", "text": "{kontakt_frag}"},
+    {"type": "list_field", "field": "zalaczniki", "title": "Załączniki:"},
+    {"type": "signature"}
+  ],
+  "review_history": []
+}

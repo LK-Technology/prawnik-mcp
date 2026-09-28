@@ -1,0 +1,45 @@
+{
+  "case_id": "dev-002",
+  "split": "dev",
+  "area": "payments",
+  "question": "Klient mi nie zapłacił. Napisz wezwanie do zapłaty.",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 455"
+      }
+    ],
+    "must_ask": [
+      "dane wierzyciela i dłużnika",
+      "kwota i waluta",
+      "podstawa należności",
+      "termin płatności",
+      "czy termin minął",
+      "rachunek bankowy"
+    ],
+    "expected_status": "ask",
+    "refusal_reason": null
+  },
+  "traps": [
+    "missing_facts"
+  ],
+  "offline_checks": [
+    {
+      "kind": "render",
+      "store": "empty",
+      "args": {
+        "template_id": "wezwanie_do_zaplaty",
+        "facts": {}
+      },
+      "expect": {
+        "status_in": [
+          "ok"
+        ],
+        "document_status": "niekompletny formularz"
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

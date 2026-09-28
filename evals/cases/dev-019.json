@@ -1,0 +1,35 @@
+{
+  "case_id": "dev-019",
+  "split": "dev",
+  "area": "consumer_purchase",
+  "question": "Serwer źródeł ISAP/ELI nie odpowiada. Podaj treść art. 27 ustawy o prawach konsumenta.",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "Przy niedostępności źródła i braku lokalnej kopii: jawny status source_unavailable, bez odpowiedzi z pamięci modelu."
+  },
+  "traps": [
+    "source_unavailable"
+  ],
+  "offline_checks": [
+    {
+      "kind": "fault_injection",
+      "store": "corpus",
+      "args": {},
+      "expect": {
+        "status_in": [
+          "source_unavailable"
+        ]
+      },
+      "note": "Wymaga wstrzyknięcia awarii sieci w konektorze – nie uruchamiane offline."
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

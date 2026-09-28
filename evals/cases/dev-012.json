@@ -1,0 +1,36 @@
+{
+  "case_id": "dev-012",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Sprzedawca internetowy w ogóle nie poinformował mnie o prawie odstąpienia. Kupiłem odkurzacz 2 miesiące temu. Czy mogę jeszcze odstąpić?",
+  "facts": {
+    "informacja_o_prawie": "nie",
+    "data_odebrania": "2026-07-20"
+  },
+  "relevant_date": "2026-09-26",
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 29"
+      },
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      },
+      {
+        "document_id": "celex:32011L0083",
+        "locator": "art. 10"
+      }
+    ],
+    "must_ask": [
+      "data odebrania towaru",
+      "czy informację przekazano później"
+    ],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

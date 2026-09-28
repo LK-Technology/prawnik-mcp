@@ -1,0 +1,33 @@
+{
+  "case_id": "dev-004",
+  "split": "dev",
+  "area": "payments",
+  "question": "Faktura z 2015 r., termin płatności 30.06.2015, nigdy nie zapłacona. Czy mogę wysłać wezwanie i czy dłużnik musi zapłacić?",
+  "facts": {
+    "termin_platnosci": "2015-06-30",
+    "dluznik": "osoba fizyczna (konsument?)"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 117"
+      },
+      {
+        "document_id": "eli:DU/1964/93",
+        "locator": "art. 118"
+      }
+    ],
+    "must_ask": [
+      "czy dłużnik jest konsumentem",
+      "czy były czynności przerywające bieg przedawnienia"
+    ],
+    "expected_status": "ask",
+    "refusal_reason": null
+  },
+  "traps": [
+    "missing_facts"
+  ],
+  "offline_checks": [],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

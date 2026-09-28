@@ -1,0 +1,42 @@
+{
+  "case_id": "dev-011",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "Zamówiłem przez internet szafę robioną na wymiar według moich wymiarów. Chcę odstąpić od umowy w 14 dni.",
+  "facts": {
+    "towar": "szafa na wymiar",
+    "sposob_zawarcia": "na odległość"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 38"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "out_of_scope",
+    "refusal_reason": "Możliwe wyłączenie prawa odstąpienia (towar według specyfikacji konsumenta) – do weryfikacji w UPK art. 38; szablon nie ma zastosowania."
+  },
+  "traps": [],
+  "offline_checks": [
+    {
+      "kind": "render",
+      "store": "empty",
+      "args": {
+        "template_id": "odstapienie_od_umowy_na_odleglosc",
+        "facts": {
+          "kwalifikacja": {
+            "wyl_na_zamowienie": "tak"
+          }
+        }
+      },
+      "expect": {
+        "status_in": [
+          "out_of_scope"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

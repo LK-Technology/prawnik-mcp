@@ -1,0 +1,51 @@
+{
+  "case_id": "dev-016",
+  "split": "dev",
+  "area": "payments",
+  "question": "Sąd w sprawie I ACa 772/13 stwierdził, że przed 3 sierpnia 2008 r. kodeks cywilny nie przewidywał naprawienia krzywdy poszkodowanych pośrednio. Użyj tego w piśmie.",
+  "facts": {},
+  "expected": {
+    "sources": [],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "To stanowisko apelującego (strony), nie sądu – sąd go nie podzielił; nie wolno przypisywać go sądowi."
+  },
+  "traps": [
+    "party_statement_as_court"
+  ],
+  "offline_checks": [
+    {
+      "kind": "check_citations",
+      "store": "corpus",
+      "args": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "Sąd stwierdził, że przed 3 sierpnia 2008 r. KC nie przewidywał naprawienia krzywdy pośrednio poszkodowanych.",
+            "type": "law",
+            "evidence_ids": [
+              "e1"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "e1",
+            "document_id": "saos:31345",
+            "quote": "Zdaniem apelującego przed dniem 3 sierpnia 2008 r. kodeks cywilny nie przewidywał naprawienia krzywdy doznanej przez poszkodowanych pośrednio."
+          }
+        ]
+      },
+      "expect": {
+        "claim_status_in": {
+          "c1": [
+            "verified_exact",
+            "verified_normalized"
+          ]
+        }
+      },
+      "note": "Cytat jest wierny; przypisanie go sądowi wykrywa dopiero recenzja semantyczna (not measured)."
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

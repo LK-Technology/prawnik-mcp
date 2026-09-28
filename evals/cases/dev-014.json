@@ -1,0 +1,70 @@
+{
+  "case_id": "dev-014",
+  "split": "dev",
+  "area": "payments",
+  "question": "Powołuję się na wyrok Sądu Okręgowego w Krakowie z 4.12.2013 r., sygn. I ACa 772/13. Czy to się zgadza?",
+  "facts": {},
+  "expected": {
+    "sources": [],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": "Sygnatura istnieje, ale według SAOS to Sąd Apelacyjny w Łodzi (saos:31345), nie Sąd Okręgowy w Krakowie – metadata_mismatch."
+  },
+  "traps": [
+    "wrong_court"
+  ],
+  "offline_checks": [
+    {
+      "kind": "search",
+      "store": "corpus",
+      "args": {
+        "query": "I ACa 772/13",
+        "kinds": [
+          "judgment"
+        ]
+      },
+      "expect": {
+        "status_in": [
+          "ok"
+        ],
+        "hit_text_contains": [
+          "Sąd Apelacyjny w Łodzi"
+        ]
+      }
+    },
+    {
+      "kind": "check_citations",
+      "store": "corpus",
+      "args": {
+        "claims": [
+          {
+            "claim_id": "c1",
+            "text": "Sąd Okręgowy w Krakowie w sprawie I ACa 772/13 orzekł o zadośćuczynieniu.",
+            "type": "law",
+            "evidence_ids": [
+              "e1"
+            ]
+          }
+        ],
+        "evidence": [
+          {
+            "evidence_id": "e1",
+            "document_id": "sygn:I ACa 772/13",
+            "metadata": {
+              "court_name": "Sąd Okręgowy w Krakowie"
+            },
+            "quote": "zadośćuczynienia"
+          }
+        ]
+      },
+      "expect": {
+        "claim_status_in": {
+          "c1": [
+            "metadata_mismatch"
+          ]
+        }
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

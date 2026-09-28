@@ -1,0 +1,53 @@
+{
+  "case_id": "dev-021",
+  "split": "dev",
+  "area": "distance_withdrawal",
+  "question": "odstapienie od umowy zawartej na odleglosc termin 14 dni (bez polskich znakow)",
+  "facts": {},
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 27"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "ok",
+    "refusal_reason": null
+  },
+  "traps": [
+    "diacritics_ocr"
+  ],
+  "offline_checks": [
+    {
+      "kind": "search",
+      "store": "corpus",
+      "args": {
+        "query": "odstapienie od umowy zawartej na odleglosc"
+      },
+      "expect": {
+        "status_in": [
+          "ok"
+        ],
+        "hit_text_contains": [
+          "eli:DU/2014/827"
+        ]
+      }
+    },
+    {
+      "kind": "search",
+      "store": "corpus",
+      "args": {
+        "query": "rekIamacja niezgodnosc towaru z umowa"
+      },
+      "expect": {
+        "status_in": [
+          "ok",
+          "not_found"
+        ]
+      },
+      "note": "Błąd OCR (I zamiast l): wymagany jawny status, bez awarii."
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}

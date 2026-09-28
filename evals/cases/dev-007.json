@@ -1,0 +1,41 @@
+{
+  "case_id": "dev-007",
+  "split": "dev",
+  "area": "complaint",
+  "question": "Wykupiłem roczną subskrypcję aplikacji do nauki języków, aplikacja ciągle się zawiesza. Napisz reklamację według szablonu reklamacji towaru.",
+  "facts": {
+    "przedmiot": "usługa cyfrowa (subskrypcja aplikacji)"
+  },
+  "expected": {
+    "sources": [
+      {
+        "document_id": "eli:DU/2014/827",
+        "locator": "art. 43a"
+      }
+    ],
+    "must_ask": [],
+    "expected_status": "out_of_scope",
+    "refusal_reason": "Treść/usługa cyfrowa – poza zakresem szablonu reklamacji towaru."
+  },
+  "traps": [],
+  "offline_checks": [
+    {
+      "kind": "render",
+      "store": "empty",
+      "args": {
+        "template_id": "reklamacja_konsumencka",
+        "facts": {
+          "kwalifikacja": {
+            "przedmiot": "usługa cyfrowa"
+          }
+        }
+      },
+      "expect": {
+        "status_in": [
+          "out_of_scope"
+        ]
+      }
+    }
+  ],
+  "gold_status": "candidate — AI-generated, not validated by a lawyer"
+}
