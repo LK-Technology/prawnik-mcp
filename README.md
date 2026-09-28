@@ -97,8 +97,26 @@ Podaj przepisy z wersją i sprawdź cytaty."*
 | `list_act_versions` | Show the version timeline of a Polish act. | `document_id`, `live` |
 <!-- tools:end -->
 
-Prompts: `analysis_procedure` (how the client model should work through a case) and `applicability_review`
-(a separate pass that checks whether the cited law actually applies to the facts).
+### Prompts
+
+Step-by-step procedures the client can load (in Polish, since the sources are Polish). The task prompts take an
+optional `context` argument with the user's description of the case and end with the same rules: quote only what
+the tools returned, run `check_citations`, report gaps.
+
+<!-- prompts:start -->
+| Prompt | Title | What it does |
+|---|---|---|
+| `analysis_procedure` | Procedura analizy | Legal analysis procedure with a separate applicability review (Polish). |
+| `applicability_review` | Kontrola zastosowania przepisów | Prompt for the separate reviewer pass (Polish). |
+| `case_law_research` | Linia orzecznicza | Find how courts and authorities decide a legal issue, with rulings for and against. |
+| `statute_as_of_date` | Brzmienie przepisu na datę | Establish the wording of a provision on the event date, or say why it cannot be established. |
+| `payment_demand_response` | Odpowiedź na wezwanie do zapłaty | Assess a payment demand item by item and draft a factual reply without unlawful threats. |
+| `unfair_terms_review` | Klauzule abuzywne | Review consumer contract or terms-of-service clauses against art. 385^1-385^3 of the Civil Code. |
+| `consumer_claim` | Reklamacja i odstąpienie od umowy | Pick the legal basis for a consumer complaint or withdrawal and prepare the letter. |
+| `gdpr_complaint` | Skarga do UODO | Assess a GDPR violation (e.g. unanswered access request) and draft a request or a complaint. |
+| `uokik_notice` | Zawiadomienie do UOKiK | Decide whether a practice harms consumers collectively and draft a notice to UOKiK. |
+| `tax_ruling_research` | Interpretacje podatkowe | Find individual tax rulings on an issue and explain what protection they give. |
+<!-- prompts:end -->
 
 ## Data sources
 

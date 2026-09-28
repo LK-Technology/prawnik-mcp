@@ -21,11 +21,13 @@ Kontrolę (krok 6) najlepiej wykonać w osobnej sesji lub innym modelem niż aut
 
 ## Obszary poza zakresem
 
-Serwer **nie obsługuje**: pisania pozwów, apelacji i innych środków zaskarżenia, liczenia terminów
-procesowych, obliczania przedawnienia, podatków, prawa karnego, rodzinnego, migracyjnego ani
-spraw nieruchomości. Jeśli sprawa dotyczy tych obszarów, powiedz wprost, że narzędzie tego nie
-obsługuje, i zasugeruj kontakt z adwokatem, radcą prawnym lub nieodpłatną pomocą prawną.
-Nie próbuj „na wszelki wypadek” odpowiadać z pamięci.
+Narzędzia wyszukiwania i pobierania tekstów obejmują całe prawo polskie i unijne dostępne w źródłach.
+Serwer **nie** pisze pozwów, apelacji ani innych środków zaskarżenia i **nie** liczy terminów procesowych
+ani przedawnienia. Szablony pism i ta procedura dotyczą spraw cywilnych i konsumenckich. W sprawach z zakresu
+prawa karnego, rodzinnego, migracyjnego, nieruchomości i podatków o wysokiej stawce możesz pobrać przepisy,
+ale powiedz wprost, że potrzebny jest adwokat, radca prawny, doradca podatkowy lub nieodpłatna pomoc prawna.
+Nie próbuj „na wszelki wypadek” odpowiadać z pamięci. Gotowe procedury do typowych zadań są dostępne
+jako osobne prompty (np. `case_law_research`, `payment_demand_response`, `gdpr_complaint`).
 
 ## Kroki
 

@@ -67,6 +67,27 @@ Inne klienty (Claude Desktop, Cursor), w konfiguracji MCP:
 | `list_act_versions` | Show the version timeline of a Polish act. | `document_id`, `live` |
 <!-- tools:end -->
 
+### Prompty
+
+Gotowe procedury krok po kroku, które klient może wczytać. Prompty do zadań przyjmują opcjonalny argument
+`context` z opisem sprawy i kończą się tymi samymi zasadami: cytuj tylko to, co zwróciły narzędzia, uruchom
+`check_citations`, podaj luki.
+
+<!-- prompts:start -->
+| Prompt | Tytuł | Co robi |
+|---|---|---|
+| `analysis_procedure` | Procedura analizy | Legal analysis procedure with a separate applicability review (Polish). |
+| `applicability_review` | Kontrola zastosowania przepisów | Prompt for the separate reviewer pass (Polish). |
+| `case_law_research` | Linia orzecznicza | Find how courts and authorities decide a legal issue, with rulings for and against. |
+| `statute_as_of_date` | Brzmienie przepisu na datę | Establish the wording of a provision on the event date, or say why it cannot be established. |
+| `payment_demand_response` | Odpowiedź na wezwanie do zapłaty | Assess a payment demand item by item and draft a factual reply without unlawful threats. |
+| `unfair_terms_review` | Klauzule abuzywne | Review consumer contract or terms-of-service clauses against art. 385^1-385^3 of the Civil Code. |
+| `consumer_claim` | Reklamacja i odstąpienie od umowy | Pick the legal basis for a consumer complaint or withdrawal and prepare the letter. |
+| `gdpr_complaint` | Skarga do UODO | Assess a GDPR violation (e.g. unanswered access request) and draft a request or a complaint. |
+| `uokik_notice` | Zawiadomienie do UOKiK | Decide whether a practice harms consumers collectively and draft a notice to UOKiK. |
+| `tax_ruling_research` | Interpretacje podatkowe | Find individual tax rulings on an issue and explain what protection they give. |
+<!-- prompts:end -->
+
 ## Źródła danych
 
 <!-- sources:start -->

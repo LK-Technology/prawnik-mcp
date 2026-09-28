@@ -21,6 +21,9 @@ All notable changes to this project are documented here. The format follows
   sync state, HTTP cache, WAL), README sources and tools tables generated from the catalog and the server
   (checked in CI).
 - CI (lint, offline tests on Linux/macOS × Python 3.12/3.13, wheel content check, stdio smoke test), nightly online smoke, release workflow.
+- **Prompts:** eight task procedures (case-law research, wording on a date, reply to a payment demand, unfair
+  terms, consumer claims, GDPR complaint, UOKiK notice, tax rulings), each with an optional `context` argument;
+  README prompts table generated from the server.
 - `scripts/pii_scan.py` (PESEL, bank accounts, phones, e-mails, local denylist, forbidden paths) and pre-commit hooks.
 - Network guard for offline tests (`tests/conftest.py`).
 

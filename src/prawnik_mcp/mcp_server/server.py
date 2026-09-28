@@ -13,6 +13,7 @@ from mcp.server.mcpserver import MCPServer
 
 from prawnik_mcp import __version__, service
 from prawnik_mcp.store import Store
+from prawnik_mcp.workflow import prompts as task_prompts
 
 WORKFLOW_DIR = Path(__file__).resolve().parent.parent / "workflow"
 
@@ -30,6 +31,15 @@ Rules for the client model:
 def _read(name: str) -> str:
     p = WORKFLOW_DIR / name
     return p.read_text(encoding="utf-8") if p.exists() else f"(missing file {name})"
+
+
+def _task_prompt(name: str):
+    def prompt(context: str = "") -> str:
+        """context: the user's description of the case (optional)."""
+        return task_prompts.render(name, context)
+
+    prompt.__name__ = name
+    return prompt
 
 
 def build_server(store: Store | None = None) -> MCPServer:
@@ -100,13 +110,16 @@ def build_server(store: Store | None = None) -> MCPServer:
     def list_act_versions(document_id: str, live: bool | None = None) -> dict:
         return service.list_act_versions(store, document_id, live).model_dump(mode="json")
 
-    @mcp.prompt(name="analysis_procedure", description="Legal analysis procedure with a separate applicability review (Polish).")
+    @mcp.prompt(name="analysis_procedure", title="Procedura analizy", description="Legal analysis procedure with a separate applicability review (Polish).")
     def analysis_procedure() -> str:
         return _read("instructions.md")
 
-    @mcp.prompt(name="applicability_review", description="Prompt for the separate reviewer pass (Polish).")
+    @mcp.prompt(name="applicability_review", title="Kontrola zastosowania przepisów", description="Prompt for the separate reviewer pass (Polish).")
     def applicability_review() -> str:
         return _read("reviewer_prompt.md")
+
+    for p in task_prompts.PROMPTS:
+        mcp.prompt(name=p.name, title=p.title, description=p.description)(_task_prompt(p.name))
 
     @mcp.resource("prawnik://procedure", name="procedure", mime_type="text/markdown")
     def procedure() -> str:
