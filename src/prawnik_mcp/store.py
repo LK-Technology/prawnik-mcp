@@ -144,6 +144,11 @@ class Store:
                 (doc.document_id, doc.kind.value, doc.snapshot_id, doc.model_dump_json(),
                  sources.source_for_document(doc.document_id)),
             )
+            from prawnik_mcp.citation_graph import edges_for
+
+            self.db.execute("DELETE FROM citations WHERE src=?", (doc.document_id,))
+            self.db.executemany("INSERT INTO citations VALUES (?,?,?,?,?)",
+                                [(e.src, e.target, e.locator, e.kind, e.raw) for e in edges_for(doc)])
 
     def get_document(self, document_id: str) -> LegalDocument | None:
         row = self.db.execute("SELECT json FROM documents WHERE document_id=?", (document_id,)).fetchone()
@@ -157,6 +162,7 @@ class Store:
         with self._tx():
             for table in ("documents", "provisions", "judgments", "case_numbers", "fts"):
                 self.db.execute(f"DELETE FROM {table} WHERE document_id=?", (document_id,))
+            self.db.execute("DELETE FROM citations WHERE src=?", (document_id,))
 
     # ------------------------------------------------------------------ provisions
     def replace_provisions(self, document_id: str, version_id: str, provisions: list[ProvisionVersion], title: str) -> None:
@@ -249,6 +255,25 @@ class Store:
             for sid, n in self.db.execute(f"SELECT source_id, count(*) FROM {table} GROUP BY source_id"):
                 out.setdefault(sid or "unknown", {})[table] = n
         return out
+
+    # ------------------------------------------------------------------ citations
+    def citations_from(self, document_id: str) -> list[dict]:
+        cols = ("src", "target", "target_locator", "kind", "raw")
+        return [dict(zip(cols, r, strict=True)) for r in self.db.execute(
+            "SELECT src, target, target_locator, kind, raw FROM citations WHERE src=? ORDER BY kind, target, target_locator",
+            (document_id,))]
+
+    def citations_to(self, document_id: str, locator: str | None = None, *, limit: int = 20,
+                     offset: int = 0) -> tuple[list[dict], int]:
+        where, args = "target=?", [document_id]
+        if locator:
+            where += " AND (target_locator=? OR target_locator LIKE ?)"
+            args += [locator, locator + " %"]
+        total = self.db.execute(f"SELECT count(DISTINCT src) FROM citations WHERE {where}", args).fetchone()[0]
+        rows = self.db.execute(
+            f"SELECT src, group_concat(DISTINCT target_locator) FROM citations WHERE {where} "
+            "GROUP BY src ORDER BY src DESC LIMIT ? OFFSET ?", [*args, limit, offset]).fetchall()
+        return [{"src": r[0], "locators": sorted(filter(None, (r[1] or "").split(",")))} for r in rows], total
 
     # ------------------------------------------------------------------ sync checkpoints
     def get_sync_state(self, source_id: str, scope: str) -> dict | None:

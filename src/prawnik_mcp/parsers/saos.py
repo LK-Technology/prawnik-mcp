@@ -106,6 +106,14 @@ def parse_saos_judgment(content: bytes, snapshot_id: str, sha256: str, fetched_a
             "keywords": d.get("keywords") or [],
             "legal_bases": d.get("legalBases") or [],
             "referenced_regulations": [r.get("text") for r in d.get("referencedRegulations") or [] if r.get("text")],
+            "referenced_regulations_struct": [
+                {"year": r.get("journalYear"), "no": r.get("journalNo"), "entry": r.get("journalEntry"),
+                 "title": r.get("journalTitle"), "text": r.get("text")}
+                for r in d.get("referencedRegulations") or [] if r.get("journalYear") and r.get("journalEntry")],
+            "referenced_court_cases": [
+                {"case_number": c.get("caseNumber"), "saos_ids": c.get("judgmentIds") or [],
+                 "generated": bool(c.get("generated"))}
+                for c in d.get("referencedCourtCases") or [] if c.get("caseNumber")],
             "publisher_publication_date": source.get("publicationDate"),
             "source_code": source.get("code"),
             "data_quality_flags": flags,

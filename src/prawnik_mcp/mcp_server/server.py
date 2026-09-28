@@ -85,6 +85,18 @@ def build_server(store: Store | None = None) -> MCPServer:
     def sources_status() -> dict:
         return service.sources_status(store).model_dump(mode="json")
 
+    @mcp.tool(description="Citations of a document: outgoing (statutes/articles and judgments it cites, with "
+              "in_corpus/out_of_corpus/unresolved status) and incoming (local judgments citing it; optional locator "
+              "such as 'art. 385^1'). Incoming citations cover only the local corpus.")
+    def get_citations(document_id: str, direction: str = "both", locator: str | None = None, limit: int = 20,
+                      cursor: str | None = None) -> dict:
+        return service.get_citations(store, document_id, direction, locator, limit, cursor).model_dump(mode="json")
+
+    @mcp.tool(description="Version timeline of a Polish act (eli:DU/...): announced consolidated texts, which "
+              "are parsed locally, amending acts with dates (future = pending). Fetches the act if missing.")
+    def list_act_versions(document_id: str, live: bool | None = None) -> dict:
+        return service.list_act_versions(store, document_id, live).model_dump(mode="json")
+
     @mcp.prompt(name="analysis_procedure", description="Legal analysis procedure with a separate applicability review (Polish).")
     def analysis_procedure() -> str:
         return _read("instructions.md")

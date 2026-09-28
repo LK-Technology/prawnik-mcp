@@ -524,3 +524,100 @@ def render_document_tool(store: Store, template_id: str, facts: dict, draft: dic
     from prawnik_mcp.documents.render import render_document
 
     return render_document(store, template_id, facts or {}, draft, report_id, out_dir or store.data_dir / "exports")
+
+
+def get_citations(store: Store, document_id: str, direction: str = "both", locator: str | None = None,
+                  limit: int = 20, cursor: str | None = None) -> ToolResult:
+    """Outgoing citations of a document (statutes and judgments it cites) and incoming citations
+    (local documents citing it). Unresolved targets are kept with an explicit reason."""
+    if direction not in ("both", "outgoing", "incoming"):
+        return ToolResult(status=ResultStatus.invalid_input, warnings=["direction: both | outgoing | incoming"])
+    try:
+        offset = int(cursor) if cursor else 0
+    except ValueError:
+        return ToolResult(status=ResultStatus.invalid_input, warnings=["Błędny cursor."])
+    loc = canonical_locator(locator) if locator else None
+    limit = max(1, min(limit, 100))
+    data: dict[str, Any] = {"document_id": document_id}
+    warnings: list[str] = []
+    doc = store.get_document(document_id)
+    if direction in ("both", "outgoing"):
+        if not doc:
+            warnings.append(f"{document_id} nie występuje lokalnie — powołań wychodzących nie da się ustalić "
+                            "(pobierz dokument przez get_legal_document).")
+        grouped: dict[tuple[str, str], dict] = {}
+        for e in store.citations_from(document_id):
+            key = (e["kind"], e["target"])
+            g = grouped.setdefault(key, {"target": e["target"], "kind": e["kind"], "locators": [], "raw": e["raw"]})
+            if e["target_locator"] and e["target_locator"] not in g["locators"]:
+                g["locators"].append(e["target_locator"])
+        out = []
+        for g in grouped.values():
+            if g["target"].startswith("case:"):
+                g["status"], g["reason"] = "unresolved", "no_source_id (sygnatura bez identyfikatora w źródle)"
+            else:
+                tdoc = store.get_document(g["target"])
+                g["status"] = "in_corpus" if tdoc else "out_of_corpus"
+                if tdoc:
+                    g["title"] = tdoc.title
+                else:
+                    g["reason"] = "out_of_corpus (można pobrać przez get_legal_document)"
+            out.append(g)
+        data["outgoing"] = out
+    if direction in ("both", "incoming"):
+        rows, total = store.citations_to(document_id, loc, limit=limit, offset=offset)
+        incoming = []
+        for r in rows:
+            j = store.get_judgment(r["src"])
+            d = store.get_document(r["src"])
+            incoming.append({"document_id": r["src"], "locators": r["locators"],
+                             "title": d.title if d else None,
+                             "court": j.court_name if j else None,
+                             "judgment_date": str(j.judgment_date) if j and j.judgment_date else None,
+                             "case_numbers": j.case_numbers if j else []})
+        data["incoming"] = incoming
+        data["incoming_total"] = total
+        data["next_cursor"] = str(offset + limit) if offset + limit < total else None
+        warnings.append("Powołania przychodzące obejmują tylko lokalny korpus (zsynchronizowane orzeczenia); "
+                        "brak powołań nie oznacza, że przepis nie był stosowany w orzecznictwie.")
+    has_any = bool(data.get("outgoing")) or bool(data.get("incoming"))
+    return ToolResult(status=ResultStatus.ok if (doc or has_any) else ResultStatus.not_found, data=data,
+                      warnings=warnings, coverage=_coverage(store))
+
+
+def list_act_versions(store: Store, document_id: str, live: bool | None = None) -> ToolResult:
+    """Timeline of a Polish act: consolidated texts (TJ) announced, which of them are parsed locally,
+    and amending acts with their ELI dates (future dates = pending)."""
+    if not document_id.startswith("eli:"):
+        return ToolResult(status=ResultStatus.out_of_scope,
+                          warnings=["list_act_versions obsługuje akty polskie (eli:DU/…); dla aktów UE brak osi wersji."])
+    from prawnik_mcp import live as live_mod
+
+    notes: list[str] = []
+    if store.get_document(document_id) is None and live is not False and live_mod.live_enabled():
+        stored, note = live_mod.lazy_fetch(store, document_id)
+        notes += [note] if note else []
+    doc = store.get_document(document_id)
+    if not doc:
+        return ToolResult(status=ResultStatus.not_found, warnings=notes + [
+            f"{document_id} nie występuje lokalnie. Nie oznacza to, że akt nie istnieje."])
+    md = doc.metadata
+    today = date.today().isoformat()
+    amendments = sorted(md.get("amendments") or [], key=lambda a: a.get("date") or "", reverse=True)
+    for a in amendments:
+        a["pending"] = bool(a.get("date") and a["date"] > today)
+    parsed = {v.get("eli") for v in md.get("consolidated_versions") or []}
+    return ToolResult(status=ResultStatus.ok, warnings=notes + [
+        "Lokalnie dostępny jest tylko tekst najnowszego obwieszczenia TJ; wcześniejsze brzmienia nie są odtwarzane.",
+        "Daty zmian pochodzą z odsyłaczy ELI (jedna data na akt zmieniający); część przepisów może wchodzić w życie w innych terminach."],
+        data={
+            "document_id": document_id, "title": doc.title, "publication": doc.publication,
+            "status": md.get("status"), "in_force": md.get("in_force"), "entry_into_force": md.get("entry_into_force"),
+            "current_version_id": md.get("current_version_id"),
+            "consolidated_texts": [{"eli": e, "parsed_locally": e in parsed} for e in md.get("consolidated_text_refs") or []],
+            "parsed_versions": [{k: v.get(k) for k in ("version_id", "publication", "state_date", "announcement_date",
+                                                        "pending_changes", "provision_count")}
+                                for v in md.get("consolidated_versions") or []],
+            "amendments": amendments,
+            "pending_amendments": [a for a in amendments if a["pending"]],
+        })

@@ -58,7 +58,21 @@ def _v2(db: sqlite3.Connection) -> None:
     db.execute("ALTER TABLE fts_v2 RENAME TO fts")
 
 
-MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2}
+def _v3(db: sqlite3.Connection) -> None:
+    """Citation edges (judgment -> statute / judgment), backfilled from stored document metadata."""
+    from prawnik_mcp.citation_graph import edges_for
+    from prawnik_mcp.contracts import LegalDocument
+
+    db.execute("""CREATE TABLE IF NOT EXISTS citations (
+        src TEXT NOT NULL, target TEXT NOT NULL, target_locator TEXT, kind TEXT NOT NULL, raw TEXT)""")
+    db.execute("CREATE INDEX IF NOT EXISTS citations_src ON citations(src)")
+    db.execute("CREATE INDEX IF NOT EXISTS citations_target ON citations(target, target_locator)")
+    for (js,) in db.execute("SELECT json FROM documents").fetchall():
+        for e in edges_for(LegalDocument.model_validate_json(js)):
+            db.execute("INSERT INTO citations VALUES (?,?,?,?,?)", (e.src, e.target, e.locator, e.kind, e.raw))
+
+
+MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3}
 LATEST = max(MIGRATIONS)
 
 
