@@ -12,6 +12,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
+from prawnik_mcp import sources
 from prawnik_mcp.contracts import (
     Claim,
     Coverage,
@@ -33,23 +34,14 @@ SNIPPET_CHARS = 800
 JUDGMENT_PAGE_CHARS = 6000
 STALE_AFTER = timedelta(days=30)
 
-# Act aliases -> logical document ids of the MVP corpus.
-ACT_ALIASES = {
-    "kc": "eli:DU/1964/93",
-    "k.c.": "eli:DU/1964/93",
-    "kodeks cywilny": "eli:DU/1964/93",
-    "kodeksu cywilnego": "eli:DU/1964/93",
-    "upk": "eli:DU/2014/827",
-    "u.p.k.": "eli:DU/2014/827",
-    "ustawa o prawach konsumenta": "eli:DU/2014/827",
-    "ustawy o prawach konsumenta": "eli:DU/2014/827",
-    "prawach konsumenta": "eli:DU/2014/827",
-    "dyrektywa 2011/83": "celex:32011L0083",
-    "dyrektywy 2011/83": "celex:32011L0083",
-    "2011/83/ue": "celex:32011L0083",
-}
+def _act_aliases() -> dict[str, str]:
+    """Act aliases -> logical document ids (from the source catalog)."""
+    return sources.act_aliases()
 
-KIND_TO_SOURCE = {SourceKind.statute: "eli", SourceKind.judgment: "saos", SourceKind.eu_act: "cellar"}
+
+def _kind_sources(kinds: list[SourceKind]) -> set[str]:
+    return {sid for k in kinds for sid in sources.sources_for_kind(k.value)}
+
 
 _STOP = set(
     "a aby ale albo ani by być czy do dla go i ich jak jaki jest jeśli już lub ma może na nie nie o od oraz po "
@@ -64,7 +56,7 @@ def _now() -> datetime:
 
 
 def _coverage(store: Store, kinds: list[SourceKind] | None = None) -> Coverage:
-    wanted = {KIND_TO_SOURCE[k] for k in kinds} if kinds else None
+    wanted = _kind_sources(kinds) if kinds else None
     cov = Coverage()
     for s in store.get_sources():
         if wanted and s.source_id not in wanted:
@@ -131,9 +123,10 @@ def _parse_date(v: Any) -> date | None:
 
 def _resolve_act(text: str) -> str | None:
     low = text.lower()
-    for alias in sorted(ACT_ALIASES, key=len, reverse=True):
+    aliases = _act_aliases()
+    for alias in sorted(aliases, key=len, reverse=True):
         if re.search(r"(?<!\w)" + re.escape(alias) + r"(?!\w)", low):
-            return ACT_ALIASES[alias]
+            return aliases[alias]
     return None
 
 
@@ -379,17 +372,28 @@ def get_legal_document(
 
 
 def sources_status(store: Store) -> ToolResult:
-    sources = store.get_sources()
+    synced = store.get_sources()
     warnings = _stale_warnings(store)
-    if not sources:
+    if not synced:
         warnings.append("Brak zsynchronizowanych źródeł. Uruchom `prawnik-mcp sync`.")
+    by_source = store.stats_by_source()
+    catalog = [{
+        "source_id": s.source_id, "name": s.name, "maturity": s.maturity, "implemented": s.implemented,
+        "kinds": list(s.kinds), "terms_url": s.terms_url, "rate_per_s": s.rate_per_s,
+        "local_counts": by_source.get(s.source_id, {}),
+    } for s in sources.catalog().values()]
     return ToolResult(status=ResultStatus.ok, warnings=warnings, coverage=_coverage(store), data={
-        "sources": [s.model_dump(mode="json") for s in sources],
+        "sources": [s.model_dump(mode="json") for s in synced],
+        "catalog": catalog,
+        "sync_state": store.list_sync_state(),
         "counts": store.stats(),
-        "supported_area": "Wąskie sprawy cywilne i konsumenckie: płatności, zakupy, reklamacje, odstąpienie od umowy na odległość.",
-        "not_supported": ["pozwy, apelacje, kasacje", "obliczanie terminów procesowych i przedawnienia",
-                          "podatki", "sprawy karne, rodzinne, migracyjne", "nieruchomości",
-                          "pełna historia brzmień przepisów (tylko bieżący TJ)"],
+        "schema_version": store.schema_version,
+        "search_and_retrieval": "Polish and EU statutes and judgments from the implemented sources (see catalog).",
+        "letter_templates_and_analysis": "Only narrow civil/consumer matters: payment demand, consumer complaint, "
+                                         "withdrawal from a distance contract.",
+        "not_supported": ["drafting pleadings (pozwy, apelacje, kasacje)", "procedural deadlines and limitation periods",
+                          "full history of statute wordings (latest consolidated text only)",
+                          "sources marked maturity=research in the catalog"],
     })
 
 

@@ -8,7 +8,9 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime
+from pathlib import Path
 
+from prawnik_mcp.connectors.base import BaseConnector, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
 from prawnik_mcp.contracts import LegalDocument, ProvisionVersion, SourceKind, TemporalStatus
 from prawnik_mcp.parsers.cellar import PARSER_VERSION, parse_cellar_xhtml
@@ -95,3 +97,50 @@ def sync_celex(store: Store, client: PoliteClient, celex: str, *, force: bool = 
         doc.metadata["cellar_final_url"] = r.url
         store.upsert_document(doc)
     return res
+
+
+# --------------------------------------------------------------------------- connector
+
+
+class CellarConnector(BaseConnector):
+    """EU acts by CELEX number from the Publications Office (original OJ text)."""
+
+    source_id = "cellar"
+    supports_fetch = True
+
+    def sync_defaults(self, store: Store, client: PoliteClient, *, force: bool = False,
+                      limit: int | None = None) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        for celex in list(self.info.defaults.get("celex", []))[: limit or None]:
+            try:
+                ing = sync_celex(store, client, celex, force=force)
+                res.counts[celex] = ing.provisions
+                res.warnings += ing.warnings
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{celex}: {e}")
+        res.ok = not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=False)
+        return res
+
+    def sync_offline(self, store: Store, fixtures: Path) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        for p in sorted(fixtures.glob("celex_*.xhtml")):
+            celex = p.stem.split("_", 1)[1]
+            try:
+                ing = ingest_xhtml(store, celex, p.read_bytes(), celex_url(celex), mtime(p))
+                res.counts[celex] = ing.provisions
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{celex}: {type(e).__name__}: {e}")
+        res.ok = bool(res.counts) and not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=True)
+        return res
+
+    def coverage(self, store: Store) -> tuple[str, list[str]]:
+        docs = [d for d in store.list_documents() if d.document_id.startswith("celex:")]
+        parts = [f"{d.document_id} ({len(store.get_provisions(d.document_id))} articles, original OJ text)" for d in docs]
+        return ("; ".join(parts) or "no local data"), [f"{d.document_id}: original OJ publication" for d in docs]
+
+    def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
+        if not document_id.startswith("celex:"):
+            return None
+        return sync_celex(store, client, document_id.removeprefix("celex:"), force=force).document_id

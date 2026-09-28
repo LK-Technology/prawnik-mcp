@@ -78,6 +78,9 @@ class SourceKind(str, Enum):
 
 class SourceRecord(BaseModel):
     source_id: str  # "eli", "saos", "cellar"
+    name: str | None = None
+    maturity: str | None = None  # stable | beta | experimental | research
+    terms_url: str | None = None
     publisher: str
     base_url: str
     terms_of_use: str  # short statement + link; data rights assessed separately from code licence

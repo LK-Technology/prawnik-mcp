@@ -10,7 +10,9 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from datetime import date, datetime
+from pathlib import Path
 
+from prawnik_mcp.connectors.base import BaseConnector, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
 from prawnik_mcp.contracts import LegalDocument, ProvisionVersion, Snapshot, SourceKind, TemporalStatus
 from prawnik_mcp.parsers.eli_pdf import PARSER_VERSION, ConsolidatedText, parse_consolidated_pdf
@@ -212,3 +214,75 @@ def ingest_from_files(store: Store, logical_meta_bytes: bytes, tj_meta_bytes: by
     ps = store.put_snapshot(SOURCE_ID, pdf_url(tj_meta["ELI"]), pdf_bytes, "application/pdf",
                             parser_version=PARSER_VERSION, fetched_at=fetched_at)
     return ingest_consolidated(store, logical_meta, ls, tj_meta, ts, ps, pdf_bytes)
+
+
+
+# --------------------------------------------------------------------------- connector
+
+
+class EliConnector(BaseConnector):
+    """Polish statutes from the Sejm ELI API (latest consolidated text per act)."""
+
+    source_id = "eli"
+    supports_fetch = True
+
+    def default_acts(self) -> dict[str, str]:
+        return dict(self.info.defaults.get("acts", {}))
+
+    def sync_defaults(self, store: Store, client: PoliteClient, *, force: bool = False,
+                      limit: int | None = None) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        for logical in list(self.default_acts())[: limit or None]:
+            try:
+                ing = sync_act(store, client, logical, force=force)
+                res.counts[logical] = ing.provisions
+                res.warnings += [f"{logical}: {w}" for w in ing.warnings]
+            except Exception as e:  # noqa: BLE001 - one act must not stop the others
+                res.errors.append(f"{logical}: {e}")
+        res.ok = not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=False)
+        return res
+
+    def sync_offline(self, store: Store, fixtures: Path) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        metas = {p: json.loads(p.read_bytes()) for p in sorted(fixtures.glob("eli_*.meta.json"))}
+        by_eli = {m.get("ELI"): p for p, m in metas.items()}
+        for p, m in metas.items():
+            targets = [r["id"] for r in (m.get("references") or {}).get("Tekst jednolity dla aktu", [])]
+            if not targets:
+                continue
+            pdf = fixtures / p.name.replace(".meta.json", ".pdf")
+            logical_p = by_eli.get(targets[0])
+            if not pdf.exists() or logical_p is None:
+                res.errors.append(f"{m.get('ELI')}: missing PDF or metadata of act {targets[0]} in samples")
+                continue
+            if latest_consolidated(metas[logical_p]) != m["ELI"]:
+                res.warnings.append(f"{m['ELI']}: not the latest consolidated text per metadata; skipped")
+                continue
+            try:
+                ing = ingest_from_files(store, logical_p.read_bytes(), p.read_bytes(), pdf.read_bytes(),
+                                        fetched_at=mtime(pdf))
+                res.counts[targets[0]] = ing.provisions
+                res.warnings += [f"{targets[0]}: {w}" for w in ing.warnings]
+            except Exception as e:  # noqa: BLE001 - parsing problem of one act must not stop the others
+                res.errors.append(f"{targets[0]}: {type(e).__name__}: {e}")
+        res.ok = bool(res.counts) and not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=True)
+        return res
+
+    def coverage(self, store: Store) -> tuple[str, list[str]]:
+        parts, ivs = [], []
+        for d in store.list_documents():
+            if not d.document_id.startswith("eli:") or not d.metadata.get("consolidated_versions"):
+                continue
+            cur = d.metadata["consolidated_versions"][0]
+            iv = f"{d.title}: TJ {cur.get('publication')}, stan prawny na {cur.get('state_date')}"
+            parts.append(f"{iv} ({cur.get('provision_count', 0)} units)")
+            ivs.append(iv)
+        return ("; ".join(parts) or "no local data"), ivs
+
+    def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
+        if not document_id.startswith("eli:"):
+            return None
+        sync_act(store, client, document_id.removeprefix("eli:"), force=force)
+        return document_id

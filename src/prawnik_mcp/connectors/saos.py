@@ -7,10 +7,13 @@ Search results contain only snippets; every judgment is fetched in full from
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
+from pathlib import Path
 from urllib.parse import urlencode
 
+from prawnik_mcp.connectors.base import BaseConnector, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient
 from prawnik_mcp.contracts import Judgment
 from prawnik_mcp.parsers.saos import PARSER_VERSION, parse_saos_judgment
@@ -98,3 +101,62 @@ def sync_queries(store: Store, client: PoliteClient, queries: list[dict[str, str
             if j.data_quality_flags:
                 out.flags[j.document_id] = j.data_quality_flags
     return out
+
+
+# --------------------------------------------------------------------------- connector
+
+
+class SaosConnector(BaseConnector):
+    """Polish court judgments (common courts, SN, TK, administrative, KIO) via the SAOS API."""
+
+    source_id = "saos"
+    supports_fetch = True
+
+    def sync_defaults(self, store: Store, client: PoliteClient, *, force: bool = False,
+                      limit: int | None = None) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        d = self.info.defaults
+        max_total = min(limit or d.get("max_total", 30), d.get("max_total", 30))
+        today = datetime.now(UTC).date().isoformat()
+        queries = [{**q, "judgmentDateTo": today} for q in d.get("queries", [])]
+        success = False
+        try:
+            ing = sync_queries(store, client, queries, max_total=max_total, force=force)
+            res.counts = {"fetched": len(ing.judgments), "reused_checkpoint": len(ing.skipped)}
+            res.errors = ing.errors
+            res.warnings = [f"{k}: {', '.join(v)}" for k, v in ing.flags.items()]
+            success = bool(ing.judgments or ing.skipped)
+            res.ok = not ing.errors and success
+        except Exception as e:  # noqa: BLE001
+            res.errors.append(str(e))
+        self.record(store, success=success, partial=bool(res.errors), offline=False)
+        return res
+
+    def sync_offline(self, store: Store, fixtures: Path) -> SourceSyncResult:
+        res = SourceSyncResult(source_id=self.source_id)
+        n = 0
+        for p in sorted(fixtures.glob("saos_*.json")):
+            if not re.fullmatch(r"saos_\d+\.json", p.name):
+                continue
+            try:
+                j = ingest_judgment_bytes(store, p.read_bytes(), judgment_url(p.stem.split("_")[1]), mtime(p))
+                n += 1
+                if j.data_quality_flags:
+                    res.warnings.append(f"{j.document_id}: {', '.join(j.data_quality_flags)}")
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{p.name}: {type(e).__name__}: {e}")
+        res.counts = {"judgments": n}
+        res.ok = n > 0 and not res.errors
+        self.record(store, success=n > 0, partial=bool(res.errors), offline=True)
+        return res
+
+    def coverage(self, store: Store) -> tuple[str, list[str]]:
+        n = store.stats_by_source().get("saos", {}).get("judgments", 0)
+        return f"{n} SAOS judgments stored locally", []
+
+    def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
+        m = re.fullmatch(r"saos:(\d+)", document_id)
+        if not m:
+            return None
+        j, _ = fetch_judgment(store, client, int(m.group(1)), force=force)
+        return j.document_id

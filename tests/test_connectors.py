@@ -108,3 +108,26 @@ def test_private_ip_resolution_blocked(monkeypatch):
     with PoliteClient(resolve_dns=True) as c:
         with pytest.raises(BlockedUrl):
             c.check_url("https://api.sejm.gov.pl/x")
+
+
+def test_post_form_and_per_host_delay():
+    seen = []
+
+    def handler(req):
+        seen.append((req.method, req.headers.get("content-type", ""), req.content))
+        return httpx.Response(200, content=b"ok")
+
+    sleeps: list[float] = []
+    c = PoliteClient(transport=httpx.MockTransport(handler), sleep=sleeps.append, clock=lambda: 0.0,
+                     allowlist={"www.saos.org.pl"}, host_delays={"www.saos.org.pl": 2.0})
+    c.post("https://www.saos.org.pl/api/x", data={"q": "a"})
+    c.get("https://www.saos.org.pl/api/y")
+    assert seen[0][0] == "POST" and "application/x-www-form-urlencoded" in seen[0][1] and seen[0][2] == b"q=a"
+    assert seen[1][0] == "GET"
+    assert sleeps == [2.0]  # waited the per-host delay (0.5 req/s), not the global default of 1 s
+
+
+def test_default_allowlist_comes_from_catalog():
+    c = PoliteClient(transport=httpx.MockTransport(lambda r: httpx.Response(200, content=b"x")))
+    assert {"api.sejm.gov.pl", "www.saos.org.pl", "publications.europa.eu"} <= c.allowlist
+    assert "orzeczenia.nsa.gov.pl" not in c.allowlist  # research-only sources are not contacted

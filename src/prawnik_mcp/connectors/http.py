@@ -1,10 +1,12 @@
-"""Polite HTTP client for the three public legal-data APIs.
+"""Polite HTTP client for public legal-data sources.
 
 Rules enforced here (not left to callers):
-- only allowlisted hosts over https; every redirect hop is re-checked;
+- only allowlisted hosts over https (default: hosts of implemented sources in the catalog);
+  every redirect hop is re-checked;
 - hosts resolving to private/loopback/link-local addresses are refused (SSRF guard);
 - identifiable User-Agent, timeout, maximum response size;
-- at most one request per host at a time, with a minimum delay between requests;
+- at most one request per host at a time, with a per-host minimum delay (catalog rate limits);
+- cookies persist per client (needed by form-based sources);
 - retry with exponential backoff on network errors, 429 and 5xx, honouring Retry-After;
 - 404 is reported as `NotFoundUpstream`, everything else as `SourceUnavailable`.
 
@@ -26,8 +28,9 @@ from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import httpx
 
-USER_AGENT = "prawnik-mcp/0.1 (+local; experimental)"
-DEFAULT_ALLOWLIST = frozenset({"api.sejm.gov.pl", "www.saos.org.pl", "publications.europa.eu"})
+from prawnik_mcp import __version__
+
+USER_AGENT = f"prawnik-mcp/{__version__} (+https://github.com/OWNER/prawnik-mcp; open-source legal research tool)"
 RETRY_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 
@@ -94,24 +97,29 @@ class PoliteClient:
         self,
         *,
         transport: httpx.BaseTransport | None = None,
-        allowlist: frozenset[str] | set[str] = DEFAULT_ALLOWLIST,
+        allowlist: frozenset[str] | set[str] | None = None,
         timeout: float = 30.0,
         max_bytes: int = 40 * 1024 * 1024,
         max_retries: int = 3,
         backoff_base: float = 1.0,
         max_retry_after: float = 120.0,
-        min_delay: float = 1.0,
+        min_delay: float | None = None,
+        host_delays: dict[str, float] | None = None,
         max_redirects: int = 5,
         resolve_dns: bool | None = None,
         sleep: Callable[[float], None] = time.sleep,
         clock: Callable[[], float] = time.monotonic,
     ):
-        self.allowlist = frozenset(h.lower() for h in allowlist)
+        from prawnik_mcp import sources
+
+        self.allowlist = frozenset(h.lower() for h in (allowlist if allowlist is not None else sources.allowed_hosts()))
+        # Per-host delays from the catalog; an explicit min_delay overrides all hosts (tests use 0).
+        self.host_delays = {} if min_delay is not None else dict(host_delays or sources.host_delays())
         self.max_bytes = max_bytes
         self.max_retries = max_retries
         self.backoff_base = backoff_base
         self.max_retry_after = max_retry_after
-        self.min_delay = min_delay
+        self.min_delay = 1.0 if min_delay is None else min_delay
         self.max_redirects = max_redirects
         # With an injected transport (offline tests) there is no real DNS lookup.
         self.resolve_dns = (transport is None) if resolve_dns is None else resolve_dns
@@ -165,6 +173,15 @@ class PoliteClient:
 
     # ------------------------------------------------------------------ fetching
     def get(self, url: str, *, accept: str | None = None, headers: dict[str, str] | None = None) -> FetchResult:
+        return self.request("GET", url, accept=accept, headers=headers)
+
+    def post(self, url: str, *, data: dict[str, str] | None = None, json: object | None = None,
+             accept: str | None = None, headers: dict[str, str] | None = None) -> FetchResult:
+        """POST (form or JSON). Redirects after POST are followed with GET (303 semantics)."""
+        return self.request("POST", url, accept=accept, headers=headers, data=data, json=json)
+
+    def request(self, method: str, url: str, *, accept: str | None = None, headers: dict[str, str] | None = None,
+                data: dict[str, str] | None = None, json: object | None = None) -> FetchResult:
         hdrs = dict(headers or {})
         if accept:
             hdrs["Accept"] = accept
@@ -172,7 +189,8 @@ class PoliteClient:
         current = url
         for _ in range(self.max_redirects + 1):
             host = self.check_url(current)
-            resp_status, resp_headers, content = self._get_with_retry(current, host, hdrs)
+            resp_status, resp_headers, content = self._get_with_retry(current, host, hdrs, method, data, json)
+            method, data, json = "GET", None, None  # any redirect continues as GET
             if resp_status in (301, 302, 303, 307, 308):
                 loc = resp_headers.get("location")
                 if not loc:
@@ -202,11 +220,12 @@ class PoliteClient:
             headers=headers, fetched_at=datetime.now(UTC), redirects=redirects,
         )
 
-    def _get_with_retry(self, url: str, host: str, headers: dict[str, str]) -> tuple[int, dict[str, str], bytes]:
+    def _get_with_retry(self, url: str, host: str, headers: dict[str, str], method: str = "GET",
+                        data: dict[str, str] | None = None, json: object | None = None) -> tuple[int, dict[str, str], bytes]:
         attempt = 0
         while True:
             try:
-                status, resp_headers, content = self._one_request(url, host, headers)
+                status, resp_headers, content = self._one_request(url, host, headers, method, data, json)
             except httpx.TransportError as e:
                 if attempt >= self.max_retries:
                     raise SourceUnavailable(url, f"błąd sieci: {type(e).__name__}: {e}") from e
@@ -227,15 +246,17 @@ class PoliteClient:
                 continue
             return status, resp_headers, content
 
-    def _one_request(self, url: str, host: str, headers: dict[str, str]) -> tuple[int, dict[str, str], bytes]:
+    def _one_request(self, url: str, host: str, headers: dict[str, str], method: str = "GET",
+                     data: dict[str, str] | None = None, json: object | None = None) -> tuple[int, dict[str, str], bytes]:
+        delay = self.host_delays.get(host, self.min_delay)
         with self._host_lock(host):
             last = self._host_last.get(host)
             if last is not None:
                 gap = self._clock() - last
-                if gap < self.min_delay:
-                    self._sleep(self.min_delay - gap)
+                if gap < delay:
+                    self._sleep(delay - gap)
             try:
-                with self._client.stream("GET", url, headers=headers) as resp:
+                with self._client.stream(method, url, headers=headers, data=data, json=json) as resp:
                     resp_headers = {k.lower(): v for k, v in resp.headers.items()}
                     declared = resp_headers.get("content-length")
                     if declared and declared.isdigit() and int(declared) > self.max_bytes:

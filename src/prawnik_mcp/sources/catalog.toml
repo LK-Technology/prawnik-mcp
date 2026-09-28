@@ -1,0 +1,186 @@
+# Source catalog: one entry per legal data source.
+#
+# maturity: stable | beta | experimental | research (not implemented; listed so users know the gap)
+# rate_per_s: maximum request rate per host we allow ourselves (polite default, never above source limits)
+# id_prefix: prefix of document ids produced by the connector (used to attribute stored records to a source)
+
+[sources.eli]
+name = "ELI API — Dziennik Ustaw (Chancellery of the Sejm)"
+publisher = "Kancelaria Sejmu RP – API ELI (Dziennik Ustaw)"
+base_url = "https://api.sejm.gov.pl/eli"
+hosts = ["api.sejm.gov.pl"]
+rate_per_s = 1.0
+kinds = ["statute"]
+id_prefix = "eli:"
+maturity = "beta"
+terms = "Legal acts are not subject to copyright (art. 4 pt 2 of the Polish Copyright Act). No separate API terms found — unverified."
+terms_url = "https://api.sejm.gov.pl/eli_pl.html"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: Dziennik Ustaw RP, API ELI Kancelarii Sejmu (api.sejm.gov.pl)"
+known_gaps = [
+  "Only the latest consolidated text (TJ) per act; no history of wordings (valid_from/valid_to not set).",
+  "A TJ may include amendments entering into force after its state-of-law date (pending_changes, tracked per act, not per article).",
+  "Transitional provisions not included in the TJ are quoted in excluded_provisions.",
+  "Text extracted from PDF: superscripts restored heuristically; occasional spacing artefacts inside words.",
+]
+
+[sources.eli.defaults]
+acts = { "DU/1964/93" = "Kodeks cywilny", "DU/2014/827" = "ustawa o prawach konsumenta" }
+
+[sources.eli.aliases]
+"kc" = "eli:DU/1964/93"
+"k.c." = "eli:DU/1964/93"
+"kodeks cywilny" = "eli:DU/1964/93"
+"kodeksu cywilnego" = "eli:DU/1964/93"
+"upk" = "eli:DU/2014/827"
+"u.p.k." = "eli:DU/2014/827"
+"ustawa o prawach konsumenta" = "eli:DU/2014/827"
+"ustawy o prawach konsumenta" = "eli:DU/2014/827"
+"prawach konsumenta" = "eli:DU/2014/827"
+
+[sources.saos]
+name = "SAOS — court judgments (ICM, University of Warsaw)"
+publisher = "SAOS – System Analizy Orzeczeń Sądowych (ICM UW); judgments come from court portals"
+base_url = "https://www.saos.org.pl/api"
+hosts = ["www.saos.org.pl"]
+rate_per_s = 1.0
+kinds = ["judgment"]
+id_prefix = "saos:"
+maturity = "beta"
+terms = "Judgments are official documents (art. 4 pt 2 of the Copyright Act), anonymised at the source. SAOS service terms and database rights unverified. The corpus is not redistributed."
+terms_url = "https://www.saos.org.pl/"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: SAOS (saos.org.pl) oraz portal orzeczeń sądu wskazany w original_url"
+known_gaps = [
+  "Coverage and freshness of SAOS not measured; the default sync fetches only a small topical sample.",
+  "Source data errors exist (e.g. saos:31345 has judgment date 3013-12-04); such dates are nulled and flagged.",
+  "Finality (prawomocność) unknown.",
+  "Text comes from SAOS, not directly from the court portal; differences are possible.",
+]
+
+[sources.saos.defaults]
+max_total = 30
+queries = [
+  { all = '"odstąpienia od umowy zawartej na odległość"', courtType = "COMMON", judgmentDateFrom = "2016-01-01" },
+  { all = '"niezgodność towaru z umową"', keywords = "sprzedaż konsumencka", courtType = "COMMON", judgmentDateFrom = "2016-01-01" },
+  { all = '"wezwanie do zapłaty" "odsetki ustawowe za opóźnienie"', keywords = "odsetki", courtType = "COMMON", judgmentDateFrom = "2016-01-01" },
+]
+
+[sources.cellar]
+name = "Cellar — Publications Office of the EU (EUR-Lex)"
+publisher = "Publications Office of the European Union – Cellar"
+base_url = "https://publications.europa.eu/resource/celex"
+hosts = ["publications.europa.eu"]
+rate_per_s = 1.0
+kinds = ["eu_act"]
+id_prefix = "celex:"
+maturity = "beta"
+terms = "Reuse permitted with attribution per the EUR-Lex reuse notice (Commission Decision 2011/833/EU); not legally verified."
+terms_url = "https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html"
+terms_checked_at = "2026-09-26"
+attribution = "© European Union, https://eur-lex.europa.eu"
+known_gaps = [
+  "Original Official Journal text, not consolidated versions.",
+  "Recitals and annexes are not stored as provisions.",
+  "The EUR-Lex website serves a bot challenge (202); it is not used or bypassed.",
+]
+
+[sources.cellar.defaults]
+celex = ["32011L0083"]
+
+[sources.cellar.aliases]
+"dyrektywa 2011/83" = "celex:32011L0083"
+"dyrektywy 2011/83" = "celex:32011L0083"
+"2011/83/ue" = "celex:32011L0083"
+
+# ---------------------------------------------------------------- not implemented yet (roadmap)
+
+[sources.eureka]
+name = "EUREKA — tax interpretations (Ministry of Finance)"
+publisher = "Ministerstwo Finansów – EUREKA"
+base_url = "https://eureka.mf.gov.pl"
+hosts = ["eureka.mf.gov.pl"]
+rate_per_s = 1.0
+kinds = ["tax_ruling"]
+id_prefix = "eureka:"
+maturity = "research"
+terms = "Unverified."
+terms_url = "https://podatki.gov.pl/narzedzia/eureka"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: EUREKA (Ministerstwo Finansów)"
+known_gaps = ["Not implemented yet."]
+
+[sources.kio]
+name = "KIO — National Appeal Chamber (public procurement)"
+publisher = "Krajowa Izba Odwoławcza / Urząd Zamówień Publicznych"
+base_url = "https://orzeczenia.uzp.gov.pl"
+hosts = ["orzeczenia.uzp.gov.pl"]
+rate_per_s = 1.0
+kinds = ["judgment"]
+id_prefix = "kio:"
+maturity = "research"
+terms = "Unverified."
+terms_url = "https://orzeczenia.uzp.gov.pl/"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: KIO (orzeczenia.uzp.gov.pl)"
+known_gaps = ["Not implemented yet."]
+
+[sources.cbosa]
+name = "CBOSA — administrative courts (NSA/WSA)"
+publisher = "Naczelny Sąd Administracyjny – Centralna Baza Orzeczeń Sądów Administracyjnych"
+base_url = "https://orzeczenia.nsa.gov.pl"
+hosts = ["orzeczenia.nsa.gov.pl"]
+rate_per_s = 0.5
+kinds = ["judgment"]
+id_prefix = "cbosa:"
+maturity = "research"
+terms = "Informational database without official-collection status. Aggressive crawling leads to IP bans (reported above ~2 req/s). Unverified terms."
+terms_url = "https://orzeczenia.nsa.gov.pl/cbo/query"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: CBOSA (orzeczenia.nsa.gov.pl)"
+known_gaps = ["Not implemented yet."]
+
+[sources.uodo]
+name = "UODO — data protection authority decisions"
+publisher = "Prezes Urzędu Ochrony Danych Osobowych"
+base_url = "https://orzeczenia.uodo.gov.pl"
+hosts = ["orzeczenia.uodo.gov.pl"]
+rate_per_s = 1.0
+kinds = ["decision"]
+id_prefix = "uodo:"
+maturity = "research"
+terms = "Unverified."
+terms_url = "https://orzeczenia.uodo.gov.pl/"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: UODO"
+known_gaps = ["Not implemented yet."]
+
+[sources.portal_sp]
+name = "Portal Orzeczeń Sądów Powszechnych (common courts portal)"
+publisher = "Ministerstwo Sprawiedliwości"
+base_url = "https://orzeczenia.ms.gov.pl"
+hosts = ["orzeczenia.ms.gov.pl"]
+rate_per_s = 0.5
+kinds = ["judgment"]
+id_prefix = "portalsp:"
+maturity = "research"
+terms = "Access method and reuse terms not assessed."
+terms_url = "https://orzeczenia.ms.gov.pl/"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: Portal Orzeczeń Sądów Powszechnych"
+known_gaps = ["Not implemented; SAOS covers part of these judgments."]
+
+[sources.uokik]
+name = "UOKiK — competition and consumer protection decisions"
+publisher = "Prezes Urzędu Ochrony Konkurencji i Konsumentów"
+base_url = "https://decyzje.uokik.gov.pl"
+hosts = ["decyzje.uokik.gov.pl"]
+rate_per_s = 0.5
+kinds = ["decision"]
+id_prefix = "uokik:"
+maturity = "research"
+terms = "Access method and reuse terms not assessed."
+terms_url = "https://uokik.gov.pl/"
+terms_checked_at = "2026-09-26"
+attribution = "Źródło: UOKiK"
+known_gaps = ["Not implemented yet."]
