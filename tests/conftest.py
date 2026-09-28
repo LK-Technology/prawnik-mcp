@@ -26,3 +26,5 @@ def _block_network(request, monkeypatch):
     if request.node.get_closest_marker("online"):
         return
     monkeypatch.setattr(socket.socket, "connect", _guarded_connect)
+    # live search / lazy fetch off unless a test enables it explicitly with a mock client
+    monkeypatch.setenv("PRAWNIK_MCP_OFFLINE", "1")

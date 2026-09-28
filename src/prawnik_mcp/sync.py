@@ -15,11 +15,11 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from prawnik_mcp.connectors import registry
-from prawnik_mcp.connectors.base import SourceSyncResult
+from prawnik_mcp.connectors.base import BulkLimits, SourceSyncResult
 from prawnik_mcp.connectors.http import PoliteClient
 from prawnik_mcp.store import Store
 
-__all__ = ["SourceSyncResult", "SyncReport", "sync_corpus"]
+__all__ = ["BulkLimits", "SourceSyncResult", "SyncReport", "sync_corpus", "sync_source"]
 
 SAOS_MAX_TOTAL = 30  # kept for backwards compatibility; the catalog holds the default
 
@@ -56,3 +56,16 @@ def sync_corpus(store: Store, client: PoliteClient | None = None, *, offline_fix
     report.finished_at = datetime.now(UTC)
     report.store_stats = store.stats()
     return report
+
+
+def sync_source(store: Store, source_id: str, params: dict, limits: BulkLimits, *,
+                client: PoliteClient | None = None, progress=None) -> SourceSyncResult:
+    """Bulk/targeted sync of one source (see each connector's `sync_bulk`)."""
+    conn = registry.get(source_id)
+    own = client is None
+    client = client or PoliteClient()
+    try:
+        return conn.sync_bulk(store, client, params, limits, progress=progress)
+    finally:
+        if own:
+            client.close()

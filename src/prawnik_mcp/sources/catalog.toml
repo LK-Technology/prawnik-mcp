@@ -83,6 +83,8 @@ known_gaps = [
   "Original Official Journal text, not consolidated versions.",
   "Recitals and annexes are not stored as provisions.",
   "The EUR-Lex website serves a bot challenge (202); it is not used or bypassed.",
+  "Older acts (e.g. pre-2004 directives) may have no Polish XHTML manifestation in Cellar (404); PDF/Formex are not parsed yet.",
+  "Full-text search over Cellar (SPARQL) is too slow for interactive use; live lookup works by identifier (CELEX, 'dyrektywa 2011/83/UE', 'RODO').",
 ]
 
 [sources.cellar.defaults]
@@ -92,6 +94,8 @@ celex = ["32011L0083"]
 "dyrektywa 2011/83" = "celex:32011L0083"
 "dyrektywy 2011/83" = "celex:32011L0083"
 "2011/83/ue" = "celex:32011L0083"
+"rodo" = "celex:32016R0679"
+"gdpr" = "celex:32016R0679"
 
 # ---------------------------------------------------------------- not implemented yet (roadmap)
 

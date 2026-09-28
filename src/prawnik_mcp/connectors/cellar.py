@@ -6,11 +6,12 @@ REST content negotiation is. The text is the ORIGINAL publication (no consolidat
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
-from prawnik_mcp.connectors.base import BaseConnector, SourceSyncResult, mtime
+from prawnik_mcp.connectors.base import BaseConnector, BulkLimits, RemoteHit, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
 from prawnik_mcp.contracts import LegalDocument, ProvisionVersion, SourceKind, TemporalStatus
 from prawnik_mcp.parsers.cellar import PARSER_VERSION, parse_cellar_xhtml
@@ -102,11 +103,54 @@ def sync_celex(store: Store, client: PoliteClient, celex: str, *, force: bool = 
 # --------------------------------------------------------------------------- connector
 
 
+_EU_NUM_RE = re.compile(
+    r"(?:(?P<kind>dyrektyw|rozporządze|decyzj)\w*\D{0,40}?)?(?P<eu>\((?:UE|WE|EU|EC)\)\s*)?"
+    r"(?P<a>\d{2,4})/(?P<b>\d{1,4})(?P<suffix>/(?:UE|WE|EWG|EU|EC|EEC))?", re.I)
+_CELEX_RE = re.compile(r"\b(3\d{4}[LRD]\d{4})\b")
+
+
+def celex_candidates(query: str) -> list[str]:
+    """CELEX numbers implied by an identifier in the query ('dyrektywa 2011/83/UE', '32016R0679', 'RODO')."""
+    q = query.strip()
+    out = _CELEX_RE.findall(q.upper())
+    if re.search(r"\brodo\b|\bgdpr\b", q, re.I):
+        out.append("32016R0679")
+    for m in _EU_NUM_RE.finditer(q):
+        if not (m.group("kind") or m.group("eu") or m.group("suffix")):
+            continue  # a bare "12/2020" is too ambiguous (contract numbers, case numbers...)
+        a, b = m.group("a"), m.group("b")
+        # new numbering (2015+) is YYYY/N for regulations ("(UE) 2016/679"); directives are YYYY/N/UE
+        if len(a) == 4:
+            year, num = a, b
+        elif len(b) == 4:
+            year, num = b, a
+        elif len(a) == 2:  # pre-1999 numbering: 93/13/EWG -> 1993, no. 13
+            year, num = str(1900 + int(a) if int(a) >= 50 else 2000 + int(a)), b
+        else:
+            year, num = None, None
+        if not year or not (1950 <= int(year) <= 2100):
+            continue
+        kind = (m.group("kind") or "").lower()
+        letters = ["L"] if kind.startswith("dyrektyw") else ["R"] if kind.startswith("rozporz") else \
+            ["D"] if kind.startswith("decyzj") else ["L", "R"]
+        out += [f"3{year}{letter}{int(num):04d}" for letter in letters]
+    return list(dict.fromkeys(out))
+
+
 class CellarConnector(BaseConnector):
     """EU acts by CELEX number from the Publications Office (original OJ text)."""
 
     source_id = "cellar"
     supports_fetch = True
+    supports_search = True
+
+    def search(self, client: PoliteClient, query: str, *, limit: int = 5,
+               filters: dict | None = None) -> list[RemoteHit]:
+        """Identifier-based lookup only (full-text SPARQL over Cellar is too slow for interactive use)."""
+        return [RemoteHit(document_id=f"celex:{c}", kind="eu_act", title=f"CELEX {c}",
+                          snippet="Akt UE rozpoznany po identyfikatorze; pełny tekst: get_legal_document.",
+                          original_url=EURLEX_HUMAN.format(celex=c), metadata={"celex": c, "source": "cellar"})
+                for c in celex_candidates(query)[:limit]]
 
     def sync_defaults(self, store: Store, client: PoliteClient, *, force: bool = False,
                       limit: int | None = None) -> SourceSyncResult:
@@ -139,6 +183,26 @@ class CellarConnector(BaseConnector):
         docs = [d for d in store.list_documents() if d.document_id.startswith("celex:")]
         parts = [f"{d.document_id} ({len(store.get_provisions(d.document_id))} articles, original OJ text)" for d in docs]
         return ("; ".join(parts) or "no local data"), [f"{d.document_id}: original OJ publication" for d in docs]
+
+    def sync_bulk(self, store: Store, client: PoliteClient, params: dict, limits: BulkLimits,
+                  progress=None) -> SourceSyncResult:
+        """Sync explicit CELEX numbers (`params["celex"]`) or identifiers recognised in `params["query"]`."""
+        res = SourceSyncResult(source_id=self.source_id)
+        ids = [c.removeprefix("celex:") for c in params.get("celex") or []]
+        if params.get("query"):
+            ids += celex_candidates(params["query"])
+        for celex in list(dict.fromkeys(ids))[: limits.limit or None]:
+            try:
+                ing = sync_celex(store, client, celex, force=not limits.resume)
+                res.counts[celex] = ing.provisions
+                res.warnings += ing.warnings
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{celex}: {e}")
+            if progress:
+                progress(f"cellar: {celex} done")
+        res.ok = not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=False)
+        return res
 
     def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
         if not document_id.startswith("celex:"):

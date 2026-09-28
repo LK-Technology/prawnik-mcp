@@ -39,17 +39,24 @@ def build_server(store: Store | None = None) -> MCPServer:
     @mcp.tool(description="Search Polish/EU statutes and judgments by identifier (e.g. 'art. 27 upk', 'I ACa 772/13') "
               "or by a description of the problem (Polish works best). kinds: statute|judgment|eu_act. "
               "filters: document_id, court_type, date_from, date_to. Returns short snippets (≤800 chars), "
-              "metadata, search scope and an explicit status.")
+              "metadata, search scope and an explicit status. live: true = also query source APIs now; "
+              "default = only when local hits are too few; false = local corpus only. Live hits have origin "
+              "'live'/'cache' and must be fetched with get_legal_document before quoting.")
     def search_legal(query: str, kinds: list[str] | None = None, filters: dict[str, Any] | None = None,
-                     relevant_date: str | None = None, cursor: str | None = None, limit: int = 5) -> dict:
-        return service.search_legal(store, query, kinds, filters, relevant_date, cursor, limit).model_dump(mode="json")
+                     relevant_date: str | None = None, cursor: str | None = None, limit: int = 5,
+                     live: bool | None = None) -> dict:
+        return service.search_legal(store, query, kinds, filters, relevant_date, cursor, limit,
+                                    live).model_dump(mode="json")
 
     @mcp.tool(description="Get the exact text of a provision (document_id + locator, e.g. 'eli:DU/2014/827', 'art. 27 ust. 1') "
               "or a judgment ('saos:<id>', paged with cursor). as_of = event date (YYYY-MM-DD) for the version check. "
+              "Documents missing locally are fetched from the source first (live=false to disable). "
               "Returns the text version, snapshot_id and source URL, or an explicit 'not found'.")
     def get_legal_document(document_id: str, locator: str | None = None, as_of: str | None = None,
-                           snapshot_id: str | None = None, cursor: str | None = None) -> dict:
-        return service.get_legal_document(store, document_id, locator, as_of, snapshot_id, cursor).model_dump(mode="json")
+                           snapshot_id: str | None = None, cursor: str | None = None,
+                           live: bool | None = None) -> dict:
+        return service.get_legal_document(store, document_id, locator, as_of, snapshot_id, cursor,
+                                          live).model_dump(mode="json")
 
     @mcp.tool(description="Check citations: claims [{claim_id,text,type:fact|law|conclusion,evidence_ids,premises}] and "
               "evidence [{evidence_id,document_id,locator,version_id?,quote}]. Verifies that each source exists and "

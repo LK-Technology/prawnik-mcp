@@ -121,13 +121,25 @@ def _parse_date(v: Any) -> date | None:
     return date.fromisoformat(str(v))
 
 
+_DZU_RE = re.compile(r"\bDz\.?\s*U\.?\s*(?:z\s*)?(\d{4})\s*(?:r\.)?\s*,?\s*poz\.?\s*(\d{1,5})", re.I)
+_ELI_RE = re.compile(r"\b(DU|MP)/(\d{4})/(\d{1,5})\b")
+
+
 def _resolve_act(text: str) -> str | None:
+    """Act id from an alias ('upk', 'kc'), a Dz.U. / ELI reference or an EU identifier."""
     low = text.lower()
     aliases = _act_aliases()
     for alias in sorted(aliases, key=len, reverse=True):
         if re.search(r"(?<!\w)" + re.escape(alias) + r"(?!\w)", low):
             return aliases[alias]
-    return None
+    if m := _ELI_RE.search(text):
+        return f"eli:{m.group(1)}/{m.group(2)}/{m.group(3)}"
+    if m := _DZU_RE.search(text):
+        return f"eli:DU/{m.group(1)}/{m.group(2)}"
+    from prawnik_mcp.connectors.cellar import celex_candidates
+
+    cands = celex_candidates(text)
+    return f"celex:{cands[0]}" if len(cands) == 1 else None
 
 
 def _latest(provs: list[ProvisionVersion]) -> ProvisionVersion:
@@ -140,8 +152,14 @@ def _latest(provs: list[ProvisionVersion]) -> ProvisionVersion:
 def search_legal(
     store: Store, query: str, kinds: list[str] | None = None, filters: dict | None = None,
     relevant_date: str | None = None, cursor: str | None = None, limit: int = DEFAULT_LIMIT,
+    live: bool | None = None,
 ) -> ToolResult:
+    """Local FTS first; live source search when `live=True`, or automatically when local hits are fewer
+    than `limit` (`live=None`). `live=False` or PRAWNIK_MCP_OFFLINE=1 keeps it strictly local."""
+    from prawnik_mcp import live as live_mod
+
     filters = filters or {}
+    use_live = live is not False and live_mod.live_enabled()
     try:
         kind_enums = [SourceKind(k) for k in kinds] if kinds else None
         when = _parse_date(relevant_date)
@@ -156,9 +174,12 @@ def search_legal(
     if when and when > date.today():
         warnings.append("Data zdarzenia jest w przyszłości — wersji przepisów na tę datę nie da się ustalić.")
 
-    if store.stats()["documents"] == 0:
+    empty = store.stats()["documents"] == 0
+    if empty and not use_live:
         return ToolResult(status=ResultStatus.source_unavailable, coverage=cov, warnings=warnings + [
             "Lokalny korpus jest pusty. Uruchom `prawnik-mcp sync` (lub `sync --offline`). Brak wyników nie oznacza braku przepisów."])
+    if empty:
+        warnings.append("Lokalny korpus jest pusty — wyniki wyłącznie z wyszukiwania na żywo.")
 
     hits: list[SearchHit] = []
 
@@ -166,6 +187,19 @@ def search_legal(
     case = _CASE_RE.search(query)
     if case and (not kind_enums or SourceKind.judgment in kind_enums):
         found = store.find_judgments_by_case_number(case.group(1))
+        if not found and use_live:
+            remote, lw, unavailable = live_mod.live_search(
+                store, query, kinds={"judgment"}, filters={**filters, "case_number": case.group(1)}, limit=limit)
+            cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
+            if remote:
+                rh = [_remote_hit(sid, h, origin) for sid, h, origin in remote]
+                status = ResultStatus.ambiguous if len(rh) > 1 else ResultStatus.ok
+                return ToolResult(status=status, coverage=cov, warnings=warnings + lw + [
+                    "Wynik z wyszukiwania na żywo (nie zapisany lokalnie). Pełny tekst i snapshot: get_legal_document."]
+                    + (["Ta sama sygnatura występuje w kilku dokumentach — rozróżnij po sądzie, dacie i rodzaju."]
+                       if len(rh) > 1 else []),
+                    data={"hits": [h.model_dump(mode="json") for h in rh], "next_cursor": None})
+            warnings += lw
         if not found:
             return ToolResult(status=ResultStatus.not_found, coverage=cov, warnings=warnings + [
                 f"Sygnatura {case.group(1)} nie występuje w lokalnym korpusie SAOS (próbka). "
@@ -185,7 +219,7 @@ def search_legal(
     if art and act:
         loc = canonical_locator(art.group(0))
         if loc:
-            res = get_legal_document(store, act, loc, relevant_date)
+            res = get_legal_document(store, act, loc, relevant_date, live=live if use_live else False)
             if res.status in (ResultStatus.ok, ResultStatus.temporal_unknown):
                 p = res.data
                 hits.append(SearchHit(
@@ -204,7 +238,7 @@ def search_legal(
     fts_kinds = None
     if kind_enums:
         fts_kinds = sorted({"judgment" if k in (SourceKind.judgment, SourceKind.eu_judgment) else "provision" for k in kind_enums})
-    rows = store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
+    rows = [] if empty else store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
     for ref, kind, document_id, score, _body in rows:
         if len(hits) >= limit:
             break
@@ -226,8 +260,19 @@ def search_legal(
                 document_id=document_id, kind=doc.kind, title=doc.title, locator=p.locator, version_id=p.version_id,
                 snippet=_snippet(p.text, words), original_url=doc.original_url, snapshot_id=p.snapshot_id,
                 fetched_at=snap.fetched_at if snap else None, score=round(-score, 3),
-                metadata={"version_label": p.version_label, "temporal_status": ts.value, "temporal_notes": reasons}))
+                metadata={"version_label": p.version_label, "temporal_status": ts.value, "temporal_notes": reasons,
+                          "origin": "local"}))
     more = len(rows) > limit
+    if use_live and offset == 0 and (live is True or len(hits) < limit):
+        remote, lw, unavailable = live_mod.live_search(
+            store, query, kinds={k.value for k in kind_enums} if kind_enums else None, filters=filters, limit=limit)
+        warnings += lw
+        cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
+        seen = {h.document_id for h in hits}
+        for sid, h, origin in remote:
+            if h.document_id not in seen and len(hits) < limit + (limit if live is True else 0):
+                hits.append(_remote_hit(sid, h, origin))
+                seen.add(h.document_id)
     status = ResultStatus.ok if hits else ResultStatus.not_found
     if not hits:
         warnings.append("Brak trafień w lokalnym korpusie (KC, upk, dyrektywa 2011/83/UE, próbka SAOS). "
@@ -239,6 +284,18 @@ def search_legal(
         "next_cursor": str(offset + limit * 4) if more else None,
         "search_scope": "FTS5/BM25 po lokalnym korpusie; bez wyszukiwania semantycznego",
     })
+
+
+def _remote_hit(source_id: str, h, origin: str) -> SearchHit:
+    try:
+        kind = SourceKind(h.kind)
+    except ValueError:
+        kind = SourceKind.statute
+    return SearchHit(
+        document_id=h.document_id, kind=kind, title=h.title, snippet=_snippet(h.snippet, []),
+        original_url=h.original_url, snapshot_id="", metadata={
+            **h.metadata, "origin": origin, "source_id": source_id,
+            "note": "Nie zapisane lokalnie — przed cytowaniem pobierz przez get_legal_document (snapshot, wersja)."})
 
 
 def _judgment_passes(j, filters: dict) -> bool:
@@ -263,7 +320,7 @@ def _judgment_hit(store: Store, j, doc, terms: list[str], score: float | None = 
         snapshot_id=j.snapshot_id, fetched_at=snap.fetched_at if snap else None,
         score=round(-score, 3) if score is not None else None,
         metadata={"court": j.court_name, "case_numbers": j.case_numbers, "judgment_date": str(j.judgment_date),
-                  "finality": j.finality, "data_quality_flags": j.data_quality_flags,
+                  "finality": j.finality, "data_quality_flags": j.data_quality_flags, "origin": "local",
                   "note": "Fragment może pochodzić ze stanowiska strony, nie z oceny sądu — sprawdź kontekst."})
 
 
@@ -297,7 +354,26 @@ def _extract_unit(article_text: str, loc: str) -> str | None:
 
 def get_legal_document(
     store: Store, document_id: str, locator: str | None = None, as_of: str | None = None,
-    snapshot_id: str | None = None, cursor: str | None = None,
+    snapshot_id: str | None = None, cursor: str | None = None, live: bool | None = None,
+) -> ToolResult:
+    """Exact text from the local store; a document missing locally is fetched from its source first
+    (unless `live=False` or PRAWNIK_MCP_OFFLINE=1)."""
+    from prawnik_mcp import live as live_mod
+
+    notes: list[str] = []
+    if live is not False and live_mod.live_enabled() and store.get_document(document_id) is None:
+        stored, note = live_mod.lazy_fetch(store, document_id)
+        notes += [note] if note else []
+        if stored:
+            notes.append(f"{document_id}: pobrano ze źródła na żądanie i zapisano lokalnie (snapshot).")
+    res = _get_legal_document_local(store, document_id, locator, as_of, snapshot_id, cursor)
+    res.warnings = notes + res.warnings
+    return res
+
+
+def _get_legal_document_local(
+    store: Store, document_id: str, locator: str | None, as_of: str | None,
+    snapshot_id: str | None, cursor: str | None,
 ) -> ToolResult:
     try:
         when = _parse_date(as_of)

@@ -11,8 +11,9 @@ import json
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from pathlib import Path
+from urllib.parse import urlencode
 
-from prawnik_mcp.connectors.base import BaseConnector, SourceSyncResult, mtime
+from prawnik_mcp.connectors.base import BaseConnector, BulkLimits, RemoteHit, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
 from prawnik_mcp.contracts import LegalDocument, ProvisionVersion, Snapshot, SourceKind, TemporalStatus
 from prawnik_mcp.parsers.eli_pdf import PARSER_VERSION, ConsolidatedText, parse_consolidated_pdf
@@ -225,6 +226,31 @@ class EliConnector(BaseConnector):
 
     source_id = "eli"
     supports_fetch = True
+    supports_search = True
+
+    def search(self, client: PoliteClient, query: str, *, limit: int = 5,
+               filters: dict | None = None) -> list[RemoteHit]:
+        """Live act search by title words (Dziennik Ustaw). Consolidated-text notices are skipped."""
+        f = filters or {}
+        params = {"title": query, "publisher": f.get("publisher", "DU"), "limit": str(max(limit * 3, 10))}
+        if f.get("in_force"):
+            params["inForce"] = "1"
+        if f.get("act_type"):
+            params["type"] = f["act_type"]
+        r = client.get(f"{ELI_API}/search?{urlencode(params)}", accept="application/json")
+        hits = []
+        for it in json.loads(r.content).get("items") or []:
+            if it.get("type") == "Obwieszczenie" and "jednolitego tekstu" in (it.get("title") or ""):
+                continue
+            hits.append(RemoteHit(
+                document_id=f"eli:{it['ELI']}", kind="statute", title=it.get("title", ""),
+                snippet=f"{it.get('displayAddress', '')}; status: {it.get('status', '')}; w mocy: {it.get('inForce', '')}",
+                original_url=f"https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id={it.get('address', '')}",
+                metadata={"eli": it["ELI"], "type": it.get("type"), "status": it.get("status"),
+                          "in_force": it.get("inForce"), "promulgation": it.get("promulgation"), "source": "eli"}))
+            if len(hits) >= limit:
+                break
+        return hits
 
     def default_acts(self) -> dict[str, str]:
         return dict(self.info.defaults.get("acts", {}))
@@ -280,6 +306,30 @@ class EliConnector(BaseConnector):
             parts.append(f"{iv} ({cur.get('provision_count', 0)} units)")
             ivs.append(iv)
         return ("; ".join(parts) or "no local data"), ivs
+
+    def sync_bulk(self, store: Store, client: PoliteClient, params: dict, limits: BulkLimits,
+                  progress=None) -> SourceSyncResult:
+        """Sync explicit acts (`params["acts"]`: ['DU/2018/1000', ...]) or acts found by title (`params["query"]`)."""
+        res = SourceSyncResult(source_id=self.source_id)
+        acts = [a.removeprefix("eli:") for a in params.get("acts") or []]
+        if params.get("query"):
+            acts += [h.document_id.removeprefix("eli:") for h in
+                     self.search(client, params["query"], limit=limits.limit or 10, filters=params)]
+        for logical in list(dict.fromkeys(acts))[: limits.limit or None]:
+            if limits.max_bytes is not None and store.data_size_bytes() >= limits.max_bytes:
+                res.warnings.append("stopped: data directory reached --max-gb")
+                break
+            try:
+                ing = sync_act(store, client, logical, force=not limits.resume)
+                res.counts[logical] = ing.provisions
+                res.warnings += [f"{logical}: {w}" for w in ing.warnings]
+            except Exception as e:  # noqa: BLE001
+                res.errors.append(f"{logical}: {e}")
+            if progress:
+                progress(f"eli: {logical} done")
+        res.ok = not res.errors
+        self.record(store, success=bool(res.counts), partial=bool(res.errors), offline=False)
+        return res
 
     def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
         if not document_id.startswith("eli:"):

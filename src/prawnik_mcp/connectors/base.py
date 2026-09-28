@@ -68,6 +68,11 @@ class BaseConnector:
         """Fetch one document by id and store it. Returns the stored document id, or None if not handled."""
         raise NotImplementedError
 
+    def sync_bulk(self, store: Store, client: PoliteClient, params: dict[str, Any], limits: BulkLimits,
+                  progress: Any = None) -> SourceSyncResult:
+        """Bulk import of a scope described by `params`, with checkpoint/resume. Optional capability."""
+        raise NotImplementedError(f"bulk sync not implemented for {self.source_id}")
+
     # Source record ---------------------------------------------------------------------
     def record(self, store: Store, *, success: bool, partial: bool, offline: bool) -> SourceRecord:
         info = self.info
@@ -96,6 +101,23 @@ class BaseConnector:
     def coverage(self, store: Store) -> tuple[str, list[str]]:
         n = store.stats_by_source().get(self.source_id, {})
         return (", ".join(f"{k}: {v}" for k, v in n.items()) or "no local data"), []
+
+
+class BulkLimits(BaseModel):
+    """Stop conditions for a bulk sync."""
+
+    limit: int | None = None  # max new items stored in this run
+    max_bytes: int | None = None  # stop when the local data directory reaches this size
+    resume: bool = True
+
+
+def scope_key(source_id: str, params: dict[str, Any]) -> str:
+    """Stable checkpoint key for a bulk sync scope."""
+    import hashlib
+    import json
+
+    raw = json.dumps({"source": source_id, **params}, sort_keys=True, ensure_ascii=False, default=str)
+    return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
 def mtime(p: Path) -> datetime:

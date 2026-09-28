@@ -71,6 +71,8 @@ class SourceKind(str, Enum):
     judgment = "judgment"  # PL court judgment (SAOS)
     eu_act = "eu_act"  # EU act (Cellar)
     eu_judgment = "eu_judgment"
+    decision = "decision"  # decision of an authority (e.g. UODO, UOKiK, KIO)
+    tax_ruling = "tax_ruling"  # individual tax interpretation (EUREKA)
 
 
 # --------------------------------------------------------------------------- records
