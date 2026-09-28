@@ -248,7 +248,8 @@ class CitationReport(BaseModel):
 
 # --------------------------------------------------------------------------- helpers
 
-_SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
+_SUP_LETTERS = "ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ"
+_SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹" + _SUP_LETTERS, "0123456789" + "abcdefghijklmnoprstuvwxyz")
 
 
 def normalize_text(s: str) -> str:
@@ -268,7 +269,7 @@ def normalize_text(s: str) -> str:
 
 
 _LOC_RE = re.compile(
-    r"^\s*art\.?\s*(?P<art>\d+[a-z]{0,3}(?:\s*\^\s*\d+|[¹²³⁰-⁹]+)?)"
+    r"^\s*art\.?\s*(?P<art>\d+[a-z]{0,3}(?:\s*\^\s*\d+[a-z]{0,2}|[¹²³⁰-⁹ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ]+)?)"
     r"(?:\s*§\s*(?P<par>\d+[a-z]?(?:\^\d+)?))?"
     r"(?:\s*ust\.?\s*(?P<ust>\d+[a-z]?(?:\^\d+)?))?"
     r"(?:\s*pkt\.?\s*(?P<pkt>\d+[a-z]?(?:\^\d+)?))?"
@@ -287,7 +288,7 @@ def canonical_locator(loc: str) -> str | None:
     if not m:
         return None
     art = re.sub(r"\s+", "", m["art"])
-    sup = re.search(r"[¹²³⁰-⁹]+", art)
+    sup = re.search(r"[¹²³⁰-⁹ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ]+", art)
     if sup:
         art = art[: sup.start()] + "^" + sup.group().translate(_SUP)
     out = f"art. {art.lower()}"

@@ -43,11 +43,21 @@ def _kind_sources(kinds: list[SourceKind]) -> set[str]:
     return {sid for k in kinds for sid in sources.sources_for_kind(k.value)}
 
 
+# Document kinds stored as full-text records (Judgment model): court judgments, authority decisions,
+# tax interpretations. They share case-number lookup, paging and the judgment hit format.
+RECORD_KINDS = (SourceKind.judgment, SourceKind.eu_judgment, SourceKind.decision, SourceKind.tax_ruling)
+
 _STOP = set(
     "a aby ale albo ani by być czy do dla go i ich jak jaki jest jeśli już lub ma może na nie nie o od oraz po "
     "przez przy się są ta tak te to tu w we z za ze że jako który która które co czy mój moja mnie mi".split()
 )
-_CASE_RE = re.compile(r"\b([IVXL]{1,5}\s+[A-Za-zŁłŻż]{1,6}(?:-[A-Za-z]+)?\s+\d{1,6}/\d{2,4})\b")
+_CASE_RE = re.compile(
+    r"\b("
+    r"[IVXL]{1,5}\s+[A-Za-zŁłŻżŚśĆć]{1,6}(?:-[A-Za-z]+)?(?:/[A-Z][a-zł]{0,2})?\s+\d{1,6}/\d{2,4}"  # I ACa 772/13, II SA/Wa 1553/24
+    r"|KIO(?:/[A-Z]{1,3})?\s+\d{1,5}/\d{2,4}"  # KIO 1234/24
+    r"|[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}"  # UODO: DKN.5130.2215.2020
+    r"|\d{4}-[A-Z0-9]{3,8}(?:-\d)?(?:\.\d+)*\.\d{4}(?:\.\d+)?(?:\.[A-Z]{1,4})?"  # KIS: 0114-KDIP1-2.4012.123.2024.1.AB
+    r")\b")
 _ART_RE = re.compile(r"\bart\.?\s*\d+[a-z]?(?:\s*\^\s*\d+|\(\d+\)|[¹²³⁰-⁹]+)?(?:\s*(?:§|ust\.?|pkt|lit\.?)\s*\w+)*", re.I)
 
 
@@ -185,11 +195,12 @@ def search_legal(
 
     # 1. exact identifiers: case numbers
     case = _CASE_RE.search(query)
-    if case and (not kind_enums or SourceKind.judgment in kind_enums):
+    if case and (not kind_enums or any(k in RECORD_KINDS for k in kind_enums)):
         found = store.find_judgments_by_case_number(case.group(1))
         if not found and use_live:
             remote, lw, unavailable = live_mod.live_search(
-                store, query, kinds={"judgment"}, filters={**filters, "case_number": case.group(1)}, limit=limit)
+                store, query, kinds={k.value for k in RECORD_KINDS}, filters={**filters, "case_number": case.group(1)},
+                limit=limit)
             cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
             if remote:
                 rh = [_remote_hit(sid, h, origin) for sid, h, origin in remote]
@@ -237,7 +248,7 @@ def search_legal(
         return ToolResult(status=ResultStatus.invalid_input, warnings=["Zapytanie nie zawiera słów do wyszukania."])
     fts_kinds = None
     if kind_enums:
-        fts_kinds = sorted({"judgment" if k in (SourceKind.judgment, SourceKind.eu_judgment) else "provision" for k in kind_enums})
+        fts_kinds = sorted({"judgment" if k in RECORD_KINDS else "provision" for k in kind_enums})
     rows = [] if empty else store.fts_search(expr, fts_kinds, limit * 4 + 1, offset)
     for ref, kind, document_id, score, _body in rows:
         if len(hits) >= limit:
@@ -246,9 +257,10 @@ def search_legal(
             continue
         if kind == "judgment":
             j = store.get_judgment(document_id)
-            if not j or not _judgment_passes(j, filters):
+            jdoc = store.get_document(document_id)
+            if not j or not _judgment_passes(j, filters) or (kind_enums and jdoc and jdoc.kind not in kind_enums):
                 continue
-            hits.append(_judgment_hit(store, j, store.get_document(document_id), words, score))
+            hits.append(_judgment_hit(store, j, jdoc, words, score))
         else:
             p = store.get_provision(ref)
             doc = store.get_document(document_id)
@@ -291,10 +303,14 @@ def _remote_hit(source_id: str, h, origin: str) -> SearchHit:
         kind = SourceKind(h.kind)
     except ValueError:
         kind = SourceKind.statute
+    flags = []
+    jd = str(h.metadata.get("judgment_date") or h.metadata.get("date") or "")
+    if jd[:10] > date.today().isoformat():
+        flags.append(f"date_in_future:{jd[:10]}")  # source data error; do not rely on this date
     return SearchHit(
         document_id=h.document_id, kind=kind, title=h.title, snippet=_snippet(h.snippet, []),
         original_url=h.original_url, snapshot_id="", metadata={
-            **h.metadata, "origin": origin, "source_id": source_id,
+            **h.metadata, "origin": origin, "source_id": source_id, "data_quality_flags": flags,
             "note": "Nie zapisane lokalnie — przed cytowaniem pobierz przez get_legal_document (snapshot, wersja)."})
 
 
@@ -314,7 +330,7 @@ def _judgment_passes(j, filters: dict) -> bool:
 def _judgment_hit(store: Store, j, doc, terms: list[str], score: float | None = None) -> SearchHit:
     snap = store.get_snapshot(j.snapshot_id)
     return SearchHit(
-        document_id=j.document_id, kind=SourceKind.judgment,
+        document_id=j.document_id, kind=doc.kind if doc else SourceKind.judgment,
         title=f"{j.court_name}, {j.judgment_type}, {j.judgment_date or 'data nieustalona'}, {', '.join(j.case_numbers)}",
         snippet=_snippet(j.text, terms), original_url=j.original_url or (doc.original_url if doc else ""),
         snapshot_id=j.snapshot_id, fetched_at=snap.fetched_at if snap else None,
@@ -391,7 +407,7 @@ def _get_legal_document_local(
             "publication": doc.publication, "original_url": doc.original_url,
             "fetched_at": snap.fetched_at.isoformat() if snap else None}
 
-    if doc.kind == SourceKind.judgment:
+    if doc.kind in RECORD_KINDS:
         j = store.get_judgment(document_id)
         if not j:
             return ToolResult(status=ResultStatus.not_found, coverage=cov, warnings=["Brak treści orzeczenia w korpusie."])

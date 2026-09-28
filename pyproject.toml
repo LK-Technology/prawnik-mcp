@@ -5,7 +5,7 @@ description = "MCP server for Polish and EU law: sourced search, exact provision
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-license-files = ["LICENSE", "NOTICE"]
+license-files = ["LICENSE", "NOTICE", "licenses/*"]
 authors = [{ name = "prawnik-mcp contributors" }]
 keywords = ["mcp", "model-context-protocol", "law", "legal", "poland", "polish-law", "eli", "saos", "eur-lex", "citations"]
 classifiers = [
@@ -53,6 +53,7 @@ include = [
     "README*.md",
     "LICENSE",
     "NOTICE",
+    "licenses",
     "CHANGELOG.md",
     "pyproject.toml",
 ]

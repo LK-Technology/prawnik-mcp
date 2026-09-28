@@ -1,0 +1,7 @@
+{
+  "_note": "Real, unmodified responses from https://orzeczenia.nsa.gov.pl recorded 2026-09-28 by prawnik-mcp. Judgments are anonymised at the source. CBOSA is an informational/educational database without official-collection status. robots.txt is kept because the connector's design follows it.",
+  "doc_9FF3766DA4.html": {"method": "GET", "url": "https://orzeczenia.nsa.gov.pl/doc/9FF3766DA4", "status": 200, "fetched_at": "2026-09-28T13:58:05Z"},
+  "doc_3BB1F6C423.html": {"method": "GET", "url": "https://orzeczenia.nsa.gov.pl/doc/3BB1F6C423", "status": 200, "fetched_at": "2026-09-28T13:58:08Z"},
+  "doc_4DC5BD4680.html": {"method": "GET", "url": "https://orzeczenia.nsa.gov.pl/doc/4DC5BD4680", "status": 200, "fetched_at": "2026-09-28T13:58:12Z"},
+  "robots.txt": {"method": "GET", "url": "https://orzeczenia.nsa.gov.pl/robots.txt", "status": 200, "fetched_at": "2026-09-28T13:58:28Z"}
+}

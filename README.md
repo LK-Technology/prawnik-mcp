@@ -112,11 +112,11 @@ Prompts: `analysis_procedure` (how the client model should analyse a case) and `
 | **Cellar — Publications Office of the EU (EUR-Lex)** | EU acts | 🔵 beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
 | **ELI API — Dziennik Ustaw (Chancellery of the Sejm)** | statutes | 🔵 beta | 1 req/s | [terms](https://api.sejm.gov.pl/eli_pl.html) |
 | **SAOS — court judgments (ICM, University of Warsaw)** | judgments | 🔵 beta | 1 req/s | [terms](https://www.saos.org.pl/) |
-| **CBOSA — administrative courts (NSA/WSA)** | judgments | ⚪ planned | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
-| **EUREKA — tax interpretations (Ministry of Finance)** | tax rulings | ⚪ planned | 1 req/s | [terms](https://podatki.gov.pl/narzedzia/eureka) |
-| **KIO — National Appeal Chamber (public procurement)** | judgments | ⚪ planned | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/) |
+| **CBOSA — administrative courts (NSA/WSA)** | judgments | 🟠 experimental | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
+| **EUREKA — tax interpretations (Ministry of Finance / KIS)** | tax rulings | 🟠 experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
+| **KIO — National Appeal Chamber (public procurement)** | judgments | 🟠 experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
+| **UODO — decisions of the President of the Personal Data Protection Office** | decisions | 🟠 experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
 | **Portal Orzeczeń Sądów Powszechnych (common courts portal)** | judgments | ⚪ planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
-| **UODO — data protection authority decisions** | decisions | ⚪ planned | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
 | **UOKiK — competition and consumer protection decisions** | decisions | ⚪ planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
 <!-- sources:end -->
 

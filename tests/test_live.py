@@ -53,10 +53,13 @@ def test_live_search_on_empty_store_then_cache(tmp_path, mock_live):
     assert origins == {"live"}
     assert any(h["document_id"] == "saos:31345" for h in r.data["hits"])
     assert all(h["snapshot_id"] == "" for h in r.data["hits"])  # not stored: must be fetched before quoting
-    n = len(calls)
+    def cached_sources(cs):
+        return [c for c in cs if "saos.org.pl" in c or "api.sejm.gov.pl" in c]
+
+    n = len(cached_sources(calls))
     r2 = service.search_legal(store, "odstąpienie od umowy zawartej na odległość")
     assert {h["metadata"]["origin"] for h in r2.data["hits"]} == {"cache"}
-    assert len(calls) == n
+    assert len(cached_sources(calls)) == n  # successful sources served from cache; failed ones are retried
 
 
 def test_live_false_and_offline_env_make_no_requests(tmp_path, mock_live, monkeypatch):

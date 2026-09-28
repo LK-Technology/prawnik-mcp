@@ -25,9 +25,11 @@ GOLDEN = {
 }
 
 
-def _num(loc: str) -> tuple[int, str]:
-    m = re.match(r"art\. (\d+)([a-z]*)(?:\^(\d+))?", loc)
-    return (int(m.group(1)), (m.group(2) or "") + (m.group(3) or "").zfill(3)) if m else (0, "")
+def _num(loc: str) -> tuple:
+    m = re.match(r"art\. (\d+)([a-z]*)(?:\^(\d+)([a-z]*))?", loc)
+    if not m:
+        return (0, "", 0, "")
+    return (int(m.group(1)), m.group(2) or "", int(m.group(3) or 0), m.group(4) or "")
 
 
 @pytest.mark.online

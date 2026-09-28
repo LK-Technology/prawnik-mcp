@@ -130,4 +130,4 @@ def test_post_form_and_per_host_delay():
 def test_default_allowlist_comes_from_catalog():
     c = PoliteClient(transport=httpx.MockTransport(lambda r: httpx.Response(200, content=b"x")))
     assert {"api.sejm.gov.pl", "www.saos.org.pl", "publications.europa.eu"} <= c.allowlist
-    assert "orzeczenia.nsa.gov.pl" not in c.allowlist  # research-only sources are not contacted
+    assert "orzeczenia.ms.gov.pl" not in c.allowlist  # research-only sources (portal_sp) are not contacted

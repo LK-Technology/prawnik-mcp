@@ -97,37 +97,91 @@ celex = ["32011L0083"]
 "rodo" = "celex:32016R0679"
 "gdpr" = "celex:32016R0679"
 
-# ---------------------------------------------------------------- not implemented yet (roadmap)
-
 [sources.eureka]
-name = "EUREKA — tax interpretations (Ministry of Finance)"
-publisher = "Ministerstwo Finansów – EUREKA"
-base_url = "https://eureka.mf.gov.pl"
+name = "EUREKA — tax interpretations (Ministry of Finance / KIS)"
+publisher = "Ministerstwo Finansów – System Informacji Celno-Skarbowej EUREKA (interpretacje indywidualne: Dyrektor KIS)"
+base_url = "https://eureka.mf.gov.pl/api/public/v1"
 hosts = ["eureka.mf.gov.pl"]
-rate_per_s = 1.0
+rate_per_s = 0.5
 kinds = ["tax_ruling"]
 id_prefix = "eureka:"
-maturity = "research"
-terms = "Unverified."
-terms_url = "https://podatki.gov.pl/narzedzia/eureka"
-terms_checked_at = "2026-09-26"
-attribution = "Źródło: EUREKA (Ministerstwo Finansów)"
-known_gaps = ["Not implemented yet."]
+maturity = "experimental"
+terms = "No terms of use for EUREKA or its JSON API found; no robots.txt (the web app answers every path with its index page). The gov.pl page describing EUREKA carries the gov.pl footer licence (text: CC BY-SA 4.0) — whether it covers EUREKA documents is unverified. Interpretations are official documents published anonymised by the authority; copyright exclusion (art. 4 pt 2 of the Copyright Act) and database rights not legally verified. The corpus is not redistributed."
+terms_url = "https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka"
+terms_checked_at = "2026-09-28"
+attribution = "Źródło: EUREKA – System Informacji Celno-Skarbowej, Ministerstwo Finansów (eureka.mf.gov.pl)"
+known_gaps = [
+  "Interpretations are not a source of law; an individual interpretation protects only its applicant (art. 14k–14nb Tax Ordinance).",
+  "Live search matches signature, thesis and metadata (searchInContent=false); it is not a full-text search of the documents.",
+  "Default search and sample cover category 1 (individual interpretations) only; other EUREKA categories are fetched on request and flagged not_an_individual_interpretation.",
+  "Upstream pagination sorted by issue date alone is unstable (a live probe repeated one id and skipped another); ID_INFORMACJI is added as a tie-breaker and bulk sync de-duplicates ids and warns when fewer ids than totalHits were seen.",
+  "Dictionary fields (AUTOR, PRZEPISY, ZAGADNIENIA, SLOWA_KLUCZOWE) are kept as raw numeric ids; only STATUS_INFORMACJI 27 = 'Aktualna' was observed. The issuing authority is inferred from the KIS signature prefix (0111–0115-KD…), otherwise flagged issuing_authority_unresolved.",
+  "Later changes of an interpretation (zmiana, uchylenie, court annulment) are not linked; a stored document can become outdated.",
+  "Attachments are not parsed (flagged attachments_not_parsed). Issue date comes as a UTC timestamp and is converted to the Europe/Warsaw date; inclusivity of the DT_WYD_end filter is unverified.",
+]
+
+[sources.eureka.defaults]
+max_total = 10
+queries = [
+  { query = "ulga termomodernizacyjna", category_ids = [1] },
+  { query = "najem prywatny ryczałt", category_ids = [1] },
+]
 
 [sources.kio]
 name = "KIO — National Appeal Chamber (public procurement)"
-publisher = "Krajowa Izba Odwoławcza / Urząd Zamówień Publicznych"
+publisher = "Krajowa Izba Odwoławcza; portal orzeczeń Urzędu Zamówień Publicznych"
 base_url = "https://orzeczenia.uzp.gov.pl"
 hosts = ["orzeczenia.uzp.gov.pl"]
 rate_per_s = 1.0
 kinds = ["judgment"]
 id_prefix = "kio:"
-maturity = "research"
-terms = "Unverified."
-terms_url = "https://orzeczenia.uzp.gov.pl/"
-terms_checked_at = "2026-09-26"
-attribution = "Źródło: KIO (orzeczenia.uzp.gov.pl)"
-known_gaps = ["Not implemented yet."]
+maturity = "experimental"
+terms = "No terms of use or reuse licence found on the portal (read 2026-09-28: home page and /Home/Cookies; no robots.txt). Rulings are official documents (art. 4 pt 2 of the Copyright Act) — unverified legal reading; database rights unverified. Rulings name panel members and companies (natural-person traders appear by initials). The corpus is not redistributed."
+terms_url = "https://orzeczenia.uzp.gov.pl/Home/Cookies"
+terms_checked_at = "2026-09-28"
+attribution = "Źródło: Krajowa Izba Odwoławcza – wyszukiwarka orzeczeń UZP (orzeczenia.uzp.gov.pl)"
+known_gaps = [
+  "Scraped HTML portal without an API or bulk export; UZP moved all endpoints in 2026-07 — layout changes raise errors instead of returning empty results.",
+  "Only a sample is stored; each ruling costs 2 requests (Details + ContentHtml).",
+  "Some older records have no issue date; future/implausible dates from the portal are nulled and flagged.",
+  "Finality unknown (complaint to Sąd Okręgowy w Warszawie – Sąd Zamówień Publicznych).",
+  "The same ruling can also exist in SAOS (courtType NATIONAL_APPEAL_CHAMBER); case-number lookup may then be ambiguous.",
+  "PDF versions are linked, not fetched.",
+]
+
+[sources.kio.defaults]
+max_total = 10
+queries = [
+  { query = "rażąco niska cena", since = "2025-01-01", sort = "date_desc" },
+]
+
+[sources.uodo]
+name = "UODO — decisions of the President of the Personal Data Protection Office"
+publisher = "Prezes Urzędu Ochrony Danych Osobowych; Portal Orzeczeń UODO"
+base_url = "https://orzeczenia.uodo.gov.pl"
+hosts = ["orzeczenia.uodo.gov.pl"]
+rate_per_s = 1.0
+kinds = ["decision"]
+id_prefix = "uodo:"
+maturity = "experimental"
+terms = "No terms of use or reuse licence found on the portal (read 2026-09-28: page footer '© UODO 2018 - 2025 Wszelkie prawa zastrzeżone'; privacy policy on uodo.gov.pl not read; no robots.txt). Decisions are official documents (art. 4 pt 2 of the Copyright Act), published anonymised by UODO — unverified legal reading; scope of the 'all rights reserved' notice unverified. The corpus is not redistributed."
+terms_url = "https://orzeczenia.uodo.gov.pl/"
+terms_checked_at = "2026-09-28"
+attribution = "Źródło: Prezes UODO – Portal Orzeczeń UODO (orzeczenia.uodo.gov.pl)"
+known_gaps = [
+  "Uses the portal's undocumented route-data endpoints (search.data, content.data; turbo-stream); they may change with any portal release.",
+  "Only GDPR-era decisions (dcr=rodo) are searched; pre-2018 (GIODO) coverage not assessed.",
+  "Bulk since/until filter the publication date; live date_from/date_to are applied locally to the returned page.",
+  "An unknown URN returns HTTP 200 with an empty document; treated as not found.",
+  "A decision can carry several case numbers (e.g. re-decisions); case-number lookup may be ambiguous.",
+  "Subject and keywords come only from search listings; court challenges are kept as URN references, not fetched.",
+]
+
+[sources.uodo.defaults]
+max_total = 10
+queries = [
+  { query = "sklep internetowy" },
+]
 
 [sources.cbosa]
 name = "CBOSA — administrative courts (NSA/WSA)"
@@ -137,27 +191,25 @@ hosts = ["orzeczenia.nsa.gov.pl"]
 rate_per_s = 0.5
 kinds = ["judgment"]
 id_prefix = "cbosa:"
-maturity = "research"
-terms = "Informational database without official-collection status. Aggressive crawling leads to IP bans (reported above ~2 req/s). Unverified terms."
+maturity = "experimental"
+terms = "NSA notice on the search form (read 2026-09-28): the online database serves informational and educational purposes only and has no official-collection status; judgments are anonymised under data-protection law. No reuse licence or terms of service found on the pages read (unverified). robots.txt disallows /cbo/search and /cbo/find for all user agents (/doc/ allowed) and bans GPTBot and MSNbot entirely; the connector follows it. Continuous traffic at ~2 req/s led to a full IP ban (403) per mcp-nsa; 0.5 req/s ran clean. Judgments are official documents (art. 4 pt 2 of the Copyright Act); database rights not legally verified. The corpus is not redistributed."
 terms_url = "https://orzeczenia.nsa.gov.pl/cbo/query"
-terms_checked_at = "2026-09-26"
-attribution = "Źródło: CBOSA (orzeczenia.nsa.gov.pl)"
-known_gaps = ["Not implemented yet."]
+terms_checked_at = "2026-09-28"
+attribution = "Źródło: Centralna Baza Orzeczeń Sądów Administracyjnych (orzeczenia.nsa.gov.pl) – baza informacyjna, nie zbiór urzędowy"
+known_gaps = [
+  "robots.txt disallows /cbo/search and /cbo/find, so there is no live search and no bulk sync: only single judgments by id (cbosa:<10 hex>, /doc/{HEX}) are fetched. Ids come from the user, from related-judgment links on stored pages, or from defaults.doc_ids.",
+  "Not an official collection: text and metadata are CBOSA's informational, anonymised version.",
+  "HTML scraping at <= 0.5 req/s process-wide; a 403 stops the run and pauses all CBOSA requests for 1 h.",
+  "Finality (prawomocność) is CBOSA's status at fetch time (metadata.finality_as_of) and can change later.",
+  "CBOSA's answer for a non-existent /doc/ id was not observed; such pages are reported as source_unavailable and never stored as judgments.",
+  "Legal bases (Powołane przepisy) are kept as text plus ISAP links; they are not resolved to ELI documents.",
+]
 
-[sources.uodo]
-name = "UODO — data protection authority decisions"
-publisher = "Prezes Urzędu Ochrony Danych Osobowych"
-base_url = "https://orzeczenia.uodo.gov.pl"
-hosts = ["orzeczenia.uodo.gov.pl"]
-rate_per_s = 1.0
-kinds = ["decision"]
-id_prefix = "uodo:"
-maturity = "research"
-terms = "Unverified."
-terms_url = "https://orzeczenia.uodo.gov.pl/"
-terms_checked_at = "2026-09-26"
-attribution = "Źródło: UODO"
-known_gaps = ["Not implemented yet."]
+[sources.cbosa.defaults]
+# sync_defaults fetches only these judgments, via /doc/ (robots-allowed). Samples recorded 2026-09-28.
+doc_ids = ["9FF3766DA4", "3BB1F6C423", "4DC5BD4680"]
+
+# ---------------------------------------------------------------- not implemented yet (roadmap)
 
 [sources.portal_sp]
 name = "Portal Orzeczeń Sądów Powszechnych (common courts portal)"

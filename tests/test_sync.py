@@ -48,8 +48,8 @@ def test_judgments_and_sources(synced):
     store, _ = synced
     assert store.get_judgment("saos:31345").judgment_date is None
     srcs = {s.source_id: s for s in store.get_sources()}
-    assert set(srcs) == {"eli", "saos", "cellar"}
-    assert all(s.terms_checked_at == date(2026, 9, 26) for s in srcs.values())
+    assert {"eli", "saos", "cellar"} <= set(srcs)
+    assert all(s.terms_checked_at >= date(2026, 9, 26) for s in srcs.values())
     assert all(s.last_successful_sync is None for s in srcs.values())  # offline fixtures are not a sync
 
 

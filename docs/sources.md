@@ -56,3 +56,345 @@ Polish statutes and official documents are excluded from copyright (art. 4 of th
   - We store the **original Official Journal text, not the consolidated version**.
   - Recitals and annexes are not stored as provisions.
   - The EUR-Lex website itself is not used, because it serves a bot challenge.
+
+## EUREKA — tax information system of the Ministry of Finance (KIS interpretations)
+
+- **Endpoints** (keyless public JSON API behind the EUREKA web app, host `eureka.mf.gov.pl`, verified live on 2026-09-28):
+  - search: `POST https://eureka.mf.gov.pl/api/public/v1/wyszukiwarka/informacje/?size=N&page=N&sort=DT_WYD,desc&sort=ID_INFORMACJI,desc`. The body is JSON: `{"filter": {...}, "columns": [...], "searchInFullPhrase": false, "searchInContent": false, "searchInSynonyms": false, "warunkiDodatkowe": [], "searchQuery": "..."}`.
+    - Filters: `SYG` (signature, exact or prefix), `KATEGORIA_INFORMACJI` (an **array** of numeric ids, `[1]` = individual interpretation), `DT_WYD_start` / `DT_WYD_end` (`YYYY-MM-DD`).
+    - The response is `{"results": [...], "totalHits": n}`. Each result holds `ID_INFORMACJI`, `SYG`, `DT_WYD` (a date), `TEZA`, and `KATEGORIA_INFORMACJI` / `STATUS_INFORMACJI` as labels (e.g. `"Aktualna"`).
+  - document: `GET https://eureka.mf.gov.pl/api/public/v1/informacje/{id}` returns `{id, versionId, nazwa, dokument: {fields: [{key, value}]}}`.
+    - Fields: `SYG`, `DT_WYD` (UTC timestamp), `DATA_PUBLIKACJI`, `TEZA`, `TRESC_INTERESARIUSZ` (HTML body), `KATEGORIA_INFORMACJI` / `STATUS_INFORMACJI` (dictionary ids), `AUTOR` / `PRZEPISY` / `ZAGADNIENIA` / `SLOWA_KLUCZOWE` (dictionary id lists), `ZALACZNIKI`.
+    - An unknown id returns **HTTP 404** with a JSON error body (`errorCode: NOT_FOUND`, "Nie znaleziono informacji o ID …, lub informacja niedostępna").
+  - Human-facing URL: `https://eureka.mf.gov.pl/informacje/podglad/{id}`.
+- **Upstream gotchas:**
+  - The search path needs its trailing slash.
+  - Omit `searchQuery` when it is empty.
+  - Dictionary filters must be arrays of numbers.
+
+  These three come from mcp-eureka's notes and were not re-tested here, to save requests.
+  - **Sorting by `DT_WYD` alone is not stable across pages.** A live probe (size 2, 3 hits) returned the same id on pages 0 and 1 and never returned the third document. Adding `sort=ID_INFORMACJI,desc` returned all three in one probe; this was observed once, not proven.
+  - The dictionary endpoint `pozycje-slownika/wyszukiwarka?kodSlownika=AUTOR` returns an empty list, so the authority id `70` stays unresolved.
+  - No rate-limit headers or cookies were seen.
+- **Terms:** no terms of use for EUREKA or its API were found (**unverified**).
+  - There is no `robots.txt`: the app returns its HTML index page for that path.
+  - The gov.pl KAS page about EUREKA (https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka, read 2026-09-28) says the search can be used without logging in. Its footer licenses gov.pl text under CC BY-SA 4.0. It is unverified whether that covers EUREKA documents.
+  - `podatki.gov.pl/narzedzia/eureka` redirects from https to http and was not read.
+  - Interpretations are official documents published anonymised by the authority. The copyright exclusion (art. 4 pt 2) and database rights have not been legally verified.
+  - We ship no corpus. The fixtures are 3 recorded documents, all with 0 PII scan findings.
+- **Attribution:** "Źródło: EUREKA – System Informacji Celno-Skarbowej, Ministerstwo Finansów (eureka.mf.gov.pl)".
+- **How we use it:**
+  - Each document is stored as `LegalDocument(kind=tax_ruling, document_id="eureka:<ID_INFORMACJI>")` plus a Judgment-shaped record through `Store.upsert_judgment`:
+    - `court_name` = the issuing authority;
+    - `court_type` = `TAX_AUTHORITY`;
+    - `case_numbers` = `[SYG]`;
+    - `judgment_date` = the issue date in Europe/Warsaw;
+    - `judgment_type` = the category name;
+    - `text` = the HTML body converted to text.
+
+    This gives FTS indexing, signature lookup and quote verification with no schema change. Raw JSON snapshots are kept for every fetched document.
+  - Live search (`search`) returns the thesis as the snippet. `fetch` stores the full document.
+  - `sync_bulk` pages through a search scope (`query`, `signature`, `category_ids`, `since`, `until`, `page_size` ≤ 50). It checkpoints the page number, de-duplicates ids, and warns when fewer distinct ids than `totalHits` were seen.
+- **Data-quality flags:**
+  - `issue_date_missing` / `…_unparseable` / `…_in_future` / `…_implausible`, and `issue_date_local_differs_from_utc`;
+  - `signature_missing`;
+  - `status_unresolved` / `status_not_current`;
+  - `issuing_authority_unresolved`;
+  - `not_an_individual_interpretation`;
+  - `attachments_not_parsed`;
+  - `text_empty`;
+  - `id_mismatch`.
+- **Known gaps:**
+  - **Interpretations are not a source of law.** An individual interpretation protects only its applicant (art. 14k–14nb Ordynacja podatkowa).
+  - Search matches metadata, signature and thesis, not the full text (`searchInContent=false`).
+  - The default scope is category 1 only.
+  - The issuing authority is a **heuristic**: KIS signature prefix `0111–0115-KD…` means Dyrektor KIS. The `AUTOR` id is kept raw.
+  - Only `STATUS_INFORMACJI` id 27 = "Aktualna" has been observed. Changes and annulments of interpretations are not linked.
+  - Attachments are not parsed.
+  - It is unverified whether `DT_WYD_end` is inclusive.
+- **Integration still needed (outside the connector):**
+  - `service.get_legal_document` returns text only for `kind == judgment`, so `tax_ruling` needs the same branch.
+  - `_judgment_hit` hard-codes `SourceKind.judgment`.
+  - The FTS kind mapping for `kinds=["tax_ruling"]` must map to `"judgment"` rows.
+- **Attribution for code/knowledge:** endpoint paths, request body shape, field names and upstream gotchas were first documented by **matematicsolutions/mcp-eureka** (MIT License, © 2026 MateMatic / Wieslaw Mazur, commit `de3e64e`). No code is imported; the Python connector is a re-implementation.
+
+## KIO — National Appeal Chamber (public procurement rulings, UZP portal)
+
+Status as of 2026-09-28. Technical description, **not legal advice**. "Unverified" means no binding terms document was read.
+
+- **Host (verified 2026-09-28):** `https://orzeczenia.uzp.gov.pl` (ASP.NET MVC portal of Urząd Zamówień Publicznych). No public API, no bulk export found.
+- **Endpoints (all verified live 2026-09-28):**
+  - search: `POST /Home/GetResults`, form-urlencoded. Fields: `Phrase`, `Sign` (e.g. `KIO 1550/25`), `Dt` (`DD-MM-YYYY - DD-MM-YYYY`, both ends required), `Art` (PZP provision, dictionary format), `ThIdx` (thematic index), `Kind=KIO`, `Pg` (1-based, fixed 10 results per page), `Srt` (`rank` | `date_asc` | `date_desc`), `CountStats=True`, checkboxes `Fle=1` (inflection) and `SCnt=1` (full-text), sent with a phrase. The answer is an HTML fragment: `#resultCounts` (`ALL,KIO,SO,SA,SN`), "Liczba znalezionych dokumentów: N", and `div.search-list-item` blocks with a link to `/Home/Details/{id}`. No CSRF token or cookie is needed.
+  - metrics: `GET /Home/Details/{id}`. Structured metadata: issuing body, document type, issue date, chair, contracting authority, city, "Sygnatura akt / Sposób rozstrzygnięcia" (joined cases such as `KIO 1550/25 | KIO 1581/25` share one record), procedure, key PZP provisions, thematic index. It is the human-facing page, so it is stored as `original_url`. An unknown id returns **404**.
+  - text: `GET /Home/ContentHtml/{id}?Kind=KIO&flection=0`. Word-export HTML. An unknown id returns **200 with an empty body**, so the connector always fetches Details first.
+  - PDF: `GET /Home/PdfContent/{id}?Kind=KIO`. Only linked in metadata; never fetched.
+  - `robots.txt`: none (404).
+- **How we use it:**
+  - Live search goes to `GetResults`, at most 3 pages.
+  - `fetch("kio:<id>")` gets Details, then ContentHtml, and stores **both raw responses** as snapshots. The text snapshot is the document snapshot; the Details snapshot id is in `metadata.details_snapshot_id`.
+  - Bulk sync pages `GetResults` with `Srt=date_asc`. The checkpoint cursor is the next page number.
+  - A 200 response without the expected block (for example the page shell) raises an error. It is never read as "0 hits".
+- **Terms actually read (2026-09-28):**
+  - Home page and `/Home/Cookies` (cookie/privacy policy) only. **No terms of use or reuse licence was found.**
+  - The rulings are official documents (art. 4 pt 2 of the Copyright Act). This is our reading and is **unverified**.
+  - Database rights and the portal's own terms are **unverified**.
+  - No rate limit is published. We use 1 req/s, as the reference implementation does.
+- **Personal data:**
+  - Rulings are **not fully anonymised**. Panel members (chair, recorder) and companies are named.
+  - In the recorded samples, natural persons running a business appear only by initials ("S.N.", "W.S.").
+  - Fixtures pass `scripts/pii_scan.py` (0 findings).
+- **Attribution:** "Źródło: Krajowa Izba Odwoławcza – wyszukiwarka orzeczeń UZP (orzeczenia.uzp.gov.pl)".
+- **Code provenance:** `connectors/kio.py` and `parsers/kio.py` are partly adapted from **kio-orzeczenia-mcp** (https://github.com/matematicsolutions/kio-orzeczenia-mcp, © MateMatic / Wiesław Mazur, Apache-2.0). The adapted parts are the endpoint map, the search form field mapping, label-based metadata extraction, `ł`-aware diacritics folding and Polish month names. The code was rewritten without selectolax. Both files carry an attribution comment.
+- **Known gaps:**
+  - Only a sample is stored. Each ruling costs 2 requests, plus 1 search request per 10 rulings.
+  - The portal's HTML is not stable. UZP moved every endpoint in 2026-07 (see kio-orzeczenia-mcp DISCOVERY.md). A periodic live smoke check is advisable.
+  - Some older records have no issue date (`Data wydania: -`). We store `judgment_date = null` with a flag.
+  - The listing has shown future dates (in the reference repo's 2026-07 fixture, KIO 4983/25 is listed as 07-12-2026). Such dates are nulled and flagged, as for SAOS. We never substitute a date taken from the text; it is kept only as a `judgment_date_hint_from_text` flag.
+  - Finality is unknown. A complaint lies to the Sąd Okręgowy w Warszawie (Sąd Zamówień Publicznych).
+  - **Overlap with SAOS** (`courtType = NATIONAL_APPEAL_CHAMBER`): the same ruling can be stored as `saos:<id>` and `kio:<id>`. A case-number lookup then returns both, with status `ambiguous`.
+  - The portal also holds court rulings on complaints (`Kind=SO/SA/SN`). The connector asks only for `Kind=KIO`. If the body is not KIO, the record is flagged `organ_not_kio`.
+  - `Art` and `ThIdx` filters are dictionary-based and format-sensitive. For example `art. 226 ust. 1 pkt 5` matches, but plain `226` does not (per kio-orzeczenia-mcp; not re-verified).
+  - Hyphenation at line ends ("wnie-\nsionego") is kept as in the source. Citation checks normalise it.
+- **Network log for the fixtures:** 17 requests on 2026-09-28, at least 1.5 s apart, with User-Agent `prawnik-mcp/0.2 (+research; contact via GitHub)`. The requests were: robots.txt, 4 searches, 4 Details + 4 ContentHtml (id 28955 was not kept because it exceeds 300 KB), 2 checks for an unknown id, and 2 terms pages.
+- **Fixtures** (`tests/fixtures/raw/kio/`, unmodified responses, 340 KB):
+  - `search_day_p1.html`, `search_day_p2.html`: `Dt=15-05-2025 - 15-05-2025`, `Srt=date_asc`, 16 hits.
+  - `search_phrase.html`: `Phrase=rażąco niska cena`, same day.
+  - `search_sign.html`: `Sign=KIO 1550/25`.
+  - `details_/content_` pairs for ids 28944, 28952 and 28956.
+  - `details_404.html`.
+
+### Needed changes outside this connector (not made here)
+
+- `connectors/registry.py`: import `KioConnector` from `prawnik_mcp.connectors.kio` and add `KioConnector()` to the `conns` list.
+- `sources/catalog.toml`: replace `[sources.kio]` with `docs/_pending/kio.catalog.toml`. Maturity `experimental` puts the host on the HTTP allowlist.
+- `service.py`: `_CASE_RE` does not match `KIO 1550/25`, so a free-text query with a KIO case number does not trigger exact lookup or live case search. Add an alternative such as `KIO\s+\d{1,5}\s*/\s*\d{2,4}`. The "not found" message also names only SAOS.
+- `NOTICE`: add the kio-orzeczenia-mcp attribution (see `uodo.md` for combined wording) and list the new fixtures (orzeczenia.uzp.gov.pl, 28.09.2026).
+
+## UODO — decisions of the President of the Personal Data Protection Office
+
+Status as of 2026-09-28. Technical description, **not legal advice**. "Unverified" means no binding terms document was read.
+
+- **Host (verified 2026-09-28):** `https://orzeczenia.uodo.gov.pl`, "Portal Orzeczeń UODO". It is a react-router SSR app (`appVersion` 1.2.9 at check). It needs no key, cookie or JavaScript challenge.
+- **Endpoints (verified live 2026-09-28):**
+  - search: `GET /search.data?dcr=rodo&q=<text>&rn=<case number>&dtps=<YYYY-MM-DD>&dtpe=<YYYY-MM-DD>&page=N`.
+    - `q` is full text. `rn` is the case number (exact match observed). `dtps`/`dtpe` are the **publication** date window. `dcr=rodo` means GDPR-era decisions.
+    - Page size is fixed at 10. The response echoes the filters in `values`, and returns `itemsCount`, `pages {current,total,size}` and `order`.
+    - Ordering is `rank` for text queries and otherwise `dateAnnouncement` descending.
+    - Each item has `refid` (URN), `refname` (case number or numbers), `name`, `title` (subject), `dates` (announcement / validation / publication / defended / repealed, each with a status) and `terms` (keywords, pl/en).
+  - decision: `GET /document/{urn}/content.data`. One response carries `urn`, `refname`, `status` (`final` / `nonfinal` / `repealed`), `statusHint`, `dates` and `body` (HTML: nested `dl/dt/dd`, footnotes in `div.glosses`). This response is the stored snapshot.
+    - **An unknown URN returns HTTP 200** with an empty `refname`/`body` and `status: "unknown"`. The connector raises `NotFoundUpstream` and stores nothing.
+    - A real HTTP 404 is returned for unknown routes.
+  - human-facing page: `GET /document/{urn}/content` (SSR HTML with tabs Treść / Metryka / Orzeczenia / Akty prawne / Historia). It is used as `original_url`. `/document/{urn}.data` answers with a 202 `SingleFetchRedirect` to `/content` and is not used.
+  - The response format is react-router "turbo-stream": one JSON array of values referenced by index. `parsers/uodo.py::decode_turbo_stream` rebuilds plain JSON. The fixtures are stored with the `.json` extension; each is a single valid JSON array, byte-identical to the response.
+  - `robots.txt`: none (404). `/` redirects (302) to `/search`.
+- **Not verified (from kio-orzeczenia-mcp SOURCES.md, not used):**
+  - the snippet endpoint `/api/documents/public/items/{urn}/snippet.html?query=...&column=content_pl`;
+  - suggestions at `/webapi/suggest?q=`;
+  - the status filter `s`;
+  - any decision-date filter parameters;
+  - `dcr` values other than `rodo`.
+- **Ids:** `uodo:<year>:<code>` is the URN tail. For example `urn:ndoc:gov:pl:uodo:2022:dkn_5112_28` becomes `uodo:2022:dkn_5112_28`. Case numbers go to `case_numbers`, e.g. `DKN.5112.28.2022`. `refname` can list several numbers, e.g. `ZSPR.421.2.2019 ZSPR.405.67.2019` for a re-decision.
+- **Mapping:**
+  - `Judgment.court_name` is "Prezes UODO" and `court_type` is `DATA_PROTECTION_AUTHORITY`.
+  - `judgment_date` is the announcement date.
+  - `finality` comes from the portal status: `final` → final, `nonfinal` → not_final, anything else → unknown. `repealed` also adds the flag `decision_repealed_by_court`.
+  - `LegalDocument.kind` is `decision`.
+  - Metadata holds the publication date, the date the decision became final, court URNs from the dates, and the listing's subject/keywords when the decision was stored from a search.
+- **Terms actually read (2026-09-28):**
+  - We read only the portal footer: "© UODO 2018 - 2025 Wszelkie prawa zastrzeżone." (all rights reserved). **No terms of use or reuse licence was found on the portal.**
+  - The privacy-policy link (uodo.gov.pl, a different host) was **not read**.
+  - Decisions are official documents (art. 4 pt 2 of the Copyright Act) and are published anonymised by UODO. This is our reading and is **unverified**.
+  - Whether the "all rights reserved" notice covers the database or portal content is **unverified**.
+  - No rate limit is published. We use ≤1 req/s.
+  - kio-orzeczenia-mcp notes that its authors chose to notify UODO and wait 14 days before publishing their UODO connector. That is their own policy, not a UODO requirement, but it is worth considering before promoting this source beyond `experimental`.
+- **Personal data:** the samples are pseudonymised at the source ("G. R. prowadzącego działalność gospodarczą pod firmą H. (…)"). Fixtures pass `scripts/pii_scan.py` (0 findings). The SSR page was **not** kept as a fixture, because its footer contains the office's contact data.
+- **Attribution:** "Źródło: Prezes UODO – Portal Orzeczeń UODO (orzeczenia.uodo.gov.pl)".
+- **Code provenance:** the endpoint map comes from the ledger in kio-orzeczenia-mcp `SOURCES.md` (https://github.com/matematicsolutions/kio-orzeczenia-mcp, © MateMatic, Apache-2.0). No code was copied. The turbo-stream decoder and the parser are original, and the modules carry an attribution comment. The uodo-orzeczenia-mcp repository mentioned there is not public.
+- **Known gaps:**
+  - The `.data` endpoints are internal to the web app, undocumented, and can change with any portal release.
+  - Only GDPR-era decisions (`dcr=rodo`) are searched. Pre-2018 (GIODO) coverage is not assessed.
+  - `since`/`until` in bulk sync filter the **publication** date. `date_from`/`date_to` in live search are applied locally to the returned page, so a hit list can be shorter than `limit`.
+  - Without a text query the order is by decision date, newest first. New decisions shift pages, so bulk sync should use a closed past window.
+  - The listing is the only source of subject and keywords, so a decision fetched directly by id has none.
+  - Court challenges appear only as URN references (`court_refs`). They are not fetched or linked to CBOSA.
+  - No snippets: the portal's snippet endpoint (one extra request per hit) is not used; the subject serves as the snippet.
+- **Network log for the fixtures:** 13 requests on 2026-09-28, at least 1.5 s apart, with User-Agent `prawnik-mcp/0.2 (+research; contact via GitHub)`. They were: robots.txt, 5 searches, 3 `content.data`, 1 `.data` redirect probe, 1 SSR page, 1 unknown-URN check, and `/`.
+- **Fixtures** (`tests/fixtures/raw/uodo/`, unmodified responses, 328 KB):
+  - `search_sklep.json`: `q=sklep internetowy`.
+  - `search_window_p1.json`, `search_window_p2.json`: `dtps=2025-04-01&dtpe=2025-09-30`, 13 hits.
+  - `search_rn.json`: `rn=DKN.5112.28.2022`.
+  - `content_2022_dkn_5112_28.json`, `content_2022_dkn_5110_14.json`, `content_2019_zspr_405_67.json`.
+  - `content_404.json`: empty placeholder for an unknown URN.
+
+### Needed changes outside this connector (not made here)
+
+- `connectors/registry.py`: import `UodoConnector` from `prawnik_mcp.connectors.uodo` and add `UodoConnector()` to the `conns` list.
+- `sources/catalog.toml`: replace `[sources.uodo]` with `docs/_pending/uodo.catalog.toml`.
+- `service.py`:
+  - `_CASE_RE` does not match UODO case numbers. Add an alternative such as `[A-Z]{2,6}(?:\.\d{1,5}){2,4}\.(?:19|20)\d{2}`.
+  - The live case-number search passes `kinds={"judgment"}`, which excludes `decision` sources. Use `{k.value for k in RECORD_KINDS}` or add `"decision"`. The local path already handles decisions via `RECORD_KINDS`.
+- `NOTICE`, proposed wording:
+  > - Parts of `connectors/kio.py` and `parsers/kio.py` are adapted from matematicsolutions/kio-orzeczenia-mcp (Apache License 2.0, © MateMatic / Wiesław Mazur): KIO endpoint map, search form field mapping, label-based metadata extraction. The UODO portal endpoint map was taken from the same repository's SOURCES.md. Modifications: rewritten for this project (stdlib parsing, sync client, local store).
+  > - Test fixtures in tests/fixtures/raw/kio and tests/fixtures/raw/uodo are unmodified responses from orzeczenia.uzp.gov.pl (Urząd Zamówień Publicznych / KIO) and orzeczenia.uodo.gov.pl (Prezes UODO), recorded 28.09.2026. They are not covered by the code licence.
+
+## CBOSA — Centralna Baza Orzeczeń Sądów Administracyjnych (NSA + 16 WSA)
+
+Connector: `src/prawnik_mcp/connectors/cbosa.py`. Parser: `src/prawnik_mcp/parsers/cbosa.py`.
+Tests: `tests/test_connector_cbosa.py` (offline). Samples: `tests/fixtures/raw/cbosa/` (3 judgment pages +
+`robots.txt`, with `manifest.json` provenance). Proposed catalog entry: `docs/_pending/cbosa.catalog.toml`.
+Maturity: **experimental**.
+
+**Scope: single judgments by id only.** robots.txt disallows `/cbo/search` and `/cbo/find` for every
+user agent, and the connector honours that unconditionally:
+
+- `supports_search = False`. `search()` raises `NotImplementedError` and makes no request.
+- `sync_bulk()` returns `ok=False` with the warning "CBOSA robots.txt disallows /cbo/search and /cbo/find; only single /doc/{hex} fetches are supported", and makes no request.
+- `fetch("cbosa:<HEX>")`, lazy fetch through `get_legal_document`, `sync_defaults` (catalog `doc_ids`) and `sync_offline` are supported.
+
+### Endpoints
+
+Host `orzeczenia.nsa.gov.pl`, verified live on 2026-09-28. HTTPS certificate verification succeeded with httpx/certifi; mcp-nsa's `rejectUnauthorized: false` workaround was not needed.
+
+- **Used — judgment:** `GET /doc/{HEX}` (10 uppercase hex characters) returns 24–46 KB of HTML (UTF-8).
+  - `<TITLE>` = "{sygn} - {Rodzaj} {NSA | WSA w X} z {date}". The header is `<span class="war_header">`.
+  - Metadata rows `<td class="lista-label">…</td>` + `<td class="info-list-value">`:
+    - Data orzeczenia (+ italic "orzeczenie prawomocne" / "orzeczenie nieprawomocne");
+    - Data wpływu;
+    - Sąd (full name);
+    - Sędziowie (`<br/>`-separated, with roles);
+    - Symbol z opisem;
+    - Hasła tematyczne;
+    - Sygn. powiązane (links to other `/doc/` ids);
+    - Skarżony organ;
+    - Treść wyniku;
+    - Powołane przepisy (ISAP links + `<span class='nakt'>` act titles).
+  - Body sections: `<div class="lista-label">Sentencja|Uzasadnienie|…</div><span class="info-list-value-uzasadnienie">`.
+  - Samples:
+    - `9FF3766DA4`: NSA, III OSK 6859/21, final;
+    - `3BB1F6C423`: WSA w Łodzi, II SAB/Łd 23/25, final;
+    - `4DC5BD4680`: WSA w Warszawie, II SA/Wa 1553/24, **nieprawomocne**.
+- **robots.txt** (recorded in fixtures, and checked by a test with `urllib.robotparser`):
+  - `User-agent: *` disallows `/cbo/search`, `/cbo/find`, `/cbo/do/search`, `/cbo/do/find`, `/cbo/do/doc`, `/cbo/pow`, `/cbo/wsp`, `/cbo/*.txt`, `/cbo/*op=file`, `/doc/*.txt`, `/servlet`.
+  - `MSNbot` and `GPTBot`: `Disallow: /`.
+  - `Sitemap: http://orzeczenia.nsa.gov.pl/sitemap.xml`.
+- **Not used:**
+  - **Search:** `POST /cbo/search` takes text-valued selects, e.g. `sad=dowolny`. Next pages are `GET /cbo/find?p=N`, with the query bound to the JSESSIONID session. Both were observed working on 2026-09-28, before robots.txt was read, but both are disallowed by robots.txt.
+  - **sitemap.xml:** an index of 3 `.xml.gz` files, all with lastmod 2009-06-28. That is at most 150k URLs, against about 2.39M judgments. It is stale, so no robots-compliant discovery path exists.
+
+### Request log
+
+10 real requests in total. All were HTTP 200; there were no 403s and no retries, and requests were at least 3 s apart:
+
+1. `GET /cbo/query`
+2. `POST /cbo/search`
+3. `GET /cbo/find?p=2`
+4. `POST /cbo/search`
+5. `GET /cbo/find?p=2`
+6. `GET /doc/9FF3766DA4`
+7. `GET /doc/3BB1F6C423`
+8. `GET /doc/4DC5BD4680`
+9. `GET /robots.txt`
+10. `GET /sitemap.xml`
+
+Mistake: robots.txt was read *after* requests 2–5, which went to paths it disallows. Nothing further was sent to a disallowed path. The recorded list pages were deleted, and the connector no longer contains that code.
+
+### Terms, as actually read (status: **unverified**)
+
+- **Search form (`/cbo/query`) notice, verbatim:** "Naczelny Sąd Administracyjny informuje, iż udostępniona w Internecie baza orzeczeń służy wyłącznie celom informacyjnym oraz edukacyjnym i nie ma statusu zbioru urzędowego. Znajdujące się w niej orzeczenia są anonimizowane z uwzględnieniem celów wynikających z przepisów ustawy o ochronie danych osobowych i innych regulacji szczególnych."
+- **robots.txt**: as above, and followed.
+- **Not found / not read:**
+  - no reuse licence, regulamin or terms of service on the pages read;
+  - `/instrukcja.html`, nsa.gov.pl's site terms and the accessibility declaration were not read.
+
+  Judgments are official documents (art. 4 pt 2 of the Copyright Act). Database rights have not been legally verified. We ship no corpus: 3 recorded judgments with 0 PII scan findings; anonymisation is at the source, and the one e-mail is the placeholder `[...]@[...].com`.
+
+### Ban risk and how the connector limits it
+
+The mcp-nsa server instructions (`src/index.ts`) record the incident: on 2026-07-19, continuous traffic at 2 req/s led to a full IP ban, with 403 on every path including `/doc` and `/cbo/query`. The same notes say 0.5 req/s ran for 10 h without problems. The connector limits the risk as follows:
+
+- **Catalog rate:** `rate_per_s = 0.5`, so `PoliteClient` waits 2 s per host.
+- **Process-wide gate:** `live.py` creates a new `PoliteClient` for each lazy fetch, and per-client delays do not span clients. So every CBOSA request also goes through one connector-instance gate: requests are serialised and at least 2 s apart.
+- **403 handling:** a 403 raises `SourceUnavailable` and stops the run. The instance then refuses all CBOSA requests for 1 h, without touching the network.
+- **Unexpected pages:** a page without judgment metadata (a block page or a template change) is reported as `source_unavailable` and never stored.
+- **Volume:**
+  - `sync_defaults` fetches at most 20 ids;
+  - there is no bulk mode;
+  - already snapshotted pages are re-parsed, not re-fetched.
+- **Remaining risk:** `PoliteClient` itself still retries 429/5xx up to 3 times with backoff, which this connector cannot change.
+
+### How it is stored
+
+Each judgment is stored as `Judgment` + `LegalDocument(kind=judgment)` with `document_id = "cbosa:<HEX>"`.
+
+- **Judgment fields:**
+  - `court_name`: the "Sąd" row. The short form "NSA" / "WSA w Łodzi" goes into `metadata.court_short`.
+  - `court_type`: `ADMINISTRATIVE`, as in SAOS.
+  - `case_numbers`: from the header.
+  - `judgment_date`: from "Data orzeczenia", cross-checked with `<TITLE>`.
+  - `judgment_type`: SENTENCE / DECISION / RESOLUTION; the Polish name is in metadata.
+  - `finality`: `final` / `not_final` / `unknown`. `metadata.finality_as_of` holds the fetch date.
+  - `original_url`: `https://orzeczenia.nsa.gov.pl/doc/<HEX>`.
+  - `text`: the body sections with their headings.
+- **Metadata:**
+  - judges, symbols, keywords, related judgments (as `cbosa:` ids that can be fetched next), challenged authority, outcome;
+  - legal bases, as text lines plus structured `{publication, provisions, act, isap_url}`;
+  - the CBOSA disclaimer.
+- **Snapshots:** every fetched page is snapshotted.
+- **Stored text:** page text is data and is never interpreted as instructions. Scripts, styles and comments are dropped.
+- **Data-quality flags:**
+  - `case_number_missing`;
+  - `judgment_date_missing` / `_missing_in_metadata` / `_unparseable` / `_in_future` / `_implausible` / `_title_mismatch`;
+  - `court_from_title`, `court_missing`;
+  - `text_empty`.
+
+### Gaps / unverified
+
+- No discovery: the user must supply a `cbosa:<hex>` id. Ids can also come from related-judgment links or `defaults.doc_ids`. Case-number lookup only covers judgments already stored locally.
+- The response for a non-existent `/doc/` id was not observed. Such a page is handled defensively.
+- Coverage (about 2.39M judgments, 1981–today) is mcp-nsa's figure and was not re-measured.
+- Pre-2004 judgments and theses (`Tezy`) were not sampled. The parser handles any body section generically.
+
+### Attribution
+
+The connector ports material from **mcp-nsa** (https://github.com/matematicsolutions/mcp-nsa, MIT License, Copyright (c) 2026 MateMatic / Wieslaw Mazur), re-implemented in Python with no code copied verbatim:
+
+- the `/doc/` URL scheme;
+- the HTML metadata label contract;
+- the ban report.
+
+mcp-nsa credits `worldwidelaw/legal-sources` (sources/PL/NSA, MIT). The attribution comment is in both modules.
+
+Proposed NOTICE lines:
+
+```
+- CBOSA (orzeczenia.nsa.gov.pl) URL scheme and HTML label contract were ported from
+  matematicsolutions/mcp-nsa (MIT License, Copyright (c) 2026 MateMatic / Wieslaw Mazur);
+  re-implemented in Python, no code copied verbatim.
+- Test fixtures in tests/fixtures/raw/cbosa are unmodified responses from orzeczenia.nsa.gov.pl
+  (28.09.2026; CBOSA — baza informacyjna, nie zbiór urzędowy). They are not covered by the code licence.
+```
+
+### Needed changes outside this connector's files
+
+1. **`src/prawnik_mcp/sources/catalog.toml`:** replace `[sources.cbosa]` with `docs/_pending/cbosa.catalog.toml`.
+2. **`src/prawnik_mcp/connectors/registry.py`:** add `CbosaConnector()` in the same change (`tests/test_catalog.py`).
+3. **`NOTICE`:** add the lines above.
+4. **`src/prawnik_mcp/service.py` `_CASE_RE`:** it does not match WSA signatures (`II SA/Wa 1553/24`, `II SAB/Łd 23/25`), so local case-number lookup misses WSA judgments. Suggested pattern, with no regressions on NSA and common-court signatures:
+   `r"\b([IVXL]{1,5}\s+[A-Za-zŁłŻż]{1,6}(?:/[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]{1,3})?(?:-[A-Za-z]+)?\s+\d{1,6}/\d{2,4})\b"`.
+5. **Optional, `http.py`:** move the process-wide per-host spacing and the 403 circuit breaker into `PoliteClient`, so that every ban-prone source gets them.
+
+### Verification
+
+`tests/test_connector_cbosa.py` has 11 tests, all offline over `httpx.MockTransport` and the recorded pages. They cover:
+
+- the robots.txt rules;
+- `search` and `sync_bulk` making **zero** HTTP requests;
+- metadata of all 3 judgments (court, case number, date, finality);
+- fetch with snapshot, and reuse of the snapshot;
+- a 403 raising `SourceUnavailable`, with no further requests even through a fresh client;
+- a block page not being stored;
+- spacing between requests across clients;
+- `sync_offline`;
+- `sync_defaults` resuming from snapshots after a 403.
+
+`ruff check` is clean, `pii_scan` finds 0, and the full suite passes (250).

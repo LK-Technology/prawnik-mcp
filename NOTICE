@@ -1,7 +1,26 @@
-Prawnik MCP
+prawnik-mcp
+Copyright (c) 2026 prawnik-mcp contributors — MIT License (see LICENSE)
 
-- Endpoint knowledge and SAOS query parameter mapping were informed by
-  ItsRaelx/LawForAi (MIT License, commit fd1ab3a). No code is imported from it.
-- Test fixtures in tests/fixtures/raw are unmodified responses from public sources
-  (26.09.2026): Dziennik Ustaw via ELI API (Kancelaria Sejmu RP), SAOS (saos.org.pl),
-  EU Publications Office Cellar (EUR-Lex). They are not covered by the code licence.
+This product includes or adapts material from the following open-source projects.
+Their licence texts are in the licenses/ directory.
+
+- matematicsolutions/kio-orzeczenia-mcp (Apache License 2.0, © 2026 MateMatic / Wiesław Mazur,
+  commit 9393166). Parts of src/prawnik_mcp/connectors/kio.py and parsers/kio.py are adapted from it
+  (KIO endpoint map, search form field mapping, label-based metadata extraction); modified: rewritten
+  for this project (stdlib parsing, sync client, local store). The UODO portal endpoint map was taken
+  from the same repository's SOURCES.md. licenses/kio-orzeczenia-mcp.Apache-2.0.txt
+- matematicsolutions/mcp-nsa (MIT, © 2026 MateMatic / Wieslaw Mazur, commit 6a7b1a6): CBOSA form
+  fields, cookie-bound pagination and document URL scheme informed src/prawnik_mcp/connectors/cbosa.py.
+  licenses/mcp-nsa.MIT.txt
+- matematicsolutions/mcp-eureka (MIT, © 2026 MateMatic / Wieslaw Mazur, commit de3e64e): EUREKA
+  endpoint paths, request body shape and field names; no code imported. licenses/mcp-eureka.MIT.txt
+- ItsRaelx/LawForAi (MIT, commit fd1ab3a): ELI/SAOS/Cellar endpoint knowledge and SAOS query
+  parameter mapping; no code imported. licenses/LawForAi.MIT.txt
+- matematicsolutions/repertorium (documentation under CC BY 4.0): the idea of reporting unresolved
+  citations with an explicit reason (in_corpus / out_of_corpus / unresolved) in get_citations.
+  No data or code from the Repertorium service is used.
+
+Test fixtures in tests/fixtures/raw are unmodified responses from public sources (2026-09-26/28):
+Dziennik Ustaw via the ELI API (Kancelaria Sejmu RP), SAOS (saos.org.pl), EU Publications Office
+Cellar (EUR-Lex), EUREKA (Ministerstwo Finansów), KIO (orzeczenia.uzp.gov.pl), UODO
+(orzeczenia.uodo.gov.pl) and CBOSA (orzeczenia.nsa.gov.pl). They are not covered by the code licence.

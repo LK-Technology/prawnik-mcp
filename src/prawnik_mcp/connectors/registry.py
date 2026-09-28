@@ -9,11 +9,16 @@ from prawnik_mcp.connectors.base import BaseConnector
 
 @lru_cache(maxsize=1)
 def _registry() -> dict[str, BaseConnector]:
+    from prawnik_mcp.connectors.cbosa import CbosaConnector
     from prawnik_mcp.connectors.cellar import CellarConnector
     from prawnik_mcp.connectors.eli import EliConnector
+    from prawnik_mcp.connectors.eureka import EurekaConnector
+    from prawnik_mcp.connectors.kio import KioConnector
     from prawnik_mcp.connectors.saos import SaosConnector
+    from prawnik_mcp.connectors.uodo import UodoConnector
 
-    conns: list[BaseConnector] = [EliConnector(), CellarConnector(), SaosConnector()]
+    conns: list[BaseConnector] = [EliConnector(), CellarConnector(), SaosConnector(), EurekaConnector(),
+                                  KioConnector(), UodoConnector(), CbosaConnector()]
     return {c.source_id: c for c in conns}
 
 

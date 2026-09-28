@@ -27,9 +27,11 @@ from prawnik_mcp.contracts import canonical_locator
 
 PARSER_VERSION = "eli-pdf-0.1.0"
 
-SUP_DIGITS = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
-SUP_CLASS = "⁰¹²³⁴-⁹"
-UNSUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
+SUP_LETTERS = "ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ"  # modifier letters for a-z except q
+_PLAIN_LETTERS = "abcdefghijklmnoprstuvwxyz"
+SUP_DIGITS = str.maketrans("0123456789" + _PLAIN_LETTERS, "⁰¹²³⁴⁵⁶⁷⁸⁹" + SUP_LETTERS)
+SUP_CLASS = "⁰¹²³⁴-⁹" + SUP_LETTERS
+UNSUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹" + SUP_LETTERS, "0123456789" + _PLAIN_LETTERS)
 
 MONTHS = {
     "stycznia": 1, "lutego": 2, "marca": 3, "kwietnia": 4, "maja": 5, "czerwca": 6,
@@ -39,12 +41,14 @@ _DATE = r"(\d{1,2})\s+(" + "|".join(MONTHS) + r")\s+(\d{4})\s*r\."
 
 _PAGE_HEADER = re.compile(r"^\s*Dziennik\s+Ustaw\s*[–-]\s*\d+\s*[–-]\s*Poz\.\s*\d+\s*$")
 _ART_HEAD = re.compile(
-    rf"^Art\.\s*(?P<num>\d+)(?P<letter>[a-z]{{0,3}})(?P<sup>[{SUP_CLASS}]+|\[\d+\])?\.(?=\s|$)"
+    rf"^Art\.\s*(?P<num>\d+)(?P<letter>[a-z]{{0,3}})(?P<sup>[{SUP_CLASS}]+|\[\d+[a-z]{{0,2}}\])?\.(?=\s|$)"
 )
 _STRUCT_HEAD = re.compile(
     r"^(?:KSIĘGA\s+\w+|CZĘŚĆ\s+\w+|TYTUŁ\s+[IVXLC]+\w*|DZIAŁ\s+[IVXLC]+\w*|Rozdział\s+\d+\w*|Oddział\s+\d+\w*)\b"
 )
 _ANNEX_HEAD = re.compile(r"^Załącznik\s+nr\s+(\d+)\s*$")
+# "Załącznik do obwieszczenia Marszałka Sejmu ... z dnia ... (Dz. U. poz. 383)" possibly over two lines
+_ANNEX_MARKER_TEXT = re.compile(r"Załącznik\s+do\s+obwieszczenia[^\n]*(?:\n[^\n]*?\(Dz\.\s*U\.[^)\n]*\))?")
 _ANNEXES_BLOCK = re.compile(r"^Załączniki\s+do\s+ustawy")
 _UNIT_START = re.compile(rf"^(?:§\s*\d+[a-z]*[{SUP_CLASS}]*\.|\d{{1,3}}[a-z]{{0,2}}[{SUP_CLASS}]*\.\s|\d+[a-z]*[{SUP_CLASS}]*\)|[a-z]\)|–\s|Art\.\s*\d)")
 
@@ -141,11 +145,11 @@ class _PageCollector:
         ws, self.sup, self.sup_ws = self.sup_ws, [], ""
         target = self.body if self.stream == "body" else self.aux
         inner = raw.strip("[]")
-        if re.fullmatch(r"\d+\)|\*+\)?", raw):
+        if re.fullmatch(r"\d+\)|\*+\)?|[a-z]\)", raw):
             if self.stream == "body":
                 self.footnote_refs.append((sum(len(s) for s in self.body), raw.rstrip(")")))
-        elif inner.isdigit():
-            target.append(inner.translate(SUP_DIGITS))
+        elif inner.isdigit() or re.fullmatch(r"\d+[a-z]{1,2}", inner):
+            target.append(inner.translate(SUP_DIGITS))  # e.g. art. 18³ᵃ (Kodeks pracy)
         elif raw in ("(*)", "*"):
             target.append(raw)  # printed asterisk marker of a form (e.g. withdrawal form)
         elif raw:
@@ -179,6 +183,13 @@ class _PageCollector:
             self._flush_sup()
             if text.strip() == "(*)" and self.stream == "body":
                 self.body.append("\n(*)")  # legend of a form's asterisk markers
+                return
+            if "Załącznik" in text and not self.annex_marker:
+                # small-print "Załącznik do obwieszczenia …" (e.g. Kodeks karny TJ 2025/383), not a footnote
+                self.annex_marker = True
+                self.annex_marker_pos = sum(len(s) for s in self.body)
+                self.stream = "aux"
+                self.aux.append(text)
                 return
             self.stream = "aux"
             # \x01 marks the start of a footnote body; the marker may come in pieces ("2", ")")
@@ -378,7 +389,8 @@ def _art_locator(m: re.Match) -> tuple[str | None, tuple[int, str, int], list[st
         sup_n = sup.translate(UNSUP)
     raw = f"art. {m.group('num')}{m.group('letter')}" + (f"^{sup_n}" if sup_n else "")
     loc = canonical_locator(raw)
-    key = (int(m.group("num")), m.group("letter"), int(sup_n) if sup_n else 0)
+    sup_digits = re.match(r"\d*", sup_n).group(0)
+    key = (int(m.group("num")), m.group("letter"), (int(sup_digits) if sup_digits else 0, sup_n[len(sup_digits):]))
     return loc, key, warnings
 
 
@@ -406,6 +418,11 @@ def parse_consolidated_pdf(content: bytes, *, has_header: bool = True) -> Consol
         for k, v in _parse_footnotes("".join(col.aux)).items():
             if in_attachment or col.annex_marker:
                 footnotes.setdefault(k, v)
+        if not in_attachment and not col.annex_marker:
+            # marker printed in the body font size (e.g. Kodeks karny TJ 2025/383): find it in the text
+            mm = _ANNEX_MARKER_TEXT.search(body)
+            if mm:
+                col.annex_marker, col.annex_marker_pos = True, mm.end()
         if not in_attachment and col.annex_marker:
             cut = col.annex_marker_pos or 0
             header_parts.append(body[:cut])

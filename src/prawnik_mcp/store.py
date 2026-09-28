@@ -193,6 +193,7 @@ class Store:
         if version_id:
             q += " AND version_id=?"
             args.append(version_id)
+        q += " ORDER BY rowid"  # document order (insertion order of the parser)
         return [ProvisionVersion.model_validate_json(r[0]) for r in self.db.execute(q, args)]
 
     def get_provision(self, provision_id: str) -> ProvisionVersion | None:
