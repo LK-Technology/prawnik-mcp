@@ -16,7 +16,12 @@ from urllib.parse import urlencode
 from prawnik_mcp.connectors.base import BaseConnector, BulkLimits, RemoteHit, SourceSyncResult, mtime
 from prawnik_mcp.connectors.http import PoliteClient, SourceUnavailable
 from prawnik_mcp.contracts import LegalDocument, ProvisionVersion, Snapshot, SourceKind, TemporalStatus
-from prawnik_mcp.parsers.eli_pdf import PARSER_VERSION, ConsolidatedText, parse_consolidated_pdf
+from prawnik_mcp.parsers.eli_pdf import (
+    PARSER_VERSION,
+    ConsolidatedText,
+    parse_consolidated_pdf,
+    parse_published_act_pdf,
+)
 from prawnik_mcp.store import Store
 
 ELI_API = "https://api.sejm.gov.pl/eli/acts"
@@ -178,6 +183,62 @@ def ingest_consolidated(
                      [logical_snap.snapshot_id, tj_meta_snap.snapshot_id, pdf_snap.snapshot_id], warnings)
 
 
+def ingest_published(store: Store, logical_meta: dict, logical_snap: Snapshot, pdf_snap: Snapshot,
+                     pdf_bytes: bytes) -> ActIngest:
+    """Store the act's own published text when ELI has no consolidated text for it.
+
+    The wording is the ORIGINAL publication. If ELI lists amending acts, the text may be outdated and
+    the temporal status for later event dates is `unknown` (never silently treated as current)."""
+    logical_id = logical_meta["ELI"]
+    doc_id = f"eli:{logical_id}"
+    parsed = parse_published_act_pdf(pdf_bytes)
+    warnings = list(parsed.warnings)
+    amendments = [{"id": r["id"], "date": r.get("date")}
+                  for r in (logical_meta.get("references") or {}).get(AMEND_REF, [])]
+    promulgation = logical_meta.get("promulgation")
+    pub_date = date.fromisoformat(promulgation) if promulgation else None
+    version_id = f"eli:{logical_id}:published"
+    version_label = f"tekst ogłoszony {display_address(logical_id)}"
+    pending = [f"{display_address(a['id'])} – data w ELI: {a.get('date')}" for a in amendments]
+    if amendments:
+        version_label += f"; akt zmieniany {len(amendments)}× — brak tekstu jednolitego w ELI"
+        warnings.append(f"Akt był zmieniany ({len(amendments)} aktów zmieniających), a ELI nie zawiera tekstu "
+                        "jednolitego: tekst ogłoszony może nie odpowiadać obowiązującemu brzmieniu.")
+    provs = [ProvisionVersion(
+        provision_id=f"{doc_id}#{a.locator}@{version_id}", document_id=doc_id, locator=a.locator, text=a.text,
+        version_id=version_id, version_label=version_label, text_state_date=pub_date,
+        temporal_basis=TemporalStatus.original_publication, pending_changes=pending,
+        snapshot_id=pdf_snap.snapshot_id, page_hint=a.page_hint, warnings=a.warnings,
+    ) for a in parsed.articles + parsed.annexes]
+    doc = LegalDocument(
+        document_id=doc_id, kind=SourceKind.statute, eli=logical_id, title=logical_meta.get("title", logical_id),
+        publication=logical_meta.get("displayAddress"), original_url=act_url(logical_id),
+        snapshot_id=pdf_snap.snapshot_id, sha256=pdf_snap.sha256,
+        metadata={
+            "current_version_id": version_id, "published_text_only": True,
+            "consolidated_versions": [], "consolidated_text_refs": [], "amendments": amendments,
+            "in_force": logical_meta.get("inForce"), "status": logical_meta.get("status"),
+            "entry_into_force": logical_meta.get("entryIntoForce"), "change_date": logical_meta.get("changeDate"),
+            "meta_snapshot_id": logical_snap.snapshot_id, "parse_warnings": warnings, "parser_version": PARSER_VERSION,
+        },
+    )
+    store.upsert_document(doc)
+    store.replace_provisions(doc_id, version_id, provs, title=doc.title)
+    return ActIngest(doc_id, version_id, len(provs), [logical_snap.snapshot_id, pdf_snap.snapshot_id], warnings)
+
+
+def _fetch_pdf(store: Store, client: PoliteClient, url: str, *, force: bool) -> tuple[Snapshot, bytes]:
+    existing = None if force else store.find_snapshot_by_url(url)
+    pdf_bytes = store.read_snapshot_bytes(existing.snapshot_id) if existing else None
+    if existing and pdf_bytes is not None:
+        return existing, pdf_bytes
+    r = client.get(url, accept="application/pdf")
+    if not r.content.startswith(b"%PDF"):
+        raise SourceUnavailable(url, "odpowiedź nie jest plikiem PDF", r.status)
+    return store.put_snapshot(SOURCE_ID, url, r.content, "application/pdf", parser_version=PARSER_VERSION,
+                              fetched_at=r.fetched_at), r.content
+
+
 def sync_act(store: Store, client: PoliteClient, logical_id: str, *, force: bool = False) -> ActIngest:
     """Online: logical act metadata -> latest TJ -> its metadata and PDF -> parse -> store."""
     r = client.get(act_url(logical_id), accept="application/json")
@@ -185,7 +246,10 @@ def sync_act(store: Store, client: PoliteClient, logical_id: str, *, force: bool
     logical_snap = store.put_snapshot(SOURCE_ID, r.url, r.content, r.content_type, fetched_at=r.fetched_at)
     tj_id = latest_consolidated(logical_meta)
     if not tj_id:
-        raise ValueError(f"brak tekstu jednolitego w ELI dla {logical_id}")
+        if not logical_meta.get("textPDF"):
+            raise ValueError(f"ELI nie udostępnia tekstu (PDF) aktu {logical_id}")
+        pdf_snap, pdf_bytes = _fetch_pdf(store, client, pdf_url(logical_id), force=force)
+        return ingest_published(store, logical_meta, logical_snap, pdf_snap, pdf_bytes)
     r2 = client.get(act_url(tj_id), accept="application/json")
     tj_meta = json.loads(r2.content)
     tj_snap = store.put_snapshot(SOURCE_ID, r2.url, r2.content, r2.content_type, fetched_at=r2.fetched_at)

@@ -104,3 +104,16 @@ def test_cellar_art_9():
     assert "przez okres 14 dni" in a["art. 9"].text
     assert "\na) w przypadku umów o świadczenie usług – dnia zawarcia umowy;" in a["art. 9"].text
     assert c.title.startswith("DYREKTYWA PARLAMENTU EUROPEJSKIEGO I RADY 2011/83/UE")
+
+
+def test_published_amending_act_keeps_quoted_articles_inside():
+    """DU/2025/1172 has no consolidated text; quoted new articles („Art. 125²…”) stay inside art. 1."""
+    from prawnik_mcp.parsers.eli_pdf import parse_published_act_pdf
+
+    pdf = (FX / "eli_published" / "eli_DU_2025_1172.pdf").read_bytes()
+    parsed = parse_published_act_pdf(pdf)
+    locs = [a.locator for a in parsed.articles]
+    assert locs == [f"art. {i}" for i in range(1, 17)]
+    art13 = next(a for a in parsed.articles if a.locator == "art. 13")
+    assert "w brzmieniu dotychczasowym" in art13.text
+    assert "125" in parsed.articles[0].text  # quoted amendments remain part of art. 1

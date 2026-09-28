@@ -382,14 +382,19 @@ def _art_locator(m: re.Match) -> tuple[str | None, tuple[int, str, int], list[st
     return loc, key, warnings
 
 
-def parse_consolidated_pdf(content: bytes) -> ConsolidatedText:
+def parse_published_act_pdf(content: bytes) -> ConsolidatedText:
+    """Parse the act's own published text (no obwieszczenie header); used when no TJ exists."""
+    return parse_consolidated_pdf(content, has_header=False)
+
+
+def parse_consolidated_pdf(content: bytes, *, has_header: bool = True) -> ConsolidatedText:
     reader = PdfReader(io.BytesIO(content))
     body_size = _body_font_size(reader)
     header_parts: list[str] = []
     att_lines: list[_Line] = []
     footnotes: dict[str, str] = {}
     warnings: list[str] = []
-    in_attachment = False
+    in_attachment = not has_header
 
     for pno, page in enumerate(reader.pages, start=1):
         col = _PageCollector(body_size)
@@ -412,7 +417,7 @@ def parse_consolidated_pdf(content: bytes) -> ConsolidatedText:
         else:
             header_parts.append(body)
 
-    if not in_attachment:
+    if has_header and not in_attachment:
         warnings.append("nie znaleziono początku załącznika (tekstu jednolitego)")
     header = _parse_header("\n".join(header_parts))
     vocab = _build_vocab(att_lines)
@@ -432,9 +437,16 @@ def parse_consolidated_pdf(content: bytes) -> ConsolidatedText:
             (annexes if cur.locator.startswith("załącznik") else articles).append(cur)
         cur, cur_lines = None, []
 
+    def in_open_quote() -> bool:
+        # amending acts quote whole new articles („Art. 125². …”); such headings belong to the current article
+        joined = "".join(cur_lines)
+        return joined.count("„") > joined.count("”")
+
     for ln in att_lines:
         t = ln.text
         m = _ART_HEAD.match(t)
+        if m and mode == "article" and cur is not None and in_open_quote():
+            m = None
         if m and mode != "annex":
             close()
             loc, key, w = _art_locator(m)
