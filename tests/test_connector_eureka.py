@@ -61,10 +61,11 @@ def test_search_maps_hits_and_request_shape():
     assert req.url.params["size"] == "3" and req.url.params["page"] == "0"
     assert req.url.params.get_list("sort") == ["DT_WYD,desc", "ID_INFORMACJI,desc"]
     body = json.loads(req.content)
-    assert body["searchQuery"] == "ulga termomodernizacyjna"
+    assert body["searchQuery"] == "ulga termomodernizacyjna" and body["searchInFullPhrase"] is True
     assert body["filter"] == {"KATEGORIA_INFORMACJI": [1], "DT_WYD_start": "2026-08-01", "DT_WYD_end": "2026-08-31"}
-    assert [h.document_id for h in hits] == ["eureka:706781", "eureka:706823", "eureka:705888"]
-    h = hits[1]
+    # results come newest first; theses about selling electricity do not mention the relief and are dropped
+    assert [h.document_id for h in hits] == ["eureka:706823"]
+    h = hits[0]
     assert h.kind == "tax_ruling" and SIG in h.title and "2026-08-24" in h.title
     assert h.snippet.startswith("Brak możliwości skorzystania z ulgi termomodernizacyjnej")
     assert h.original_url == "https://eureka.mf.gov.pl/informacje/podglad/706823"

@@ -45,7 +45,20 @@ Polish statutes and official documents are excluded from copyright (art. 4 of th
   - There are data errors at the source. For example `saos:31345` has the judgment date `3013-12-04`. We set such dates to null and flag them (`judgment_date_in_future`).
   - Finality (prawomocność) is unknown.
   - The SAOS text can differ from the version on the court portal.
-  - Coverage and freshness have not been measured.
+  - **Coverage by court type** (API counts and newest judgment date, checked 2026-09-28):
+
+    | Court type | Judgments | Newest |
+    |---|---|---|
+    | Common courts | 472,575 | 2026-09-24 |
+    | Supreme Court (SN) | 38,081 | 2016-06-22 |
+    | Constitutional Tribunal (TK) | 9,503 | 2015-12-09 |
+    | National Appeal Chamber (KIO) | 22,168 | 2018-09-06 |
+    | Administrative courts | 0 | — |
+
+    Supreme Court and Constitutional Tribunal rulings after 2016/2015 are **not** available through SAOS.
+    KIO has its own, current connector (see below). Administrative courts: CBOSA.
+  - SAOS search can be slow (15–30 s) and the whole service has maintenance windows, when it serves an HTML
+    "Przerwa techniczna" page with status 200. The client reports that as unavailable, not as an empty result.
 
 ## Cellar — Publications Office of the EU
 

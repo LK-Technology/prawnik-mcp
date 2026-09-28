@@ -203,10 +203,11 @@ class PoliteClient:
                 redirects.append(current)
                 current = nxt
                 continue
-            return self._finish(current, resp_status, resp_headers, content, redirects)
+            return self._finish(current, resp_status, resp_headers, content, redirects, accept)
         raise SourceUnavailable(url, "zbyt wiele przekierowań")
 
-    def _finish(self, url: str, status: int, headers: dict[str, str], content: bytes, redirects: list[str]) -> FetchResult:
+    def _finish(self, url: str, status: int, headers: dict[str, str], content: bytes, redirects: list[str],
+                accept: str | None = None) -> FetchResult:
         if status == 404:
             raise NotFoundUpstream(url, "zasób nie istnieje u źródła (404)", 404)
         if status == 202 or (status == 200 and not content):
@@ -214,6 +215,9 @@ class PoliteClient:
             raise SourceUnavailable(url, "pusta odpowiedź lub wyzwanie anty-botowe; nie obchodzimy", status)
         if status != 200:
             raise SourceUnavailable(url, f"nieoczekiwany status HTTP {status}", status)
+        if accept and "json" in accept and "text/html" in headers.get("content-type", ""):
+            # e.g. SAOS "Przerwa techniczna": a maintenance page served with 200 instead of the API response
+            raise SourceUnavailable(url, "źródło zwróciło stronę HTML zamiast JSON (np. przerwa techniczna)", status)
         return FetchResult(
             url=url, status=status, content=content,
             content_type=headers.get("content-type", "application/octet-stream"),

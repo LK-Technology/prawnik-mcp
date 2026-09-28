@@ -26,6 +26,7 @@ from prawnik_mcp.contracts import (
     article_of,
     canonical_locator,
 )
+from prawnik_mcp.relevance import STOPWORDS
 from prawnik_mcp.store import Store
 
 DEFAULT_LIMIT = 5
@@ -47,10 +48,7 @@ def _kind_sources(kinds: list[SourceKind]) -> set[str]:
 # tax interpretations. They share case-number lookup, paging and the judgment hit format.
 RECORD_KINDS = (SourceKind.judgment, SourceKind.eu_judgment, SourceKind.decision, SourceKind.tax_ruling)
 
-_STOP = set(
-    "a aby ale albo ani by być czy do dla go i ich jak jaki jest jeśli już lub ma może na nie nie o od oraz po "
-    "przez przy się są ta tak te to tu w we z za ze że jako który która które co czy mój moja mnie mi".split()
-)
+_STOP = STOPWORDS
 _CASE_RE = re.compile(
     r"\b("
     r"[IVXL]{1,5}\s+[A-Za-zŁłŻżŚśĆć]{1,6}(?:-[A-Za-z]+)?(?:/[A-Z][a-zł]{0,2})?\s+\d{1,6}/\d{2,4}"  # I ACa 772/13, II SA/Wa 1553/24
@@ -286,7 +284,7 @@ def search_legal(
         cov.sources_unavailable += [u for u in unavailable if u not in cov.sources_unavailable]
         cov.sources_searched += [x for x in live_searched if x not in cov.sources_searched]
         seen = {h.document_id for h in hits}
-        for sid, h, origin in remote:
+        for sid, h, origin in live_mod.interleave(remote):
             if h.document_id not in seen and len(hits) < limit + (limit if live is True else 0):
                 hits.append(_remote_hit(sid, h, origin))
                 seen.add(h.document_id)

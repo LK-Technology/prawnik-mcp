@@ -33,6 +33,7 @@ from prawnik_mcp.parsers.eureka import (
     parse_search_results,
     portal_url,
 )
+from prawnik_mcp.relevance import match_ratio, query_stems
 from prawnik_mcp.store import Store
 
 SOURCE_ID = "eureka"
@@ -139,10 +140,25 @@ class EurekaConnector(BaseConnector):
         signature = f.get("signature")
         if not signature and SIGNATURE_RE.fullmatch(q):
             signature, q = q, ""
-        body = search_body(query=q or None, signature=signature, category_ids=_category_ids(f.get("category_ids")),
-                           date_from=f.get("date_from"), date_to=f.get("date_to"),
-                           full_phrase=bool(f.get("full_phrase")))
-        rows, total, _ = search_page(client, body, page=0, size=max(limit, 1))
+        stems = query_stems(q) if q else []
+
+        def run(full_phrase: bool, size: int) -> tuple[list[dict], int | None]:
+            body = search_body(query=q or None, signature=signature, category_ids=_category_ids(f.get("category_ids")),
+                               date_from=f.get("date_from"), date_to=f.get("date_to"), full_phrase=full_phrase)
+            rows, total, _ = search_page(client, body, page=0, size=size)
+            return rows, total
+
+        if "full_phrase" in f or len(stems) < 2:
+            rows, total = run(bool(f.get("full_phrase")), max(limit, 1))
+        else:
+            # The any-word mode matches most of the database and returns it newest first, so a multi-word
+            # query goes to the all-words mode ("searchInFullPhrase") first and falls back to any-word.
+            rows, total = run(True, max(limit, 1))
+            if not rows:
+                rows, total = run(False, MAX_PAGE_SIZE)
+        if stems:
+            # Results come in date order, not by relevance: keep those whose thesis names at least half the terms.
+            rows = [r for r in rows if match_ratio(stems, f"{r['thesis']} {r['signature']}") >= 0.5]
         hits = []
         for it in rows[:limit]:
             title = ", ".join(x for x in (it["category"] or "EUREKA", it["signature"] or "(brak sygnatury)",

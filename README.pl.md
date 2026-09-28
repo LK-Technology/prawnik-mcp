@@ -85,7 +85,7 @@ Inne klienty (Claude Desktop, Cursor), w konfiguracji MCP:
 
 Repozytorium nie zawiera korpusu: budujesz go lokalnie z oficjalnych źródeł i obowiązują Cię ich warunki
 ([szczegóły i znane luki](docs/sources.md)). Brakujące dokumenty są pobierane na żądanie, wyniki wyszukiwania na żywo
-trafiają do cache na 24 h. Większe zbiory: `prawnik-mcp sync --source saos --court-type SUPREME --limit 500`,
+trafiają do cache na 24 h. Większe zbiory: `prawnik-mcp sync --source saos --court-type COMMON --query "przedawnienie" --limit 500`,
 `--source eli --act DU/1964/16`, `--source cellar --celex 32016R0679` (z wznawianiem po przerwaniu).
 
 ## Kiedy się przyda, a kiedy nie
@@ -104,6 +104,10 @@ ustawy na dawną datę (jeszcze nieodtwarzane) ani spraw spoza prawa polskiego i
   dokumentacyjny.
 - Wyszukiwanie leksykalne (SQLite FTS5 z prostą obsługą odmiany), bez wyszukiwania semantycznego.
 - CBOSA nie jest przeszukiwana (robots.txt zabrania dostępu do wyszukiwarki); pobierane są tylko dokumenty o znanym id.
+- Orzecznictwo ma luki: w SAOS są orzeczenia SN tylko do 2016 r. i TK do 2015 r.; orzeczenia sądów powszechnych
+  są aktualne. Nie ma jeszcze orzecznictwa TSUE.
+- Wyszukiwanie w SAOS często trwa dłużej niż 8-sekundowy limit. Serwer kończy zapytanie w tle i zapisuje wynik
+  w cache, więc ponowienie po chwili zwykle działa; `prawnik-mcp sync` całkowicie omija ten problem.
 - Błędy danych źródeł (np. daty z przyszłości) są oznaczane, nie poprawiane; prawomocność orzeczeń jest zwykle nieznana.
 - `check_citations` sprawdza, czy cytat istnieje we wskazanej wersji. Nie ocenia, czy przepis ma zastosowanie.
 - Trzy szablony pism dotyczą wąskich spraw konsumenckich i nie liczą terminów ani odsetek.

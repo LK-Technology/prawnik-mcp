@@ -24,6 +24,14 @@ All notable changes to this project are documented here. The format follows
 - `scripts/pii_scan.py` (PESEL, bank accounts, phones, e-mails, local denylist, forbidden paths) and pre-commit hooks.
 - Network guard for offline tests (`tests/conftest.py`).
 
+### Fixed
+- Live search: results are interleaved across sources instead of concatenated, so one source cannot fill the page.
+- EUREKA: multi-word queries use the all-words mode first and results are filtered by the thesis, because the
+  any-word mode returned most of the database newest first.
+- A source that misses the live time budget finishes in the background and its result is cached for the next call.
+- An HTML page served instead of a JSON API response (e.g. SAOS maintenance) is reported as the source being unavailable.
+- Documented SAOS coverage: Supreme Court rulings end in 2016, Constitutional Tribunal rulings in 2015.
+
 ### Changed
 - Templates are package data (`prawnik_mcp/templates`); default data directory is the per-user data dir.
 - Tool descriptions, server instructions and docs in English; prompts renamed to `analysis_procedure` and `applicability_review`.

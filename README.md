@@ -121,7 +121,7 @@ Nothing is bundled: you build the corpus locally from the official sources, and 
 cached for 24 hours. For larger corpora:
 
 ```bash
-prawnik-mcp sync --source saos --court-type SUPREME --query "przedawnienie" --limit 500
+prawnik-mcp sync --source saos --court-type COMMON --query "przedawnienie" --limit 500
 prawnik-mcp sync --source saos --since 2026-01-01 --max-gb 2      # dump API, all courts, resumable
 prawnik-mcp sync --source eli --act DU/1964/16 --act DU/2018/1000
 prawnik-mcp sync --source cellar --celex 32016R0679
@@ -144,6 +144,10 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
 - Search is lexical (SQLite FTS5 with simple Polish stemming). There is no semantic search.
 - CBOSA (administrative courts) cannot be searched: its robots.txt disallows the search endpoints, so only
   documents with a known id are fetched.
+- Case law has gaps: SAOS holds Supreme Court rulings only up to 2016 and Constitutional Tribunal rulings up to
+  2015; common court judgments are current. There is no CJEU case law yet.
+- SAOS search often takes longer than the 8-second live budget. The server keeps the request running and caches
+  the result, so asking again a moment later usually works; `prawnik-mcp sync` avoids the problem entirely.
 - Source data errors (e.g. judgment dates in the future) are flagged, not corrected. Finality of judgments is mostly unknown.
 - `check_citations` verifies that a quote exists in the cited version. It does not verify that the law applies.
 - The three letter templates cover narrow consumer situations and do not compute deadlines or interest.
