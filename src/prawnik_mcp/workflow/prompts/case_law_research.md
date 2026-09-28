@@ -7,8 +7,9 @@ Cel: ustalić, jak sądy i organy rozstrzygają wskazane zagadnienie, z orzeczen
 2. Pobierz przepis, którego dotyczy zagadnienie (`search_legal`, `get_legal_document`), żeby wiedzieć,
    czego szukać w uzasadnieniach.
 3. Szukaj orzeczeń każdym wariantem: `search_legal` z `kinds: ["judgment"]` i `live: true`.
-   Uwzględnij sądy powszechne (SAOS), Sąd Najwyższy, Trybunał Konstytucyjny, a w sprawach zamówień
-   publicznych KIO, w sprawach danych osobowych decyzje UODO. Jeśli źródło przekroczyło limit czasu,
+   Uwzględnij sądy powszechne (SAOS), a w sprawach zamówień publicznych KIO, w sprawach danych osobowych
+   decyzje UODO. Sąd Najwyższy przeszukasz, dodając `filters: {"court_type": "SUPREME"}` (sn.pl zwraca
+   najnowsze trafienia bez fragmentów tekstu — pobierz treść, zanim ocenisz trafność). Jeśli źródło przekroczyło limit czasu,
    ponów wyszukiwanie po chwili.
 4. Z wyników wybierz orzeczenia według zagadnienia i podobieństwa stanu faktycznego, nie według
    liczby wspólnych słów. Pobierz pełny tekst każdego wybranego orzeczenia (`get_legal_document`).

@@ -129,6 +129,7 @@ the tools returned, run `check_citations`, report gaps.
 | CBOSA — administrative courts (NSA/WSA) | judgments | experimental | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | tax rulings | experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | judgments | experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
+| SN — Supreme Court rulings (sn.pl ruling database) | judgments | experimental | 0.5 req/s | [terms](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
 | UODO — decisions of the President of the Personal Data Protection Office | decisions | experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | judgments | planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decisions | planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |

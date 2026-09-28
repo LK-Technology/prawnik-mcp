@@ -54,6 +54,9 @@ class BaseConnector:
     source_id: ClassVar[str]
     supports_search: ClassVar[bool] = False
     supports_fetch: ClassVar[bool] = False
+    # False when phrase search returns unranked metadata (newest first, no snippet): live search then asks
+    # this source only for case numbers or when the caller names it (source_ids / filters.court_type).
+    live_phrase_search: ClassVar[bool] = True
 
     @property
     def info(self) -> sources.SourceInfo:

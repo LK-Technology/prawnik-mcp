@@ -23,4 +23,4 @@ Their licence texts are in the licenses/ directory.
 Test fixtures in tests/fixtures/raw are unmodified responses from public sources (2026-09-26/28):
 Dziennik Ustaw via the ELI API (Kancelaria Sejmu RP), SAOS (saos.org.pl), EU Publications Office
 Cellar (EUR-Lex), EUREKA (Ministerstwo Finansów), KIO (orzeczenia.uzp.gov.pl), UODO
-(orzeczenia.uodo.gov.pl) and CBOSA (orzeczenia.nsa.gov.pl). They are not covered by the code licence.
+(orzeczenia.uodo.gov.pl), CBOSA (orzeczenia.nsa.gov.pl) and the Supreme Court ruling database (www.sn.pl). They are not covered by the code licence.

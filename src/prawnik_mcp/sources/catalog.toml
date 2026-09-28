@@ -212,6 +212,38 @@ doc_ids = ["9FF3766DA4", "3BB1F6C423", "4DC5BD4680"]
 
 # ---------------------------------------------------------------- not implemented yet (roadmap)
 
+[sources.sn]
+name = "SN — Supreme Court rulings (sn.pl ruling database)"
+publisher = "Sąd Najwyższy; Baza orzeczeń Sądu Najwyższego (www.sn.pl)"
+base_url = "https://www.sn.pl/pl/wyszukiwarka-orzeczen"
+hosts = ["www.sn.pl"]
+rate_per_s = 0.5
+kinds = ["judgment"]
+id_prefix = "sn:"
+maturity = "experimental"
+terms = "No terms of use or licence for the ruling database found (read 2026-09-28: the database page, /pl/informacje/ponowne-wykorzystywanie-informacji-publicznych and robots.txt). The reuse page only summarises the 2021 Open Data Act: SN 'may' set reuse conditions, none are set for the database, reuse is free of charge; it also says a reuse request is needed for information published outside BIP without stated conditions — whether that applies to the database is unverified. robots.txt (Joomla default) disallows system paths only (/api/, /components/, /modules/, /plugins/ …); the connector uses none of them. Rulings are official documents (art. 4 pt 2 of the Copyright Act), published anonymised by SN — unverified legal reading; database rights unverified. Judges, clerks and prosecutors are named. The corpus is not redistributed."
+terms_url = "https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych"
+terms_checked_at = "2026-09-28"
+attribution = "Źródło: Sąd Najwyższy – Baza orzeczeń (www.sn.pl)"
+known_gaps = [
+  "Uses the undocumented com_ajax proxy behind the sn.pl search page (/pl/index.php?option=com_ajax&plugin=snproxy); it may change with any site release — layout changes raise errors instead of returning empty results. The site is behind an Imperva WAF; challenges are reported as unavailable, never bypassed.",
+  "Search returns metadata only (case number, date, form): no snippet, no total count, newest first rather than by relevance. Live phrase search runs only when asked for (filters.court_type = SUPREME); case numbers are always looked up.",
+  "Upstream case-number search is a case-insensitive substring match ('II KK 45/24' also returns 'III KK 45/24'); hits are filtered to the exact case number locally.",
+  "Document ids are the upstream search-index ids (e.g. 311jSJcBZvGrB8P_pKA7); whether they survive an index rebuild is unknown.",
+  "Text is an HTML rendering of the PDF: lines are re-ordered by position and running headers dropped; line-end hyphenation and letter-spaced words ('o d d a l i ł') are kept. No separate thesis field (older OSN-format texts carry the thesis inline).",
+  "Rulings are often published before their reasons (flagged uzasadnienie_not_in_text); re-fetch later with force. Dissent fields in the metadata can be empty although the text records a dissent.",
+  "Only a sample is stored; each ruling costs 2 requests (details + HTML). PDF versions are linked, not fetched.",
+  "Overlap with SAOS (courtType SUPREME, up to 2016; sn.pl has rulings back to at least 1999): the same ruling can be stored as saos:<id> and sn:<id>, so case-number lookup may be ambiguous.",
+  "Finality is not set: most SN rulings are final when issued, but e.g. first-instance disciplinary rulings can be appealed within SN.",
+]
+
+[sources.sn.defaults]
+max_total = 6
+queries = [
+  { form = "uchwała SN", chamber = "Izba Cywilna", since = "2025-01-01" },
+  { query = "przedawnienie roszczeń konsumenta", since = "2025-01-01" },
+]
+
 [sources.portal_sp]
 name = "Portal Orzeczeń Sądów Powszechnych (common courts portal)"
 publisher = "Ministerstwo Sprawiedliwości"

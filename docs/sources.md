@@ -56,9 +56,41 @@ Polish statutes and official documents are excluded from copyright (art. 4 of th
     | Administrative courts | 0 | — |
 
     Supreme Court and Constitutional Tribunal rulings after 2016/2015 are **not** available through SAOS.
-    KIO has its own, current connector (see below). Administrative courts: CBOSA.
+    Current SN rulings come from the SN connector (below). KIO has its own, current connector. Administrative courts: CBOSA.
   - SAOS search can be slow (15–30 s) and the whole service has maintenance windows, when it serves an HTML
     "Przerwa techniczna" page with status 200. The client reports that as unavailable, not as an empty result.
+
+## SN — Supreme Court (Sąd Najwyższy), sn.pl ruling database
+
+Status as of 2026-09-28. Technical description, **not legal advice**. "Unverified" means no binding terms document was read.
+
+- **Host:** `https://www.sn.pl` (Joomla site of the Supreme Court, behind an Imperva/Incapsula WAF). No documented public API and no bulk export. SAOS mirrors SN only up to 2016; sn.pl has current rulings and older ones back to at least 1999.
+- **Endpoints (verified live 2026-09-28).** The search page `/pl/wyszukiwarka-orzeczen` calls a com_ajax plugin, `GET /pl/index.php?option=com_ajax&plugin=snproxy&format=json&task=…`. Answers are JSON wrapped twice (`{"success":true,"data":[{"success":true,"data":X}]}`).
+  - Search: `task=searchOrzeczenia` with `q` and `tresc` (full text, both sent as the page does), `sygnatura`, `data_wydania_od` / `data_wydania_do`, `izba` (e.g. `Izba Cywilna`), `forma_orzeczenia` (e.g. `uchwała SN`), `sedzia_w_skladzie`, `strona`, `rozmiar_strony` (10/25/50/100). It returns case number, date, form and id only: no snippet, no total, newest first. `sygnatura` is a case-insensitive **substring** match.
+  - Metadata: `task=detailsOrzeczenie&id=…` (chambers, bench, presiding judge, rapporteur, reasons author, dissenting judges, division, modification date).
+  - Text: `task=OrzeczeniePlikHtml&id=…` returns `{"raw": base64}`, an HTML rendering of the ruling PDF with one positioned element per line.
+  - An unknown id returns **200 with a problem object** `{"title":"Not Found","status":404}`; the connector raises `NotFoundUpstream`.
+  - `robots.txt` is the Joomla default and disallows `/administrator/ /api/ /bin/ /cache/ /cli/ /components/ /includes/ /installation/ /language/ /layouts/ /libraries/ /logs/ /modules/ /plugins/ /tmp/`. The endpoint above (`/pl/index.php`) is not disallowed; no disallowed path is used.
+- **How we use it:**
+  - Live search asks SN for case numbers always, and for phrases only with `filters.court_type = "SUPREME"`, because phrase results are unranked metadata. Case-number hits are filtered to the exact number locally.
+  - `fetch("sn:<id>")` gets the metadata and the text (2 requests) and stores both raw JSON answers as snapshots. Text lines are sorted by position, running headers on pages 2+ are dropped, superscript digits become `¹²³` ("art. 804¹").
+  - Bulk sync walks issue-date windows oldest first, with checkpoint/resume; `since` is required unless a case number is given. At 0.5 req/s one week of rulings (about 1,000) takes roughly 70 minutes.
+  - A non-JSON answer (for example a WAF page) raises an error; it is never read as "0 hits".
+- **Terms actually read (2026-09-28):**
+  - The database page: no terms.
+  - `/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych` summarises the 2021 Open Data Act. SN "may" set reuse conditions, but **none are set for the ruling database**; reuse is free of charge. The page says a reuse request is needed for information published outside BIP without stated conditions; whether that applies here is **unverified** (sn.pl carries the BIP logo).
+  - Rulings are official documents (art. 4 pt 2 of the Copyright Act): our reading, **unverified**. Database rights **unverified**. No published rate limit; we use 0.5 req/s.
+- **Personal data:** rulings are anonymised by SN (parties as initials). Judges, lay judges, clerks and prosecutors are named. Fixtures pass `scripts/pii_scan.py`.
+- **Attribution:** "Źródło: Sąd Najwyższy – Baza orzeczeń (www.sn.pl)".
+- **Code provenance:** original code.
+- **Known gaps:**
+  - Undocumented proxy that can change with any site release; a periodic live smoke check is advisable.
+  - Ids are upstream search-index ids; stability across a reindex is unknown.
+  - Reasons are often published after the operative part (flag `uzasadnienie_not_in_text`); re-fetch with force.
+  - Dissent metadata can be empty although the text records a dissent. There is no separate thesis field.
+  - Forms other than wyrok/postanowienie/uchwała/zarządzenie become `judgment_type = UNKNOWN` with flag `judgment_type_unmapped:<form>`.
+  - Overlap with SAOS (`courtType = SUPREME`, up to 2016): the same ruling can exist as `saos:<id>` and `sn:<id>`, and a case-number lookup then returns `ambiguous`.
+  - Line-end hyphenation and letter-spaced emphasis ("o d d a l i ł") are kept as in the source.
 
 ## Cellar — Publications Office of the EU
 

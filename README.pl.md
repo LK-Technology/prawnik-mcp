@@ -99,6 +99,7 @@ Gotowe procedury krok po kroku, które klient może wczytać. Prompty do zadań 
 | CBOSA — administrative courts (NSA/WSA) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://orzeczenia.nsa.gov.pl/cbo/query) |
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | interpretacje podatkowe | eksperymentalne | 0.5 req/s | [warunki](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | orzeczenia | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
+| SN — Supreme Court rulings (sn.pl ruling database) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
 | UODO — decisions of the President of the Personal Data Protection Office | decyzje | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uodo.gov.pl/) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | orzeczenia | planowane | 0.5 req/s | [warunki](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decyzje | planowane | 0.5 req/s | [warunki](https://uokik.gov.pl/) |

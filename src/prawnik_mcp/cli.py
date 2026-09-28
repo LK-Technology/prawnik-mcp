@@ -16,7 +16,8 @@ REPO_FIXTURES = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "ra
 EPILOG = """examples:
   prawnik-mcp sync                                   small default corpus (KC, UPK, directive, SAOS sample)
   prawnik-mcp sync --offline                         same corpus from recorded samples, no network
-  prawnik-mcp sync --source saos --court-type SUPREME --query "przedawnienie" --limit 500
+  prawnik-mcp sync --source saos --court-type COMMON --query "przedawnienie" --limit 500
+  prawnik-mcp sync --source sn --query "przedawnienie" --since 2025-01-01 --limit 50
   prawnik-mcp sync --source saos --since 2026-01-01 --max-gb 2      bulk dump (all courts) for a date window
   prawnik-mcp sync --source eli --act DU/2018/1000 --act DU/1964/16
   prawnik-mcp sync --source eli --query "ochronie danych osobowych" --limit 5
@@ -42,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("sync", help="download sources into the local corpus")
     s.add_argument("--offline", action="store_true", help="build the default corpus from recorded samples (no network)")
     s.add_argument("--fixtures", help="directory with recorded samples (default: tests/fixtures/raw in a checkout)")
-    s.add_argument("--source", help="bulk/targeted sync of one source: saos | eli | cellar")
+    s.add_argument("--source", help="bulk/targeted sync of one source: eli | cellar | saos | sn | eureka | kio | uodo | cbosa")
     s.add_argument("--query", help="scope query (saos full text, eli title words, cellar identifiers)")
     s.add_argument("--court-type",
                    help="saos: COMMON | SUPREME | ADMINISTRATIVE | CONSTITUTIONAL_TRIBUNAL | NATIONAL_APPEAL_CHAMBER")

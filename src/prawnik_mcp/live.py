@@ -52,7 +52,8 @@ def live_search(store: Store, query: str, *, kinds: set[str] | None, filters: di
     filters = dict(filters or {})
     _flush_late(store)
     conns = [c for c in registry.all_connectors() if c.supports_search
-             and (not kinds or set(c.info.kinds) & kinds) and (not source_ids or c.source_id in source_ids)]
+             and (not kinds or set(c.info.kinds) & kinds) and (not source_ids or c.source_id in source_ids)
+             and (c.live_phrase_search or source_ids or filters.get("case_number") or filters.get("court_type"))]
     results: list[tuple[str, RemoteHit, str]] = []
     warnings: list[str] = []
     unavailable: list[str] = []

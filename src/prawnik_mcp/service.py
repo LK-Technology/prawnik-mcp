@@ -26,6 +26,7 @@ from prawnik_mcp.contracts import (
     article_of,
     canonical_locator,
 )
+from prawnik_mcp.parsers.sn import SN_CASE_RE
 from prawnik_mcp.relevance import STOPWORDS
 from prawnik_mcp.store import Store
 
@@ -53,6 +54,7 @@ _CASE_RE = re.compile(
     r"\b("
     r"[IVXL]{1,5}\s+[A-Za-zŁłŻżŚśĆć]{1,6}(?:-[A-Za-z]+)?(?:/[A-Z][a-zł]{0,2})?\s+\d{1,6}/\d{2,4}"  # I ACa 772/13, II SA/Wa 1553/24
     r"|KIO(?:/[A-Z]{1,3})?\s+\d{1,5}/\d{2,4}"  # KIO 1234/24
+    r"|(?:SNO|SDI|KSP)\s+\d{1,5}/\d{2,4}"  # SN repertories written without a division numeral
     r"|[A-Z]{2,5}\.\d{3,4}\.\d{1,5}\.\d{4}"  # UODO: DKN.5130.2215.2020
     r"|\d{4}-[A-Z0-9]{3,8}(?:-\d)?(?:\.\d+)*\.\d{4}(?:\.\d+)?(?:\.[A-Z]{1,4})?"  # KIS: 0114-KDIP1-2.4012.123.2024.1.AB
     r")\b")
@@ -212,7 +214,7 @@ def search_legal(
             warnings += lw
         if not found:
             return ToolResult(status=ResultStatus.not_found, coverage=cov, warnings=warnings + [
-                f"Sygnatura {case.group(1)} nie występuje w lokalnym korpusie SAOS (próbka). "
+                f"Sygnatury {case.group(1)} nie znaleziono w lokalnym korpusie ani w przeszukanych źródłach. "
                 "To nie dowodzi, że orzeczenie nie istnieje; nie cytuj go bez pobrania ze źródła."])
         for j in found:
             doc = store.get_document(j.document_id)
@@ -312,6 +314,8 @@ def _case_number_sources(case_number: str) -> list[str]:
         return ["uodo"]
     if re.match(r"\d{4}-", c):
         return ["eureka"]
+    if SN_CASE_RE.fullmatch(c):
+        return ["sn", "saos"]  # sn.pl is current; SAOS holds SN rulings up to 2016
     return ["saos"]  # common courts, SN, TK, administrative courts (SAOS mirrors part of CBOSA)
 
 

@@ -6,7 +6,7 @@ All notable changes to this project are documented here. The format follows
 ## [Unreleased]
 
 ### Added
-- **Sources:** EUREKA (tax interpretations), KIO (procurement rulings), UODO (data protection decisions),
+- **Sources:** SN (Supreme Court rulings from sn.pl, current; SAOS stops in 2016), EUREKA (tax interpretations), KIO (procurement rulings), UODO (data protection decisions),
   CBOSA (administrative courts; single documents only — robots.txt honoured); EU consolidated versions from Cellar.
 - **Hybrid access:** live search across sources with a time budget and 24 h cache, lazy fetch of documents missing
   locally, `PRAWNIK_MCP_OFFLINE=1`.
