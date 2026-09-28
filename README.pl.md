@@ -1,135 +1,134 @@
-<div align="center">
+# prawnik-mcp
 
-# ⚖️ prawnik-mcp
-
-**Prawo polskie i unijne dla asystentów AI — ze źródłami, które da się sprawdzić.**
-
-Otwarty serwer [Model Context Protocol](https://modelcontextprotocol.io), dzięki któremu Claude, Cursor czy inny klient
-MCP wyszukuje przepisy i orzeczenia, cytuje **dokładne brzmienie z wersją i pochodzeniem**, sprawdza cytaty przed
-udzieleniem odpowiedzi i przygotowuje proste pisma — bez wymyślania prawa.
+Serwer MCP, który daje asystentom AI dokładne, wersjonowane teksty prawa polskiego i unijnego oraz walidator
+odrzucający cytaty, których nie ma w źródłach. Ustawy pochodzą z API ELI Sejmu, akty UE z EUR-Lex (Cellar), a
+orzeczenia i decyzje z SAOS, KIO, UODO, EUREKA i CBOSA.
 
 [![CI](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/LK-Technology/prawnik-mcp/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue)](pyproject.toml)
 [![Licencja: MIT](https://img.shields.io/badge/licencja-MIT-green)](LICENSE)
-[![Status](https://img.shields.io/badge/status-eksperymentalny-orange)](docs/quality.md)
 
-[Szybki start](#-szybki-start) · [Narzędzia](#-narzędzia) · [Źródła](#-źródła-danych) · [Ograniczenia](#-uczciwie-o-ograniczeniach) ·
-[English 🇬🇧](README.md)
-
-</div>
+[English](README.md) · [Źródła](docs/sources.md) · [Architektura](docs/architecture.md) · [Jakość](docs/quality.md)
 
 > [!IMPORTANT]
-> **To nie jest porada prawna ani prawnik.** Narzędzie daje asystentowi AI sprawdzalne źródła, jawne statusy i
-> walidator cytatów. Ocena, czy przepis ma zastosowanie do Twojej sprawy, wymaga osądu — najlepiej prawnika.
-> Projekt nie był dotąd sprawdzany przez prawnika.
+> To narzędzie badawcze, a nie porada prawna; nie było sprawdzane przez prawnika. Projekt nie jest powiązany z
+> Kancelarią Sejmu, Urzędem Publikacji UE, ICM (SAOS) ani z żadnym organem, którego dane odczytuje.
 
-## Po co
+## Jak to wygląda
 
-Modele językowe piszą płynnie językiem prawniczym i pewnie mylą szczegóły: nieaktualne brzmienia, zmyślone sygnatury,
-stanowisko strony przedstawione jako pogląd sądu. `prawnik-mcp` każe asystentowi pracować na **źródłach pierwotnych**:
+Przepis na konkretną datę. Odpowiedź mówi, z którego tekstu jednolitego pochodzi, podaje hash snapshotu i jawny
+status, gdy brzmienia na tę datę nie da się ustalić:
 
-- 📜 **Dokładny tekst i wersja** — każdy przepis z informacją, z którego tekstu jednolitego pochodzi
-  (np. *Dz.U. 2026 poz. 795, stan prawny na 19.05.2026*), z hashem snapshotu i adresem źródła.
-- 🕰️ **Czas** — pytasz o brzmienie na datę zdarzenia; zmiany jeszcze nieobowiązujące, przepisy przejściowe i
-  nieustalone wersje są oznaczane jako `temporal_unknown`, a nie zgadywane.
-- 🔎 **Kontrola cytatów** — cytat porównywany z zapisanym tekstem (dokładnie / po normalizacji / inny artykuł / inna
-  wersja / brak); sygnatura sprawdzana z sądem i datą.
-- 🚦 **Jawne statusy** — `not_found` w lokalnym korpusie ≠ „nie istnieje”; `source_unavailable`, `ambiguous`,
-  `stale`, `out_of_scope` są raportowane wprost.
-- 🧾 **Pisma z bramką** — trzy szablony (wezwanie do zapłaty, reklamacja, odstąpienie od umowy na odległość) eksportują
-  się do DOCX tylko z aktualnym raportem cytatów powiązanym z faktami; inaczej powstaje jawnie niekompletny formularz.
-- 🏠 **Lokalnie** — źródła trafiają do lokalnej bazy SQLite + FTS5. Bez kluczy API i GPU.
-
-## 🚀 Szybki start
-
-```bash
-pipx install git+https://github.com/LK-Technology/prawnik-mcp     # po publikacji: pipx install prawnik-mcp
-prawnik-mcp sync                                            # korpus startowy: KC, upk, dyrektywa 2011/83/UE, próbka orzeczeń
-claude mcp add prawnik -- prawnik-mcp serve                 # Claude Code
+```console
+$ prawnik-mcp get eli:DU/2014/827 "art. 27" --as-of 2026-09-20
+{
+  "status": "temporal_unknown",
+  "data": {
+    "locator": "art. 27",
+    "version_label": "tekst jednolity Dz.U. 2026 poz. 1244, stan prawny na 2026-09-02",
+    "snapshot_id": "eli:0be910651325e9f0",
+    "text": "Art. 27. 1. Konsument, który zawarł umowę na odległość lub poza lokalem przedsiębiorstwa, może w terminie 14 dni odstąpić od niej bez podawania przyczyny …"
+  },
+  "warnings": ["tekst jednolity obejmuje zmianę Dz.U. 2025 poz. 1172 – część przepisów wchodzi w życie 2027-03-01 …"]
+}
 ```
 
-Claude Desktop / Cursor — w konfiguracji MCP:
+Przed odpowiedzią asystent sprawdza cytaty: prawdziwy przechodzi, wymyślony („30 dni”) zostaje odrzucony
+(`verified_exact` dla art. 27, `mismatch` dla drugiego cytatu, eksport pisma zablokowany).
+
+## Szybki start
+
+Python 3.12+. Wersji na PyPI jeszcze nie ma; instalacja z GitHuba:
+
+```bash
+uv tool install git+https://github.com/LK-Technology/prawnik-mcp    # albo: pipx install git+…
+prawnik-mcp sync        # korpus startowy: KC, ustawa o prawach konsumenta, dyrektywa 2011/83/UE, próbka orzeczeń
+claude mcp add prawnik -- prawnik-mcp serve                          # Claude Code
+```
+
+Inne klienty (Claude Desktop, Cursor), w konfiguracji MCP:
 
 ```json
 { "mcpServers": { "prawnik": { "command": "prawnik-mcp", "args": ["serve"] } } }
 ```
 
-Przykładowe pytanie do asystenta:
+## Narzędzia
 
-> *Kupiłem kurtkę przez internet 14 września, odebrałem 17. Czy mogę jeszcze odstąpić od umowy? Podaj przepisy z wersją
-> i sprawdź cytaty.*
+<!-- tools:start -->
+| Narzędzie | Co robi (opis widoczny dla modelu) | Główne argumenty |
+|---|---|---|
+| `search_legal` | Search statutes, judgments and decisions by identifier or by a description of the problem. | `query`, `kinds`, `filters`, `relevant_date`, `cursor`, `limit`, `live` |
+| `get_legal_document` | Return the exact text of a provision or a judgment with its version and provenance. | `document_id`, `locator`, `as_of`, `snapshot_id`, `cursor`, `live` |
+| `check_citations` | Verify that quoted sources exist and that each quote matches the cited provision and version. | `claims`, `evidence`, `relevant_date`, `binding`, `client_review` |
+| `get_document_template` | Describe one of the three letter templates: fields, qualifying questions, exclusions and sources. | `template_id` |
+| `render_document` | Render a draft letter (Markdown + DOCX) and a separate sources report. | `template_id`, `facts`, `draft`, `report_id` |
+| `sources_status` | Report what the local corpus covers and the status of every source. | — |
+| `get_citations` | List what a document cites and which local documents cite it. | `document_id`, `direction`, `locator`, `limit`, `cursor` |
+| `list_act_versions` | Show the version timeline of a Polish act. | `document_id`, `live` |
+<!-- tools:end -->
 
-## 🧰 Narzędzia
-
-| Narzędzie | Opis |
-|---|---|
-| `search_legal` | Szukanie po identyfikatorze (`art. 27 upk`, `I ACa 772/13`, `Dz.U. 2024 poz. 1061`, `RODO`) albo opisie; najpierw lokalnie, w razie potrzeby **na żywo** w API źródeł. |
-| `get_legal_document` | Dokładny tekst artykułu / § / ust. / pkt lub orzeczenia z wersją i snapshotem; brakujące dokumenty są **dociągane ze źródła**. |
-| `check_citations` | Weryfikacja twierdzeń i cytatów; wynik to `report_id`. |
-| `get_citations` | Graf powołań: co cytuje orzeczenie i które lokalne orzeczenia powołują dany przepis. |
-| `list_act_versions` | Oś czasu ustawy: teksty jednolite, akty zmieniające, zmiany oczekujące. |
-| `sources_status` | Zakres lokalnego korpusu, świeżość, warunki, znane luki, katalog źródeł. |
-| `get_document_template` / `render_document` | Trzy pisma → DOCX + Markdown + osobny raport źródeł. |
-
-## 📚 Źródła danych
+## Źródła danych
 
 <!-- sources:start -->
-| Source | Content | Status | Polite rate | Terms |
+| Źródło | Zawartość | Status | Limit zapytań | Warunki |
 |---|---|---|---|---|
-| **Cellar — Publications Office of the EU (EUR-Lex)** | EU acts | 🔵 beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
-| **ELI API — Dziennik Ustaw (Chancellery of the Sejm)** | statutes | 🔵 beta | 1 req/s | [terms](https://api.sejm.gov.pl/eli_pl.html) |
-| **SAOS — court judgments (ICM, University of Warsaw)** | judgments | 🔵 beta | 1 req/s | [terms](https://www.saos.org.pl/) |
-| **CBOSA — administrative courts (NSA/WSA)** | judgments | 🟠 experimental | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
-| **EUREKA — tax interpretations (Ministry of Finance / KIS)** | tax rulings | 🟠 experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
-| **KIO — National Appeal Chamber (public procurement)** | judgments | 🟠 experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
-| **UODO — decisions of the President of the Personal Data Protection Office** | decisions | 🟠 experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
-| **Portal Orzeczeń Sądów Powszechnych (common courts portal)** | judgments | ⚪ planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
-| **UOKiK — competition and consumer protection decisions** | decisions | ⚪ planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
+| Cellar — Publications Office of the EU (EUR-Lex) | akty UE | beta | 1 req/s | [warunki](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
+| ELI API — Dziennik Ustaw (Chancellery of the Sejm) | ustawy | beta | 1 req/s | [warunki](https://api.sejm.gov.pl/eli_pl.html) |
+| SAOS — court judgments (ICM, University of Warsaw) | orzeczenia | beta | 1 req/s | [warunki](https://www.saos.org.pl/) |
+| CBOSA — administrative courts (NSA/WSA) | orzeczenia | eksperymentalne | 0.5 req/s | [warunki](https://orzeczenia.nsa.gov.pl/cbo/query) |
+| EUREKA — tax interpretations (Ministry of Finance / KIS) | interpretacje podatkowe | eksperymentalne | 0.5 req/s | [warunki](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
+| KIO — National Appeal Chamber (public procurement) | orzeczenia | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
+| UODO — decisions of the President of the Personal Data Protection Office | decyzje | eksperymentalne | 1 req/s | [warunki](https://orzeczenia.uodo.gov.pl/) |
+| Portal Orzeczeń Sądów Powszechnych (common courts portal) | orzeczenia | planowane | 0.5 req/s | [warunki](https://orzeczenia.ms.gov.pl/) |
+| UOKiK — competition and consumer protection decisions | decyzje | planowane | 0.5 req/s | [warunki](https://uokik.gov.pl/) |
 <!-- sources:end -->
 
-Dane pochodzą z **oficjalnych, publicznych źródeł**, pobieranych grzecznie (identyfikowalny User-Agent, limity
-zapytań, `Retry-After`, bez obchodzenia CAPTCHA/WAF). **Repozytorium nie zawiera korpusu** — synchronizujesz go sam(a),
-więc obowiązują Cię warunki źródeł. Szczegóły: [docs/sources.md](docs/sources.md).
+Repozytorium nie zawiera korpusu: budujesz go lokalnie z oficjalnych źródeł i obowiązują Cię ich warunki
+([szczegóły i znane luki](docs/sources.md)). Brakujące dokumenty są pobierane na żądanie, wyniki wyszukiwania na żywo
+trafiają do cache na 24 h. Większe zbiory: `prawnik-mcp sync --source saos --court-type SUPREME --limit 500`,
+`--source eli --act DU/1964/16`, `--source cellar --celex 32016R0679` (z wznawianiem po przerwaniu).
+
+## Kiedy się przyda, a kiedy nie
+
+Przyda się, gdy asystent ma pracować na tekstach źródłowych prawa cywilnego, konsumenckiego, podatkowego,
+zamówień publicznych i ochrony danych, z wersją przepisu, i gdy trzeba wyłapać zmyślone lub źle przypisane cytaty.
+
+Nie przyda się do komentarzy i doktryny (LEX, Legalis), kompletnego i bieżącego zbioru orzecznictwa, brzmienia
+ustawy na dawną datę (jeszcze nieodtwarzane) ani spraw spoza prawa polskiego i unijnego.
+
+## Ograniczenia
+
+- Ustawy: parsowany jest tylko najnowszy tekst jednolity; zmiany oczekujące są śledzone dla całego aktu, więc dla
+  wielu dat wynik to `temporal_unknown` zamiast zgadywania.
+- Akty bez tekstu jednolitego są zapisywane w brzmieniu ogłoszonym i oznaczane; konsolidacje UE mają charakter
+  dokumentacyjny.
+- Wyszukiwanie leksykalne (SQLite FTS5 z prostą obsługą odmiany), bez wyszukiwania semantycznego.
+- CBOSA nie jest przeszukiwana (robots.txt zabrania dostępu do wyszukiwarki); pobierane są tylko dokumenty o znanym id.
+- Błędy danych źródeł (np. daty z przyszłości) są oznaczane, nie poprawiane; prawomocność orzeczeń jest zwykle nieznana.
+- `check_citations` sprawdza, czy cytat istnieje we wskazanej wersji. Nie ocenia, czy przepis ma zastosowanie.
+- Trzy szablony pism dotyczą wąskich spraw konsumenckich i nie liczą terminów ani odsetek.
+- Trafność prawna nie była mierzona. Co sprawdzono, a czego nie: [docs/quality.md](docs/quality.md).
+
+## Bezpieczeństwo i prywatność
+
+Serwer łączy się wyłącznie z hostami z [katalogu źródeł](src/prawnik_mcp/sources/catalog.toml), po HTTPS, z limitami
+zapytań i identyfikowalnym User-Agentem; nie obchodzi CAPTCHA ani zabezpieczeń anty-botowych i nie używa ścieżek
+zablokowanych w robots.txt. Nie ma telemetrii, faktów spraw się nie loguje, dane leżą w lokalnym katalogu.
+`PRAWNIK_MCP_OFFLINE=1` wyłącza sieć. Dostawca modelu nadal otrzymuje to, co wpiszesz do asystenta.
+
+## Rozwój
 
 ```bash
-prawnik-mcp sync --source saos --court-type SUPREME --query "przedawnienie" --limit 500   # orzeczenia SN
-prawnik-mcp sync --source saos --since 2026-01-01 --max-gb 2        # hurtowo: wszystkie sądy za okres
-prawnik-mcp sync --source eli --act DU/2018/1000                    # konkretna ustawa
-prawnik-mcp sync --source cellar --celex 32016R0679                  # RODO
+git clone https://github.com/LK-Technology/prawnik-mcp && cd prawnik-mcp
+python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev]"
+.venv/bin/pytest -q
 ```
 
-Import hurtowy zapisuje checkpoint po każdej stronie — po Ctrl-C uruchom to samo polecenie, aby wznowić.
-`PRAWNIK_MCP_OFFLINE=1` wyłącza dostęp do sieci.
-
-## ⚠️ Uczciwie o ograniczeniach
-
-- **To nie jest porada prawna.** Kontrola cytatów sprawdza, że cytat jest prawdziwy — nie, że przepis ma zastosowanie.
-- **Historia brzmień jest niepełna.** Parsowany jest najnowszy tekst jednolity; dawne brzmienia nie są odtwarzane, więc
-  dla wielu dat wynik to `temporal_unknown` — celowo, zamiast zgadywać.
-- **Wyszukiwanie jest leksykalne** (FTS5 z prostą obsługą odmiany), bez wyszukiwania semantycznego.
-- **Pokrycie zależy od synchronizacji** i od samych źródeł (SAOS ma luki i błędy danych — są oznaczane, nie poprawiane).
-- **Pisma** obejmują trzy wąskie sytuacje cywilno-konsumenckie i nie liczą terminów ani odsetek.
-- **Dostawca modelu** dostaje to, co wyśle Twój klient AI. Lokalny serwer MCP nie czyni modelu lokalnym.
-
-## 🔒 Prywatność
-
-Serwer przechowuje dane lokalnie i nie loguje faktów spraw. Łączy się wyłącznie z publicznymi źródłami prawa.
-Nie wklejaj danych osobowych do publicznych zgłoszeń (issues).
-
-## 🤝 Współtworzenie
-
-Zgłoszenia i PR-y są mile widziane — zwłaszcza nowe źródła, poprawki parserów i przypadki testowe.
-Zasady: [CONTRIBUTING.md](CONTRIBUTING.md).
+Zasady współtworzenia: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Licencja
 
-Kod: [MIT](LICENSE). Teksty prawne i orzeczenia nie są objęte licencją kodu — warunki poszczególnych źródeł:
-[docs/sources.md](docs/sources.md). Podziękowania i atrybucje: [NOTICE](NOTICE).
+Kod: MIT. Teksty prawne i orzeczenia nie są objęte licencją kodu; warunki źródeł: [docs/sources.md](docs/sources.md).
+Atrybucje: [NOTICE](NOTICE).
 
----
-
-<div align="center">
-
-Tworzone przez **[LK Technology](https://lktech.pl)** · [lktech.pl](https://lktech.pl) · [GitHub](https://github.com/LK-Technology)
-
-</div>
+Rozwijane przez [LK Technology](https://lktech.pl).

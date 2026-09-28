@@ -36,8 +36,8 @@ def build_server(store: Store | None = None) -> MCPServer:
     store = store or Store()
     mcp = MCPServer(name="prawnik-mcp", version=__version__, instructions=INSTRUCTIONS, log_level="WARNING")
 
-    @mcp.tool(description="Search Polish/EU statutes and judgments by identifier (e.g. 'art. 27 upk', 'I ACa 772/13') "
-              "or by a description of the problem (Polish works best). kinds: statute|judgment|eu_act. "
+    @mcp.tool(description="Search statutes, judgments and decisions by identifier or by a description of the problem. "
+              "Identifiers: 'art. 27 upk', 'I ACa 772/13', 'Dz.U. 2024 poz. 1061', 'RODO'; descriptions work best in Polish. kinds: statute|judgment|eu_act. "
               "filters: document_id, court_type, date_from, date_to. Returns short snippets (≤800 chars), "
               "metadata, search scope and an explicit status. live: true = also query source APIs now; "
               "default = only when local hits are too few; false = local corpus only. Live hits have origin "
@@ -48,8 +48,8 @@ def build_server(store: Store | None = None) -> MCPServer:
         return service.search_legal(store, query, kinds, filters, relevant_date, cursor, limit,
                                     live).model_dump(mode="json")
 
-    @mcp.tool(description="Get the exact text of a provision (document_id + locator, e.g. 'eli:DU/2014/827', 'art. 27 ust. 1') "
-              "or a judgment ('saos:<id>', paged with cursor). as_of = event date (YYYY-MM-DD) for the version check. "
+    @mcp.tool(description="Return the exact text of a provision or a judgment with its version and provenance. "
+              "Provision: document_id + locator, such as 'eli:DU/2014/827' + 'art. 27 ust. 1'; judgment: 'saos:<id>' (paged with cursor). as_of = event date (YYYY-MM-DD) for the version check. "
               "Documents missing locally are fetched from the source first (live=false to disable). "
               "Returns the text version, snapshot_id and source URL, or an explicit 'not found'.")
     def get_legal_document(document_id: str, locator: str | None = None, as_of: str | None = None,
@@ -58,7 +58,8 @@ def build_server(store: Store | None = None) -> MCPServer:
         return service.get_legal_document(store, document_id, locator, as_of, snapshot_id, cursor,
                                           live).model_dump(mode="json")
 
-    @mcp.tool(description="Check citations: claims [{claim_id,text,type:fact|law|conclusion,evidence_ids,premises}] and "
+    @mcp.tool(description="Verify that quoted sources exist and that each quote matches the cited provision and version. "
+              "Input: claims [{claim_id,text,type (fact, law or conclusion),evidence_ids,premises}] and "
               "evidence [{evidence_id,document_id,locator,version_id?,quote}]. Verifies that each source exists and "
               "each quote is faithful (it does NOT assess whether the law applies). binding={'template_id','facts','draft'} "
               "(same as in render_document) binds the report to a letter; client_review={claim_id:{status,reviewer_type,issues}} "
@@ -67,7 +68,8 @@ def build_server(store: Store | None = None) -> MCPServer:
                         binding: dict[str, Any] | None = None, client_review: dict[str, Any] | None = None) -> dict:
         return service.check_citations_tool(store, claims, evidence, relevant_date, binding, client_review).model_dump(mode="json")
 
-    @mcp.tool(description="Letter template: wezwanie_do_zaplaty (payment demand) | reklamacja_konsumencka (consumer complaint) | "
+    @mcp.tool(description="Describe one of the three letter templates: fields, qualifying questions, exclusions and sources. "
+              "template_id: wezwanie_do_zaplaty (payment demand), reklamacja_konsumencka (consumer complaint), "
               "odstapienie_od_umowy_na_odleglosc (withdrawal from a distance contract), or 'list'. Returns fields, "
               "qualifying questions, exclusions, sources to verify and the template version.")
     def get_document_template(template_id: str) -> dict:
@@ -80,20 +82,21 @@ def build_server(store: Store | None = None) -> MCPServer:
                         report_id: str | None = None) -> dict:
         return service.render_document_tool(store, template_id, facts, draft, report_id).model_dump(mode="json")
 
-    @mcp.tool(description="Source status: local corpus coverage, last successful sync, access status, known gaps, "
-              "supported text versions and unsupported areas.")
+    @mcp.tool(description="Report what the local corpus covers and the status of every source. "
+              "Includes last successful sync, access status, known gaps, terms, supported text versions and unsupported areas.")
     def sources_status() -> dict:
         return service.sources_status(store).model_dump(mode="json")
 
-    @mcp.tool(description="Citations of a document: outgoing (statutes/articles and judgments it cites, with "
-              "in_corpus/out_of_corpus/unresolved status) and incoming (local judgments citing it; optional locator "
-              "such as 'art. 385^1'). Incoming citations cover only the local corpus.")
+    @mcp.tool(description="List what a document cites and which local documents cite it. "
+              "Outgoing: statutes, articles and judgments with in_corpus/out_of_corpus/unresolved status. Incoming: local "
+              "judgments citing it, optionally for one article such as 'art. 385^1'; only the local corpus is covered.")
     def get_citations(document_id: str, direction: str = "both", locator: str | None = None, limit: int = 20,
                       cursor: str | None = None) -> dict:
         return service.get_citations(store, document_id, direction, locator, limit, cursor).model_dump(mode="json")
 
-    @mcp.tool(description="Version timeline of a Polish act (eli:DU/...): announced consolidated texts, which "
-              "are parsed locally, amending acts with dates (future = pending). Fetches the act if missing.")
+    @mcp.tool(description="Show the version timeline of a Polish act. "
+              "For eli:DU/... ids: announced consolidated texts, which are parsed locally, and amending acts with dates "
+              "(future = pending). Fetches the act if missing.")
     def list_act_versions(document_id: str, live: bool | None = None) -> dict:
         return service.list_act_versions(store, document_id, live).model_dump(mode="json")
 
