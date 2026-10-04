@@ -95,6 +95,9 @@ Podaj przepisy z wersją i sprawdź cytaty."*
 | `sources_status` | Report what the local corpus covers and the status of every source. | — |
 | `get_citations` | List what a document cites and which local documents cite it. | `document_id`, `direction`, `locator`, `limit`, `cursor` |
 | `list_act_versions` | Show the version timeline of a Polish act. | `document_id`, `live` |
+| `lookup_entity` | Look up a company, foundation or other entity in public registers by NIP, REGON, KRS number or EU VAT number (no search by name or PESEL). | `identifier`, `date`, `bank_account`, `requester_vat`, `include_full_history`, `include_vat` |
+| `compute_deadline` | Compute the end of a statutory term: start_date (the triggering event, not counted), amount, unit (days\|weeks\|months\|years), regime (tax = Ordynacja podatkowa art. | `start_date`, `amount`, `unit`, `regime` |
+| `exchange_rate` | NBP average exchange rate from the last business day before event_date (YYYY-MM-DD), as required by art. | `currency`, `event_date`, `table`, `purpose` |
 <!-- tools:end -->
 
 ### Prompts
@@ -115,7 +118,8 @@ the tools returned, run `check_citations`, report gaps.
 | `consumer_claim` | Reklamacja i odstąpienie od umowy | Pick the legal basis for a consumer complaint or withdrawal and prepare the letter. |
 | `gdpr_complaint` | Skarga do UODO | Assess a GDPR violation (e.g. unanswered access request) and draft a request or a complaint. |
 | `uokik_notice` | Zawiadomienie do UOKiK | Decide whether a practice harms consumers collectively and draft a notice to UOKiK. |
-| `tax_ruling_research` | Interpretacje podatkowe | Find individual tax rulings on an issue and explain what protection they give. |
+| `tax_ruling_research` | Interpretacje podatkowe | Find tax rulings, general interpretations and tax explanations on an issue and explain their weight. |
+| `counterparty_check` | Weryfikacja kontrahenta | Check a company or trader in KRS, the VAT white list and VIES, flag risks and list what registries omit. |
 <!-- prompts:end -->
 
 ## Data sources
@@ -125,13 +129,17 @@ the tools returned, run `check_citations`, report gaps.
 |---|---|---|---|---|
 | Cellar — Publications Office of the EU (EUR-Lex): acts and CJEU case law | EU acts, EU judgments | beta | 1 req/s | [terms](https://eur-lex.europa.eu/content/help/data-reuse/reuse-contents-eurlex-details.html) |
 | ELI API — Dziennik Ustaw (Chancellery of the Sejm) | statutes | beta | 1 req/s | [terms](https://api.sejm.gov.pl/eli_pl.html) |
+| NBP — average exchange rates (api.nbp.pl) | exchange rates | beta | 1 req/s | [terms](https://api.nbp.pl/) |
 | SAOS — court judgments (ICM, University of Warsaw) | judgments | beta | 1 req/s | [terms](https://www.saos.org.pl/) |
 | CBOSA — administrative courts (NSA/WSA) | judgments | experimental | 0.5 req/s | [terms](https://orzeczenia.nsa.gov.pl/cbo/query) |
 | EUREKA — tax interpretations (Ministry of Finance / KIS) | tax rulings | experimental | 0.5 req/s | [terms](https://www.gov.pl/web/kas/system-informacji-celno-skarbowej-eureka) |
 | KIO — National Appeal Chamber (public procurement) | judgments | experimental | 1 req/s | [terms](https://orzeczenia.uzp.gov.pl/Home/Cookies) |
+| KRS — National Court Register (open API of the Ministry of Justice) | company registry | experimental | 0.5 req/s | [terms](https://www.gov.pl/web/sprawiedliwosc/uruchomienie-otwartego-api-krajowego-rejestru-sadowego) |
 | SN — Supreme Court rulings (sn.pl ruling database) | judgments | experimental | 0.5 req/s | [terms](https://www.sn.pl/pl/informacje/ponowne-wykorzystywanie-informacji-publicznych) |
 | TK — Constitutional Tribunal (rulings: trybunal.gov.pl, IPO) | judgments | experimental | 0.5 req/s | [terms](https://trybunal.gov.pl/informacja-publiczna-media/ponowne-wykorzystywanie) |
 | UODO — decisions of the President of the Personal Data Protection Office | decisions | experimental | 1 req/s | [terms](https://orzeczenia.uodo.gov.pl/) |
+| VIES — EU VAT number validation (European Commission) | company registry | experimental | 1 req/s | [terms](https://ec.europa.eu/taxation_customs/vies/#/disclaimer) |
+| Wykaz podatników VAT — VAT white list (Ministry of Finance) | company registry | experimental | 1 req/s | [terms](https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat) |
 | Portal Orzeczeń Sądów Powszechnych (common courts portal) | judgments | planned | 0.5 req/s | [terms](https://orzeczenia.ms.gov.pl/) |
 | UOKiK — competition and consumer protection decisions | decisions | planned | 0.5 req/s | [terms](https://uokik.gov.pl/) |
 <!-- sources:end -->
@@ -191,6 +199,8 @@ the wording of a statute on a past date (not reconstructed yet), or anything out
   the result, so asking again a moment later usually works; `prawnik-mcp sync` avoids the problem entirely.
 - Source data errors (e.g. judgment dates in the future) are flagged, not corrected. Finality of judgments is mostly unknown.
 - `check_citations` verifies that a quote exists in the cited version. It does not verify that the law applies.
+- `compute_deadline` only does the arithmetic (event day not counted, weekend and holiday shift); when a term starts,
+  postal or electronic delivery and suspensions are left to the user.
 - The three letter templates cover narrow consumer situations and do not compute deadlines or interest.
 - Legal accuracy has not been measured; see [docs/quality.md](docs/quality.md) for what has been tested and what has not.
 

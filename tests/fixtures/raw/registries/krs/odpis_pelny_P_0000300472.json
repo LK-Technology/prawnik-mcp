@@ -1,0 +1,1664 @@
+{
+  "odpis": {
+    "rodzaj": "Pełny",
+    "naglowekP": {
+      "rejestr": "RejP",
+      "numerKRS": "0000300472",
+      "dataCzasOdpisu": "04.10.2026 15:21:56",
+      "stanZDnia": "20.11.2025",
+      "wpis": [
+        {
+          "numerWpisu": 1,
+          "opis": "REJESTRACJA W KRAJOWYM REJESTRZE SĄDOWYM",
+          "dataWpisu": "29.02.2008",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/2629/08/23",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 2,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "12.03.2008",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/3221/08/482",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 3,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "14.07.2009",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/14682/09/294",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 4,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "08.07.2010",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/13744/10/816",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 5,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "22.07.2011",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/15535/11/839",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 6,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "09.08.2012",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/20810/12/150",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 7,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "14.12.2012",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/28623/12/40",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 8,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "16.07.2013",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/14692/13/598",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 9,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "06.08.2014",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/18212/14/913",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 10,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "20.11.2014",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/31165/14/137",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 11,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "09.04.2015",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/4189/15/578",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 12,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "10.04.2015",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/8448/15/480",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 13,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "19.05.2015",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/10708/15/938",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 14,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "01.12.2015",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/34649/15/820",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 15,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "30.05.2016",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/4641/16/594",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 16,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "26.07.2016",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/24348/16/112",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 17,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "28.11.2017",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/21539/17/184",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 18,
+          "opis": "ZMIANA DANYCH W REJESTRZE",
+          "dataWpisu": "08.02.2018",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/1972/18/54",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO"
+        },
+        {
+          "numerWpisu": 19,
+          "opis": "WYKREŚLENIE Z KRAJOWEGO REJESTRU SĄDOWEGO",
+          "dataWpisu": "26.08.2020",
+          "sygnaturaAktSprawyDotyczacejWpisu": "PO.VIII NS-REJ.KRS/20470/20/667",
+          "oznaczenieSaduDokonujacegoWpisu": "SĄD REJONOWY POZNAŃ - NOWE MIASTO I WILDA W POZNANIU, VIII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO",
+          "dataUprawomocnienia": "09.09.2020"
+        }
+      ],
+      "stanPozycji": 2
+    },
+    "dane": {
+      "dzial1": {
+        "danePodmiotu": {
+          "formaPrawna": [
+            {
+              "formaPrawna": "SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ],
+          "identyfikatory": [
+            {
+              "identyfikatory": {
+                "regon": "30077583200000"
+              },
+              "nrWpisuWykr": "2",
+              "nrWpisuWprow": "1"
+            },
+            {
+              "identyfikatory": {
+                "regon": "30077583200000",
+                "nip": "7773038072"
+              },
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "2"
+            }
+          ],
+          "nazwa": [
+            {
+              "nazwa": "AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+              "nrWpisuWykr": "5",
+              "nrWpisuWprow": "1"
+            },
+            {
+              "nazwa": "PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+              "nrWpisuWykr": "7",
+              "nrWpisuWprow": "5"
+            },
+            {
+              "nazwa": "PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ W UPADŁOŚCI UKŁADOWEJ",
+              "nrWpisuWykr": "10",
+              "nrWpisuWprow": "7"
+            },
+            {
+              "nazwa": "PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "10"
+            }
+          ],
+          "czyProwadziDzialalnoscZInnymiPodmiotami": [
+            {
+              "czyProwadziDzialalnoscZInnymiPodmiotami": false,
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ],
+          "czyPosiadaStatusOPP": [
+            {
+              "czyPosiadaStatusOPP": false,
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ]
+        },
+        "siedzibaIAdres": {
+          "siedziba": [
+            {
+              "kraj": "POLSKA",
+              "wojewodztwo": "WIELKOPOLSKIE",
+              "powiat": "POZNAŃSKI",
+              "gmina": "TARNOWO PODGÓRNE",
+              "miejscowosc": "WYSOGOTOWO",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ],
+          "adres": [
+            {
+              "ulica": "SKÓRZEWSKA",
+              "nrDomu": "35",
+              "miejscowosc": "WYSOGOTOWO",
+              "kodPocztowy": "62-081",
+              "poczta": "PRZEŹMIEROWO",
+              "kraj": "POLSKA",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ],
+          "adresPocztyElektronicznej": [],
+          "adresStronyInternetowej": [],
+          "adresDoDoreczenElektronicznychWpisanyDoBAE": []
+        },
+        "umowaStatut": {
+          "informacjaOZawarciuZmianieUmowyStatutu": [
+            {
+              "pozycja": [
+                {
+                  "zawarcieZmianaUmowyStatutu": "15 LUTEGO 2008 R., NOTARIUSZ ANDRZEJ ADAMSKI, KANCELARIA NOTARIALNA W POZNANIU, REP. A NR 1939/2008.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zawarcieZmianaUmowyStatutu": "16 CZERWCA 2010 R., REP. A NR 6727/2010, NOTARIUSZ ANDRZEJ ADAMSKI, KANCELARIA NOTARIALNA PIOTR KOWANDY ANDRZEJ ADAMSKI S.C., UL. NOWOWIEJSKIEGO 59/2, 61-734 POZNAŃ, ZMIANA § 7, DODANO § 9 A. UCHWALONO JEDNOLITY TEKST UMOWY SPÓŁKI.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "4"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zawarcieZmianaUmowyStatutu": "16.06.2011 R., REP. A NR 6376/2011, NOTARIUSZ ANDRZEJ ADAMSKI, KANCELARIA NOTARIALNA W POZNANIU,\nZMIENIONO: § 1 UST. 1, UST. 2, § 3 UST.4;\nSKREŚLONO: § 3 UST. 5;\nPRZYJĘTO TEKST JEDNOLITY UMOWY SPÓŁKI.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "5"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zawarcieZmianaUmowyStatutu": "09.02.2015 R., REP A 910/2015, NOTARIUSZ ANDRZEJ ADAMSKI, KANCELARIA NOTARIALNA W POZNANIU,\nZMIANA: § 8 UST. 2, § 9 UST. 2 PKT 1), \nDODANE: § 9A UST. 2 PKT 6),\nUSUNIĘTE: § 9 UST. 4 PKT 11)",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "11"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zawarcieZmianaUmowyStatutu": "30.06.2015, REP. A NR 5294/2015, KANCELARIA NOTARIALNA W POZNANIU, NOTARIUSZ PIOTR KOWANDY, \nSPROSTOWANY - § 9 UST. 1 PKT 9,\n25.01.2016, REP. A NR 414/2016, KANCELARIA NOTARIALNA W POZNANIU, NOTARIUSZ PIOTR KOWANDY, \nZMIANA § 2 UST. 1 PKT 9,\n20.04.2016, REP. A 1807/2016, NOTARIUSZ  DARIUSZ PRZEMYSŁAW RACZKOWSKI KANCELARIA NOTARIALNA W POZNANIU,\nDODANE: W § 2 UST. 1 PKT 28) - 35),\nZMIANA: § 3 UST. 4",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            }
+          ]
+        },
+        "pozostaleInformacje": {
+          "informacjaOCzasieNaJakiZostalUtworzonyPodmiot": [
+            {
+              "czasNaJakiUtworzonyZostalPodmiot": "NIEOZNACZONY",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ],
+          "informacjaOPismieDoOgloszen": [],
+          "informacjaOLiczbieUdzialow": [
+            {
+              "informacjaOLiczbieUdzialow": "WIĘKSZĄ LICZBĘ UDZIAŁÓW",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ]
+        },
+        "wspolnicySpzoo": [
+          {
+            "nazwa": [
+              {
+                "nazwa": "PBG SPÓŁKA AKCYJNA",
+                "nrWpisuWykr": "14",
+                "nrWpisuWprow": "1"
+              },
+              {
+                "nazwa": "PBG SPÓŁKA AKCYJNA W UPADŁOŚCI UKŁADOWEJ",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "14"
+              }
+            ],
+            "identyfikator": [
+              {
+                "regon": "63104891700000",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "1"
+              }
+            ],
+            "krs": [
+              {
+                "krs": "0000184508",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "1"
+              }
+            ],
+            "posiadaneUdzialy": [
+              {
+                "posiadaneUdzialy": "998 UDZIAŁÓW O ŁĄCZNEJ WYSOKOŚCI 49.900,00 ZŁ",
+                "nrWpisuWykr": "5",
+                "nrWpisuWprow": "1"
+              },
+              {
+                "posiadaneUdzialy": "999 UDZIAŁÓW O ŁĄCZNEJ WYSOKOŚCI 49.950,00 ZŁ",
+                "nrWpisuWykr": "14",
+                "nrWpisuWprow": "5"
+              },
+              {
+                "posiadaneUdzialy": "1000 UDZIAŁÓW O ŁĄCZNEJ WARTOŚCI 50.000,00 ZŁ",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "14"
+              }
+            ],
+            "czyPosiadaCaloscUdzialow": [
+              {
+                "czyPosiadaCaloscUdzialow": false,
+                "nrWpisuWykr": "14",
+                "nrWpisuWprow": "1"
+              },
+              {
+                "czyPosiadaCaloscUdzialow": true,
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "14"
+              }
+            ]
+          }
+        ],
+        "kapital": {
+          "wysokoscKapitaluZakladowego": [
+            {
+              "wartosc": "50000,00",
+              "waluta": "PLN",
+              "nrWpisuWykr": "19",
+              "nrWpisuWprow": "1"
+            }
+          ]
+        }
+      },
+      "dzial2": {
+        "reprezentacja": [
+          {
+            "nazwaOrganu": [
+              {
+                "nazwaOrganu": "ZARZĄD",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "1"
+              }
+            ],
+            "sposobReprezentacji": [
+              {
+                "sposobReprezentacji": "DO SKŁADANIA OŚWIADCZEŃ W IMIENIU SPÓŁKI WYMAGANE JEST WSPÓŁDZIAŁANIE DWÓCH CZŁONKÓW ZARZĄDU, ALBO JEDNEGO CZŁONKA ZARZĄDU WRAZ Z PROKURENTEM.",
+                "nrWpisuWykr": "8",
+                "nrWpisuWprow": "1"
+              },
+              {
+                "sposobReprezentacji": "W PRZYPADKU ZARZĄDU WIELOOSOBOWEGO DO SKŁADANIA OŚWIADCZEŃ W IMIENIU SPÓŁKI WYMAGANE JEST WSPÓŁDZIAŁANIE DWÓCH CZŁONKÓW ZARZĄDU ALBO JEDNEGO CZŁONKA ZARZĄDU WRAZ Z PROKURENTEM.",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "8"
+              }
+            ],
+            "sklad": [
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "K*********"
+                    },
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "M*****",
+                      "imieDrugie": "A********"
+                    },
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "7**********",
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "funkcjaWOrganie": [
+                  {
+                    "funkcjaWOrganie": "PREZES ZARZĄDU",
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "czyZawieszona": [
+                  {
+                    "czyZawieszona": false,
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "dataZawieszeniaDo": []
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "K****"
+                    },
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "E**",
+                      "imieDrugie": "B****"
+                    },
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "7**********",
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "1"
+                  }
+                ],
+                "funkcjaWOrganie": [
+                  {
+                    "funkcjaWOrganie": "WICEPREZES ZARZĄDU",
+                    "nrWpisuWykr": "5",
+                    "nrWpisuWprow": "1"
+                  },
+                  {
+                    "funkcjaWOrganie": "PREZES ZARZĄDU",
+                    "nrWpisuWykr": "12",
+                    "nrWpisuWprow": "5"
+                  },
+                  {
+                    "funkcjaWOrganie": "PREZES ZARZĄDU",
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "czyZawieszona": [
+                  {
+                    "czyZawieszona": false,
+                    "nrWpisuWykr": "12",
+                    "nrWpisuWprow": "1"
+                  },
+                  {
+                    "czyZawieszona": true,
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "dataZawieszeniaDo": [
+                  {
+                    "dataZawieszeniaDo": "09.04.2015",
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ]
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "W*********"
+                    },
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "M*********",
+                      "imieDrugie": "I****"
+                    },
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "5**********",
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "funkcjaWOrganie": [
+                  {
+                    "funkcjaWOrganie": "CZŁONEK RADY NADZORCZEJ CZASOWO DELEGOWANY DO PEŁNIENIA FUNKCJI PREZESA ZARZĄDU",
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "czyZawieszona": [
+                  {
+                    "czyZawieszona": false,
+                    "nrWpisuWykr": "13",
+                    "nrWpisuWprow": "12"
+                  }
+                ],
+                "dataZawieszeniaDo": []
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "Ł*******"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "13"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "M******",
+                      "imieDrugie": "K********"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "13"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "5**********",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "13"
+                  }
+                ],
+                "funkcjaWOrganie": [
+                  {
+                    "funkcjaWOrganie": "PREZES ZARZĄDU",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "13"
+                  }
+                ],
+                "czyZawieszona": [
+                  {
+                    "czyZawieszona": false,
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "13"
+                  }
+                ],
+                "dataZawieszeniaDo": []
+              }
+            ]
+          }
+        ],
+        "organNadzoru": [
+          {
+            "nazwa": [
+              {
+                "nazwa": "RADA NADZORCZA",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "4"
+              }
+            ],
+            "sklad": [
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "W*********"
+                    },
+                    "nrWpisuWykr": "8",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "R****",
+                      "imieDrugie": "P****"
+                    },
+                    "nrWpisuWykr": "8",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "7**********",
+                    "nrWpisuWykr": "8",
+                    "nrWpisuWprow": "4"
+                  }
+                ]
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "W*********"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "M*********",
+                      "imieDrugie": "I****"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "5**********",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ]
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "B******"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "E******",
+                      "imieDrugie": "U******"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "5**********",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "4"
+                  }
+                ]
+              },
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "Ś**********"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "8"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "M******"
+                    },
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "8"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "8**********",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "8"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "dzial3": {
+        "przedmiotDzialalnosci": {
+          "przedmiotPrzewazajacejDzialalnosci": [
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁA DZIAŁALNOŚĆ USŁUGOWA W ZAKRESIE TECHNOLOGII INFORMATYCZNYCH I KOMPUTEROWYCH",
+                  "kodDzial": "62",
+                  "kodKlasa": "09",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            }
+          ],
+          "przedmiotPozostalejDzialalnosci": [
+            {
+              "pozycja": [
+                {
+                  "opis": "REPRODUKCJA ZAPISANYCH NOŚNIKÓW INFORMACJI",
+                  "kodDzial": "18",
+                  "kodKlasa": "20",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "PRODUKCJA KOMPUTERÓW I URZĄDZEŃ PERYFERYJNYCH",
+                  "kodDzial": "26",
+                  "kodKlasa": "20",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA URZĄDZEŃ ELEKTRONICZNYCH I OPTYCZNYCH",
+                  "kodDzial": "33",
+                  "kodKlasa": "13",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA POZOSTAŁEGO SPRZĘTU I WYPOSAŻENIA",
+                  "kodDzial": "33",
+                  "kodKlasa": "19",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "ROBOTY ZWIĄZANE Z BUDOWĄ LINII TELEKOMUNIKACYJNYCH I ELEKTROENERGETYCZNYCH",
+                  "kodDzial": "42",
+                  "kodKlasa": "22",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "WYKONYWANIE INSTALACJI ELEKTRYCZNYCH",
+                  "kodDzial": "43",
+                  "kodKlasa": "21",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ HURTOWA KOMPUTERÓW, URZĄDZEŃ PERYFERYJNYCH I OPROGRAMOWANIA",
+                  "kodDzial": "46",
+                  "kodKlasa": "51",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ HURTOWA SPRZĘTU ELEKTRONICZNEGO I TELEKOMUNIKACYJNEGO ORAZ CZĘŚCI DO NIEGO",
+                  "kodDzial": "46",
+                  "kodKlasa": "52",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ DETALICZNA KOMPUTERÓW, URZĄDZEŃ PERYFERYJNYCH I OPROGRAMOWANIA PROWADZONA W WYSPECJALIZOWANYCH SKLEPACH",
+                  "kodDzial": "47",
+                  "kodKlasa": "41",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ DETALICZNA SPRZĘTU TELEKOMUNIKACYJNEGO PROWADZONA W WYSPECJALIZOWANYCH SKLEPACH",
+                  "kodDzial": "47",
+                  "kodKlasa": "42",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ DETALICZNA SPRZĘTU AUDIOWIZUALNEGO PROWADZONA W WYSPECJALIZOWANYCH SKLEPACH",
+                  "kodDzial": "47",
+                  "kodKlasa": "43",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ WYDAWNICZA W ZAKRESIE POZOSTAŁEGO OPROGRAMOWANIA",
+                  "kodDzial": "58",
+                  "kodKlasa": "29",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z OPROGRAMOWANIEM",
+                  "kodDzial": "62",
+                  "kodKlasa": "01",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z DORADZTWEM W ZAKRESIE INFORMATYKI",
+                  "kodDzial": "62",
+                  "kodKlasa": "02",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z ZARZĄDZANIEM URZĄDZENIAMI INFORMATYCZNYMI",
+                  "kodDzial": "62",
+                  "kodKlasa": "03",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁA DZIAŁALNOŚĆ USŁUGOWA W ZAKRESIE TECHNOLOGII INFORMATYCZNYCH I KOMPUTEROWYCH",
+                  "kodDzial": "62",
+                  "kodKlasa": "09",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "PRZETWARZANIE DANYCH; ZARZĄDZANIE STRONAMI INTERNETOWYMI (HOSTING) I PODOBNA DZIAŁALNOŚĆ",
+                  "kodDzial": "63",
+                  "kodKlasa": "11",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ PORTALI INTERNETOWYCH",
+                  "kodDzial": "63",
+                  "kodKlasa": "12",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁA DZIAŁALNOŚĆ USŁUGOWA W ZAKRESIE INFORMACJI, GDZIE INDZIEJ NIESKLASYFIKOWANA",
+                  "kodDzial": "63",
+                  "kodKlasa": "99",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁE BADANIA I ANALIZY TECHNICZNE",
+                  "kodDzial": "71",
+                  "kodKlasa": "20",
+                  "kodPodklasa": "B",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "BADANIA NAUKOWE I PRACE ROZWOJOWE W DZIEDZINIE POZOSTAŁYCH NAUK PRZYRODNICZYCH I TECHNICZNYCH",
+                  "kodDzial": "72",
+                  "kodKlasa": "19",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ W ZAKRESIE SPECJALISTYCZNEGO PROJEKTOWANIA",
+                  "kodDzial": "74",
+                  "kodKlasa": "10",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "WYNAJEM I DZIERŻAWA MASZYN I URZĄDZEŃ BIUROWYCH, WŁĄCZAJĄC KOMPUTERY",
+                  "kodDzial": "77",
+                  "kodKlasa": "33",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "WYNAJEM I DZIERŻAWA POZOSTAŁYCH MASZYN, URZĄDZEŃ ORAZ DÓBR MATERIALNYCH, GDZIE INDZIEJ NIESKLASYFIKOWANE",
+                  "kodDzial": "77",
+                  "kodKlasa": "39",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁE POZASZKOLNE FORMY EDUKACJI, GDZIE INDZIEJ NIESKLASYFIKOWANE",
+                  "kodDzial": "85",
+                  "kodKlasa": "59",
+                  "kodPodklasa": "B",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA KOMPUTERÓW I URZĄDZEŃ PERYFERYJNYCH",
+                  "kodDzial": "95",
+                  "kodKlasa": "11",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA SPRZĘTU (TELE)KOMUNIKACYJNEGO",
+                  "kodDzial": "95",
+                  "kodKlasa": "12",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "12",
+                  "nrWpisuWprow": "1"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA URZĄDZEŃ ELEKTRONICZNYCH I OPTYCZNYCH",
+                  "kodDzial": "33",
+                  "kodKlasa": "13",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "15",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "SPRZEDAŻ DETALICZNA KOMPUTERÓW, URZĄDZEŃ PERYFERYJNYCH I OPROGRAMOWANIA PROWADZONA W WYSPECJALIZOWANYCH SKLEPACH",
+                  "kodDzial": "47",
+                  "kodKlasa": "41",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z OPROGRAMOWANIEM",
+                  "kodDzial": "62",
+                  "kodKlasa": "01",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z DORADZTWEM W ZAKRESIE INFORMATYKI",
+                  "kodDzial": "62",
+                  "kodKlasa": "02",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z ZARZĄDZANIEM URZĄDZENIAMI INFORMATYCZNYMI",
+                  "kodDzial": "62",
+                  "kodKlasa": "03",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "PRZETWARZANIE DANYCH; ZARZĄDZANIE STRONAMI INTERNETOWYMI (HOSTING) I PODOBNA DZIAŁALNOŚĆ",
+                  "kodDzial": "63",
+                  "kodKlasa": "11",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "WYNAJEM I DZIERŻAWA MASZYN I URZĄDZEŃ BIUROWYCH, WŁĄCZAJĄC KOMPUTERY",
+                  "kodDzial": "77",
+                  "kodKlasa": "33",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA KOMPUTERÓW I URZĄDZEŃ PERYFERYJNYCH",
+                  "kodDzial": "95",
+                  "kodKlasa": "11",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "15",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "NAPRAWA I KONSERWACJA SPRZĘTU (TELE)KOMUNIKACYJNEGO",
+                  "kodDzial": "95",
+                  "kodKlasa": "12",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "15",
+                  "nrWpisuWprow": "12"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "DZIAŁALNOŚĆ USŁUGOWA ZWIĄZANA Z ADMINISTRACYJNĄ OBSŁUGĄ BIURA",
+                  "kodDzial": "82",
+                  "kodKlasa": "11",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁA DZIAŁALNOŚĆ ZWIĄZANA Z UDOSTĘPNIANIEM PRACOWNIKÓW",
+                  "kodDzial": "78",
+                  "kodKlasa": "30",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "opis": "POZOSTAŁA DZIAŁALNOŚĆ PROFESJONALNA, NAUKOWA I TECHNICZNA, GDZIE INDZIEJ NIESKLASYFIKOWANA",
+                  "kodDzial": "74",
+                  "kodKlasa": "90",
+                  "kodPodklasa": "Z",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            }
+          ]
+        },
+        "wzmiankiOZlozonychDokumentach": {
+          "wzmiankaOZlozeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "30.06.2009",
+                  "zaOkresOdDo": "ZA 2008 ROK",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "3"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "17.06.2010",
+                  "zaOkresOdDo": "01.01.2009 - 31.12.2009",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "4"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "27.06.2011",
+                  "zaOkresOdDo": "1 STYCZNIA 2010 R. - 31 GRUDNIA 2010 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "5"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "16.07.2012",
+                  "zaOkresOdDo": "01.01.2011 R. - 31.12.2011 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "6"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "25.06.2013",
+                  "zaOkresOdDo": "01.01.2012R. - 31.12.2012R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "8"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "01.07.2014",
+                  "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "9"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "22.04.2016",
+                  "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "23.07.2015",
+                  "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "16"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "dataZlozenia": "03.07.2017",
+                  "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "17"
+                }
+              ]
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2011 R. - 31.12.2011 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "6"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2012R. - 31.12.2012R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "8"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "9"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "16"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "17"
+                }
+              ]
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "ZA 2008 ROK",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "3"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2009 - 31.12.2009",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "4"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "1 STYCZNIA 2010 R. - 31 GRUDNIA 2010 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "5"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2011 R. - 31.12.2011 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "6"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2012R. - 31.12.2012R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "8"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "9"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "16"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "17"
+                }
+              ]
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosci": [
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "ZA 2008 ROK",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "3"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2009 - 31.12.2009",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "4"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "1 STYCZNIA 2010 R. - 31 GRUDNIA 2010 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "5"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2011 R. - 31.12.2011 R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "6"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "01.01.2012R. - 31.12.2012R.",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "8"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "9"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "15"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "16"
+                }
+              ]
+            },
+            {
+              "pozycja": [
+                {
+                  "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016",
+                  "nrWpisuWykr": "19",
+                  "nrWpisuWprow": "17"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "dzial4": {},
+      "dzial5": {},
+      "dzial6": {
+        "rozwiazanieUniewaznienie": {
+          "okreslenieOkolicznosci": []
+        },
+        "polaczeniePodzialPrzeksztalcenie": [
+          {
+            "okreslenieOkolicznosci": [
+              {
+                "okreslenieOkolicznosci": "PRZEJĘCIE PRZEZ INNĄ SPÓŁKĘ",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "18"
+              }
+            ],
+            "opisPolaczeniaPodzialuPrzeksztalcenia": [
+              {
+                "opisPolaczeniaPodzialuPrzeksztalcenia": "UCHWAŁA NR 1 NADZWYCZAJNEGO ZGROMADZENIA WSPÓLNIKÓW SPÓŁKI PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ Z DNIA 17.01.2018 ROKU W SPRAWIE POŁĄCZENIA PBG SPÓŁKA AKCYJNA Z PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ Z SIEDZIBĄ W WYSOGOTOWIE - PLANOWANE POŁĄCZENIE ZOSTANIE PRZEPROWADZONE ZGODNIE Z ART. 492 § 1 PKT 1) K.S.H. W DRODZE PRZEJĘCIA SPÓŁKI PRZEJMOWANEJ - PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ PRZEZ SPÓŁKĘ PRZEJMUJĄCĄ - PBG SPÓLKA AKCYJNA W TRYBIE UPROSZCZONYM, ZGODNIE Z ART. 516 K.S.H. NOTARIUSZ DANIEL DRĄŻKIEWICZ, ZASTĘPCA NOTARIUSZA DARIUSZA PRZEMYSŁAWA RACZKOWSKIEGO PROWADZĄCEGO KANCELARIĘ NOTARIALNĄ W POZNANIU, REP. A NR 298/2018.",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "18"
+              }
+            ]
+          },
+          {
+            "okreslenieOkolicznosci": [
+              {
+                "okreslenieOkolicznosci": "PRZEJĘCIE PRZEZ INNĄ SPÓŁKĘ",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "19"
+              }
+            ],
+            "opisPolaczeniaPodzialuPrzeksztalcenia": [
+              {
+                "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE W DRODZE PRZEJĘCIA SPÓŁKI PRZEJMOWANEJ  PBG AVATIA SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ  PRZEZ SPÓŁKĘ PRZEJMUJĄCĄ -  PBG SPÓŁKA AKCYJNA W RESTRUKTURYZACJI  W TRYBIE UPROSZCZONYM, ZGODNIE Z ART. 516 KSH. UCHWAŁA NADZWYCZAJNEGO WALNEGO ZGROMADZENIA  SPÓŁKI PBG SPÓŁKA AKCYJNA  W RESTRUKTURYZACJI Z DNIA 9 STYCZNIA 2018R. UCHWAŁA NADZWYCZAJNEGO ZGROMADZENIA WSPÓLNIKÓW SPÓŁKI  PBG AVATIA SPÓŁKA Z OGRANICZONA ODPOWIEDZIALNOŚCIĄ   Z DNIA 17 STYCZNIA 2018R.",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "19"
+              }
+            ],
+            "podmiotyPowstalePrzejmujace": [
+              {
+                "nazwa": [
+                  {
+                    "nazwa": "PBG W RESTRUKTURYZACJI,SPÓŁKA AKCYJNA",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "19"
+                  }
+                ],
+                "krajNazwaRejestru": [
+                  {
+                    "krajNazwaRejestru": "POLSKA,KRAJOWY REJESTR SĄDOWY",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "19"
+                  }
+                ],
+                "numerWRejestrzeAlboEwidencji": [
+                  {
+                    "numerWRejestrzeAlboEwidencji": "0000184508",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "19"
+                  }
+                ],
+                "nazwaSaduProwadzacegoRejestr": [],
+                "Identyfikator": [
+                  {
+                    "regon": "63104891700000",
+                    "nrWpisuWykr": "19",
+                    "nrWpisuWprow": "19"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "postepowanieUpadlosciowe": [
+          {
+            "informacjaOOgloszeniuUpadlosci": [
+              {
+                "organWydajacy": "SĄD REJONOWY POZNAŃ-STARE MIASTO W POZNANIU XI WYDZIAŁ GOSPODARCZY DO SPRAW UPADŁOŚCIOWYCH I NAPRAWCZYCH",
+                "sygnatura": "XI GU 168/12",
+                "data": "29.10.2012",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "7"
+              }
+            ],
+            "opisZakonczeniaProcesuUpadlosci": [
+              {
+                "opisSposobuZakonczeniaPostepowania": "POSTANOWIENIE SĄDU REJONOWEGO POZNAŃ - STARE MIASTO W POZNANIU, SYGN. GUP 72/12, STWIERDZAJĄCE WYKONANIE UKŁADU ZAWARTEGO W DNIU 24.02.2014 R.",
+                "dataZakonczeniaPostepowania": "17.09.2014",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "10"
+              }
+            ],
+            "sposobProwadzeniaPostepowania": [
+              {
+                "sposobProwadzeniaPostepowania": "UPADŁOŚĆ Z MOŻLIWOŚCIĄ ZAWARCIA UKŁADU",
+                "nrWpisuWykr": "19",
+                "nrWpisuWprow": "7"
+              }
+            ],
+            "daneOsobyReprezentujacejUpadlego": [
+              {
+                "nazwisko": [
+                  {
+                    "nazwisko": {
+                      "nazwiskoICzlon": "P*****",
+                      "nazwiskoIICzlon": "S******"
+                    },
+                    "nrWpisuWykr": "10",
+                    "nrWpisuWprow": "7"
+                  }
+                ],
+                "imiona": [
+                  {
+                    "imiona": {
+                      "imie": "E******"
+                    },
+                    "nrWpisuWykr": "10",
+                    "nrWpisuWprow": "7"
+                  }
+                ],
+                "identyfikator": [
+                  {
+                    "pesel": "8**********",
+                    "nrWpisuWykr": "10",
+                    "nrWpisuWprow": "7"
+                  }
+                ],
+                "okreslenieOsoby": [
+                  {
+                    "okreslenieOsoby": "NADZORCA SĄDOWY",
+                    "nrWpisuWykr": "10",
+                    "nrWpisuWprow": "7"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

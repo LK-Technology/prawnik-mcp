@@ -25,3 +25,8 @@ Dziennik Ustaw via the ELI API (Kancelaria Sejmu RP), SAOS (saos.org.pl), EU Pub
 Cellar (EUR-Lex), EUREKA (Ministerstwo Finansów), KIO (orzeczenia.uzp.gov.pl), UODO
 (orzeczenia.uodo.gov.pl), CBOSA (orzeczenia.nsa.gov.pl), the Supreme Court ruling database (www.sn.pl) and the Constitutional
 Tribunal website (trybunal.gov.pl). They are not covered by the code licence.
+
+Test fixtures in tests/fixtures/raw/registries (2026-10-04) are REDACTED copies of responses from the open KRS API
+(api-krs.ms.gov.pl, Ministerstwo Sprawiedliwości) and the VAT white-list API (wl-api.mf.gov.pl, Ministerstwo Finansów):
+in KRS extracts PESEL numbers in free text are removed, the names written next to them masked and the contact e-mail
+replaced; in white-list answers bank account numbers are replaced by placeholders. No VIES answer is recorded (VIES terms).

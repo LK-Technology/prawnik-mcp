@@ -110,6 +110,33 @@ def build_server(store: Store | None = None) -> MCPServer:
     def list_act_versions(document_id: str, live: bool | None = None) -> dict:
         return service.list_act_versions(store, document_id, live).model_dump(mode="json")
 
+    @mcp.tool(description="Look up a company, foundation or other entity in public registers by NIP, REGON, KRS number or EU "
+              "VAT number (no search by name or PESEL). Returns a card from the KRS extract (name, legal form, seat, share "
+              "capital, main PKD, representation rule verbatim with masked members, prokura, liquidation/bankruptcy/"
+              "restructuring entries, struck-off status, filed financial statements), the VAT white-list status on `date` "
+              "(YYYY-MM-DD) with its requestId, an optional bank_account check (TAK/NIE) and VIES validity for EU VAT numbers. "
+              "Every section has its source URL, fetch time and state date, and every source a typed status. A NIP, REGON or "
+              "KRS lookup uses 1 of ~80 daily white-list searches (include_vat=false skips it for KRS numbers). "
+              "include_full_history adds KRS history and, with date, the register state on that date. Not an official extract.")
+    def lookup_entity(identifier: str, date: str | None = None, bank_account: str | None = None,
+                      requester_vat: str | None = None, include_full_history: bool = False,
+                      include_vat: bool = True) -> dict:
+        return service.lookup_entity(store, identifier, date, bank_account, requester_vat, include_full_history,
+                                     include_vat).model_dump(mode="json")
+
+    @mcp.tool(description="Compute the end of a statutory term: start_date (the triggering event, not counted), amount, "
+              "unit (days|weeks|months|years), regime (tax = Ordynacja podatkowa art. 12; civil = Kodeks cywilny art. 111-115, "
+              "also court civil procedure; administrative = KPA art. 57). Shifts an end falling on a Saturday or statutory day "
+              "off and returns the provisions to verify. Does not decide when the term starts or whether posting kept it.")
+    def compute_deadline(start_date: str, amount: int, unit: str = "days", regime: str = "tax") -> dict[str, Any]:
+        return service.compute_deadline(start_date, amount, unit, regime).model_dump(mode="json")
+
+    @mcp.tool(description="NBP average exchange rate from the last business day before event_date (YYYY-MM-DD), as required "
+              "by art. 31a VAT Act and art. 11a PIT Act. currency: ISO code (EUR, USD...); table A (default) or B; "
+              "purpose: vat|pit to get the legal basis. Returns the rate, the NBP table number and its date.")
+    def exchange_rate(currency: str, event_date: str, table: str = "A", purpose: str | None = None) -> dict[str, Any]:
+        return service.exchange_rate(store, currency, event_date, table, purpose).model_dump(mode="json")
+
     @mcp.prompt(name="analysis_procedure", title="Procedura analizy", description="Legal analysis procedure with a separate applicability review (Polish).")
     def analysis_procedure() -> str:
         return _read("instructions.md")

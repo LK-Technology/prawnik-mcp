@@ -423,6 +423,107 @@ def _extract_unit(article_text: str, loc: str) -> str | None:
     return unit.strip()
 
 
+def _registry_quota(store: Store) -> dict | None:
+    try:
+        from prawnik_mcp.registries import wl_vat
+
+        return wl_vat.quota_status(store)
+    except Exception:  # noqa: BLE001
+        return None
+
+
+def lookup_entity(store: Store, identifier: str, date: str | None = None, bank_account: str | None = None,
+                  requester_vat: str | None = None, include_full_history: bool = False,
+                  include_vat: bool = True) -> ToolResult:
+    """Entity card from KRS, the VAT white list and VIES (live, on demand; see registries/lookup.py)."""
+    from prawnik_mcp.registries.lookup import lookup_entity as _lookup
+
+    return _lookup(store, identifier, date=date, bank_account=bank_account, requester_vat=requester_vat,
+                   include_full_history=include_full_history, include_vat=include_vat)
+
+
+def compute_deadline(start_date: str, amount: int, unit: str = "days", regime: str = "tax") -> ToolResult:
+    """End of a statutory term (days/weeks/months/years) with the weekend and holiday shift, and the provisions used."""
+    from prawnik_mcp.calc import deadlines
+
+    try:
+        start = _parse_date(start_date)
+        if start is None:
+            raise ValueError("start_date is required (YYYY-MM-DD)")
+        res = deadlines.compute(start, int(amount), unit, regime)
+    except (ValueError, TypeError) as e:
+        return ToolResult(status=ResultStatus.invalid_input, warnings=[str(e)])
+    return ToolResult(status=ResultStatus.ok, warnings=res.warnings + [
+        "Kalkulator nie ustala początku terminu (doręczenie, doręczenie zastępcze) ani zachowania terminu przez "
+        "nadanie pisma; nie uwzględnia zawieszenia biegu terminów ani przepisów szczególnych "
+        "(np. „chyba że ustawy podatkowe stanowią inaczej”). Sprawdź wskazane przepisy przez get_legal_document.",
+    ], data={
+        "start_date": start.isoformat(), "amount": int(amount), "unit": unit, "regime": regime,
+        "regime_label": deadlines.REGIMES[regime]["label"],
+        "nominal_end": res.nominal_end.isoformat(), "end_date": res.end.isoformat(),
+        "end_weekday": ["poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota", "niedziela"][res.end.weekday()],
+        "shifted_over": [{"date": d, "reason": r} for d, r in res.shifted_over],
+        "legal_basis": [{"document_id": doc, "locator": loc} for doc, loc in res.basis],
+        "method": "deterministic calculation; the day of the triggering event is not counted",
+    })
+
+
+def exchange_rate(store: Store, currency: str, event_date: str, table: str = "A", purpose: str | None = None) -> ToolResult:
+    """NBP average rate from the last business day before the event date (art. 31a VAT Act, art. 11a PIT Act)."""
+    import json as _json
+
+    from prawnik_mcp import live as live_mod
+    from prawnik_mcp.calc import nbp
+
+    try:
+        event = _parse_date(event_date)
+        if event is None:
+            raise ValueError("event_date is required (YYYY-MM-DD)")
+        if event > date.today() + timedelta(days=1):
+            raise ValueError("event_date is in the future; NBP has not published that rate yet")
+        if purpose and purpose not in nbp.LEGAL_BASIS:
+            raise ValueError(f"purpose must be one of {tuple(nbp.LEGAL_BASIS)} or empty")
+    except (ValueError, TypeError) as e:
+        return ToolResult(status=ResultStatus.invalid_input, warnings=[str(e)])
+    key = f"nbp:{currency.upper()}:{table.upper()}:{event.isoformat()}"
+    cached = store.cache_get(key)
+    warnings: list[str] = []
+    if cached:
+        data = _json.loads(cached)
+        data["origin"] = "cache"
+    else:
+        if not live_mod.live_enabled():
+            return ToolResult(status=ResultStatus.source_unavailable,
+                              warnings=["Tryb offline (PRAWNIK_MCP_OFFLINE=1): kursu NBP nie można pobrać."])
+        client = live_mod.CLIENT_FACTORY()
+        try:
+            rate = nbp.rate_before(client, currency, event, table=table)
+        except ValueError as e:
+            return ToolResult(status=ResultStatus.invalid_input, warnings=[str(e)])
+        except Exception as e:  # noqa: BLE001
+            return ToolResult(status=ResultStatus.source_unavailable,
+                              warnings=[f"NBP niedostępny ({type(e).__name__}); nie zgaduj kursu."])
+        finally:
+            client.close()
+        if rate is None:
+            return ToolResult(status=ResultStatus.not_found, warnings=[
+                f"Brak kursu {currency.upper()} w tabeli {table.upper()} NBP w 45 dniach przed {event.isoformat()}. "
+                "Waluta może być w drugiej tabeli (A albo B)."])
+        data = {"currency": rate.currency, "table": rate.table, "rate_pln": rate.rate, "table_no": rate.table_no,
+                "effective_date": rate.effective_date.isoformat(), "source_url": rate.url,
+                "fetched_at": rate.fetched_at.isoformat(), "origin": "live"}
+        store.cache_put(key, _json.dumps(data), ttl=timedelta(days=30), source_id="nbp")
+    data.update({
+        "event_date": event.isoformat(),
+        "rule": "kurs średni NBP z ostatniego dnia roboczego poprzedzającego dzień zdarzenia (dzień z opublikowaną tabelą)",
+        "legal_basis": [{"document_id": d, "locator": loc} for d, loc in nbp.LEGAL_BASIS.get(purpose or "", [])],
+        "attribution": "Źródło: Narodowy Bank Polski (api.nbp.pl)",
+    })
+    if not purpose:
+        warnings.append("Podaj purpose (vat albo pit), aby dostać przepis; inne ustawy mogą mieć własne reguły przeliczania.")
+    return ToolResult(status=ResultStatus.ok, warnings=warnings, data=data)
+
+
 _URL_IDS = (
     (re.compile(r"^https?://orzeczenia\.nsa\.gov\.pl/doc/([0-9A-Fa-f]{10})/?(?:[?#].*)?$"), "cbosa:{}"),
     (re.compile(r"^https?://www\.saos\.org\.pl/judgments/(\d+)/?(?:[?#].*)?$"), "saos:{}"),
@@ -556,7 +657,7 @@ def sources_status(store: Store) -> ToolResult:
     by_source = store.stats_by_source()
     catalog = [{
         "source_id": s.source_id, "name": s.name, "maturity": s.maturity, "implemented": s.implemented,
-        "kinds": list(s.kinds), "terms_url": s.terms_url, "rate_per_s": s.rate_per_s,
+        "kinds": list(s.kinds), "role": s.role, "terms_url": s.terms_url, "rate_per_s": s.rate_per_s,
         "local_counts": by_source.get(s.source_id, {}),
     } for s in sources.catalog().values()]
     return ToolResult(status=ResultStatus.ok, warnings=warnings, coverage=_coverage(store), data={
@@ -565,10 +666,15 @@ def sources_status(store: Store) -> ToolResult:
         "sync_state": store.list_sync_state(),
         "counts": store.stats(),
         "schema_version": store.schema_version,
+        "registry_quota": _registry_quota(store),
+        "lookups": "KRS, VAT white list and VIES via lookup_entity; NBP rates via exchange_rate; deadline arithmetic via "
+                   "compute_deadline. Live, on demand; not synced and not searchable as documents.",
         "search_and_retrieval": "Polish and EU statutes and judgments from the implemented sources (see catalog).",
         "letter_templates_and_analysis": "Only narrow civil/consumer matters: payment demand, consumer complaint, "
                                          "withdrawal from a distance contract.",
-        "not_supported": ["drafting pleadings (pozwy, apelacje, kasacje)", "procedural deadlines and limitation periods",
+        "not_supported": ["drafting pleadings (pozwy, apelacje, kasacje)",
+                          "when a deadline starts, service rules, suspensions; limitation periods",
+                          "registers without an open API: CRBR, financial statements (RDF), MSiG, KRZ, CEIDG, GUS REGON",
                           "full history of statute wordings (latest consolidated text only)",
                           "sources marked maturity=research in the catalog"],
     })

@@ -11,7 +11,8 @@ Cel: dobrać właściwą podstawę i przygotować pismo konsumenta.
    - treści i usługi cyfrowe: art. 43h i następne upk;
    - inne usługi i umowy: przepisy kc o danej umowie oraz art. 385^1 kc przy postanowieniach regulaminu.
    Wszystkie w `eli:DU/2014/827` albo `eli:DU/1964/93`; sprawdź wersję na datę umowy.
-3. Sprawdź terminy w pobranym tekście i porównaj z datami sprawy. Nie wyliczaj terminu jako pewnego,
+3. Sprawdź terminy w pobranym tekście i porównaj z datami sprawy; koniec terminu policz `compute_deadline`
+   (`regime: "civil"`). Nie wyliczaj terminu jako pewnego,
    jeśli brakuje daty lub brzmienie na datę jest `temporal_unknown`.
 4. Jeśli pasuje szablon (`get_document_template`: reklamacja_konsumencka, odstapienie_od_umowy_na_odleglosc,
    wezwanie_do_zaplaty), zadaj pytania kwalifikujące z szablonu, zbuduj tabelę twierdzeń, wywołaj

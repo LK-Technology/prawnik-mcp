@@ -30,6 +30,12 @@ All notable changes to this project are documented here. The format follows
 - **Prompts:** eight task procedures (case-law research, wording on a date, reply to a payment demand, unfair
   terms, consumer claims, GDPR complaint, UOKiK notice, tax rulings), each with an optional `context` argument;
   README prompts table generated from the server.
+- **Company and tax tools:** `lookup_entity` (KRS open API, VAT white list with a persistent quota guard and
+  bank-account check, VIES; NIP/REGON/KRS/NRB checksums; personal data masked, free-text PESEL scrubbed),
+  `compute_deadline` (Ordynacja podatkowa art. 12, KC art. 111–115, KPA art. 57, statutory days off),
+  `exchange_rate` (NBP average rate from the last business day before the event, art. 31a VAT / art. 11a PIT);
+  EUREKA now includes general interpretations and tax explanations with an authority note; aliases for tax,
+  company and procedural codes; prompt `counterparty_check`. Catalog field `role = "lookup"`; schema v6.
 - **Optional semantic ranking:** `pip install "prawnik-mcp[semantic]"` and `prawnik-mcp embed` build a local embedding
   index (fastembed, multilingual MiniLM); `search_legal` fuses it with FTS5 by reciprocal rank fusion. Schema v5.
 - `scripts/pii_scan.py` (PESEL, bank accounts, phones, e-mails, local denylist, forbidden paths) and pre-commit hooks.

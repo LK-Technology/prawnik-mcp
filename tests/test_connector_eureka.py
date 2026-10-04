@@ -62,7 +62,7 @@ def test_search_maps_hits_and_request_shape():
     assert req.url.params.get_list("sort") == ["DT_WYD,desc", "ID_INFORMACJI,desc"]
     body = json.loads(req.content)
     assert body["searchQuery"] == "ulga termomodernizacyjna" and body["searchInFullPhrase"] is True
-    assert body["filter"] == {"KATEGORIA_INFORMACJI": [1], "DT_WYD_start": "2026-08-01", "DT_WYD_end": "2026-08-31"}
+    assert body["filter"] == {"KATEGORIA_INFORMACJI": [1, 3, 4, 11], "DT_WYD_start": "2026-08-01", "DT_WYD_end": "2026-08-31"}
     # results come newest first; theses about selling electricity do not mention the relief and are dropped
     assert [h.document_id for h in hits] == ["eureka:706823"]
     h = hits[0]

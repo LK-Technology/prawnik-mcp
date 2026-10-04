@@ -382,6 +382,95 @@ queries = [
   { listing = "wyroki" },
 ]
 
+[sources.nbp]
+name = "NBP — average exchange rates (api.nbp.pl)"
+publisher = "Narodowy Bank Polski"
+base_url = "https://api.nbp.pl"
+hosts = ["api.nbp.pl"]
+rate_per_s = 1.0
+kinds = ["reference_data"]
+id_prefix = "nbp:"
+maturity = "beta"
+role = "lookup"
+terms = "Public API without a key (read 2026-10-04: https://api.nbp.pl). No terms of use beyond the API description were found; rates are official data published by NBP. Used on demand for single conversions; responses are cached."
+terms_url = "https://api.nbp.pl/"
+terms_checked_at = "2026-10-04"
+attribution = "Źródło: Narodowy Bank Polski (api.nbp.pl), tabela kursów średnich"
+known_gaps = [
+  "Only average rates (tables A and B); bid/ask rates (table C) are not used.",
+  "A day with a published table is treated as a business day; the rule 'ostatni dzień roboczy poprzedzający' is applied as the last table published before the event date.",
+]
+
+[sources.krs]
+name = "KRS — National Court Register (open API of the Ministry of Justice)"
+publisher = "Ministerstwo Sprawiedliwości – Krajowy Rejestr Sądowy, otwarte API KRS (Portal Rejestrów Sądowych)"
+base_url = "https://api-krs.ms.gov.pl/api/krs"
+hosts = ["api-krs.ms.gov.pl"]
+rate_per_s = 0.5
+kinds = ["registry"]
+id_prefix = "krs:"
+maturity = "experimental"
+role = "lookup"
+terms = "Open API launched by MS on 2022-03-08 under the Act of 11 August 2021 on open data and the reuse of public sector information, 'z uwzględnieniem przepisów RODO' (gov.pl announcement, read 2026-10-04). No API-specific terms of use and no rate limit found; the documentation page prs.ms.gov.pl/krs/openApi is a JavaScript application and was not rendered (unverified). The open-data reuse conditions (state the source, the time the information was created and obtained, and that it was processed) are met by per-section provenance: URL, fetched_at, state_as_of (stanZDnia) and a processing note. MS masks names and PESEL in structured fields; free-text fields are not masked by MS and are scrubbed here. Raw extracts are kept only as local snapshots; nothing is redistributed."
+terms_url = "https://www.gov.pl/web/sprawiedliwosc/uruchomienie-otwartego-api-krajowego-rejestru-sadowego"
+terms_checked_at = "2026-10-04"
+attribution = "Źródło: Krajowy Rejestr Sądowy – otwarte API KRS Ministerstwa Sprawiedliwości (api-krs.ms.gov.pl); informacja przetworzona"
+known_gaps = [
+  "Lookup by KRS number only: the API has no search by name or NIP (a NIP reaches KRS through the VAT white list).",
+  "An API extract is not an official KRS extract (odpis z Centralnej Informacji KRS).",
+  "The current extract is the register state on stanZDnia, which can lag behind the latest court entry; the state on another date needs the full extract (include_full_history) and reflects entry dates, not the dates of the events (board entries are declaratory).",
+  "Struck-off entities: OdpisAktualny answers HTTP 204 (observed on 3 entities, undocumented); the card is rebuilt from the full extract as of the deletion entry.",
+  "stanPozycji is undocumented (1 on active entities, 2 on struck-off ones, 3 on an active foundation); passed through, not interpreted.",
+  "Status flags report only dział 6 entries (liquidation, bankruptcy, restructuring, dissolution, receivership) and statutory name markers; dział 4 and 5 entries are listed by key. No entry is not proof of good standing.",
+  "Free-text masking is heuristic: PESEL numbers are removed and names next to them or matching a masked person's shape are masked; other names in free text (e.g. notaries) stay as published.",
+  "Financial statements: filing mentions only (years); their contents are in the Repozytorium Dokumentów Finansowych, which is not used.",
+]
+
+[sources.wl_vat]
+name = "Wykaz podatników VAT — VAT white list (Ministry of Finance)"
+publisher = "Ministerstwo Finansów / Krajowa Administracja Skarbowa – Wykaz podatników VAT, API"
+base_url = "https://wl-api.mf.gov.pl/api"
+hosts = ["wl-api.mf.gov.pl"]
+rate_per_s = 1.0
+kinds = ["registry"]
+id_prefix = "wl_vat:"
+maturity = "experimental"
+role = "lookup"
+terms = "Public API without a key (gov.pl/web/kas/api-wykazu-podatnikow-vat, read 2026-10-04): 'search' 100 requests a day (up to 30 subjects each), 'check' 5000 a day; once a limit is used up, access 'may be blocked until 0:00', also for the podatki.gov.pl web search. The Swagger page at wl-api.mf.gov.pl states an Apache-2.0 licence for the API description; reuse terms for the data were not found (unverified). The server keeps its own per-day counters (search <= 80, check <= 4500) and never retries a call. Natural persons get a minimal card (no PESEL, address or accounts); bank accounts are never listed."
+terms_url = "https://www.gov.pl/web/kas/api-wykazu-podatnikow-vat"
+terms_checked_at = "2026-10-04"
+attribution = "Źródło: Wykaz podatników VAT, Ministerstwo Finansów (wl-api.mf.gov.pl)"
+known_gaps = [
+  "Daily quota: at most 80 searches and 4500 account checks a day from one local store (MF: 100 and 5000), then daily_quota_exhausted until midnight Polish time. MF counts per client, not per store: other tools or installations behind the same IP use the same MF limit.",
+  "The API does not validate NIP checksums (a bad checksum is answered like an unknown NIP); identifiers are validated locally first.",
+  "Covers VAT taxpayers (active, exempt, removed, refused registration); absence is not proof that an entity does not exist. State date at most 5 years back, never in the future.",
+  "Subjects with a PESEL or without a KRS number are treated as possible natural persons and get a minimal card; this also hits e.g. municipalities and civil-law partnerships.",
+  "The answer to an exhausted MF quota was not observed (not provoked); HTTP 429 is assumed and fills the local counter. WL-xxx error codes in 4xx bodies are not read by the HTTP client.",
+  "No search by bank account (owner lookup) is offered.",
+]
+
+[sources.vies]
+name = "VIES — EU VAT number validation (European Commission)"
+publisher = "European Commission, DG TAXUD – VIES (VAT Information Exchange System), REST API"
+base_url = "https://ec.europa.eu/taxation_customs/vies/rest-api"
+hosts = ["ec.europa.eu"]
+rate_per_s = 1.0
+kinds = ["registry"]
+id_prefix = "vies:"
+maturity = "experimental"
+role = "lookup"
+terms = "VIES disclaimer (read 2026-10-04 from the text the VIES site serves): the site lets persons involved in intra-Community supplies confirm the validity of a VAT identification number (art. 31 of Council Regulation (EU) No 904/2010); 'Any other use and any extraction and use of the data which is not in conformity with the objective of this site is strictly forbidden', retransmission is forbidden, and 'any copying or reproduction of the contents of this site is strictly forbidden'. Used only for single confirmations asked for by the user; answers are never cached, stored, logged or recorded as fixtures."
+terms_url = "https://ec.europa.eu/taxation_customs/vies/#/disclaimer"
+terms_checked_at = "2026-10-04"
+attribution = "Źródło: VIES – Komisja Europejska (ec.europa.eu/taxation_customs/vies)"
+known_gaps = [
+  "Validity only; several member states return no name or address ('---').",
+  "A national back-end can be unavailable (MS_UNAVAILABLE); reported as source_unavailable, never as an invalid number.",
+  "A consultation number (requestIdentifier) comes only when the caller gives its own VAT number (requester_vat); not verified live.",
+  "No snapshots and no fixtures (terms): provenance is the URL and the time of the check.",
+  "The whole host ec.europa.eu is on the HTTP allowlist; only the VIES REST paths are requested.",
+]
+
 [sources.portal_sp]
 name = "Portal Orzeczeń Sądów Powszechnych (common courts portal)"
 publisher = "Ministerstwo Sprawiedliwości"

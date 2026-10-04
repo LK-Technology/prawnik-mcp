@@ -35,6 +35,9 @@ class SourceInfo:
     known_gaps: tuple[str, ...] = ()
     defaults: dict[str, Any] = field(default_factory=dict)
     aliases: dict[str, str] = field(default_factory=dict)
+    # "documents": a connector stores legal documents (search, fetch, sync). "lookup": on-demand reference data
+    # (registries, exchange rates) used by dedicated tools; nothing is synced or searched as a document.
+    role: str = "documents"
 
     @property
     def implemented(self) -> bool:
@@ -57,6 +60,7 @@ def catalog() -> dict[str, SourceInfo]:
             terms_checked_at=date.fromisoformat(s["terms_checked_at"]), attribution=s["attribution"],
             known_gaps=tuple(s.get("known_gaps", ())), defaults=dict(s.get("defaults", {})),
             aliases={k.lower(): v for k, v in s.get("aliases", {}).items()},
+            role=s.get("role", "documents"),
         )
     return out
 
@@ -67,6 +71,11 @@ def source(source_id: str) -> SourceInfo:
 
 def implemented_sources() -> list[SourceInfo]:
     return [s for s in catalog().values() if s.implemented]
+
+
+def document_sources() -> list[SourceInfo]:
+    """Implemented sources backed by a document connector (see SourceInfo.role)."""
+    return [s for s in implemented_sources() if s.role == "documents"]
 
 
 def allowed_hosts() -> frozenset[str]:

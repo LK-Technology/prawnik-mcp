@@ -1,0 +1,397 @@
+{
+  "odpis": {
+    "rodzaj": "Aktualny",
+    "naglowekA": {
+      "rejestr": "RejS",
+      "numerKRS": "0000030897",
+      "dataCzasOdpisu": "04.10.2026 15:37:49",
+      "stanZDnia": "20.11.2025",
+      "dataRejestracjiWKRS": "25.07.2001",
+      "numerOstatniegoWpisu": 31,
+      "dataOstatniegoWpisu": "03.04.2025",
+      "sygnaturaAktSprawyDotyczacejOstatniegoWpisu": "WA.XIII NS-REJ.KRS/70181/24/133/ADE",
+      "oznaczenieSaduDokonujacegoOstatniegoWpisu": "SYSTEM",
+      "stanPozycji": 3
+    },
+    "dane": {
+      "dzial1": {
+        "danePodmiotu": {
+          "formaPrawna": "FUNDACJA",
+          "identyfikatory": {
+            "nip": "5213003700"
+          },
+          "nazwa": "FUNDACJA WIELKA ORKIESTRA ŚWIĄTECZNEJ POMOCY",
+          "daneOWczesniejszejRejestracji": {
+            "nazwaPoprzedniegoRejestru": "REJESTR FUNDACJI",
+            "numerWPoprzednimRejestrze": "NR 3457",
+            "sadProwadzacyRejestr": "SĄD REJONOWY DLA M. ST. WARSZAWY XVI WYDZIAŁ GOSPODARCZY-REJESTROWY"
+          },
+          "czyPosiadaStatusOPP": true
+        },
+        "siedzibaIAdres": {
+          "siedziba": {
+            "kraj": "POLSKA",
+            "wojewodztwo": "MAZOWIECKIE",
+            "powiat": "WARSZAWSKI",
+            "gmina": "WARSZAWA-CENTRUM",
+            "miejscowosc": "WARSZAWA"
+          },
+          "adres": {
+            "ulica": "DOMINIKAŃSKA",
+            "nrDomu": "19 C",
+            "miejscowosc": "WARSZAWA",
+            "kodPocztowy": "02-738",
+            "poczta": "WARSZAWA",
+            "kraj": "POLSKA"
+          },
+          "adresStronyInternetowej": "WWW.WOSP.ORG.PL",
+          "adresDoDoreczenElektronicznychWpisanyDoBAE": "AE:PL-28547-16383-UFHUH-23"
+        },
+        "jednostkiTerenoweOddzialy": [
+          {
+            "nazwa": "UNIWERSYTET WIELKIEJ ORKIESTRY ŚWIĄTECZNEJ POMOCY - OŚRODEK SZKOLENIOWY",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "POMORSKIE",
+              "powiat": "KWIDZYŃSKI",
+              "gmina": "KWIDZYN",
+              "miejscowosc": "SZADOWO"
+            },
+            "adres": {
+              "nrDomu": "1",
+              "miejscowosc": "SZADOWO",
+              "kodPocztowy": "82-500",
+              "poczta": "KWIDZYN",
+              "kraj": "POLSKA"
+            }
+          }
+        ],
+        "umowaStatut": {
+          "informacjaOZawarciuZmianieUmowyStatutu": [
+            {
+              "zawarcieZmianaUmowyStatutu": "2 MARCA 1993R.\nPAR.34,PAR.35 PKT 2 - 21.02.1994\nPAR.18,PAR.24,PAR.43 - 28.04.1995"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "STATUT Z DNIA 17.12.2001R.\nZMIANA:PAR.8,PAR.9"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "22.04.2003 R. - § 9 I § 43"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "16 LIPCA 2004 R. §5; §9; §12; §13; §17; §19; §33; §34 INDEKS 1; §34 INDEKS 2; §34 INDEKS 3; §34 INDEKS 4; §35; §36 INDEKS 1."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "19 MAJA 2005 R. \n§ 9 UST. 1 PKT 2 - DODANY; § 9 UST. 1 - ZMIANA NUMERACJI PUNKTÓW"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "20 LISTOPADA 2006 R.\n§ 9 UST. 1 DODANO PKT 5 I PKT 7; § 9 UST 1 ZMIANA NUMERACJI PUNKTÓW"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "16 LISTOPADA 2009 R.\n§ 9 UST. 1 PKT 6"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "30 LIPCA 2015 R. - ZMIENIONO § 43\n17 LISTOPADA 2015 R. - ZMIENIONO § 43"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "29 LIPCA 2016\n\nZMIENIONO:\n§ 18, § 19 PKT.5, § 21, § 26, § 28, § 29, § 32, § 43"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "17.05.2017, ZM. § 17, § 19 PKT 3, § 21, § 29, § 34-1, § 34-2, § 34-3, § 34-4"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "31.07.2018 R., \nZMIENIONO: §13.1, §16, §18, §19, §20, §21-24, §25, §26-27, §28, §29, §30, §32, §33, §34, §34-1, §34-2, §34-3, §34-4, §36, §39, §46, §48."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "25.04.2024 R. - ZMIENIONO STATUT FUNDACJI W CAŁOŚCI"
+            }
+          ]
+        },
+        "pozostaleInformacje": {
+          "czasNaJakiUtworzonyZostalPodmiot": "NIEOZNACZONY"
+        },
+        "organSprawujacyNadzor": {
+          "nazwa": "MINISTER ZDROWIA I PREZYDENT M.ST. WARSZAWY"
+        }
+      },
+      "dzial2": {
+        "reprezentacja": {
+          "nazwaOrganu": "ZARZĄD FUNDACJI",
+          "sposobReprezentacji": "REPREZENTACJA FUNDACJI JEST JEDNOOSOBOWA, A W PRZYPADKU ZOBOWIĄZAŃ PRZEKRACZAJĄCYCH ZWYKŁY ZARZĄD DWUOSOBOWA, W TYM PREZESA ZARZĄDU LUB WICEPREZESA ZARZĄDU.",
+          "sklad": [
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "O*****"
+              },
+              "imiona": {
+                "imie": "J****",
+                "imieDrugie": "Z*******"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "PREZES ZARZĄDU"
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "N***********",
+                "nazwiskoIICzlon": "O*****"
+              },
+              "imiona": {
+                "imie": "L****"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU"
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "B*********"
+              },
+              "imiona": {
+                "imie": "P****",
+                "imieDrugie": "L*****"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU"
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "M**********"
+              },
+              "imiona": {
+                "imie": "B*****",
+                "imieDrugie": "J*******"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU"
+            }
+          ]
+        },
+        "organNadzoru": [
+          {
+            "nazwa": "RADA FUNDACJI",
+            "sklad": [
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "N****"
+                },
+                "imiona": {
+                  "imie": "A********",
+                  "imieDrugie": "R*****"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "B****"
+                },
+                "imiona": {
+                  "imie": "A******",
+                  "imieDrugie": "J****"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S*********",
+                  "nazwiskoIICzlon": "O*******"
+                },
+                "imiona": {
+                  "imie": "I****"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "W*******"
+                },
+                "imiona": {
+                  "imie": "M****"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "dzial3": {
+        "wzmiankiOZlozonychDokumentach": {
+          "wzmiankaOZlozeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "04.07.2006",
+              "zaOkresOdDo": "01.01.2005 DO 31.12.2005"
+            },
+            {
+              "dataZlozenia": "27.08.2007",
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "dataZlozenia": "03.07.2008",
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007 R."
+            },
+            {
+              "dataZlozenia": "08.06.2009",
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "01.01.2005 DO 31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007 R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "01.01.2005 DO 31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosci": [
+            {
+              "zaOkresOdDo": "01.01.2005 DO 31.12.2005 - SPRAWOZDANIE MERYTORYCZNE Z DZIAŁALNOŚCI"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007 R. - MERYTORYCZNE SPRAWOZDANIE Z DZIAŁALNOŚCI"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            }
+          ]
+        },
+        "celDzialaniaOrganizacji": {
+          "celDzialania": "1.\tPODSTAWOWYM CELEM FUNDACJI JEST DZIAŁALNOŚĆ W ZAKRESIE OCHRONY ZDROWIA, POLEGAJĄCA \nNA RATOWANIU ŻYCIA CHORYCH OSÓB, W SZCZEGÓLNOŚCI DZIECI ORAZ DZIAŁANIE NA RZECZ POPRAWY STANU ICH ZDROWIA, JAK RÓWNIEŻ DZIAŁANIE NA RZECZ PROMOCJI ZDROWIA I PROFILAKTYKI ZDROWOTNEJ.\n2.\tFUNDACJA ZA SWOJE DODATKOWE CELE PRZYJMUJE:\n1)\tSZEROKO ROZUMIANĄ POMOC OSOBOM POKRZYWDZONYM, CHORYM I OSOBOM \nZ NIEPEŁNOSPRAWNOŚCIAMI, A TAKŻE ICH RODZINOM I OPIEKUNOM, W TYM INSTYTUCJOM POMAGAJĄCYM TAKIM OSOBOM,\n2)\tUMOŻLIWIANIE I UŁATWIANIE DOSTĘPU PODOPIECZNYM FUNDACJI DO OBIEKTÓW POMOCY ZDROWOTNEJ, SZPITALI I INNYCH PLACÓWEK MEDYCZNYCH,\n3)\tZAPEWNIANIE PROFESJONALNEGO I SPECJALISTYCZNEGO SPRZĘTU LECZNICZEGO PLACÓWKOM MEDYCZNYM,\n4)\tEDUKACJĘ DZIECI, MŁODZIEŻY ORAZ DOROSŁYCH W ZAKRESIE OCHRONY ŻYCIA I ZDROWIA,\n5)\tORGANIZOWANIE WOLONTARIATU ORAZ AKCJI I WYDARZEŃ CHARYTATYWNYCH,\n6)\tUPOWSZECHNIANIE ŚWIADOMOŚCI O PROBLEMIE OSÓB CHORYCH W ZAKRESIE BRAKU DOSTĘPU \nDO PROFESJONALNYCH PLACÓWEK MEDYCZNYCH I SPECJALISTYCZNEGO SPRZĘTU LEKARSKIEGO, \n7)\tPRZECIWDZIAŁANIE PATOLOGIOM SPOŁECZNYM, W TYM W SZCZEGÓLNOŚCI NARKOMANII, ALKOHOLIZMOWI, PRZEMOCY I INNYM ŚRODKOM UZALEŻNIAJĄCYM, MAJĄCYM NEGATYWNY WPŁYW \nNA ZDROWIE I ŻYCIE LUDZKIE,\n8)\tPROWADZENIE DZIAŁALNOŚCI KULTURALNEJ W OBSZARZE KSZTAŁTOWANIA POSTAW PROSPOŁECZNYCH \nI BUDOWANIA SPOŁECZEŃSTWA OBYWATELSKIEGO."
+        },
+        "przedmiotDzialalnosciOPP": {
+          "odplatnyPkd": [],
+          "nieodplatnyPkd": [
+            {
+              "opis": "POZOSTAŁA DZIAŁALNOŚĆ W ZAKRESIE OPIEKI ZDROWOTNEJ, GDZIE INDZIEJ NIESKLASYFIKOWANA",
+              "kodDzial": "86",
+              "kodKlasa": "90",
+              "kodPodklasa": "E"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ POZOSTAŁYCH ORGANIZACJI CZŁONKOWSKICH, GDZIE INDZIEJ NIESKLASYFIKOWANA, ORGANIZOWANIE WOLONTARIATU ORAZ AKCJI I WYDARZEŃ CHARYTATYWNYCH, PRZECIWDZIAŁANIE PATOLOGIOM SPOŁECZNYM, W TYM W SZCZEGÓLNOŚCI NARKOMANII, ALKOHOLIZMOWI, PRZEMOCY I INNYM ŚRODKOM UZALEŻNIAJĄCYM, MAJĄCYM NEGATYWNY WPŁYW NA ZDROWIE I ŻYCIE LUDZKIE, ORGANIZOWANIE SPOTKAŃ SŁUŻĄCYCH WYMIANIE DOŚWIADCZEŃ OSÓB I JEDNOSTEK PROWADZĄCYCH DZIAŁALNOŚĆ W ZAKRESIE ZBIEŻNYM Z CELAMI FUNDACJI, A TAKŻE UPOWSZECHNIANIE TYCH DOŚWIADCZEŃ ORAZ UDZIELANIE PORAD I POMOCY OSOBOM ZAMIERZAJĄCYM TWORZYĆ ORGANIZACJE O PODOBNYM DO FUNDACJI PROFILU DZIAŁANIA, WSPIERANIE DARAMI RZECZOWYMI – APARATAMI LUB URZĄDZENIAMI RATUJĄCYMI ŻYCIE INNYCH PLACÓWEK I INSTYTUCJI NIŻ OKREŚLONE W PKT 1 NINIEJSZEGO USTĘPU,",
+              "kodDzial": "94",
+              "kodKlasa": "99",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POMOC SPOŁECZNA BEZ ZAKWATEROWANIA DLA OSÓB W PODESZŁYM WIEKU I OSÓB NIEPEŁNOSPRAWNYCH, SZEROKO ROZUMIANĄ POMOC OSOBOM POKRZYWDZONYM CHORYM I OSOBOM Z NIEPEŁNOSPRAWNOŚCIAMI, A TAKŻE ICH RODZINOM I OPIEKUNOM, W TYM INSTYTUCJOM POMAGAJĄCYM TAKIM OSOBOM, PODEJMOWANIE DZIAŁAŃ MAJĄCYCH NA CELU ZAPOBIEGANIE SZERZENIU SIĘ I OGRANICZANIE ZJAWISK PATOLOGII SPOŁECZNYCH, W TYM W SZCZEGÓLNOŚCI NARKOMANII, ALKOHOLIZMU I PRZEMOCY,",
+              "kodDzial": "88",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁA POMOC SPOŁECZNA BEZ ZAKWATEROWANIA, GDZIE INDZIEJ NIESKLASYFIKOWANA, UDZIELANIE POMOCY SPOŁECZNEJ W ZAKRESIE RATOWANIA ŻYCIA LUB POPRAWY STANU ZDROWIA W FORMIE RZECZOWEJ, FINANSOWEJ LUB ŚWIADCZEŃ ZDROWOTNYCH I REHABILITACYJNYCH, A TAKŻE W FORMIE POMOCY ORGANIZACYJNEJ OSOBOM, KTÓRYCH PRZYPADKI MAJĄ CHARAKTER SZCZEGÓLNY, WEDŁUG  ZASAD USTALONYCH PRZEZ ZARZĄD. UDZIELANIE POMOCY SPOŁECZNEJ OBEJMUJE RÓWNIEŻ OSOBY BĘDĄCE OFIARAMI WYPADKÓW KOMUNIKACYJNYCH.",
+              "kodDzial": "88",
+              "kodKlasa": "99",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POMOC SPOŁECZNA Z ZAKWATEROWANIEM DLA OSÓB W PODESZŁYM WIEKU I OSÓB NIEPEŁNOSPRAWNYCH, PODEJMOWANIE DZIAŁAŃ MAJĄCYCH NA CELU ZAPOBIEGANIE SZERZENIU SIĘ I OGRANICZANIE ZJAWISK PATOLOGII SPOŁECZNYCH, W TYM W SZCZEGÓLNOŚCI NARKOMANII, ALKOHOLIZMU I PRZEMOCY,",
+              "kodDzial": "87",
+              "kodKlasa": "30",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ PARAMEDYCZNA, UMOŻLIWIANIE I UŁATWIANIE DOSTĘPU PODOPIECZNYM FUNDACJI DO OBIEKTÓW POMOCY ZDROWOTNEJ, SZPITALI I INNYCH PLACÓWEK MEDYCZNYCH,",
+              "kodDzial": "86",
+              "kodKlasa": "90",
+              "kodPodklasa": "D"
+            },
+            {
+              "opis": "POZOSTAŁE POZASZKOLNE FORMY EDUKACJI, GDZIE INDZIEJ NIESKLASYFIKOWANE, EDUKACJĘ DZIECI, MŁODZIEŻY ORAZ DOROSŁYCH W ZAKRESIE OCHRONY ŻYCIA I ZDROWIA, PROWADZENIE SZKOLEŃ W ZAKRESIE RATOWNICTWA MEDYCZNEGO I UDZIELANIA PIERWSZEJ POMOCY PRZEDMEDYCZNEJ OFIAROM WYPADKÓW, ZE SZCZEGÓLNYM UWZGLĘDNIENIEM OFIAR WYPADKÓW KOMUNIKACYJNYCH I INNYCH NAGŁYCH ZDARZEŃ NOSZĄCYCH ZNAMIONA KATAKLIZMU,",
+              "kodDzial": "85",
+              "kodKlasa": "59",
+              "kodPodklasa": "B"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ WSPOMAGAJĄCA EDUKACJĘ, UPOWSZECHNIANIE ŚWIADOMOŚCI O PROBLEMIE OSÓB CHORYCH W ZAKRESIE BRAKU DOSTĘPU DO PROFESJONALNYCH PLACÓWEK MEDYCZNYCH I SPECJALISTYCZNEGO SPRZĘTU LEKARSKIEGO, UPOWSZECHNIANIE WIEDZY W ZAKRESIE CELÓW FUNDACJI, W TYM W SZCZEGÓLNOŚCI W INTERNECIE, W ŚRODKACH MASOWEGO PRZEKAZU, W FORMIE AUDYCJI RADIOWYCH LUB TELEWIZYJNYCH, FILMÓW POMOCĄ WYDAWNICTW, PROWADZENIE PROGRAMÓW MEDYCZNYCH OBEJMUJĄCYCH TEREN CAŁEJ RZECZPOSPOLITEJ POLSKIEJ ORAZ REJESTRÓW ZWIĄZANYCH Z TYMI PROGRAMAMI,",
+              "kodDzial": "85",
+              "kodKlasa": "60",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "PRAKTYKA LEKARSKA OGÓLNA",
+              "kodDzial": "86",
+              "kodKlasa": "21",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z ORGANIZACJĄ TARGÓW, WYSTAW I KONGRESÓW, PRZYZNAWANIE STYPENDIÓW I NAGRÓD DLA OSÓB BIORĄCYCH UDZIAŁ W REALIZACJI CELÓW FUNDACJI ORAZ ORGANIZOWANIE I FINANSOWANIE NIEODPŁATNYCH KONFERENCJI I SEMINARIÓW W ZAKRESIE TEGO CELU,",
+              "kodDzial": "82",
+              "kodKlasa": "30",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZASZKOLNE FORMY EDUKACJI ARTYSTYCZNEJ",
+              "kodDzial": "85",
+              "kodKlasa": "52",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "ARTYSTYCZNA I LITERACKA DZIAŁALNOŚĆ TWÓRCZA, PROWADZENIE DZIAŁALNOŚCI KULTURALNEJ W OBSZARZE KSZTAŁTOWANIA POSTAW PROSPOŁECZNYCH, I BUDOWANIA SPOŁECZEŃSTWA OBYWATELSKIEGO,",
+              "kodDzial": "90",
+              "kodKlasa": "03",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁA DZIAŁALNOŚĆ WYDAWNICZA",
+              "kodDzial": "58",
+              "kodKlasa": "19",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "SPRZEDAŻ HURTOWA WYROBÓW FARMACEUTYCZNYCH I MEDYCZNYCH, ZAPEWNIANIE PROFESJONALNEGO I SPECJALISTYCZNEGO SPRZĘTU LECZNICZEGO PLACÓWKOM MEDYCZNYM,",
+              "kodDzial": "46",
+              "kodKlasa": "46",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "BADANIA NAUKOWE I PRACE ROZWOJOWE W DZIEDZINIE NAUK SPOŁECZNYCH I HUMANISTYCZNYCH, ANALIZOWANE I SYNTEZOWANIE DANYCH OTRZYMYWANYCH W RAMACH PROWADZONYCH REJESTRÓW PROGRAMOWYCH I PREZENTOWANIE TYCH OGÓLNOPOLSKICH WYNIKÓW NA ZJAZDACH NAUKOWYCH W POLSCE I ZA GRANICĄ.",
+              "kodDzial": "72",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁA DZIAŁALNOŚĆ ROZRYWKOWA I REKREACYJNA, GDZIE INDZIEJ NIESKLASYFIKOWANA",
+              "kodDzial": "93",
+              "kodKlasa": "29",
+              "kodPodklasa": "B"
+            }
+          ]
+        }
+      },
+      "dzial4": {},
+      "dzial5": {},
+      "dzial6": {}
+    }
+  }
+}

@@ -1,0 +1,1288 @@
+{
+  "odpis": {
+    "rodzaj": "Aktualny",
+    "naglowekA": {
+      "rejestr": "RejP",
+      "numerKRS": "0000019193",
+      "dataCzasOdpisu": "04.10.2026 15:37:46",
+      "stanZDnia": "27.08.2026",
+      "dataRejestracjiWKRS": "11.06.2001",
+      "numerOstatniegoWpisu": 215,
+      "dataOstatniegoWpisu": "27.08.2026",
+      "sygnaturaAktSprawyDotyczacejOstatniegoWpisu": "WA.XII NS-REJ.KRS/49730/26/357",
+      "oznaczenieSaduDokonujacegoOstatniegoWpisu": "SĄD REJONOWY DLA M.ST. WARSZAWY W WARSZAWIE, XII WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO",
+      "stanPozycji": 1
+    },
+    "dane": {
+      "dzial1": {
+        "danePodmiotu": {
+          "formaPrawna": "SPÓŁKA AKCYJNA",
+          "identyfikatory": {
+            "regon": "00012680100000",
+            "nip": "5250000251"
+          },
+          "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA",
+          "daneOWczesniejszejRejestracji": {
+            "nazwaPoprzedniegoRejestru": "RHB",
+            "numerWPoprzednimRejestrze": "63218",
+            "sadProwadzacyRejestr": "SĄD REJONOWY DLA M. ST. WARSZAWY -SĄD GOSPODARCZY -XVI WYDZIAŁ REJESTROWY"
+          },
+          "czyProwadziDzialalnoscZInnymiPodmiotami": false,
+          "czyPosiadaStatusOPP": false
+        },
+        "siedzibaIAdres": {
+          "siedziba": {
+            "kraj": "POLSKA",
+            "wojewodztwo": "MAZOWIECKIE",
+            "powiat": "WARSZAWA",
+            "gmina": "WARSZAWA",
+            "miejscowosc": "WARSZAWA"
+          },
+          "adres": {
+            "ulica": "ALEJE JEROZOLIMSKIE",
+            "nrDomu": "142A",
+            "miejscowosc": "WARSZAWA",
+            "kodPocztowy": "02-305",
+            "poczta": "WARSZAWA",
+            "kraj": "POLSKA"
+          },
+          "adresStronyInternetowej": "WWW.PKP.PL",
+          "adresDoDoreczenElektronicznychWpisanyDoBAE": "AE:PL-45041-90153-DJGFJ-26"
+        },
+        "jednostkiTerenoweOddzialy": [
+          {
+            "nazwa": "PKP S.A.-ODDZIAŁ KOLEJOWA MEDYCYNA PRACY W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWSKI",
+              "gmina": "WARSZAWA-CENTRUM",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "CHMIELNA",
+              "nrDomu": "73 A",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "00-801",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W GDAŃSKU - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W GDAŃSKU",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "POMORSKIE",
+              "powiat": "M. GDAŃSK",
+              "gmina": "M. GDAŃSK",
+              "miejscowosc": "GDAŃSK"
+            },
+            "adres": {
+              "ulica": "DYREKCYJNA",
+              "nrDomu": "2-4",
+              "miejscowosc": "GDAŃSK",
+              "kodPocztowy": "80-852",
+              "poczta": "GDAŃSK",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W KATOWICACH - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W KATOWICACH",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "ŚLĄSKIE",
+              "powiat": "KATOWICE",
+              "gmina": "KATOWICE",
+              "miejscowosc": "KATOWICE"
+            },
+            "adres": {
+              "ulica": "UL. KONSTANTEGO DAMROTA",
+              "nrDomu": "8",
+              "miejscowosc": "KATOWICE",
+              "kodPocztowy": "40-022",
+              "poczta": "KATOWICE",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W KRAKOWIE - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W KRAKOWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAŁOPOLSKIE",
+              "powiat": "M. KRAKÓW",
+              "gmina": "M. KRAKÓW",
+              "miejscowosc": "KRAKÓW"
+            },
+            "adres": {
+              "ulica": "KAMIENNA",
+              "nrDomu": "8",
+              "miejscowosc": "KRAKÓW",
+              "kodPocztowy": "30-001",
+              "poczta": "KRAKÓW",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W POZNANIU - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W POZNANIU",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "WIELKOPOLSKIE",
+              "powiat": "M. POZNAŃ",
+              "gmina": "M. POZNAŃ",
+              "miejscowosc": "POZNAŃ"
+            },
+            "adres": {
+              "ulica": "AL. NIEPODLEGŁOŚCI",
+              "nrDomu": "8",
+              "miejscowosc": "POZNAŃ",
+              "kodPocztowy": "61-875",
+              "poczta": "POZNAŃ",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W WARSZAWIE - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "M.ST. WARSZAWA",
+              "gmina": "M.ST. WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "ARMATNIA",
+              "nrDomu": "14",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "01-246",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI WE WROCŁAWIU - PKP S.A. ODDZIAŁ GOSPODAROWANIA NIERUCHOMOŚCIAMI WE WROCŁAWIU",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "DOLNOŚLĄSKIE",
+              "powiat": "M. WROCŁAW",
+              "gmina": "M. WROCŁAW",
+              "miejscowosc": "WROCŁAW"
+            },
+            "adres": {
+              "ulica": "JOANNITÓW",
+              "nrDomu": "13",
+              "miejscowosc": "WROCŁAW",
+              "kodPocztowy": "50-525",
+              "poczta": "WROCŁAW",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "\"PKP S.A. ODDZIAŁ INFRASTRUKTURA KOLEJOWA\" Z SIEDZIBĄ W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWA",
+              "gmina": "WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "UL. SZCZĘŚLIWICKA",
+              "nrDomu": "62",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "00-973",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "PKP S.A.-ODDZIAŁ KOLEJOWA MEDYCYNA PRACY W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWA",
+              "gmina": "WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "ALEJE JEROZOLIMSKIE",
+              "nrDomu": "56 C",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "00-803",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          }
+        ],
+        "umowaStatut": {
+          "informacjaOZawarciuZmianieUmowyStatutu": [
+            {
+              "zawarcieZmianaUmowyStatutu": "1 GRUDNIA 2000 R.,NOTARIUSZ KATARZYNA MARIA SZACHUŁOWICZ-DESZCZYŃSKA,KANCELARIA NOTARIALNA W WARSZAWIE ,UL.MARSZAŁKOWSKA 53 M.22 ,00-676 WARSZAWA NR REP.A 7781/2000 ."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "09.10.2001R. REPERTORIUM A NR 2028/2001, NOTARIUSZ MARZENA RADLIŃSKA, KANCELARIA NOTARIALNA 02-094 WARSZAWA, UL. GRÓJECKA 53/57.\nPAR. 4-ZMIANA, TYTUŁ ROZDZIAŁU II-ZMIANA, PAR. 7 UST. 1-ZMIANA, M.4 PAR. 8 UST. 1-ZMIANA, PAR. 9 UST. 1-ZMIANA, PAR. 10 UST. 5-ZMIANA, TYTUŁ ROZDZIAŁU IV-ZMIANA, PAR. 12-ZMIANA, PAR. 13 UST. 3-ZMIANA, PAR. 13 UST. 4-DODANY, PAR. 14 UST. 1-ZMIANA, UST. 2-ZMIANA, UST. 3 PKT 1-ZMIANA, PAR. 17 UST. 5 I 8-ZMIANA, PAR. 22 UST. 1, UST.2 PKT 1,2,3 I 11-ZMIANA, PAR. 22 UST. 2 PKT 13-USUNIĘTY, PAR. 22 UST. 2 DOTYCHCZASOWY PKT 14 OZNACZONY JAKO 13-ZMIANA, PAR. 24 UST. 3 PKT 3-ZMIANA, PAR. 25 UST. 1 I UST. 3-ZMIANA, PAR. 27 UST. 3 PKT 4-ZMIANA, PAR 28 UST. 2 I UST. 3-ZMIANA, PAR. 30 UST. 1 PKT 1,2,3,4,5, I 7, UST. 2 I UST. 3-ZMIANA, PAR. 31-ZMIANA, PAR. 32 UST. 2-ZMIANA, PAR. 34 UST.1 PKT 1-ZMIANA, PAR. 35 PKT 1, 3 I 4-ZMIANA, PAR.36 UST. 2-ZMIANA, PAR. 37 UST. 1 I UST. 2-ZMIANA."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "12 GRUDNIA 2001R. REPERTORIUM A NR 2733/2001, NOTARIUSZ MARZENA RADLIŃSKA, KANCELARIA NOTARIALNA 02-094 WARSZAWA, UL.GRÓJECKA 53/57 M.4\n- PAR.13 UST.4 - USUNIĘTY"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 17 MARCA 2003 R., REP. A NR 486/2003, SPORZĄDZONY PRZEZ NOTARIUSZA MARZENĘ RADLIŃSKĄ; WPROWADZONO ZMIANY W: PAR.7, PAR.14, PAR.20, PAR.22, PAR.30."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 09 LIPCA 2003R., REP. A NR 1793/2003, SPORZĄDZONY PRZEZ NOTARIUSZA MARZENĘ RADLIŃSKĄ; WPROWADZONO ZMIANY W: PAR.9 I W PAR.10."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 27 WRZEŚNIA 2004 R., REP. A NR 2243/04, SPORZĄDZONY PRZEZ NOTARIUSZA MARZENNĘ RADLIŃSKĄ, WPROWADZONO ZMIANY W: PAR.7, PAR.13, PAR.14, PAR.17, PAR.22 I W PAR.30."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 20 WRZEŚNIA 2005R. REP.A NR 1534/2005, SPORZĄDZONY PRZEZ NOTARIUSZA MARZENĘ RADLIŃSKĄ;\nWPROWADZONO ZMIANY W : §7, §13, §14, §17 I W §30."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "09.10.2009 R.\nREP. A NR 66531/2009, NOTARIUSZ W WARSZAWIE TOMASZ CYGAN\n§7 UST.1, §13 DO §17, §20, §22, §23, §30, §35, §37"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 9.10.2009 R., REP. A NR 66531/2009 SPORZĄDZONY PRZEZ NOTARIUSZA TOMASZA CYGANA Z KANCELARII NOTARIALNEJ TOMASZ CYGAN - NOTARIUSZ, EWA MROCZEK - NOTARIUSZ, SPÓŁKA CYWILNA, 02-304 WARSZAWA, AL.JEROZOLIMSKIE 133/43, OBEJMUJĄCY CHWAŁĘ NR 20 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA PKP S.A. Z DNIA 9.10.2009 R., W SPRAWIE TEKSTU JEDNOLITEGO STATUTU PKP S.A."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "19.08.2011 R., REP. A NR 63244/2011, NOTARIUSZ TOMASZ CYGAN, 02-304 WARSZAWA, AL. JEROZOLIMSKIE 133/43\nW §30 UST.1 DODAJE SIĘ PKT 24A."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 08.08.2012 R., REP. A NR 22574/2012 SPORZĄDZONY PRZEZ NOTARIUSZA TOMASZA CYGANA Z KANCELARII NOTARIALNEJ TOMASZA CYGAN - NOTARIUSZ EWA MROCZEK - NOTARIUSZ SPÓŁKA CYWILNA, 02-304 WARSZAWA, AL.JEROZOLIMSKIE 133/43, §30 UST.1 PKT 24A"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 28.11.2012 R., REP. A NR 34091/2012, SPORZĄDZONY PRZEZ NOTARIUSZA TOMASZA CYGANA Z KANCELARII NOTARIALNEJ TOMASZ CYGAN - NOTARIUSZ EWA MROCZEK - NOTARIUSZ SPÓŁKA CYWILNA, 02-304 WARSZAWA, AL.JEROZOLIMSKIE 133/43, W §7 DODAJE SIĘ PKT 36 - 45"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "18.03.2014 R., REP. A NR 7433/2014 NOTARIUSZ TOMASZ CYGAN Z KANCELARII NOTARIALNEJ W WARSZAWIE AL. JEROZOLIMSKIE 133/43 \nZMIANA §22 UST. 2 PKT 6 ORAZ PKT 7 STATUTU SPÓŁKI"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "11 KWIETNIA 2014 ROK, REPERTORIUM A NR 8951/2014\nNOTARIUSZ TOMASZ CYGAN W KANCELARII NOTARIALNEJ W WARSZAWIE AL.JEROZOLIMSKIE 133/43\nZMIENIONO: §14 UST.5 PKT.3, §22 UST.2 PKT.6, §22 UST.2 PKT.7, §22 UST.2 PKT.10, §22 UST.2 PKT.11, §22 UST.2 PKT.15, §30 UST.1 PKT.15, §30 UST.1 PKT.16, §30 UST.1 PKT.16A.\nDODANO: W §30 UST.1 DODANO PKT.16B, §30 UST.1 DODANO PKT.16C\nUCHYLONO: W §30 UST.1 PKT.24 UCHYLONO LIT.C."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "28.04.2014 R., REP. A NR 10601/2014\nNOTARIUSZ TOMASZ CYGAN Z KANCELARII NOTARIALNEJ W WARSZAWIE AL. JEROZOLIMSKIE 133/43\n\nZMIENIONO: §17 UST. 4, §30 UST. 2"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "30.06.2014 R., REP. A NR 16507/2014; NOTARIUSZ TOMASZ CYGAN, KANCELARIA NOTARIALNA TOMASZ CYGAN - NOTARIUSZ, EWA MROCZEK - NOTARIUSZ, MAGDALENA NOWAK - NOTARIUSZ SPÓŁKA CYWILNA, WARSZAWA\n\nZMIENIONO: §5 UST. 3."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "17-09-2015 R., REPERTORIUM A NR 14424/2015, NOTARIUSZ TOMASZ CYGAN, KANCELARIA NOTARIALNA TOMASZ CYGAN - NOTARIUSZ EWA MROCZEK - NOTARIUSZ MAGDALENA NOWAK - NOTARIUSZ SPÓŁKA CYWILNA, AL. JEROZOLIMSKIE 133/43, 02-304 WARSZAWA\nZMIENIONO: § 7 UST 1 PKT 45, § 14 UST. 5 PKT 2, § 37 UST. 1\nDODANO: § 7 UST 1 PKT 46 - 48\nUSUNIĘTO: §37 UST. 4 I 5"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "02.11.2015 R. REPERTORIUM A NR 16149/2015 NOTARIUSZ TOMASZ CYGAN - KANCELARIA NOTARIALNA TOMASZ CYGAN - NOTARIUSZ, EWA MROCZEK - NOTARIUSZ, MAGDALENA NOWAK - NOTARIUSZ SPÓŁKA CYWILNA, AL. JEROZOLIMSKIE 133/43, 02-304 WARSZAWA,\nZMIENIONO: §17 UST. 5,\nDODANO: §17 UST. 12."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "10.11.2015 R., REP. A NR 16498/2015, NOTARIUSZ TOMASZ CYGAN- KANCELARIA NOTARIALNA TOMASZ CYGAN- NOTARIUSZ EWA MROCZEK- NOTARIUSZ, MAGDALENA NOWAK- NOTARIUSZ SPÓŁKA CYWILNA, AL. JEROZOLIMSKIE 133/43, 02-304 WARSZAWA, ZMIENIONO §30 UST.2"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "02.12.2015R., REP.A NR 17276/2015, NOTARIUSZ TOMASZ CYGAN - KANCELARIA NOTARIALNA TOMASZ CYGAN - NOTARIUSZ EWA MROCZEK - NOTARIUSZ, MAGDALENA NOWAK - NOTARIUSZ SPÓŁKA CYWILNA, AL.JEROZOLIMSKIE 133/43, 02-304 WARSZAWA, UCHYLONO §17 UST.12"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "13.04.2016 R., REP. A NR 3847/2016, NOTARIUSZ TOMASZ CYGAN, KANCELARIA NOTARIALNA AL.JEROZOLIMSKIE 133/43 02-304 WARSZAWA;\nZMIENIONO: §17 UST. 4 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "07.07.2017R., REP.A NR 5756/2017, NOTARIUSZ W WARSZAWIE TOMASZ CYGAN, ZMIENIONO: §4, §7 UST.1 PKT 48, §13 UST.1, §14 UST.3 PKT 4, §14 UST.5 I 6, §16 UST.1, §16 UST.3-5, §17 UST.7, §17 UST.11, §22 UST.2 PKT 6 I 7, §22 UST.2 PKT 10 I 11, §22 UST.2 PKT 13, §23 UST.2 I 3, §27 UST.3, §29, §30 UST.1 PKT 16 I 16A, §30 UST.1 PKT 20, §30 UST.2, §32 UST.1 I 2, DODANO: §7 UST.1 PKT 49 I 50, §14 UST.3 PKT 4A, §14 UST.11, §17 UST.1A, §17 UST.4A, §22 UST.2 PKT 15A I 15B, §23 UST.1A, §30 UST.1 PKT 14A-14D, §30 UST.1 PKT 20A I 20B, §38, UCHYLONO: §16 UST.6, §22 UST.2 PKT 7A, §30 UST.1 PKT 17."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "09.08.2018 R., REP. A NR 11021/2018, NOTARIUSZ MAREK WATRAKIEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE, ZMIANA § 7 UST. 1 PKT 50), DODANO § 7 UST. 1 PKT 51 - PKT 56)"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "30.12.2019 R., REP. A NR 39076/2019, NOTARIUSZ ROBERT BŁASZCZAK, KANCELARIA NOTARIALNA W WARSZAWIE, ZMIANA: § 4, § 10 UST. 4 I 5, § 13 UST. 3, § 14 UST. 3 PKT 4 I PKT 4A, § 14 UST. 11, § 17 UST. 4A, § 18 UST. 2, § 22 UST. 2 PKT 7, PKT 7B, PKT 10, PKT 11 LIT. A), PKT 14, PKT 15A LIT. A), § 30 UST. 1 PKT 7, PKT 14A, W PKT 14B LIR. B), W PKT 14C LIT. A, PKT 14D, PKT 16B, PKT 24, W § 35 PKT 2-4, § 37 UST. 3.\nDODANO: W § 4 UST. 2, W § 14 W UST. 3 PKT 6 I 7. W § 30 W UST. 1 W PKT 24 LIT. E) I F), W § 22 W UST. 2 PKT 9A, PKT 15C. PRZEPISY UCHYLONE: W § 14 UST. 4, W § 30 W UST. 1 PKT 20A, § 32, § 38 UST. 2"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "14.08.2020, REP. A NR 32141/2020, NOTARIUSZ ROBERT BŁASZCZAK, KANCELARIA NOTARIALNA W WARSZAWIE, ZMIANA: § 19 UST. 2, § 20 UST. 4."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "8 KWIETNIA 2021 R. REPERTORIUM A NR 11750/2021, ROBERT BŁASZCZAK NOTARIUSZ W WARSZAWIE PROWADZĄCY KANCELARIĘ PRZY PALCU BANKOWYM 1; KANCELARIA NOTARIALNA PAWEŁ BŁASZCZAK, ROBERT BŁASZCZAK, RAFAŁ GĄSIEWSKI, MICHAŁ BŁASZCZAK, MONIKA FYK, TOMASZ MERTA, NOTARIUSZE SPÓŁKA CYWILNA, 00-0139 WARSZAWA, PLAC BANKOWY 1.\nPRZEPISY ZMIENIONE: § 10 UST. 1,2,3; § 19 UST. 2; § 20 UST. 3 I 4; W § 36 UST. 4; W§ 37 UST. 2.\n\nPRZEPISY DODANE: W § 20 DODANO UST. 4A; W § 30 W UST. 1 DODANO PKT 25A; W § 36 DODANO UST.\n5"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "29.12.2022 R., REP. A NR 52434/2022, NOTARIUSZ TOMASZ MERTA, KANCELARIA NOTARIALNA W WARSZAWIE PRZY PALCU BANKOWYM 1,\n1. §7 – PO UST. 2 DODAJE SIĘ UST. 3 I 4; DOTYCHCZASOWY UST. 3 OTRZYMUJE NR 5, DOTYCHCZASOWY UST. 4 OTRZYMUJE NR 6 I NOWE BRZMIENIE. \n2. §14 – PO UST. 1 DODAJE SIĘ UST. 2, DOTYCHCZASOWY UST. 2 OTRZYMUJE NR 3, DOTYCHCZASOWY UST. 3 OTRZYMUJE NR 4 I W PKT 4) I PKT 4A) NOWE BRZMIENIE, DOTYCHCZASOWY UST. 4 OTRZYMUJE NR 5, DOTYCHCZASOWY UST. 5 OTRZYMUJE NR 6 I W PKT 1) NOWE BRZMIENIE, DOTYCHCZASOWY UST. 6 OTRZYMUJE NR 7 I NOWE BRZMIENIE, DOTYCHCZASOWE UST. 7 I 8 OTRZYMUJĄ ODPOWIEDNIO NR 8 I 9, PO UST. 9 W NOWYM BRZMIENIU DODAJE SIĘ UST. 10 I UST. 11, DOTYCHCZASOWY UST. 9 OTRZYMUJE NR 12, PO UST. 12 W NOWYM BRZMIENIU DODAJE SIĘ UST. 13-15, DOTYCHCZASOWE UST. 10 I 11 OTRZYMUJĄ ODPOWIEDNIO NR 16 I 17, PO UST. 17 W NOWYM BRZMIENIU DODAJE SIĘ UST. 18.\n3. §15 – ZMIENIONO UST. 3.\n4. §19 – PO UST. 1 DODAJE SIĘ UST.2, DOTYCHCZASOWE UST. 2 I 3 OTRZYMUJĄ ODPOWIEDNIO NR 3 I 4.\n5. §20 - ZMIENIONO UST. 1, PO UST.1 DODAJE SIĘ UST.2, DOTYCHCZASOWE UST. 2-6 OTRZYMUJĄ ODPOWIEDNIO NR 3-7. \n6. § 22 - PO UST.1 DODAJE SIĘ UST.2; DOTYCHCZASOWY UST. 2 OTRZYMUJE NR 3; W UST. 3 W NOWYM BRZMIENIU: ZMIENIA SIĘ PKT 4) I 8), PO PKT 8) DODAJE SIĘ PKT 9) I 10), DOTYCHCZASOWE PKT 9)-12) OTRZYMUJĄ ODPOWIEDNIO NR 11)-14), DOTYCHCZASOWY PKT 13) OTRZYMUJE NR 15 I NOWE BRZMIENIE, DOTYCHCZASOWE PKT 14-15A OTRZYMUJĄ ODPOWIEDNIO NR 16-17A, DOTYCHCZASOWY PKT 15B) OTRZYMUJE NR 17B I NOWE BRZMIENIE, DOTYCHCZASOWY PKT 15C) OTRZYMUJE NR 17C, PO PKT 17C W NOWYM BRZMIENIU DODAJE SIĘ PKT 18), DOTYCHCZASOWY PKT 16) OTRZYMUJE NR 19 I NOWE BRZMIENIE.\n7. §23 – PO UST. 1A DODAJE SIĘ UST. 2 I 3, DOTYCHCZASOWE UST. 2-4 OTRZYMUJĄ ODPOWIEDNIO NR 4-6.\n8. §30 – PO UST. 4 DODAJE SIĘ UST. 5.\n9. §35 – ZMIENIA SIĘ PKT 4)."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "04.04.2023 R.; REP. A NR 9410/2023; NOTARIUSZ ROBERT BŁASZCZAK; KANCELARIA NOTARIALNA W WARSZAWIE PRZY PLACU BANKOWYM 1, 00-139 WARSZAWA.\nZMIENIONO: §13 UST. 1 ZDANIE PIERWSZE, §13 UST. 6, §30 UST. 1 PKT 19)."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "18.11.2024 R., REPERTORIUM A NR 25331/2024; NOTARIUSZ MAREK WATRAKIEWICZ; KANCELARIA NOTARIALNA W WARSZAWIE PRZY UL. BOYA-ŻELEŃSKIEGO 6/26, \n00-621 WARSZAWA;\nDODANO: §13¹, §22 UST. 3 PKT 8A I 8B."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "29.10.2025 R., REPERTORIUM A NR 19734/2025, NOTARIUSZ MAREK WATRAKIEWICZ; KANCELARIA NOTARIALNA W WARSZAWIE PRZY UL. BOYA-ŻELEŃSKIEGO 6/26, 00-621 WARSZAWA;\nZMIENIONO: §13 UST. 5, §17 UST. 1, §17 UST. 10, §22 UST. 3 PKT 16), §30 UST. 1 PKT 24);\nDODANO: §20 UST. 6A."
+            }
+          ]
+        },
+        "pozostaleInformacje": {
+          "czasNaJakiUtworzonyZostalPodmiot": "NIEOZNACZONY",
+          "czyUmowaStatutPrzyznajeUprawnieniaOsobiste": false,
+          "czyObligatoriuszeMajaPrawoDoUdzialuWZysku": false
+        },
+        "sposobPowstaniaPodmiotu": {
+          "okolicznosciPowstania": "PRZEKSZTAŁCENIE",
+          "opisSposobuPowstaniaInformacjaOUchwale": "AKT KOMERCJALIZACJI PRZEDSIĘBIORSTWA PAŃSTWOWEGO \"POLSKIE KOLEJE PAŃSTWOWE\" Z DNIA 01.12.2000 R. - NA PODSTAWIE ART. 3 UST.1 I 3 USTAWY Z DNIA 08.09.2000 R. O KOMERCJALIZACJI,RESTRUKTURYZACJI I PRYWATYZACJI PRZEDSIĘBIORSTWA PAŃSTWOWEGO \"POLSKIE KOLEJE PAŃSTWOWE\" / DZ.U.NR 84,POZ.948/",
+          "podmioty": [
+            {
+              "nazwa": "POLSKIE KOLEJE PAŃSTWOWE SPÓŁKA AKCYJNA - PKP S.A.,------",
+              "krajNazwaRejestruEwidencji": "------,RHB",
+              "numerWRejestrzeAlboEwidencji": "63218",
+              "nazwaSaduOrganuProwadzacegoRejestrEwidencje": "SĄD REJONOWY DLA M. ST. WARSZAWY - SĄD GOSPODARCZY - XVI WYDZIAŁ REJESTROWY",
+              "identyfikator": {
+                "regon": "00012680100000"
+              }
+            }
+          ]
+        },
+        "jedynyAkcjonariusz": [
+          {
+            "nazwa": "SKARB PAŃSTWA",
+            "identyfikator": {},
+            "krs": {
+              "krs": "0000000000"
+            },
+            "czyPosiadaCaloscAkcji": false
+          }
+        ],
+        "kapital": {
+          "wysokoscKapitaluZakladowego": {
+            "wartosc": "10150715600,00",
+            "waluta": "PLN"
+          },
+          "lacznaLiczbaAkcjiUdzialow": "101507156",
+          "wartoscJednejAkcji": {
+            "wartosc": "100,00",
+            "waluta": "PLN"
+          },
+          "czescKapitaluWplaconegoPokrytego": {
+            "wartosc": "10150715600,00",
+            "waluta": "PLN"
+          },
+          "wniesioneAporty": {}
+        },
+        "emisjeAkcji": [
+          {
+            "nazwaSeriiAkcji": "SERIA B",
+            "liczbaAkcjiWSerii": "1507156",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "SERIA A",
+            "liczbaAkcjiWSerii": "100000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          }
+        ],
+        "wzmiankaOUpowaznieniuDoEmisjiWarrantowSubskrypcyjnych": {
+          "czyZarzadJestUprawnionyDoEmisjiWarrantowSubskrypcyjnych": false
+        }
+      },
+      "dzial2": {
+        "reprezentacja": {
+          "nazwaOrganu": "ZARZĄD SPÓŁKI",
+          "sposobReprezentacji": "DO SKŁADANIA OŚWIADCZEŃ WOLI I PODPISYWANIA W IMIENIU SPÓŁKI WYMAGANE JEST WSPÓŁDZIAŁANIE PREZESA I CZŁONKA ZARZĄDU, DWÓCH CZŁONKÓW ZARZĄDU ALBO JEDNEGO CZŁONKA ZARZĄDU ŁĄCZNIE Z PROKURENTEM. JEŻELI ZARZĄD JEST JEDNOOSOOWY, DO SKŁADANIA OŚWIADCZEŃ WOLI I PODPISYWANIA W IMIENIU SPÓŁKI UPOWAŻNIONY JEST JEDEN CZŁONEK ZARZĄDU. PREZES ZARZĄDU SPÓŁKI, W ZAKRESIE REALIZACJI ZADAŃ OBRONNYCH W SPÓŁCE WYNIKAJĄCYCH Z PRZEPISÓW O POWSZECHNYM OBOWIĄZKU OBRONY ORAZ KOORDYNACJI ZADAŃ OBRONNYCH REALIZOWANYCH W SPÓŁKACH UTWORZONYCH PRZEZ PKP S.A. NA PODSTAWIE ART. 14, 15 I 19 USTAWY Z DNIA 8 WRZEŚNIA 2000 R. O KOMERCJALIZACJI, RESTRUKTURYZACJI I PRYWATYZACJI PRZEDSIĘBIORSTWA PAŃSTWOWEGO POLSKIE KOLEJE PAŃSTWOWE (DZ. U. 2000 NR 84 POZ. 948 Z PÓŹN. ZM), UPRAWNIONY JEST DO JEDNOOSOBOWEGO SKŁADANIA OŚWIADCZEŃ WOLI I PODPISYWANIA W IMIENIU SPÓŁKI.",
+          "sklad": [
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "B*****"
+              },
+              "imiona": {
+                "imie": "A***",
+                "imieDrugie": "M*****"
+              },
+              "identyfikator": {
+                "pesel": "8**********"
+              },
+              "funkcjaWOrganie": "PREZES ZARZĄDU",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "L********"
+              },
+              "imiona": {
+                "imie": "P****",
+                "imieDrugie": "J**"
+              },
+              "identyfikator": {
+                "pesel": "7**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "G*****"
+              },
+              "imiona": {
+                "imie": "D******",
+                "imieDrugie": "G*******"
+              },
+              "identyfikator": {
+                "pesel": "7**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "B*********"
+              },
+              "imiona": {
+                "imie": "A******",
+                "imieDrugie": "S********"
+              },
+              "identyfikator": {
+                "pesel": "8**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU",
+              "czyZawieszona": false
+            }
+          ]
+        },
+        "organNadzoru": [
+          {
+            "nazwa": "RADA NADZORCZA",
+            "sklad": [
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "M*****"
+                },
+                "imiona": {
+                  "imie": "L*****"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "M*******"
+                },
+                "imiona": {
+                  "imie": "B******",
+                  "imieDrugie": "A***"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "P********"
+                },
+                "imiona": {
+                  "imie": "J**"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "M*****"
+                },
+                "imiona": {
+                  "imie": "A******"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S********"
+                },
+                "imiona": {
+                  "imie": "Ł*****",
+                  "imieDrugie": "Z*******"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "W*****"
+                },
+                "imiona": {
+                  "imie": "T*****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "O**********"
+                },
+                "imiona": {
+                  "imie": "A***",
+                  "imieDrugie": "S********"
+                },
+                "identyfikator": {
+                  "pesel": "8**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S**********"
+                },
+                "imiona": {
+                  "imie": "M*****",
+                  "imieDrugie": "B*********"
+                },
+                "identyfikator": {
+                  "pesel": "8**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "N*******"
+                },
+                "imiona": {
+                  "imie": "B******",
+                  "imieDrugie": "J****"
+                },
+                "identyfikator": {
+                  "pesel": "9**********"
+                }
+              }
+            ]
+          }
+        ],
+        "prokurenci": [
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "S*******"
+            },
+            "imiona": {
+              "imie": "M*****",
+              "imieDrugie": "M****"
+            },
+            "identyfikator": {
+              "pesel": "7**********"
+            },
+            "rodzajProkury": "ŁĄCZNA"
+          },
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "S***"
+            },
+            "imiona": {
+              "imie": "M******",
+              "imieDrugie": "Z*******"
+            },
+            "identyfikator": {
+              "pesel": "6**********"
+            },
+            "rodzajProkury": "ŁĄCZNA"
+          }
+        ]
+      },
+      "dzial3": {
+        "przedmiotDzialalnosci": {
+          "przedmiotPrzewazajacejDzialalnosci": [
+            {
+              "opis": "DZIAŁALNOŚĆ FIRM CENTRALNYCH (HEAD OFFICES) I HOLDINGÓW, Z WYŁĄCZENIEM HOLDINGÓW FINANSOWYCH",
+              "kodDzial": "70",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            }
+          ],
+          "przedmiotPozostalejDzialalnosci": [
+            {
+              "opis": "WYNAJEM I ZARZĄDZANIE NIERUCHOMOŚCIAMI WŁASNYMI LUB DZIERŻAWIONYMI",
+              "kodDzial": "68",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "KUPNO I SPRZEDAŻ NIERUCHOMOŚCI NA WŁASNY RACHUNEK",
+              "kodDzial": "68",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ USŁUGOWA WSPOMAGAJĄCA TRANSPORT LĄDOWY",
+              "kodDzial": "52",
+              "kodKlasa": "21",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "REALIZACJA PROJEKTÓW BUDOWLANYCH ZWIĄZANYCH ZE WZNOSZENIEM BUDYNKÓW",
+              "kodDzial": "41",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "ROBOTY BUDOWLANE ZWIĄZANE ZE WZNOSZENIEM BUDYNKÓW MIESZKALNYCH I NIEMIESZKALNYCH",
+              "kodDzial": "41",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "ROZBIÓRKA I BURZENIE OBIEKTÓW BUDOWLANYCH",
+              "kodDzial": "43",
+              "kodKlasa": "11",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "PRAKTYKA LEKARSKA OGÓLNA",
+              "kodDzial": "86",
+              "kodKlasa": "21",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁA DZIAŁALNOŚĆ W ZAKRESIE OPIEKI ZDROWOTNEJ, GDZIE INDZIEJ NIESKLASYFIKOWANA",
+              "kodDzial": "86",
+              "kodKlasa": "90",
+              "kodPodklasa": "E"
+            },
+            {
+              "opis": "POZOSTAŁE DORADZTWO W ZAKRESIE PROWADZENIA DZIAŁALNOŚCI GOSPODARCZEJ I ZARZĄDZANIA",
+              "kodDzial": "70",
+              "kodKlasa": "22",
+              "kodPodklasa": "Z"
+            }
+          ]
+        },
+        "wzmiankiOZlozonychDokumentach": {
+          "wzmiankaOZlozeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "31.07.2001",
+              "zaOkresOdDo": "01.01.2000R.-31.12.2000R."
+            },
+            {
+              "dataZlozenia": "13.08.2002",
+              "zaOkresOdDo": "1.01.2001 - 31.12.2001"
+            },
+            {
+              "dataZlozenia": "30.07.2003",
+              "zaOkresOdDo": "01.01.2002 - 31.12.2002"
+            },
+            {
+              "dataZlozenia": "19.07.2004",
+              "zaOkresOdDo": "01.01.2003 - 31.12.2003"
+            },
+            {
+              "dataZlozenia": "14.07.2005",
+              "zaOkresOdDo": "01.01.2004 - 31.12.2004"
+            },
+            {
+              "dataZlozenia": "17.07.2006",
+              "zaOkresOdDo": "01.01.2005-31.12.2005"
+            },
+            {
+              "dataZlozenia": "31.07.2007",
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "dataZlozenia": "14.08.2008",
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "dataZlozenia": "15.07.2009",
+              "zaOkresOdDo": "01.01.2008-31.12.2008"
+            },
+            {
+              "dataZlozenia": "09.07.2010",
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "dataZlozenia": "16.06.2011",
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "dataZlozenia": "10.07.2012",
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "dataZlozenia": "03.07.2013",
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "dataZlozenia": "03.07.2014",
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "dataZlozenia": "06.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "08.07.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "19.07.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "06.08.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "19.07.2019",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "24.08.2020",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "03.08.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "04.08.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "05.07.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "05.08.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "08.07.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "09.07.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "01.01.2000R.-31.12.2000R."
+            },
+            {
+              "zaOkresOdDo": "1.01.2001 - 31.12.2001"
+            },
+            {
+              "zaOkresOdDo": "01.01.2002 - 31.12.2002"
+            },
+            {
+              "zaOkresOdDo": "01.01.2003 - 31.12.2003"
+            },
+            {
+              "zaOkresOdDo": "01.01.2004 - 31.12.2004"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005-31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008-31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "01.01.2000R.-31.12.2000R."
+            },
+            {
+              "zaOkresOdDo": "1.01.2001 - 31.12.2001"
+            },
+            {
+              "zaOkresOdDo": "01.01.2002 - 31.12.2002"
+            },
+            {
+              "zaOkresOdDo": "01.01.2003 - 31.12.2003"
+            },
+            {
+              "zaOkresOdDo": "01.01.2004 - 31.12.2004"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005-31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosci": [
+            {
+              "zaOkresOdDo": "01.01.2000R.-31.12.2000R."
+            },
+            {
+              "zaOkresOdDo": "1.01.2001 - 31.12.2001"
+            },
+            {
+              "zaOkresOdDo": "01.01.2002 - 31.12.2002"
+            },
+            {
+              "zaOkresOdDo": "01.01.2003 - 31.12.2003"
+            },
+            {
+              "zaOkresOdDo": "01.01.2004 - 31.12.2004"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005-31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "0101.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008-31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "sprawozdaniaGrupyKapitalowej": {
+          "wzmiankaOZlozeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "24.09.2007",
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "dataZlozenia": "08.09.2008",
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "dataZlozenia": "15.09.2009",
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "dataZlozenia": "15.07.2010",
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "dataZlozenia": "13.07.2011",
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "dataZlozenia": "10.07.2012",
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "dataZlozenia": "03.07.2013",
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "dataZlozenia": "03.07.2014",
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "dataZlozenia": "06.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "08.07.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "19.07.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "06.08.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "19.07.2019",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "24.08.2020",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "03.08.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "04.08.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "05.07.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "05.08.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "08.07.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "09.07.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosciGrupyKapitalowejSpolkiDominujacejLacznie": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007 - 31.12.2007"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009 - 31.12.2009"
+            },
+            {
+              "zaOkresOdDo": "01.01.2010 - 31.12.2010"
+            },
+            {
+              "zaOkresOdDo": "01.01.2011-31.12.2011"
+            },
+            {
+              "zaOkresOdDo": "01.01.2012 - 31.12.2012"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosciGrupyKapitalowej": [
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "informacjaODniuKonczacymRokObrotowy": {
+          "dzienKonczacyPierwszyRokObrotowy": "31.12.2001"
+        }
+      },
+      "dzial4": {},
+      "dzial5": {},
+      "dzial6": {
+        "polaczeniePodzialPrzeksztalcenie": [
+          {
+            "okreslenieOkolicznosci": "PRZEJĘCIE INNEJ SPÓŁKI",
+            "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE PRZEZ PRZEJĘCIE W TRYBIE ART. 492 § 1 PKT 1 K.S.H. POPRZEZ PRZENIESIENIE CAŁEGO MAJĄTKU DRUKARNIA KOLEJOWA KRAKÓW SP. Z O.O. Z SIEDZIBĄ W WĘGRZCACH (SPÓŁKA PRZEJMOWANA) NA PKP S.A. Z SIEDZIBĄ W WARSZAWIE (SPÓŁKA PRZEJMUJĄCA), ZGODNIE Z ART. 516 § 6 K.S.H. I ART. 515 § 1 K.S.H. - BEZ PODWYŻSZENIA KAPITAŁU ZAKŁADOWEGO SPÓŁKI PRZJMUJĄCEJ. UCHWAŁA NR 36/2018 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA PKP S.A. Z 09.08.2018 R., NOTARIUSZ MAREK WATRAKIEWICZ, REP. A NR 11021/2018 I UCHWAŁA NR 1 NADZWYCZAJNEGO ZGROMADZENIA WSPÓLNIKÓW DRUKARNIA KOLEJOWA KRAKÓW SP. Z O.O. Z 24.09.2018 R., NOTARIUSZ MAREK WATRAKIEWICZ, REP. A NR 13442/2018",
+            "podmiotyPrzejmowane": [
+              {
+                "nazwa": "DRUKARNIA KOLEJOWA KRAKÓW SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ, SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+                "krajNazwaRejestru": "POLSKA, KRAJOWY REJESTR SĄDOWY",
+                "krs": {
+                  "krs": "0000027610"
+                },
+                "nazwaSadu": "*******",
+                "identyfikator": {
+                  "regon": "35711392800000"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

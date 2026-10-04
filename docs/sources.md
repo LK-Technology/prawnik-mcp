@@ -125,6 +125,98 @@ Status as of 2026-09-28. Technical description, **not legal advice**. "Unverifie
   - Ids are article slugs, stable as long as editors do not rename articles.
   - Overlap with SAOS (`courtType = CONSTITUTIONAL_TRIBUNAL`, up to 2015): the same ruling can exist as `saos:<id>` and `tk:<section>/<slug>`, and a case-number lookup then returns `ambiguous`.
 
+## Registries — KRS, VAT white list, VIES (on-demand lookups)
+
+Status as of 2026-10-04. Technical description, **not legal advice**. Code: `src/prawnik_mcp/registries/`
+(`ids.py`, `krs.py`, `wl_vat.py`, `vies.py`, `lookup.py`). Catalog role `lookup`: nothing is synced, indexed or
+searchable as a document; the MCP tool `lookup_entity` asks the registries live.
+
+- **Identifiers (`ids.py`, offline):** NIP (weights 6,5,7,2,3,4,5,6,7, mod 11), REGON 9/14 (KRS writes a 9-digit REGON
+  padded with `00000`; it is shortened back), KRS (zero-padded to 10), Polish NRB/IBAN (mod 97), EU VAT (per-country
+  VIES formats; GR -> EL). 11-digit input is refused as a possible PESEL; text is refused as a name. **There is no search
+  by name, surname or PESEL, and no bank-account owner lookup.**
+- **Paths and cost:** NIP/REGON -> white-list search (1 search) -> KRS current extract if the subject has a KRS number
+  (1–2 GETs). KRS -> KRS extract (P, then S) -> white-list search by the extract's NIP (1 search; `include_vat=false`
+  skips it). EU VAT -> VIES (1 POST); PL VAT also runs the NIP path. `bank_account` -> white-list check (1 of the
+  'check' quota). `include_full_history` -> KRS full extract (1 GET). A struck-off entity always costs the full extract.
+
+### KRS — open API of the Ministry of Justice
+- **Endpoints (verified 2026-10-04):** `GET https://api-krs.ms.gov.pl/api/krs/OdpisAktualny/{krs}?rejestr={P|S}&format=json`
+  and `/OdpisPelny/…`. No key, no published rate limit; we use 0.5 req/s.
+- **Answers observed:** 200 JSON (`odpis.naglowekA|naglowekP`, `odpis.dane.dzial1..6`); 404 problem JSON = no entity
+  with this number in this register (we try P, then S; both 404 = `not_found`); 400 = malformed number (never sent);
+  **204 with an empty body on OdpisAktualny = struck-off entity** (0000018507, 0000065491, 0000300472): its full
+  extract has `stanPozycji = 2` and a last entry "WYKREŚLENIE Z KRAJOWEGO REJESTRU SĄDOWEGO". `stanPozycji` is
+  undocumented (1 active, 2 struck off, 3 seen on the active WOŚP foundation) and only passed through.
+- **Card:** name, legal form, KRS/NIP/REGON, register, seat and company address, registration date, last entry, share
+  capital, main PKD, representation (organ, rule verbatim, members masked with functions), supervisory bodies, prokura
+  (verbatim type), status flags from dział 6 (liquidation, bankruptcy, restructuring, dissolution, receivership:
+  `entry_in_register`, `ending_entry_present`, statutory name marker such as "W UPADŁOŚCI", verbatim entries),
+  struck-off status with its basis, financial statement filings (years), mergers/transformations, and the keys of any
+  other dział 4/5/6 entries. Provenance: URL, `fetched_at`, `state_as_of` = `stanZDnia`, snapshot id, processing note.
+- **Full extract:** every value carries entry numbers (`nrWpisuWprow`/`nrWpisuWykr`); the card of a struck-off entity is
+  the state before the deletion entry, and `include_full_history` + `date` gives the register state after the last entry
+  made by that date (entry dates, not event dates: board entries are declaratory).
+- **Personal data:** MS masks names and PESEL in structured fields ("F*****", "5**********"); masked names are returned
+  as given, never unmasked, and the masked PESEL is not returned. **Free-text fields are not masked by MS**: ORLEN's
+  `rodzajProkury` carried full names with PESEL numbers. Before output every 11-digit number in free text is removed,
+  the name before "PESEL" is masked, names matching a listed person's masked shape (initials + lengths) are masked, and a
+  final pass drops any PESEL-valid number. Other names in free text (e.g. notaries) stay as published. Raw extracts are
+  kept unchanged as local snapshots only.
+- **Terms:** open API launched 2022-03-08 under the open data act, "z uwzględnieniem przepisów RODO" (gov.pl, read
+  2026-10-04). No API terms found; prs.ms.gov.pl/krs/openApi is a JavaScript page that was not rendered (unverified).
+  Open-data reuse conditions (source, time of creation/obtaining, processing) are met by the provenance fields.
+- **Warnings returned:** an API extract does not replace an official KRS extract; no liquidation/bankruptcy entry is not
+  proof of good standing; names are masked by MS.
+
+### VAT white list (Wykaz podatników VAT, MF)
+- **Endpoints (verified 2026-10-04):** `GET https://wl-api.mf.gov.pl/api/search/nip/{nip}?date=` (and `/search/regon/`),
+  `GET /api/check/nip/{nip}/bank-account/{nrb}?date=` -> `accountAssigned` TAK/NIE + `requestId`. Subject fields seen:
+  name, nip, statusVat, regon, pesel, krs, residenceAddress, workingAddress, representatives, authorizedClerks, partners,
+  registrationLegalDate, registrationDenialBasis/Date, restorationBasis/Date, removalBasis/Date, exemptionSmeDate,
+  accountNumbers, hasVirtualAccounts.
+- **Quota (gov.pl/web/kas/api-wykazu-podatnikow-vat):** search 100/day, check 5000/day; then access may be blocked until
+  0:00, also for the podatki.gov.pl web search. Guard: table `registry_quota` (migration 6), Europe/Warsaw day, search
+  <= 80, check <= 4500, counted before sending; at the limit nothing is sent (`daily_quota_exhausted`, top-level
+  `blocked`). No retries for white-list calls. HTTP 429 is assumed to mean an exhausted MF quota (not observed).
+- **Date:** required, not future, <= 5 years back; validated locally. NIP checksums are validated locally (the API
+  answers a bad checksum like an unknown NIP).
+- **Personal data:** a subject with a PESEL or without a KRS number is treated as a possible natural person: only name,
+  NIP, VAT status, town, number of accounts and registration/removal dates are returned, and only a minimised copy of the
+  answer is stored. Others: representatives, clerks and partners by name only. Accounts are never listed; a caller's
+  account is checked (TAK/NIE) and shown as `…1234`.
+- **requestId:** MF's electronic identifier of the query (what, for which day, when); returned with a note to keep it as
+  proof of the check.
+
+### VIES (European Commission)
+- **Endpoints (verified 2026-10-04):** `POST https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number`,
+  `GET …/check-status`. `requester_vat` adds a consultation number (not verified live).
+- **Terms (VIES disclaimer, read 2026-10-04 from the site's own text):** confirmation of VAT numbers only; extraction,
+  retransmission, copying or reproduction forbidden. **Answers are never cached, stored, logged or recorded as fixtures.**
+
+### Network log and fixtures
+- 2026-10-04: about 37 KRS GETs (probes and verification, >= 2 s apart), 5 white-list searches + 1 check, 3 VIES calls
+  (2 checks + 1 status), User-Agent `prawnik-mcp/0.2.0.dev0`.
+- `tests/fixtures/raw/registries/krs/` (redacted copies, <= 63 KB each): current extracts of ORLEN 0000028860 (free-text
+  PESEL removed, names next to them masked, e-mail replaced), PKP 0000019193, WOŚP 0000030897 (register S), Capitea
+  0000413997 (restructuring ended), Getin Noble Bank w upadłości 0000304735 (bankruptcy, BFG resolution); full extract of
+  struck-off PBG Avatia 0000300472; 404 and 400 problem bodies.
+- `tests/fixtures/raw/registries/wl_vat/`: searches for NIP 7740001454 and 5250000251 (account numbers replaced by
+  `REDACTED-ACCOUNT-nnn`), a not-found answer (9999999999), a check answer (TAK).
+
+## NBP — average exchange rates (api.nbp.pl)
+
+Status as of 2026-10-04. Technical description, **not legal advice**.
+
+- **Endpoint (verified 2026-10-04):** `GET https://api.nbp.pl/api/exchangerates/rates/{a|b}/{code}/{from}/{to}/?format=json`. No key. A range without a published table answers 404 (`404 NotFound`), which also happens for a currency missing from the table.
+- **How we use it:** the `exchange_rate` tool asks for the 14 days (then 45) before the event date and takes the last published average rate, i.e. the rate "z ostatniego dnia roboczego poprzedzającego" the event (art. 31a ust. 1–2 of the VAT Act, art. 11a ust. 1–3 of the PIT Act). Results are cached for 30 days; historical rates do not change.
+- **Terms:** no terms beyond the API description were found; robots.txt answers 404. Rates are official NBP data. Attribution: "Źródło: Narodowy Bank Polski (api.nbp.pl)".
+- **Known gaps:** only average rates (tables A and B); other statutes (e.g. the CIT Act, customs) may use other rules, so the tool returns the legal basis only for `purpose = vat | pit`.
+
+## Deadline calculator (no external source)
+
+`compute_deadline` applies Ordynacja podatkowa art. 12 § 1–5, Kodeks cywilny art. 111, 112 and 115 (also court civil procedure via art. 165 § 1 kpc) or KPA art. 57 § 1–4, and the list of statutory days off in art. 1 of the Act of 18 January 1951 (`eli:DU/1951/28`; 6 January since 2011-01-01, 24 December since 2025-02-01). It does not decide when a term starts, whether posting or electronic delivery kept it, or whether a term was suspended; dates before 1990-05-01 are rejected.
+
 ## Cellar — Publications Office of the EU
 
 - **Endpoint:** `https://publications.europa.eu/resource/celex/{CELEX}` with `Accept: application/xhtml+xml` (or `text/html`) and `Accept-Language: pol`. The SPARQL endpoint is `https://publications.europa.eu/webapi/rdf/sparql`.

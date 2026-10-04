@@ -1,0 +1,1453 @@
+{
+  "odpis": {
+    "rodzaj": "Aktualny",
+    "naglowekA": {
+      "rejestr": "RejP",
+      "numerKRS": "0000028860",
+      "dataCzasOdpisu": "04.10.2026 15:37:50",
+      "stanZDnia": "17.09.2026",
+      "dataRejestracjiWKRS": "19.07.2001",
+      "numerOstatniegoWpisu": 220,
+      "dataOstatniegoWpisu": "17.09.2026",
+      "sygnaturaAktSprawyDotyczacejOstatniegoWpisu": "LD.XX NS-REJ.KRS/24604/26/528",
+      "oznaczenieSaduDokonujacegoOstatniegoWpisu": "SĄD REJONOWY DLA ŁODZI ŚRÓDMIEŚCIA W ŁODZI, XX WYDZIAŁ GOSPODARCZY KRAJOWEGO REJESTRU SĄDOWEGO",
+      "stanPozycji": 1
+    },
+    "dane": {
+      "dzial1": {
+        "danePodmiotu": {
+          "formaPrawna": "SPÓŁKA AKCYJNA",
+          "identyfikatory": {
+            "regon": "61018820100000",
+            "nip": "7740001454"
+          },
+          "nazwa": "ORLEN SPÓŁKA AKCYJNA",
+          "daneOWczesniejszejRejestracji": {
+            "nazwaPoprzedniegoRejestru": "RHB",
+            "numerWPoprzednimRejestrze": "780",
+            "sadProwadzacyRejestr": "SĄD REJONOWY W PŁOCKU"
+          },
+          "czyProwadziDzialalnoscZInnymiPodmiotami": false,
+          "czyPosiadaStatusOPP": false
+        },
+        "siedzibaIAdres": {
+          "siedziba": {
+            "kraj": "POLSKA",
+            "wojewodztwo": "MAZOWIECKIE",
+            "powiat": "M. PŁOCK",
+            "gmina": "M. PŁOCK",
+            "miejscowosc": "PŁOCK"
+          },
+          "adres": {
+            "ulica": "CHEMIKÓW",
+            "nrDomu": "7",
+            "miejscowosc": "PŁOCK",
+            "kodPocztowy": "09-411",
+            "poczta": "PŁOCK-BIAŁA",
+            "kraj": "POLSKA"
+          },
+          "adresPocztyElektronicznej": "redacted@example.invalid",
+          "adresStronyInternetowej": "WWW.ORLEN.PL",
+          "adresDoDoreczenElektronicznychWpisanyDoBAE": "AE:PL-59420-30959-DSCHB-14"
+        },
+        "jednostkiTerenoweOddzialy": [
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWA",
+              "gmina": "WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "UL. MARCINA KASPRZAKA",
+              "nrDomu": "25",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "01-224",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "PODKARPACKIE",
+              "powiat": "SANOCKI",
+              "gmina": "SANOK",
+              "miejscowosc": "SANOK"
+            },
+            "adres": {
+              "ulica": "UL. HENRYKA SIENKIEWICZA",
+              "nrDomu": "12",
+              "miejscowosc": "SANOK",
+              "kodPocztowy": "38-500",
+              "poczta": "SANOK",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "LUBUSKIE",
+              "powiat": "ZIELONA GÓRA",
+              "gmina": "ZIELONA GÓRA",
+              "miejscowosc": "ZIELONA GÓRA"
+            },
+            "adres": {
+              "ulica": "UL. BOHATERÓW WESTERPLATTE",
+              "nrDomu": "15",
+              "miejscowosc": "ZIELONA GÓRA",
+              "kodPocztowy": "65-034",
+              "poczta": "ZIELONA GÓRA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - POLSKIE GÓRNICTWO NAFTOWE I GAZOWNICTWO ODDZIAŁ OPERATORSKI W PAKISTANIE",
+            "siedziba": {
+              "kraj": "PAKISTAN",
+              "miejscowosc": "ISLAMABAD"
+            },
+            "adres": {
+              "ulica": "6TH FLOOR, UFONE TOWER BUILDING, JINNAH AVENUE BLUE AREA",
+              "miejscowosc": "ISLAMABAD",
+              "kodPocztowy": "44000",
+              "poczta": "ISLAMABAD",
+              "kraj": "PAKISTAN"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "WIELKOPOLSKIE",
+              "powiat": "OSTROWSKI",
+              "gmina": "ODOLANÓW",
+              "miejscowosc": "ODOLANÓW"
+            },
+            "adres": {
+              "ulica": "UL. KROTOSZYŃSKA",
+              "nrDomu": "148",
+              "miejscowosc": "ODOLANÓW",
+              "kodPocztowy": "63-430",
+              "poczta": "ODOLANÓW",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ LABORATORIUM POMIAROWO-BADAWCZE PGNIG W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWA",
+              "gmina": "WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "UL. MARCINA KASPRZAKA",
+              "nrDomu": "25",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "01-224",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAŁOPOLSKIE",
+              "powiat": "KRAKÓW",
+              "gmina": "KRAKÓW",
+              "miejscowosc": "KRAKÓW"
+            },
+            "adres": {
+              "ulica": "UL. IGNACEGO ŁUKASIEWICZA",
+              "nrDomu": "3",
+              "miejscowosc": "KRAKÓW",
+              "kodPocztowy": "31-429",
+              "poczta": "KRAKÓW",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE",
+            "siedziba": {
+              "kraj": "POLSKA",
+              "wojewodztwo": "MAZOWIECKIE",
+              "powiat": "WARSZAWA",
+              "gmina": "WARSZAWA",
+              "miejscowosc": "WARSZAWA"
+            },
+            "adres": {
+              "ulica": "UL. MARCINA KASPRZAKA",
+              "nrDomu": "25A",
+              "miejscowosc": "WARSZAWA",
+              "kodPocztowy": "01-224",
+              "poczta": "WARSZAWA",
+              "kraj": "POLSKA"
+            }
+          },
+          {
+            "nazwa": "ORLEN SPÓŁKA AKCYJNA - POLSKIE GÓRNICTWO NAFTOWE I GAZOWNICTWO ODDZIAŁ W RAS AL. KHAIMAH W ZJEDNOCZONYCH EMIRATACH ARABSKICH",
+            "siedziba": {
+              "kraj": "ZJEDNOCZONE EMIRATY ARABSKIE",
+              "miejscowosc": "RAS AL. KHAIMAH"
+            },
+            "adres": {
+              "ulica": "AL. HISN STREET JULFAR OFFICE TOWER",
+              "nrDomu": "1711",
+              "miejscowosc": "RAS AL. KHAIMAH",
+              "poczta": "RAS AL. KHAIMAH",
+              "kraj": "ZJEDNOCZONE EMIRATY ARABSKIE"
+            }
+          }
+        ],
+        "umowaStatut": {
+          "informacjaOZawarciuZmianieUmowyStatutu": [
+            {
+              "zawarcieZmianaUmowyStatutu": "1) 29.06.1993R. KANCELARIA NOTARIALNA PAWŁA BŁASZCZAKA REP A NR 6377/93\n2) 14.05.2001R. KANCELARIA NOTARIALNA SPÓŁKA CYWILNA DOROTA RYNKIEWICZ-NOTARIUSZ, MAŁGORZATA BRYLEWSKA-IWAŃCZYK-NOTARIUSZ; AKT SPORZĄDZONY PRZED NOTARIUSZEM DOROTĄ RYNKIEWICZ REP A NR 2422/2001 ZMIANA PAR.7 PKT 7 STATUTU\n3) 14.05.2001R. KANCELARIA NOTRIALNA SPÓŁKA CYWILNA DOROTA RYNKIEWICZ-NOTARIUSZ, MAŁGORZATA BRYLEWSKA-IWAŃCZYK-NOTARIUSZ; AKT SPORZĄDZONY PRZED NOTARIUSZEM DOROTĄ RYNKIEWICZ REP A NR 2433/2001 TEKST JEDNOLITY STATUTU SPÓŁKI"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "11.07.2001R. SPORZĄDZENIE AKTU NOTARIALNEGO ZAWIERAJĄCEGO UCHWAŁY NADZWYCZAJNEGO WALNEGO ZGROMADZENIA AKCJONARIUSZY Z DN. 06.07.2001R. KANCELARIA NOTARIALNA SPÓŁKA CYWILNA BARBARA MACUGA-NOTARIUSZ HANNA BANUCHA-NOTARIUSZ; AKT SPORZĄDZONY PRZED NOTARIUSZEM HANNĄ BANUCHĄ REP. A NR 5536/2001\nZMIANA W PAR.7 UST.7 PKT 8; DODANIE W PAR.8 UST.11 PKT 13; DODANIE W PAR.8 UST.11 PKT 14; ZMIANA W PAR.9 UST.7 ORAZ TEKST JEDNOLITY STATUTU"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "04.07.2002 R. AKT SPORZĄDZIŁ NOTARIUSZ W WARSZAWIE, ELŻBIETA BAREJ-MAGIERA W SWOJEJ KANCELARII PRZY UL. BONIFRATERSKIEJ 6 LOKAL NR 17; REPERTORIUM A NR 3561/2002 - STATUT\nZMIANY NASTĘPUJĄCYCH PARAGRAFÓW: PAR. 3 - ZMIANA TYTUŁU; PAR.3 UST.1; PAR.3 UST.3; PAR.4; PAR.5 UST.1; PAR.5 UST.2; PAR.7 UST.1, PAR.7 UST.2, PAR.7 UST.4; PAR.7 UST.7 PKT 2; PAR.7 UST.7 PKT 4; PAR.7 UST.7 PKT 5; PAR.7 UST.7 PKT 12; PAR.7 UST.8; PAR.7 UST.9; PAR.7 UST.12; PAR.8 UST.6; PAR.8 UST.7; PAR.8 UST.11 PKT 2; PAR.8 UST.11 PKT 6; PAR.8 UST.11 PKT 9; PAR.8 UST.12 PKT 4; PAR.8 UST.12 PKT 5; PAR.8 UST.12 PKT 6; PAR.8 UST.12 PKT 7; PAR.8 UST.13\n04.07.2002 R. AKT NOTARIALNY SPORZĄDZONY PRZEZ NOTARIUSZA W WARSZAWIE, ELŻBIETĘ BAREJ-MAGIERA W KANCELARII NOTARIALNEJ PRZY ULICY BONIFRATERSKIEJ 6 LOKAL 17; REPERTORIUM A 3561/2002; TEKST JEDNOLITY STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY SPORZĄDZONY W DNIU 24.04.2003R. PRZEZ NOTARIUSZA ELŻBIETĘ BAREJ-MAGIERĘ, W KANCELARII NOTARIALNEJ W WARSZAWIE PRZY UL.BONIFRATERSKIEJ 6 LOKAL 17, REPERTORIUM A NR 1851/2003 - ZMIENIONO: PAR.2 UST.2; PAR.3 UST.3; PAR.8 UST.9; PAR.8 UST.12A; PAR.9 UST.2; PAR.9 UST.3 STATUTU SPÓŁKI ORAZ PRZYJĘTO TEKST JEDNOLITY STATUTU"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DN. 08.04.204R., REP. A NR 4351/2004, NOTARIUSZ MAREK BARTNICKI PROWADZĄCY KANCELARIĘ NOTARIALNĄ MAREK BARTNICKI-NOTARIUSZ, MAGDALENA PRONIEWICZ-NOTARIUSZ, SŁAWOMIR STROJNY-NOTARIUSZ, SPÓŁKA CYWILNA, PRZY ULICY GAŁCZYŃSKIEGO 4, 00-362 WARSZAWA\nNUMERY ZMIENIONYCH PARAGRAFÓW: PAR.2 UST.2, PAR.3 UST.1, PAR.7 UST.7 PKT 8, PAR.8 UST.3, PAR.8 UST.7, PAR.9 UST.5\nNUMER DODANEGO USTĘPU: PAR.7 UST.7A"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DN. 28 CZERWCA 2004R., REPERTORIUM A NR 8172/2004, NOTARIUSZ MAREK BARTNICKI PROWADZĄCY KANCELARIĘ NOTARIALNĄ MAREK BARTNICKI-NOTARIUSZ, MAGDALENA PRONIEWICZ-NOTARIUSZ, SŁAWOMIR STROJNY-NOTARIUSZ, SPÓŁKA CYWILNA, PRZY UL.GAŁCZYŃSKIEGO 4, 00-362 WARSZAWA\nNUMERY ZMIENIONYCH PARAGRAFÓW: PAR.8 UST.11 PKT 13, PAR.8 UST.11 PKT 14, PAR.9 UST.7 PKT 2, PAR.9 UST.7 PKT 3\nNUMERY DODANYCH POSTANOWIEŃ: PAR.8 UST.3 PKT 3\nNUMERY WYKREŚLONYCH POSTANOWIEŃ: PAR.9 UST.7 PKT 4"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY SPORZĄDZONY W DNIU 29 CZERWCA 2005 R. PRZEZ KRZYSZTOFA NURKOWSKIEGO Z KANCELARII NOTARIALNEJ KRZYSZTOF NURKOWSKI NOTARIUSZ W WARSZAWIE Z SIEDZIBĄ PRZY ULICY DOMANIEWSKIEJ 41, WARSZAWA, REP.A NR 7066/2005;\nWYKREŚLONO PAR.2 UST.5; W PAR.7 DODANO UST. 9A; W PAR.8 DODANO UST.9A; ZMIENIONO  PAR.8 UST.11 PKT 10; ZMIENIONO PAR.8 UST.11 PKT 11; ZMIENIONO PAR.8 UST.11 PKT 12; W PAR.8 UST.12 DODANO PKT 8; ZMIENIONO PAR.9 UST.1 PKT 1; W PAR.9 DODANO UST.7 A; ZMIENIONO PAR.9 UST.9"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "27.06.2006R., REPERTORIUM A 13974/2006, KANCELARIA NOTARIALNA KRZYSZTOF NURKOWSKI NOTARIUSZ W WARSZAWIE, UL.DOMANIEWSKA 41, 02-672 WARSZAWA, ZMIANY STATUTU SPÓŁKI: PAR.2 UST.2 PKT.18, PAR.2 UST.2 PKT.19, PAR.8 UST.5, PAR.8 UST.9A, PAR.8 UST.12 PKT.4 LIT.A,; DODANO: PAR.2 UST.2 PKT.27, PAR.2 UST.2 PKT.28, PAR.2 UST.2 PKT.29, PAR.9A."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "PROTOKÓŁ ZWYCZAJNEGO WALNEGO ZGROMADZENIA PKN ORLEN S.A. Z DNIA 15.07.2009R. REPERTORIUM A NR 11147/2009\nKANCELARIA NOTARIALNA MAREK BARTNICKI-NOTARIUSZ, MAGDALENA PRONIEWICZ-NOTARIUSZ, SŁAWOMIR SRTOJNY-NOTARIUSZ, WIKTOR WĄGROWSKI-NOTARIUSZ S.C.\nZMIANY STAT. 1) W PAR.1 STATUTU DODANO UST.4, 2)ZMIANIE ULEGŁ PAR.2 UST.2 STAT., 3) ZMIENIE ULEGŁ PAR.2 UST.4 STAT.,4) ZMIANIE ULEGŁ PAR.4 STAT., 5) ZMIANIE ULEGŁ PAR.7 UST.4 STAT.,6) ZMIANIE ULEGŁ PAR.7 UST.5 STAT.,7) ZMIANIE ULEGŁ PAR.7 UST.6 STAT., 8)ZMIANIE ULEGŁ PAR.7 UST.7 PKT 1 STAT.,9) ZMIANIE ULEGŁ PAR.7 UST.7 PKT 4 STAT.,10) ZMIANIE ULEGŁ PAR.7 UST.7 PKT 11 STAT.,11) ZMIANIE ULEGŁ PAR.7 UST.7 PKT 12 STAT.,12) W TREŚCI PAR.7 UST.7 STAT. DODANO PKT 14,13) ZMIANIE ULEGŁ PAR.7 UST.12 STATUTU,14) DOTYCHCZASOWA TREŚĆ PAR.7 UST.11 STATUTU ZOSTAŁA OZNACZONA JAKO PAR.7 UST.11 PKT 1,15) W TREŚCI PAR.7 UST.11 STATUTU DODANO PKT 2,16) W TRESCI PAR.7 UST.11 STATUTU DODANO PKT.3,17) W TREŚCI PAR.7 UST.11 STATUTU DODANO PKT 4,18) W TRE SCI PAR.7 UST.11 STATUTU DODANO PKT 5,19) W TREŚCI PAR.7 UST. 11 STATUTU DODANO PKT 6,20) W TREŚCI PAR.7 UST. 11 STATUTU DODANO PKT 7, 21) ZMIENIONO TREŚĆ PAR.8 UST.3 PKT 1 STATUTU,22) WYKREŚLONY ZOSTAŁ PAR.8 UST.3 PKT 3 STATUTU,23) ZMIENIONY ZOSTAŁ PAR.9 UST.3 PKT 1 STATUTU,24) ZMIENIONY ZOSTAŁ PAR.8UST.5 STATUTU,25) ZMIENIONY ZOSTAŁ PAR.8 UST.9A STATUTU,26)ZMIENIONY ZOSTAŁ PAR.8 UST.11 PKT 6 STATUTU,27) W TREŚCI PAR.8 UST.11 STATUTU PO PKT 6 DODANY ZOSTAŁ PKT 6A,28) W TREŚCI PAR.8 UST.11 STATUTU DODANY ZOSTAŁ PKT 15,29) W TREŚCI PAR.8 UST.11 STATUTUDODANY ZOSTAŁ PKT 16,30) ZMIENIONY ZOSTAŁ PAR.8 UST.12 PKT 4 STATUTU, 31) ZMIENIONY ZOSTAŁ PAR.8 UST.12 PKT 6 STATUTU,32) ZMIENIONY ZOSTAŁ PAR.8 UST.12 PKT 7 STATUTU,33) WYKREŚLONY ZOSTAŁ PAR.8 UST.13 PKT 1 STATUTU,34) W TREŚCI PAR.9 UST.1 PKT 3 STATUTU ZOSTAŁO WYKREŚLONE ZDANIE DRUGIE,35) ZMIENIONY ZOSTAŁ PAR. 9 UST.3 PKT 3 STATUTU,36) ZMIENIONY ZOSTAŁ PAR.9 UST.4 STATUTU,37) ZMIENIONY ZOSTAŁ PAR.9 UST.10 STATUTU,38) WYKREŚLONY ZOSTAŁ PAR.11"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "PROTOKÓŁ ZWYCZAJNEGO WALNEGO ZGROMADZENIA PKN ORLEN S.A. - SPORZĄDZONY DNIA 25.06.2010R., REPERTORIUM A NR 10466/2010 PRZEZ NOTARIUSZA MARKA BARTNICKIEGO, KANCELARIA NOTARIALNA MAREK BARTNICKI, MAGDALENA PRONIEWICZ, SŁAWOMIR STROJNY, WIKTOR WAGRODZKI SPÓŁKA CYWILNA, 00-362 WARSZAWA, UL. GAŁCZŃSKIEGO 4;\nZMIANY STATUTU:\n1) W PAR.2 UST.2 STATUTU DODANO PUNKTY 66 ORAZ 67\n2) ZMIANIE ULEGŁ PAR.8 UST.11 PKT 5 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "PROTOKÓŁ SPORZĄDZONY DNIA 29.06.2011R., REPERTORIUM A NR 11382/2011 PRZEZ NOTARIUSZA W WARSZAWIE MARKA BARTNICKIEGO, PROWADZĄCEGO KANCELARIE NOTARIALNĄ PRZY UL. GAŁCZYNSKIEGO NR 4, ZMIANA STATUTU:PAR.1 UST.4, PAR.7 UST.11 PKT 1, PAR.7 UST.11 PKT 6"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "30.05.2012R., REPERTORIUM A NR 9142/2012, NOTARIUSZ MAREK BARTNICKI W WARSZAWIE, PAR.9A STATUTU (SKREŚLONO)"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 27.06.2013R., REP. A NR 10519/2013, NOTARIUSZ MAREK BARTNICKI, KANCELARIA NOTARIALNA W WARSZAWIE, ZMIENIONO PAR. 8 UST. 11 PKT 5 STATUTU SPÓŁKI"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "28.04.2015 R., REP. A NR 5599/2015, NOTARIUSZ MAREK BARTNICKI, KANCELARIA NOTARIALNA W WARSZAWIE.\nZMIANA § 1 UST. 4, § 8 UST. 12 PKT 4 LIT.A,§ 2 USTT. 2, § 2 UST. 2 PKT 1 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "02.02.2018 R., REPERTORIUM A NR 1641/2018, NOTARIUSZ MAREK BARTNICKI, KANCLARIA NOTARIALNA W WARSZAWIE - PAR. 2 UST. 2 DODANO PUNKTY OD 71 DO 88 STATUTU"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "03.07.2018 R., REP. A NR 2604/2018, NOTARIUSZ ANETA SZKUTNIK, KANCELARIA NOTARIALNA W WARSZAWIE.\nZMIANA § 8 UST. 7 PKT 1, § 9 UST. 6.\nDODANO § 9 UST. 5 PKT 4."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "14.06.2019 R., REP. A NR 1620/2019,  NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE.\nZMIENIONO: § 8 UST.1, § 8 UST.2, § 8 UST.11, § 8 UST.12, § 8 UST.13, § 9 UST.1, § 10;\nDODANO: W § 8 UST.9 DODANO PKT 5, W § 9 DODANO UST.11, § 11, § 12;"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "05.06.2020R. REPERTORIUM A NR 13660/2019, MICHAŁ ŁUKASZEWICZ NOTARIUSZ, KANCELARIA NOTARIALNA W WARSZAWIE ZMIENIONO § 1 UST 4 , § 7 UST. 7 PKT. 6A, ZMIENIONO § 8 UST. 9A, DODANO W § 8 UST. 12 PKT. 6A"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "27.05.2021 R. REPERTORIUM A NR 2441/2021, NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO § 2 ORAZ § 9 UST. 1 PKT 3 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOT. Z DNIA 21.07.2022 R., REPERTORIUM A NR 4538/2022, NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO § 3 UST. 1, § 8 UST. 1 ORAZ § 9 UST. 1 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 28.09.2022 R., REPERTORIUM A NR 6531/2022, NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO:  § 3 UST. 1, § 7 UST. 4 PKT 1 I 3, § 7 UST. 9, § 8 UST. 12 PKT 8; DODANO: W § 2 UST. 2 DODANO PKT. 90)-151) ORAZ DODANO UST. 5 I 6,  W § 7 UST. 7 DODANO PKT 15, W § 8 UST. 11 DODANO PKT. 20 I 21, W § 9 UST. 7 DODANO PKT 4 ORAZ DODANO UST. 12, 13 I 14 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "22.03.2023 R., REPERTORIUM A NR 1848/2023, NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO: § 1 UST. 4, § 7 UST. 7 PKT 14, § 7 UST. 9 PKT 1, § 8 UST. 4, § 8 UST. 6, § 8 UST. 7 PKT 1, § 8 UST. 9 PKT 2, § 8 UST. 9 PKT 3, § 8 UST. 11 PKT 6, § 8 UST. 11 PKT 13, § 8 UST. 12 PKT 5, § 8 UST. 12 PKT 6 LIT. A), § 9 UST. 7 PKT 2 STATUTU; W § 8 UST. 11 DOTYCHCZASOWY PKT 6A OTRZYMAŁ NOWĄ NUMERACJĘ 6B; DODANO: W § 2 W UST. 2 DODANO PUNKTY 152 I 153, W § 7 UST. 7 DODANO PKT 16, W § 8 DODANO UST. 8A, W § 8 UST. 11 DODANO NOWY PKT 6A, W § 9 DODANO UST. 11A."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "21.06.2023 R., REPERTORIUM A NR 3683/2023, NOTARIUSZ MICHAŁ ŁUKASZEWICZ, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO: § 1 UST. 3 ORAZ § 1 UST. 4 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "02.12.2024 R., REP. A NR 15642/2024, NOTARIUSZ MAREK BARTNICKI, KANCELARIA NOTARIALNA W WARSZAWIE - ZMIENIONO: § 8 UST. 11 PKT 5 STATUTU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "28 PAŹDZIERNIKA 2025 ROKU; REP. A NR 5806/2025; NOTARIUSZ JANUSZ RUDNICKI; KANCELARIA NOTARIALNA W WARSZAWIE; ZMIENIONO:\n- § 1 UST. 4 STATUTU\n- § 8 UST. 11 PKT 5 STATUTU;\n- § 8 UST. 12 PKT 6 LIT. A) STATUTU;"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "09 CZERWCA 2026 ROKU; REP. A NR 2681/2026; NOTARIUSZ JANUSZ RUDNICKI; KANCELARIA NOTARIALNA W WARSZAWIE; ZMIENIONO:\n- § 2 UST. 2 STATUTU"
+            }
+          ]
+        },
+        "pozostaleInformacje": {
+          "czasNaJakiUtworzonyZostalPodmiot": "NIEOZNACZONY",
+          "czyUmowaStatutPrzyznajeUprawnieniaOsobiste": true,
+          "czyObligatoriuszeMajaPrawoDoUdzialuWZysku": false
+        },
+        "sposobPowstaniaPodmiotu": {
+          "okolicznosciPowstania": "POŁĄCZENIE",
+          "opisSposobuPowstaniaInformacjaOUchwale": "UCHWAŁĄ NR 8/99 ZWYCZAJNEGO WALNEGO ZGROMADZENIA AKCJONARIUSZY \"PETROCHEMII PŁOCK\" SPÓŁKI AKCYJNEJ Z DNIA 19 MAJA 1999R. POŁĄCZONO SPÓŁKĘ MAZOWIECKIE ZAKŁADY RAFINERYJNE I PETROCHEMICZNE \"PETROCHEMIA PŁOCK\" SPÓŁKA AKCYJNA W PŁOCKU (SPÓŁKA PRZEJMUJĄCA) ZE SPÓŁKĄ CENTRALNA PRODUKTÓW NAFTOWYCH \"CPN\" SPÓŁKA AKCYJNA W WARSZAWIE (SPÓŁKA PRZEJĘTA)",
+          "nrDataDecyzjiPrezesaUOKiK": "NIE PODLEGA OBOWIĄZKOWI ZGŁOSZENIA DO URZĘDU OCHRONY KONKURENCJI I KONSUMENTÓW.",
+          "podmioty": [
+            {
+              "nazwa": "MAZOWIECKIE ZAKŁADY RAFINERYJNE I PETROCHEMICZNE \"PETROCHEMIA PŁOCK\" SPÓŁKA AKCYJNA W PŁOCKU,------",
+              "krajNazwaRejestruEwidencji": "------,RHB",
+              "numerWRejestrzeAlboEwidencji": "780",
+              "nazwaSaduOrganuProwadzacegoRejestrEwidencje": "SĄD REJONOWY W PŁOCKU",
+              "identyfikator": {
+                "regon": "61018820100000"
+              }
+            },
+            {
+              "nazwa": "CENTRALA PRODUKTÓW NAFTOWYCH \"CPN\" SPÓŁKA AKCYJNA W WARSZAWIE,------",
+              "krajNazwaRejestruEwidencji": "------,RHB",
+              "numerWRejestrzeAlboEwidencji": "45550",
+              "nazwaSaduOrganuProwadzacegoRejestrEwidencje": "SĄD REJONOWY DLA MIASTA STOŁECZNEGO WARSZAWY WYDZIAŁ XVI GOSPODARCZY-REJESTROWY",
+              "identyfikator": {
+                "regon": "01132396700000"
+              }
+            }
+          ]
+        },
+        "kapital": {
+          "wysokoscKapitaluZakladowego": {
+            "wartosc": "1451177561,25",
+            "waluta": "PLN"
+          },
+          "lacznaLiczbaAkcjiUdzialow": "1160942049",
+          "wartoscJednejAkcji": {
+            "wartosc": "1,25",
+            "waluta": "PLN"
+          },
+          "czescKapitaluWplaconegoPokrytego": {
+            "wartosc": "1451177561,25",
+            "waluta": "PLN"
+          },
+          "wniesioneAporty": {}
+        },
+        "emisjeAkcji": [
+          {
+            "nazwaSeriiAkcji": "A OD A-000000001 DO A-336000000",
+            "liczbaAkcjiWSerii": "336000000"
+          },
+          {
+            "nazwaSeriiAkcji": "B OD B-0000001 DO B-6971496",
+            "liczbaAkcjiWSerii": "6971496"
+          },
+          {
+            "nazwaSeriiAkcji": "C OD C-00000001 DO C-77205641",
+            "liczbaAkcjiWSerii": "77205641"
+          },
+          {
+            "nazwaSeriiAkcji": "D",
+            "liczbaAkcjiWSerii": "7531924",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "E",
+            "liczbaAkcjiWSerii": "198738864",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "F",
+            "liczbaAkcjiWSerii": "534494124",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          }
+        ],
+        "wzmiankaOPodjeciuUchwalyOEmisjachObligacjiZamiennych": {},
+        "wzmiankaOUpowaznieniuDoEmisjiWarrantowSubskrypcyjnych": {
+          "czyZarzadJestUprawnionyDoEmisjiWarrantowSubskrypcyjnych": false
+        }
+      },
+      "dzial2": {
+        "reprezentacja": {
+          "nazwaOrganu": "ZARZĄD",
+          "sposobReprezentacji": "- DWAJ CZŁONKOWIE ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE\n- CZŁONEK ZARZĄDU DZIAŁAJĄCY ŁĄCZNIE Z PROKURENTEM\nDO ZACIĄGANIA ZOBOWIĄZAŃ I DOKONYWANIA CZYNNOŚCI ROZPORZĄDZAJĄCYCH ZWYKŁEGO ZARZĄDU O WARTOŚCI NIE PRZEKRACZAJĄCEJ 100.000 /STO TYSIĘCY/ ZŁOTYCH WYSTARCZAJĘCE JEST OŚWIADCZENIE WOLI I PODPIS JEDNEGO CZŁONKA ZARZĄDU.",
+          "sklad": [
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "F*****"
+              },
+              "imiona": {
+                "imie": "I*******"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "PREZES ZARZĄDU",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "S********"
+              },
+              "imiona": {
+                "imie": "R*****"
+              },
+              "identyfikator": {
+                "pesel": "6**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. OPERACYJNYCH",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "P*****"
+              },
+              "imiona": {
+                "imie": "W******"
+              },
+              "identyfikator": {
+                "pesel": "6**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DO SPRAW UPSTREAM",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "S*******"
+              },
+              "imiona": {
+                "imie": "I*******"
+              },
+              "identyfikator": {
+                "pesel": "5**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. DOWNSTREAM",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "B*********"
+              },
+              "imiona": {
+                "imie": "M****"
+              },
+              "identyfikator": {
+                "pesel": "6**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. CONSUMERS AND PRODUCTS",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "W*********"
+              },
+              "imiona": {
+                "imie": "M*****"
+              },
+              "identyfikator": {
+                "pesel": "7**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. ROZWOJU I INWESTYCJI",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "S******"
+              },
+              "imiona": {
+                "imie": "S*******",
+                "imieDrugie": "W*****"
+              },
+              "identyfikator": {
+                "pesel": "8**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. ENERGY",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "J**********"
+              },
+              "imiona": {
+                "imie": "S*******",
+                "imieDrugie": "R*****"
+              },
+              "identyfikator": {
+                "pesel": "6**********"
+              },
+              "funkcjaWOrganie": "WICEPREZES ZARZĄDU DS. FINANSOWYCH",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "W*******"
+              },
+              "imiona": {
+                "imie": "P****"
+              },
+              "identyfikator": {
+                "pesel": "7**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU DS. BEZPIECZEŃSTWA I RYZYKA",
+              "czyZawieszona": false
+            }
+          ]
+        },
+        "organNadzoru": [
+          {
+            "nazwa": "RADA NADZORCZA",
+            "sklad": [
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "G*******"
+                },
+                "imiona": {
+                  "imie": "E**"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "Ł****"
+                },
+                "imiona": {
+                  "imie": "K********"
+                },
+                "identyfikator": {
+                  "pesel": "8**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "Z********"
+                },
+                "imiona": {
+                  "imie": "T*****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "W***********"
+                },
+                "imiona": {
+                  "imie": "P****",
+                  "imieDrugie": "J**"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S*******"
+                },
+                "imiona": {
+                  "imie": "M*****"
+                },
+                "identyfikator": {
+                  "pesel": "5**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S*******"
+                },
+                "imiona": {
+                  "imie": "E**"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "C*****"
+                },
+                "imiona": {
+                  "imie": "P*********"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "K*****"
+                },
+                "imiona": {
+                  "imie": "A*********"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "S****"
+                },
+                "imiona": {
+                  "imie": "M*****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "P**********"
+                },
+                "imiona": {
+                  "imie": "R********"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              }
+            ]
+          }
+        ],
+        "prokurenci": [
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "W*********"
+            },
+            "imiona": {
+              "imie": "R****"
+            },
+            "identyfikator": {
+              "pesel": "7**********"
+            },
+            "rodzajProkury": "PROKURA ODDZIAŁOWA ŁĄCZNA, DO DZIAŁANIA Z JEDNYM Z PROKURENTÓW, TJ. A********* S******* - M**** (PESEL usunięty) ALBO P**** K****** (PESEL usunięty) ALBO R***** P********** (PESEL usunięty) ALBO K******** M****** (PESEL usunięty) DO ZAKRESU SPRAW ZWIĄZANYCH Z FUNKCJONOWANIEM ODDZIAŁÓW: 1)„ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE”, 2) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU”, 3)„ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE”, 4) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE”, 5) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE”, 6) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ GEOLOGII I EKSPLOATACJI UPSTREAM POLSKA W WARSZAWIE”, 7) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE”."
+          },
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "K******"
+            },
+            "imiona": {
+              "imie": "P****"
+            },
+            "identyfikator": {
+              "pesel": "6**********"
+            },
+            "rodzajProkury": "PROKURA ODDZIAŁOWA ŁĄCZNA, DO DZIAŁANIA Z PROKURENTEM R**** W********* (PESEL usunięty), DO ZAKRESU SPRAW ZWIĄZANYCH Z FUNKCJONOWANIEM ODDZIAŁÓW: 1) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE”, 2) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU”, 3) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE”, 4) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE”, 5) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE”, 6) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ GEOLOGII I EKSPLOATACJI UPSTREAM POLSKA W WARSZAWIE”, 7) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE”."
+          },
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "S*******",
+              "nazwiskoIICzlon": "M****"
+            },
+            "imiona": {
+              "imie": "A*********"
+            },
+            "identyfikator": {
+              "pesel": "8**********"
+            },
+            "rodzajProkury": "PROKURA ODDZIAŁOWA ŁĄCZNA, DO DZIAŁANIA Z PROKURENTEM R**** W********* (PESEL usunięty), DO ZAKRESU SPRAW ZWIĄZANYCH Z FUNKCJONOWANIEM ODDZIAŁÓW: 1) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE”, 2) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU”, 3) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE”, 4) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE”, 5) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE”, 6) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ GEOLOGII I EKSPLOATACJI UPSTREAM POLSKA W WARSZAWIE”, 7) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE”."
+          },
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "P**********"
+            },
+            "imiona": {
+              "imie": "R*****"
+            },
+            "identyfikator": {
+              "pesel": "7**********"
+            },
+            "rodzajProkury": "PROKURA ODDZIAŁOWA ŁĄCZNA, DO DZIAŁANIA Z PROKURENTEM R**** W********* (PESEL usunięty), DO ZAKRESU SPRAW ZWIĄZANYCH Z FUNKCJONOWANIEM ODDZIAŁÓW: 1) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE”, 2) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU”, 3) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE”, 4) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE”, 5) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE”, 6) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ GEOLOGII I EKSPLOATACJI UPSTREAM POLSKA W WARSZAWIE”, 7) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE”."
+          },
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "M******"
+            },
+            "imiona": {
+              "imie": "K********"
+            },
+            "identyfikator": {
+              "pesel": "8**********"
+            },
+            "rodzajProkury": "PROKURA ODDZIAŁOWA ŁĄCZNA, DO DZIAŁANIA Z PROKURENTEM R**** W********* (PESEL usunięty), DO ZAKRESU SPRAW ZWIĄZANYCH Z FUNKCJONOWANIEM ODDZIAŁÓW: 1) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ CENTRALNY UPSTREAM POLSKA W WARSZAWIE”, 2) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W SANOKU”, 3) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ZIELONEJ GÓRZE”, 4) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ UPSTREAM POLSKA W ODOLANOWIE”, 5) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ RATOWNICZA STACJA GÓRNICTWA OTWOROWEGO UPSTREAM POLSKA W KRAKOWIE”, 6) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ GEOLOGII I EKSPLOATACJI UPSTREAM POLSKA W WARSZAWIE”, 7) „ORLEN SPÓŁKA AKCYJNA - ODDZIAŁ OBROTU HURTOWEGO UPSTREAM POLSKA W WARSZAWIE”."
+          }
+        ]
+      },
+      "dzial3": {
+        "przedmiotDzialalnosci": {
+          "przedmiotPrzewazajacejDzialalnosci": [
+            {
+              "opis": "WYTWARZANIE I PRZETWARZANIE PRODUKTÓW RAFINACJI ROPY NAFTOWEJ ORAZ PRODUKTÓW Z PALIW KOPALNYCH",
+              "kodDzial": "19",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            }
+          ],
+          "przedmiotPozostalejDzialalnosci": [
+            {
+              "opis": "PRODUKCJA PODSTAWOWYCH CHEMIKALIÓW, NAWOZÓW I ZWIĄZKÓW AZOTOWYCH, TWORZYW SZTUCZNYCH I KAUCZUKU SYNTETYCZNEGO W FORMACH PODSTAWOWYCH",
+              "kodDzial": "20",
+              "kodKlasa": "1"
+            },
+            {
+              "opis": "MAGAZYNOWANIE I PRZECHOWYWANIE TOWARÓW",
+              "kodDzial": "52",
+              "kodKlasa": "1"
+            },
+            {
+              "opis": "GÓRNICTWO GAZU ZIEMNEGO",
+              "kodDzial": "06",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "GÓRNICTWO ROPY NAFTOWEJ",
+              "kodDzial": "06",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "WYTWARZANIE, PRZESYŁANIE, DYSTRYBUCJA ENERGII ELEKTRYCZNEJ, HANDEL ENERGIĄ ELEKTRYCZNĄ",
+              "kodDzial": "35",
+              "kodKlasa": "1"
+            },
+            {
+              "opis": "WYTWARZANIE PALIW GAZOWYCH ORAZ DYSTRYBUCJA I HANDEL PALIWAMI GAZOWYMI W SYSTEMIE SIECIOWYM",
+              "kodDzial": "35",
+              "kodKlasa": "2"
+            },
+            {
+              "opis": "POZOSTAŁA SPRZEDAŻ HURTOWA WYSPECJALIZOWANA",
+              "kodDzial": "46",
+              "kodKlasa": "8"
+            },
+            {
+              "opis": "SPRZEDAŻ DETALICZNA PALIW DO POJAZDÓW SILNIKOWYCH",
+              "kodDzial": "47",
+              "kodKlasa": "30",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "SPRZEDAŻ DETALICZNA NAPOJÓW ALKOHOLOWYCH I BEZALKOHOLOWYCH",
+              "kodDzial": "47",
+              "kodKlasa": "25",
+              "kodPodklasa": "Z"
+            }
+          ]
+        },
+        "wzmiankiOZlozonychDokumentach": {
+          "wzmiankaOZlozeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "23.03.2001",
+              "zaOkresOdDo": "OD 1 STYCZNIA 2000 ROKU DO 31 GRUDNIA 2000 ROKU"
+            },
+            {
+              "dataZlozenia": "07.08.2003",
+              "zaOkresOdDo": "2002 ROK"
+            },
+            {
+              "dataZlozenia": "02.07.2004",
+              "zaOkresOdDo": "2003 ROK"
+            },
+            {
+              "dataZlozenia": "29.04.2005",
+              "zaOkresOdDo": "2001 ROK"
+            },
+            {
+              "dataZlozenia": "08.07.2005",
+              "zaOkresOdDo": "2004 ROK"
+            },
+            {
+              "dataZlozenia": "28.08.2006",
+              "zaOkresOdDo": "01.01.2005 - 31.12.2005"
+            },
+            {
+              "dataZlozenia": "16.07.2007",
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "dataZlozenia": "07.10.2008",
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "dataZlozenia": "24.07.2009",
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "dataZlozenia": "14.07.2010",
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "dataZlozenia": "06.07.2011",
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "dataZlozenia": "15.06.2012",
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "dataZlozenia": "20.08.2013",
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "dataZlozenia": "22.05.2014",
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "dataZlozenia": "05.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "16.06.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "10.07.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "06.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "27.06.2019",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "16.06.2020",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "10.06.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "02.06.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "29.06.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "02.07.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "17.06.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "16.06.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "OD 1 STYCZNIA 2000 ROKU DO 31 GRUDNIA 2000 ROKU"
+            },
+            {
+              "zaOkresOdDo": "2002 ROK"
+            },
+            {
+              "zaOkresOdDo": "2003 ROK"
+            },
+            {
+              "zaOkresOdDo": "2001 ROK"
+            },
+            {
+              "zaOkresOdDo": "2004 ROK"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005 - 31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "OD 1 STYCZNIA 2000 ROKU DO 31 GRUDNIA 2000 ROKU"
+            },
+            {
+              "zaOkresOdDo": "2002 ROK"
+            },
+            {
+              "zaOkresOdDo": "2003 ROK"
+            },
+            {
+              "zaOkresOdDo": "2001 ROK"
+            },
+            {
+              "zaOkresOdDo": "2004 ROK"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005 - 31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosci": [
+            {
+              "zaOkresOdDo": "OD 1 STYCZNIA 2000 ROKU DO 31 GRUDNIA 2000 ROKU"
+            },
+            {
+              "zaOkresOdDo": "2002 ROK"
+            },
+            {
+              "zaOkresOdDo": "2003 ROK"
+            },
+            {
+              "zaOkresOdDo": "2001 ROK"
+            },
+            {
+              "zaOkresOdDo": "2004 ROK"
+            },
+            {
+              "zaOkresOdDo": "01.01.2005 - 31.12.2005"
+            },
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZAtestacjiSprawozdawczosciZrownowazonegoRozwoju": [
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "sprawozdaniaGrupyKapitalowej": {
+          "wzmiankaOZlozeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "16.07.2007",
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "dataZlozenia": "07.10.2008",
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "dataZlozenia": "24.07.2009",
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "dataZlozenia": "14.07.2010",
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "dataZlozenia": "06.07.2011",
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "dataZlozenia": "15.06.2012",
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "dataZlozenia": "20.08.2013",
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "dataZlozenia": "22.05.2014",
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "dataZlozenia": "05.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "16.06.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "10.07.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "06.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "27.06.2019",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "16.06.2020",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "11.06.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "02.06.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "29.06.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "02.07.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "17.06.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "16.06.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosciGrupyKapitalowejSpolkiDominujacejLacznie": [
+            {
+              "zaOkresOdDo": "01.01.2006 - 31.12.2006"
+            },
+            {
+              "zaOkresOdDo": "01.01.2007R. - 31.12.2007R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2008 - 31.12.2008"
+            },
+            {
+              "zaOkresOdDo": "01.01.2009R. - 31.12.2009R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2010R. - 31.12.2010R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2011R. - 31.12.2011R."
+            },
+            {
+              "zaOkresOdDo": "01.01.2012R. - 31.12.2012R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSkonsolidowanegoSprawozdaniaZPlatnosciNaRzeczAdministracjiPublicznej": [
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "informacjaODniuKonczacymRokObrotowy": {
+          "dzienKonczacyPierwszyRokObrotowy": "31.12.2000"
+        }
+      },
+      "dzial4": {},
+      "dzial5": {},
+      "dzial6": {
+        "polaczeniePodzialPrzeksztalcenie": [
+          {
+            "okreslenieOkolicznosci": "PRZEJĘCIE INNEJ SPÓŁKI",
+            "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE PRZEZ PRZEJĘCIE SPÓŁKI POD FIRMĄ GRUPA LOTOS S.A. Z SIEDZIBĄ W GDAŃSKU (SPÓŁKA PRZEJMOWANA) NASTĘPUJE W TRYBIE ART. 492 § 1 PKT 1 KSH TJ. POPRZEZ PRZENIESIENIE CAŁEGO MAJĄTKU SPÓŁKI PRZEJMOWANEJ NA SPÓŁKĘ POD FIRMĄ POLSKI KONCERN NAFTOWY ORLEN S.A. Z SIEDZIBĄ W PŁOCKU (SPÓŁKA PRZEJMUJĄCA) W ZAMIAN ZA NOWOEMITOWANE AKCJE NA OKAZICIELA SERII E, KTÓRE SPÓŁKA PRZEJMUJĄCA WYDA AKCJONARIUSZOM SPÓŁKI PRZEJMOWANEJ – NA ZASADACH OKREŚLONYCH W PLANIE POŁĄCZENIA.\nPOŁĄCZENIE NASTĘPUJE NA PODSTAWIE UCHWAŁY NR 4 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA SPÓŁKI PRZEJMUJĄCEJ Z DNIA 21 LIPCA 2022 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 4538/2022, SPORZĄDZONYM PRZEZ NOTARIUSZA MICHAŁA ŁUKASZEWICZA, KN W WARSZAWIE  ORAZ UCHWAŁY NR 3 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA SPÓŁKI PRZEJMOWANEJ Z DNIA 20 LIPCA 2022 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 4508/2022, SPORZĄDZONYM PRZEZ NOTARIUSZA MICHAŁA ŁUKASZEWICZA, KN W WARSZAWIE",
+            "podmiotyPrzejmowane": [
+              {
+                "nazwa": "GRUPA LOTOS SPÓŁKA AKCYJNA, SPÓŁKA AKCYJNA",
+                "krajNazwaRejestru": "POLSKA, KRAJOWY REJESTR SĄDOWY",
+                "krs": {
+                  "krs": "0000106150"
+                },
+                "nazwaSadu": "*******",
+                "identyfikator": {
+                  "regon": "190541636"
+                }
+              }
+            ]
+          },
+          {
+            "okreslenieOkolicznosci": "PRZEJĘCIE INNEJ SPÓŁKI",
+            "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE PRZEZ PRZEJĘCIE SPÓŁKI POD FIRMĄ POLSKIE GÓRNICTWO NAFTOWE I GAZOWNICTWO S.A. Z SIEDZIBĄ W WARSZAWIE (SPÓŁKA PRZEJMOWANA) NASTĘPUJE W TRYBIE ART. 492 § 1 PKT 1 KSH TJ. POPRZEZ PRZENIESIENIE CAŁEGO MAJĄTKU SPÓŁKI PRZEJMOWANEJ NA SPÓŁKĘ POD FIRMĄ POLSKI KONCERN NAFTOWY ORLEN S.A. Z SIEDZIBĄ W PŁOCKU (SPÓŁKA PRZEJMUJĄCA) W ZAMIAN ZA NOWOEMITOWANE AKCJE NA OKAZICIELA SERII F, KTÓRE SPÓŁKA PRZEJMUJĄCA WYDA AKCJONARIUSZOM SPÓŁKI PRZEJMOWANEJ – NA ZASADACH OKREŚLONYCH W PLANIE POŁĄCZENIA. POŁĄCZENIE NASTĘPUJE NA PODSTAWIE UCHWAŁY NR 4 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA SPÓŁKI PRZEJMUJĄCEJ Z DNIA 28 WRZEŚNIA 2022 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 6531/2022, SPORZĄDZONYM PRZEZ NOTARIUSZA MICHAŁA ŁUKASZEWICZA, KN W WARSZAWIE ORAZ UCHWAŁY NR 3/2022 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA SPÓŁKI PRZEJMOWANEJ Z DNIA 10 PAŹDZIERNIKA 2022 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 6795/2022, SPORZĄDZONYM PRZEZ NOTARIUSZA MICHAŁA ŁUKASZEWICZA, KN W WARSZAWIE.",
+            "podmiotyPrzejmowane": [
+              {
+                "nazwa": "POLSKIE GÓRNICTWO NAFTOWE I GAZOWNICTWO SPÓŁKA AKCYJNA, SPÓŁKA AKCYJNA",
+                "krajNazwaRejestru": "POLSKA, KRAJOWY REJESTR SĄDOWY",
+                "krs": {
+                  "krs": "0000059492"
+                },
+                "nazwaSadu": "*******",
+                "identyfikator": {
+                  "regon": "012216736"
+                }
+              }
+            ]
+          },
+          {
+            "okreslenieOkolicznosci": "PRZEJĘCIE INNEJ SPÓŁKI",
+            "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE W TRYBIE ART. 492 § 1 PKT 1 W ZW. Z ART. 516 § 6 W ZW. Z ART. 516 § 1 W ZW. Z ART. 514 § 1 KSH POPRZEZ PRZENIESIENIE CAŁEGO MAJĄTKU SPÓŁKI LOTOS SPV 5 SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ Z SIEDZIBĄ W GDAŃSKU, NUMER KRS 0000896706 (SPÓŁKA PRZEJMOWANA) NA SPÓŁKĘ POLSKI KONCERN NAFTOWY ORLEN SPÓŁKA AKCYJNA Z SIEDZIBĄ W PŁOCKU, NUMER KRS 0000028860 (SPÓŁKA PRZEJMUJĄCA). POŁĄCZENIE NASTĘPUJE NA PODSTAWIE UCHWAŁY NR 25 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA SPÓŁKI PRZEJMUJĄCEJ Z DNIA 22 MARCA 2023 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 1848/2023, SPORZĄDZONYM PRZEZ NOTARIUSZA MICHAŁA ŁUKASZEWICZA, KANCELARIA NOTARIALNA W WARSZAWIE ORAZ UCHWAŁY NR 1 ZGROMADZENIA WSPÓLNIKÓW SPÓŁKI PRZEJMOWANEJ Z DNIA 22 MARCA 2023 R., OBJĘTEJ AKTEM NOTARIALNYM REP. A NR 2611/2023, SPORZĄDZONYM PRZEZ NOTARIUSZA ADAMA WASAKA, KANCELARIA NOTARIALNA WASAK I PARTNERZY W GDAŃSKU., 22.03.2023, WALNE ZGROMADZENIE SPÓŁKI POLSKI KONCERN NAFTOWY ORLEN SPÓŁKA AKCYJNA; ZGROMADZENIE WSPÓLNIKÓW SPÓŁKI LOTOS SPV 5 SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ",
+            "podmiotyPrzejmowane": [
+              {
+                "nazwa": "LOTOS SPV 5 SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ, ",
+                "krajNazwaRejestru": "POLSKA, KRAJOWY REJESTR SĄDOWY",
+                "krs": {
+                  "krs": "0000896706"
+                },
+                "nazwaSadu": "*******",
+                "identyfikator": {
+                  "regon": "38873878800000"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

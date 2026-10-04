@@ -1,0 +1,794 @@
+{
+  "odpis": {
+    "rodzaj": "Aktualny",
+    "naglowekA": {
+      "rejestr": "RejP",
+      "numerKRS": "0000413997",
+      "dataCzasOdpisu": "04.10.2026 15:17:12",
+      "stanZDnia": "10.07.2026",
+      "dataRejestracjiWKRS": "14.03.2012",
+      "numerOstatniegoWpisu": 147,
+      "dataOstatniegoWpisu": "10.07.2026",
+      "sygnaturaAktSprawyDotyczacejOstatniegoWpisu": "RDF/870275/26/767",
+      "oznaczenieSaduDokonujacegoOstatniegoWpisu": "SYSTEM",
+      "stanPozycji": 1
+    },
+    "dane": {
+      "dzial1": {
+        "danePodmiotu": {
+          "formaPrawna": "SPÓŁKA AKCYJNA",
+          "identyfikatory": {
+            "regon": "02182998900000",
+            "nip": "8992733884"
+          },
+          "nazwa": "CAPITEA SPÓŁKA AKCYJNA",
+          "daneOWczesniejszejRejestracji": {},
+          "czyProwadziDzialalnoscZInnymiPodmiotami": false,
+          "czyPosiadaStatusOPP": false
+        },
+        "siedzibaIAdres": {
+          "siedziba": {
+            "kraj": "POLSKA",
+            "wojewodztwo": "DOLNOŚLĄSKIE",
+            "powiat": "WROCŁAW",
+            "gmina": "WROCŁAW",
+            "miejscowosc": "WROCŁAW"
+          },
+          "adres": {
+            "ulica": "UL. LEGNICKA",
+            "nrDomu": "48G",
+            "miejscowosc": "WROCŁAW",
+            "kodPocztowy": "54-202",
+            "poczta": "WROCŁAW",
+            "kraj": "POLSKA"
+          },
+          "adresPocztyElektronicznej": "redacted@example.invalid",
+          "adresStronyInternetowej": "WWW.CAPITEA.PL",
+          "adresDoDoreczenElektronicznychWpisanyDoBAE": "AE:PL-96559-15067-SSEEC-15"
+        },
+        "umowaStatut": {
+          "informacjaOZawarciuZmianieUmowyStatutu": [
+            {
+              "zawarcieZmianaUmowyStatutu": "22.02.2012 R., NOTARIUSZ MIRON JAKUBIAK, KANCELARIA NOTARIALNA W WARSZAWIE PRZY UL. DŁUGIEJ 4, REP. A NR 1413/2012"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "21.06.2012, NOTARIUSZ WOJCIECH KAMIŃSKI, KANCELARIA NOTARIALNA PRZY UL.RUSKIEJ 3/4 WE WROCŁAWIU, REPERTORIUM A NR 55527/2012, ZMIENIONO § 7"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "14.05.2013 R., NOTARIUSZ WOJCIECH KAMIŃSKI, KANCELARIA NOTARIALNA WE WROCŁAWIU, UL. RUSKA 3/4, REPERTORIUM A NR 37831/2013, ZMIENIONO: § 20 LIT. A, § 30 UST. 1 PKT 13."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "11.03.2016 R., NOTARIUSZ MARTA FIGURSKA, KANCELARIA NOTARIALNA PRZY UL. PRZYOKOPOWEJ 33 W WARSZAWIE, REP. A NR 6512/2016;\nZMIANA: §7; §28."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "AKT NOTARIALNY Z DNIA 20.05.2016R., REP. A NR 12824/2016, NOTARIUSZ ANNA LUBIEŃSKA Z KANCELARII NOTARIALNEJ ANNA LUBIEŃSKA, MARTA FIGURSKA SPÓŁKA CYWILNA W WARSZAWIE PRZY UL. PRZYOKOPOWEJ NR 33, ZMIENIONO §7 UST. 1."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "15.11.2016 R., NOTARIUSZ ANNA LUBIEŃSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP.A NR 33598/2016\nZMIANA: §16 UST.1"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "28.03.2017R., NOTARIUSZ MARTA FIGURSKA, KANCELARIA NOTARIALNA W WARSZAWIE, REP. A NR 11179/2017. \nZMIANA: §7 UST.1; §7 UST.2; §7 UST.3; §8; §10 UST.1; §14 UST.3; §16 UST.3; §16 UST.4;  §16 UST.10; §16 UST.11; §18 UST.1; §18 UST.4; §18 UST.5; §19 UST.4; §19 UST.6; §19 UST.7; §20; §21 UST.1; §21 UST.3; §22 UST.2; §25; §26; §27 UST.1; §27 UST.2; §28; §30; §31 UST.3; §33,ZMIANA TYTUŁU ROZDZIAŁU V, DODANO: §23(1); §23(2); §23(3); §31(1)"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "28.03.2017 R., NOTARIUSZ MARTA FIGURSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 11179/2017;\nZMIANA: §7 UST. 1, §7 UST. 2;\nUSUNIĘTO: §7 UST. 3;\n11.07.2017 R., NOTARIUSZ MARTA FIGURSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 25744/2017 - OŚWIADCZENIE ZARZĄDU O DOOKREŚLENIU WYSOKOŚCI KAPITAŁU."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "27.11.2017 R., NOTARIUSZ ANNA LUBIEŃSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 48114/2017;\nZMIANA: §16 UST. 1."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "22.05.2018 R., NOTARIUSZ ANNA LUBIEŃSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 23187/2018;\nZMIANA: §20 STATUTU SPÓŁKI W TEN SPOSÓB, ŻE NA KOŃCU PUNKTU X) KROPKĘ ZASTĘPUJE SIĘ PRZEZ PRZECINEK, PO PUNKCIE X) DODAJE SIĘ PUNKT Y), Z), AA) ORAZ AB)."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "14.03.2019 R., PAULINA BOBIŃSKA ZASTĘPCA NOTARIALNY NOTARIUSZA ANNY LUBIŃSKIEJ, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 26820/2019;\nZMIANA: §2."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "19.12.2019 R., REP. A NR 7813/2019, ALINA RADWAŃSKA-WARWAS, ZASTĘPCA NOTARIUSZA MARTY FIGURSKIEJ, KANCELARIA NOTARIALNA W WARSRZAWIE, ZMIANA § 20 LIT. N), LIT. O), LIT. AB) ORAZ DODANIE W § 20 LIT. AC)."
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "30.06.2021, A 29829/2021, NOTARIUSZ ANNA LUBIEŃSKA Z KANCELACRII NOTARIALNEJ ANNA LUBIEŃSKA MARTA FIGURSA S.C. ZMIANIA PAR.1 UST.2 ORAZ PAR.1 UST.3"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "29.06.2022, REPRETORIUM A NR 31037/2022, ZASTĘPCA NOTARIALNY ALINA RADWAŃSKA - WARWAS, ZASTĘPCA NOTARIUSZA ANNY LUBIEŃSKIEJ Z KANCELARII NOTARIALNEJ ANNA LUBIEŃSKA MARTA FIGURSKA PAULINA CHAŁA SPÓŁKA CYWILNA Z SIEDZIBĄ W WARSZAWIE,  ZMIANA NAZWY STATUTU, ZMIANA PAR. 3, UCHYLENIE PAR. 6, DODANIE PAR. 7 UST. 3, ZMIANA PAR. 16 UST. 1, ZMIANA PAR. 16 UST. 3, UCHYLENIE PAR. 19 UST. 7, ZMIANA PAR. 20 LIT. K), ZMIANA PAR. 20 LIT. N), ZMIANA PAR. 20 LIT. O), ZMIANA PAR. 20 LIT. P), UCHYLENIE PAR. 20 LIT. R), ZMIANA PAR. 20 LIT. S), UCHYLENIE PAR. 20 LIT. T),  ZMIANA PAR. 20 LIT. U), UCHYLENIE PAR. 20 LIT. V), ZMIANA PAR. 20 LIT. Y), UCHYLENIE PAR. 20 LIT. Z), ZMIANA PAR. 20 LIT. AA), ZMIANA PAR. 20 LIT. AB), UCHYLENIE PAR. 20 LIT. AC), DODANIE PAR. 20 LIT. AD), ZMIANA PAR. 21 UST. 3, UCHYLENIE PAR. 30 UST. 1 PKT 15), ZMIANA PAR. 31(1)"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "26.08.2024, REPERTORIUM A NR 90622/2024, NOTARIUSZ MARTA FIGURSKA Z KANCELARII NOTARIALNEJ ANNA LUBIEŃSKA MARTA FIGURSKA SPÓŁKA CYWILNA Z SIEDZIBĄ W WARSZAWIE, ZMIANA STATUTU: ZMIANA \n§ 2, ZMIANA § 16 UST. 1 I UST. 3"
+            },
+            {
+              "zawarcieZmianaUmowyStatutu": "25.06.2025, NOTARIUSZ ANNA POSWA, KANCELARIA NOTARIALNA WE WROCŁAWIU, REP. A NR 29304/2025, ZMIANA: W § 16 DODANO UST. 12, § 20 LIT. L, § 20 LIT. Q."
+            }
+          ]
+        },
+        "pozostaleInformacje": {
+          "czasNaJakiUtworzonyZostalPodmiot": "NIEOZNACZONY",
+          "czyUmowaStatutPrzyznajeUprawnieniaOsobiste": false,
+          "czyObligatoriuszeMajaPrawoDoUdzialuWZysku": false
+        },
+        "kapital": {
+          "wysokoscKapitaluZakladowego": {
+            "wartosc": "5000000,00",
+            "waluta": "PLN"
+          },
+          "wysokoscKapitaluDocelowegoZapasowego": {
+            "wartosc": "1500000,00",
+            "waluta": "PLN"
+          },
+          "lacznaLiczbaAkcjiUdzialow": "100000000",
+          "wartoscJednejAkcji": {
+            "wartosc": "0,05",
+            "waluta": "PLN"
+          },
+          "czescKapitaluWplaconegoPokrytego": {
+            "wartosc": "5000000,00",
+            "waluta": "PLN"
+          },
+          "wniesioneAporty": {}
+        },
+        "emisjeAkcji": [
+          {
+            "nazwaSeriiAkcji": "A",
+            "liczbaAkcjiWSerii": "16000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "B",
+            "liczbaAkcjiWSerii": "24000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "C",
+            "liczbaAkcjiWSerii": "16000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "D",
+            "liczbaAkcjiWSerii": "24000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          },
+          {
+            "nazwaSeriiAkcji": "E",
+            "liczbaAkcjiWSerii": "20000000",
+            "czyAkcjeUprzywilejowaneLiczbaAkcjiRodzajUprzywilejowania": "AKCJE NIE SĄ UPRZYWILEJOWANE"
+          }
+        ],
+        "wzmiankaOUpowaznieniuDoEmisjiWarrantowSubskrypcyjnych": {
+          "czyZarzadJestUprawnionyDoEmisjiWarrantowSubskrypcyjnych": false
+        }
+      },
+      "dzial2": {
+        "reprezentacja": {
+          "nazwaOrganu": "ZARZĄD",
+          "sposobReprezentacji": "W PRZYPADKU ZARZĄDU WIELOOSOBOWEGO, DO SKŁADANIA OŚWIADCZEŃ WOLI W IMIENIU SPÓŁKI WYMAGANE JEST WSPÓŁDZIAŁANIE DWÓCH CZŁONKÓW ZARZĄDU ALBO JEDNEGO CZŁONKA ZARZĄDU ŁĄCZNIE Z PROKURENTEM.",
+          "sklad": [
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "B*********"
+              },
+              "imiona": {
+                "imie": "R*******",
+                "imieDrugie": "M****"
+              },
+              "identyfikator": {
+                "pesel": "7**********"
+              },
+              "funkcjaWOrganie": "PREZES ZARZĄDU",
+              "czyZawieszona": false
+            },
+            {
+              "nazwisko": {
+                "nazwiskoICzlon": "O*****"
+              },
+              "imiona": {
+                "imie": "D*****",
+                "imieDrugie": "T********"
+              },
+              "identyfikator": {
+                "pesel": "8**********"
+              },
+              "funkcjaWOrganie": "CZŁONEK ZARZĄDU",
+              "czyZawieszona": false
+            }
+          ]
+        },
+        "organNadzoru": [
+          {
+            "nazwa": "RADA NADZORCZA",
+            "sklad": [
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "D*******"
+                },
+                "imiona": {
+                  "imie": "J*******",
+                  "imieDrugie": "M******"
+                },
+                "identyfikator": {
+                  "pesel": "6**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "B*****"
+                },
+                "imiona": {
+                  "imie": "K********",
+                  "imieDrugie": "J**"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "P********"
+                },
+                "imiona": {
+                  "imie": "P****",
+                  "imieDrugie": "F****"
+                },
+                "identyfikator": {
+                  "pesel": "8**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "H****"
+                },
+                "imiona": {
+                  "imie": "P****",
+                  "imieDrugie": "P****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "C*********"
+                },
+                "imiona": {
+                  "imie": "M*****",
+                  "imieDrugie": "T*****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              },
+              {
+                "nazwisko": {
+                  "nazwiskoICzlon": "R********",
+                  "nazwiskoIICzlon": "J*****"
+                },
+                "imiona": {
+                  "imie": "J****"
+                },
+                "identyfikator": {
+                  "pesel": "7**********"
+                }
+              }
+            ]
+          }
+        ],
+        "prokurenci": [
+          {
+            "nazwisko": {
+              "nazwiskoICzlon": "S*****"
+            },
+            "imiona": {
+              "imie": "A***",
+              "imieDrugie": "M*****"
+            },
+            "identyfikator": {
+              "pesel": "8**********"
+            },
+            "rodzajProkury": "PROKURA ŁĄCZNA Z CZŁONKIEM ZARZĄDU LUB INNYM PROKURENTEM"
+          }
+        ]
+      },
+      "dzial3": {
+        "przedmiotDzialalnosci": {
+          "przedmiotPrzewazajacejDzialalnosci": [
+            {
+              "opis": "POZOSTAŁA FINANSOWA DZIAŁALNOŚĆ USŁUGOWA, GDZIE INDZIEJ NIESKLASYFIKOWANA, Z WYŁĄCZENIEM UBEZPIECZEŃ I FUNDUSZÓW EMERYTALNYCH",
+              "kodDzial": "64",
+              "kodKlasa": "99",
+              "kodPodklasa": "Z"
+            }
+          ],
+          "przedmiotPozostalejDzialalnosci": [
+            {
+              "opis": "DZIAŁALNOŚĆ ZWIĄZANA Z ZARZĄDZANIEM FUNDUSZAMI",
+              "kodDzial": "66",
+              "kodKlasa": "30",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ PRAWNICZA",
+              "kodDzial": "69",
+              "kodKlasa": "10",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁE DORADZTWO W ZAKRESIE PROWADZENIA DZIAŁALNOŚCI GOSPODARCZEJ I ZARZĄDZANIA",
+              "kodDzial": "70",
+              "kodKlasa": "22",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "WYKONYWANIE FOTOKOPII, PRZYGOTOWYWANIE DOKUMENTÓW I POZOSTAŁA SPECJALISTYCZNA DZIAŁALNOŚĆ WSPOMAGAJĄCA PROWADZENIE BIURA",
+              "kodDzial": "82",
+              "kodKlasa": "19",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ CENTRÓW TELEFONICZNYCH (CALL CENTER)",
+              "kodDzial": "82",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "POZOSTAŁA DZIAŁALNOŚĆ USŁUGOWA W ZAKRESIE TECHNOLOGII INFORMATYCZNYCH I KOMPUTEROWYCH",
+              "kodDzial": "62",
+              "kodKlasa": "09",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "PRZETWARZANIE DANYCH; ZARZĄDZANIE STRONAMI INTERNETOWYMI (HOSTING) I PODOBNA DZIAŁALNOŚĆ",
+              "kodDzial": "63",
+              "kodKlasa": "11",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ RACHUNKOWO-KSIĘGOWA; DORADZTWO PODATKOWE",
+              "kodDzial": "69",
+              "kodKlasa": "20",
+              "kodPodklasa": "Z"
+            },
+            {
+              "opis": "DZIAŁALNOŚĆ DETEKTYWISTYCZNA",
+              "kodDzial": "80",
+              "kodKlasa": "30",
+              "kodPodklasa": "Z"
+            }
+          ]
+        },
+        "wzmiankiOZlozonychDokumentach": {
+          "wzmiankaOZlozeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "24.05.2013",
+              "zaOkresOdDo": "14.03.2012 R. - 31.12.2012 R."
+            },
+            {
+              "dataZlozenia": "25.06.2014",
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "dataZlozenia": "11.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "18.03.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "05.06.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "17.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "17.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "17.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "14.11.2019",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "19.02.2021",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "20.09.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "11.07.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "12.06.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "09.07.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "01.07.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "10.07.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "14.03.2012 R. - 31.12.2012 R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "14.03.2012 R. - 31.12.2012 R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosci": [
+            {
+              "zaOkresOdDo": "14.03.2012 R. - 31.12.2012 R."
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2013 DO 31.12.2013"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "sprawozdaniaGrupyKapitalowej": {
+          "wzmiankaOZlozeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "dataZlozenia": "11.05.2015",
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "dataZlozenia": "18.03.2016",
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "dataZlozenia": "05.06.2017",
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "dataZlozenia": "17.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "17.07.2018",
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "dataZlozenia": "19.02.2021",
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "dataZlozenia": "19.02.2021",
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "dataZlozenia": "20.09.2021",
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "dataZlozenia": "11.07.2022",
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "dataZlozenia": "12.06.2023",
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "dataZlozenia": "09.07.2024",
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "dataZlozenia": "01.07.2025",
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "dataZlozenia": "10.07.2026",
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuOpiniiBieglegoRewidentaSprawozdaniaZBadania": [
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuUchwalyPostanowieniaOZatwierdzeniuSkonsolidowanegoRocznegoSprawozdaniaFinansowego": [
+            {
+              "zaOkresOdDo": "OD 01.01.2014 DO 31.12.2014"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2015 DO 31.12.2015"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ],
+          "wzmiankaOZlozeniuSprawozdaniaZDzialalnosciGrupyKapitalowejSpolkiDominujacejLacznie": [
+            {
+              "zaOkresOdDo": "OD 01.01.2016 DO 31.12.2016"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2017 DO 31.12.2017"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2018 DO 31.12.2018"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2019 DO 31.12.2019"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2020 DO 31.12.2020"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2021 DO 31.12.2021"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2022 DO 31.12.2022"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2023 DO 31.12.2023"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2024 DO 31.12.2024"
+            },
+            {
+              "zaOkresOdDo": "OD 01.01.2025 DO 31.12.2025"
+            }
+          ]
+        },
+        "informacjaODniuKonczacymRokObrotowy": {
+          "dzienKonczacyPierwszyRokObrotowy": "31.12.2012"
+        }
+      },
+      "dzial4": {},
+      "dzial5": {},
+      "dzial6": {
+        "polaczeniePodzialPrzeksztalcenie": [
+          {
+            "okreslenieOkolicznosci": "PRZEJĘCIE INNEJ SPÓŁKI",
+            "opisPolaczeniaPodzialuPrzeksztalcenia": "POŁĄCZENIE POPRZEZ PRZENIESIENIE NA GETBACK SPÓŁKA AKCYJNA (SPÓŁKA PRZEJMUJĄCA) JEDYNEGO AKCJONARIUSZA EGB INVESTMENTS SPÓŁKA AKCYJNA (SPÓŁKA PRZEJMOWANA) CAŁEGO MAJĄTKU SPÓŁKI PRZEJMOWANEJ BEZ PODWYŻSZENIA KAPITAŁU ZAKŁADOWEGO W TRYBIE ART. 492 §1 PKT 1 K.S.H., ART. 515 §1 K.S.H., ART. 516 §6 K.S.H. \nPODSTAWĘ POŁĄCZENIA STANOWIĄ:\n1) UCHWAŁA NR 4 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA GETBACK SPÓŁKA AKCYJNA Z DNIA 27.11.2017 R., NOTARIUSZ ANNA LUBIEŃSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 48114/2017;\n2) UCHWAŁA NR 1 NADZWYCZAJNEGO WALNEGO ZGROMADZENIA EGB INVESTMENTS SPÓŁKA AKCYJNA Z DNIA 27.11.2017 R., NOTARIUSZ ANNA LUBIEŃSKA, KANCELARIA NOTARIALNA W WARSZAWIE; REP. A NR 48120/2017",
+            "podmiotyPrzejmowane": [
+              {
+                "nazwa": "EGB INVESTMENTS SPÓŁKA AKCYJNA, SPÓŁKA AKCYJNA",
+                "krajNazwaRejestru": "POLSKA, KRAJOWY REJESTR SĄDOWY",
+                "krs": {
+                  "krs": "0000065491"
+                },
+                "nazwaSadu": "*******",
+                "identyfikator": {
+                  "regon": "09128006900000"
+                }
+              }
+            ]
+          }
+        ],
+        "postepowanieRestrukturyzacyjneNaprawczePrzymusowaRestrukturyzacjaUporzadkowanaLikwidacja": [
+          {
+            "otwarciePostepowaniaRestrukturyzacyjnegoNaprawczegoPrzymusowejRestrukturyzacjiUporzadkowanejLikwidacji": {
+              "organWydajacy": "SĄD REJONOWY DLA WROCŁAWIA-FABRYCZNEJ VIII WYDZIAŁ GOSPODARCZY DLA SPRAW UPADŁOŚCIOWYCH I RESTRUKTURYZACYJNYCH, OTWARCIE PRZYSPIESZONEGO POSTĘPOWANIA UKŁADOWEGO",
+              "sygnatura": "SYGN. AKT VIII GR 13/18",
+              "dataNadaniaKlauzuliWykonalnosci": "09.05.2018",
+              "rodzajPostepowania": "POSTĘPOWANIE RESTRUKTURYZACYJNE"
+            },
+            "zakonczeniePostepowaniaRestrukturyzacyjnegoNaprawczegoPrzymusowejRestrukturyzacjiUporzadkowanejLikwidacji": {},
+            "uchylenieUkladu": {},
+            "nadzorcaZarzadcaReprezentujacyAdministratorZastepcaPelnomocnikZarzadcaNadzwyczajny": [
+              {
+                "nazwa": "KACZMAREK I SKONIECZNA DORADCY RESTRUKTURYZACYJNI SPÓŁKA JAWNA",
+                "identyfikator": {
+                  "regon": "36430239000000"
+                },
+                "krs": {
+                  "krs": "0000614840"
+                },
+                "funkcja": "NADZORCA SĄDOWY"
+              }
+            ]
+          },
+          {
+            "otwarciePostepowaniaRestrukturyzacyjnegoNaprawczegoPrzymusowejRestrukturyzacjiUporzadkowanejLikwidacji": {},
+            "zakonczeniePostepowaniaRestrukturyzacyjnegoNaprawczegoPrzymusowejRestrukturyzacjiUporzadkowanejLikwidacji": {
+              "data": "06.06.2019",
+              "opis": "ZAKOŃCZENIE PRZEZ ZATWIERDZENIE UKŁADU"
+            },
+            "uchylenieUkladu": {}
+          }
+        ]
+      }
+    }
+  }
+}

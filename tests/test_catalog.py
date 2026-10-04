@@ -7,12 +7,12 @@ from prawnik_mcp.connectors import registry
 def test_catalog_entries_are_complete():
     for s in sources.catalog().values():
         assert s.hosts and s.id_prefix.endswith(":") and s.terms and s.attribution
-        assert s.maturity in {"stable", "beta", "experimental", "research"}
+        assert s.maturity in {"stable", "beta", "experimental", "research"} and s.role in {"documents", "lookup"}
         assert 0 < s.rate_per_s <= 2
 
 
 def test_every_implemented_source_has_a_connector_and_vice_versa():
-    implemented = {s.source_id for s in sources.implemented_sources()}
+    implemented = {s.source_id for s in sources.document_sources()}
     assert {c.source_id for c in registry.all_connectors()} == implemented
 
 

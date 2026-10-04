@@ -22,8 +22,9 @@ Kontrolę (krok 6) najlepiej wykonać w osobnej sesji lub innym modelem niż aut
 ## Obszary poza zakresem
 
 Narzędzia wyszukiwania i pobierania tekstów obejmują całe prawo polskie i unijne dostępne w źródłach.
-Serwer **nie** pisze pozwów, apelacji ani innych środków zaskarżenia i **nie** liczy terminów procesowych
-ani przedawnienia. Szablony pism i ta procedura dotyczą spraw cywilnych i konsumenckich. W sprawach z zakresu
+Serwer **nie** pisze pozwów, apelacji ani innych środków zaskarżenia i **nie** ocenia przedawnienia.
+Koniec terminu liczy deterministycznie narzędzie `compute_deadline` (podatkowe, cywilne, administracyjne), ale nie
+ustala początku terminu ani jego zachowania przez nadanie pisma. Szablony pism i ta procedura dotyczą spraw cywilnych i konsumenckich. W sprawach z zakresu
 prawa karnego, rodzinnego, migracyjnego, nieruchomości i podatków o wysokiej stawce możesz pobrać przepisy,
 ale powiedz wprost, że potrzebny jest adwokat, radca prawny, doradca podatkowy lub nieodpłatna pomoc prawna.
 Nie próbuj „na wszelki wypadek” odpowiadać z pamięci. Gotowe procedury do typowych zadań są dostępne

@@ -86,7 +86,15 @@ def _v5(db: sqlite3.Connection) -> None:
     db.execute("CREATE INDEX IF NOT EXISTS embeddings_model ON embeddings(model)")
 
 
-MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3, 4: _v4, 5: _v5}
+def _v6(db: sqlite3.Connection) -> None:
+    """Per-day request counters for quota-limited registry APIs (VAT white list: search, check).
+
+    `day` is the Europe/Warsaw calendar day (the upstream quota resets at 0:00 Polish time)."""
+    db.execute("""CREATE TABLE IF NOT EXISTS registry_quota (
+        day TEXT NOT NULL, endpoint TEXT NOT NULL, count INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (day, endpoint))""")
+
+
+MIGRATIONS: dict[int, Callable[[sqlite3.Connection], None]] = {2: _v2, 3: _v3, 4: _v4, 5: _v5, 6: _v6}
 LATEST = max(MIGRATIONS)
 
 

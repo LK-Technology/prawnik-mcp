@@ -35,7 +35,9 @@ PROMPTS: tuple[TaskPrompt, ...] = (
     TaskPrompt("uokik_notice", "Zawiadomienie do UOKiK",
                "Decide whether a practice harms consumers collectively and draft a notice to UOKiK."),
     TaskPrompt("tax_ruling_research", "Interpretacje podatkowe",
-               "Find individual tax rulings on an issue and explain what protection they give."),
+               "Find tax rulings, general interpretations and tax explanations on an issue and explain their weight."),
+    TaskPrompt("counterparty_check", "Weryfikacja kontrahenta",
+               "Check a company or trader in KRS, the VAT white list and VIES, flag risks and list what registries omit."),
 )
 
 

@@ -40,7 +40,16 @@ SOURCE_ID = "eureka"
 ACCEPT = "application/json"
 SEARCH_URL = f"{API}/wyszukiwarka/informacje/"  # the trailing slash is mandatory (HTTP 500 without it)
 SEARCH_COLUMNS = ["ID_INFORMACJI", "KATEGORIA_INFORMACJI", "SYG", "DT_WYD", "TEZA", "STATUS_INFORMACJI"]
-DEFAULT_CATEGORY_IDS = [1]  # "Interpretacja indywidualna" (verified: detail of a category-1 hit)
+# 1 individual interpretation, 3 general interpretation, 4 change of a general interpretation, 11 tax explanations
+# (objaśnienia podatkowe); ids verified 2026-10-04 via /pozycje-slownika/wyszukiwarka?kodSlownika=KATEGORIA_INFORMACJI
+DEFAULT_CATEGORY_IDS = [1, 3, 4, 11]
+AUTHORITY_NOTES = {
+    "interpretacja indywidualna": "Interpretacja indywidualna: wiąże tylko w sprawie wnioskodawcy i nie jest źródłem prawa.",
+    "zmiana interpretacji indywidualnej": "Zmiana interpretacji indywidualnej: dotyczy sprawy wnioskodawcy.",
+    "interpretacja ogólna": "Interpretacja ogólna Ministra Finansów (art. 14a § 1 pkt 1 Ordynacji podatkowej); nie jest źródłem prawa.",
+    "zmiana interpretacji ogólnej": "Zmiana interpretacji ogólnej (art. 14a Ordynacji podatkowej).",
+    "objaśnienia podatkowe": "Objaśnienia podatkowe (art. 14a § 1 pkt 2 Ordynacji podatkowej); nie są źródłem prawa.",
+}
 MAX_PAGE_SIZE = 50
 # New-style KIS signature, e.g. 0115-KDIT3.4011.582.2026.2.AWO; a query that is only a signature uses the SYG filter.
 SIGNATURE_RE = re.compile(r"\d{4}-[A-Z][A-Z0-9-]*\.\d{3,4}\.\d+\.\d{4}\.\d+\.[A-Z0-9]+")
@@ -134,7 +143,8 @@ class EurekaConnector(BaseConnector):
     def search(self, client: PoliteClient, query: str, *, limit: int = 5,
                filters: dict | None = None) -> list[RemoteHit]:
         """Live search (signature, thesis and metadata; not the full text). Filters: signature,
-        category_ids (default [1] = individual interpretations), date_from/date_to, full_phrase."""
+        category_ids (default [1, 3, 4, 11]: individual and general interpretations, their changes, tax
+        explanations), date_from/date_to, full_phrase."""
         f = filters or {}
         q = (query or "").strip()
         signature = f.get("signature")
@@ -168,8 +178,9 @@ class EurekaConnector(BaseConnector):
                 snippet=it["thesis"][:800], original_url=portal_url(it["id"]),
                 metadata={"signature": it["signature"], "issue_date": it["issue_date"], "category": it["category"],
                           "status": it["status"], "eureka_id": it["id"], "total_hits": total, "source": SOURCE_ID,
-                          "note": "Teza z listy wyników; pełna treść przez get_legal_document. "
-                                  "Interpretacja nie jest źródłem prawa."}))
+                          "authority_note": AUTHORITY_NOTES.get((it["category"] or "").strip().lower(),
+                                                                "Dokument EUREKA; sprawdź jego charakter prawny."),
+                          "note": "Teza z listy wyników; pełna treść przez get_legal_document."}))
         return hits
 
     # ------------------------------------------------------------------ fetch

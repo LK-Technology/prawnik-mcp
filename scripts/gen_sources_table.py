@@ -15,9 +15,11 @@ from prawnik_mcp import sources
 ROOT = Path(__file__).resolve().parents[1]
 BADGE = {"stable": "stable", "beta": "beta", "experimental": "experimental", "research": "planned"}
 KIND = {"statute": "statutes", "judgment": "judgments", "eu_act": "EU acts", "decision": "decisions",
-        "tax_ruling": "tax rulings", "eu_judgment": "EU judgments"}
+        "tax_ruling": "tax rulings", "eu_judgment": "EU judgments", "registry": "company registry",
+        "reference_data": "exchange rates"}
 KIND_PL = {"statute": "ustawy", "judgment": "orzeczenia", "eu_act": "akty UE", "decision": "decyzje",
-           "tax_ruling": "interpretacje podatkowe", "eu_judgment": "orzeczenia TSUE"}
+           "tax_ruling": "interpretacje podatkowe", "eu_judgment": "orzeczenia TSUE", "registry": "rejestr podmiotów",
+           "reference_data": "kursy walut"}
 STATUS_PL = {"stable": "stabilne", "beta": "beta", "experimental": "eksperymentalne", "research": "planowane"}
 HEADER = {"README.md": ("Source", "Content", "Status", "Rate limit", "Terms", "terms"),
           "README.pl.md": ("Źródło", "Zawartość", "Status", "Limit zapytań", "Warunki", "warunki")}
