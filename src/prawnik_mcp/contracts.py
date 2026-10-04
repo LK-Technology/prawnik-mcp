@@ -260,7 +260,7 @@ def normalize_text(s: str) -> str:
     """
     s = unicodedata.normalize("NFC", s)
     s = s.replace("­", "").replace(" ", " ")
-    s = re.sub(r"[„”“«»]", '"', s)
+    s = re.sub(r"[„”“«»ˮ″]", '"', s)  # ˮ (U+02EE) closes quotes in some ELI PDFs
     s = re.sub(r"[‘’]", "'", s)
     s = re.sub(r"[–—−‑]", "-", s)  # incl. U+2011, used in CJEU texts ("C‑260/18")
     s = re.sub(r"(\w)-\s*\n\s*(\w)", r"\1\2", s)

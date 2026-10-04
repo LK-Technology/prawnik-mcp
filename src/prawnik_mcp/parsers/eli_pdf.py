@@ -25,7 +25,7 @@ from pypdf import PdfReader
 
 from prawnik_mcp.contracts import canonical_locator
 
-PARSER_VERSION = "eli-pdf-0.1.0"
+PARSER_VERSION = "eli-pdf-0.2.0"
 
 SUP_LETTERS = "ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖʳˢᵗᵘᵛʷˣʸᶻ"  # modifier letters for a-z except q
 _PLAIN_LETTERS = "abcdefghijklmnoprstuvwxyz"
@@ -43,6 +43,8 @@ _PAGE_HEADER = re.compile(r"^\s*Dziennik\s+Ustaw\s*[–-]\s*\d+\s*[–-]\s*Poz\.
 _ART_HEAD = re.compile(
     rf"^Art\.\s*(?P<num>\d+)(?P<letter>[a-z]{{0,3}})(?P<sup>[{SUP_CLASS}]+|\[\d+[a-z]{{0,2}}\])?\.(?=\s|$)"
 )
+# "Art. 46–51. (pominięte)" / "Art. 29–36. (uchylone)": a range of articles the consolidated text does not print
+_ART_RANGE_HEAD = re.compile(r"^Art\.\s*(?P<a>\d+)\s*[–-]\s*(?P<b>\d+)\.\s*\((?P<what>pominięte|uchylone)\)\s*$")
 _STRUCT_HEAD = re.compile(
     r"^(?:KSIĘGA\s+\w+|CZĘŚĆ\s+\w+|TYTUŁ\s+[IVXLC]+\w*|DZIAŁ\s+[IVXLC]+\w*|Rozdział\s+\d+\w*|Oddział\s+\d+\w*)\b"
 )
@@ -455,14 +457,41 @@ def parse_consolidated_pdf(content: bytes, *, has_header: bool = True) -> Consol
         cur, cur_lines = None, []
 
     def in_open_quote() -> bool:
-        # amending acts quote whole new articles („Art. 125². …”); such headings belong to the current article
+        # amending acts quote whole new articles („Art. 125². …”); such headings belong to the current article.
+        # Some PDFs close quotes with ˮ (U+02EE) or “ instead of ” (e.g. the PIT Act TJ 2026/592, art. 31a ust. 9).
         joined = "".join(cur_lines)
-        return joined.count("„") > joined.count("”")
+        return joined.count("„") > joined.count("”") + joined.count("ˮ") + joined.count("“")
+
+    def continues_sequence(key: tuple[int, str, tuple]) -> bool:
+        # the next article of the act itself (Art. 31a -> Art. 31b / Art. 32) is never a quotation,
+        # even if an unbalanced quote mark slipped through
+        if prev_key is None:
+            return False
+        num, letter, _ = key
+        pnum, pletter, _ = prev_key
+        return (num == pnum and letter > pletter) or (num == pnum + 1 and letter == "")
 
     for ln in att_lines:
         t = ln.text
+        rm = _ART_RANGE_HEAD.match(t.strip()) if mode != "annex" else None
+        if rm and not (mode == "article" and cur is not None and in_open_quote()):
+            close()
+            a, b = int(rm.group("a")), int(rm.group("b"))
+            for n in range(a, b + 1) if 0 < b - a < 200 else ():
+                loc = f"art. {n}"
+                if loc in seen:
+                    continue
+                seen.add(loc)
+                articles.append(ParsedArticle(
+                    locator=loc, heading=t.strip(), pages=[ln.page], footnote_refs=[],
+                    text=f"Art. {n}. ({rm.group('what')} w tekście jednolitym jako „{t.strip()}”)",
+                    warnings=[f"przepis nie jest drukowany w tekście jednolitym ({rm.group('what')}); "
+                              "jego treść jest tylko w akcie pierwotnym lub zmieniającym"]))
+            prev_key = (b, "", (0, ""))
+            mode = "structure"
+            continue
         m = _ART_HEAD.match(t)
-        if m and mode == "article" and cur is not None and in_open_quote():
+        if m and mode == "article" and cur is not None and in_open_quote() and not continues_sequence(_art_locator(m)[1]):
             m = None
         if m and mode != "annex":
             close()

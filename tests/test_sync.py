@@ -23,10 +23,10 @@ def synced(tmp_path_factory):
 def test_offline_counts(synced):
     store, report = synced
     assert report.ok and report.mode == "offline_fixtures"
-    assert report.sources["eli"].counts == {"DU/2014/827": 76, "DU/1964/93": 1296}
+    assert report.sources["eli"].counts == {"DU/2014/827": 83, "DU/1964/93": 1296}
     assert report.sources["cellar"].counts == {"32011L0083": 35}
     assert report.sources["saos"].counts["judgments"] >= 9
-    assert store.stats()["provisions"] == 1407
+    assert store.stats()["provisions"] == 1414
 
 
 def test_provision_versions(synced):
