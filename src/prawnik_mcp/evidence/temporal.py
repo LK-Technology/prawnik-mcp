@@ -6,6 +6,7 @@ wording applied on that date. Anything we cannot establish is `unknown`.
 
 from __future__ import annotations
 
+import re
 from datetime import date
 
 from prawnik_mcp.contracts import ProvisionVersion, TemporalStatus
@@ -123,10 +124,16 @@ def temporal_status_for(
                 status = TemporalStatus.unknown
 
         if p.excluded_provisions:
+            # the full wording can run to thousands of characters; it stays in the provision record
+            # (get_legal_document -> excluded_provisions), the reason only names the acts
+            names = []
+            for x in p.excluded_provisions:
+                m = re.match(r"\s*\d+\)\s*(art\.[^,(]*?ustawy z dnia [^(]*?)\s*\(", x)
+                names.append(m.group(1).strip() if m else x[:120])
             reasons.append(
-                "istnieją przepisy przejściowe nieobjęte tekstem jednolitym ("
-                + "; ".join(p.excluded_provisions)
-                + ") – trzeba sprawdzić, czy do tej sprawy stosuje się brzmienie dotychczasowe"
+                f"obwieszczenie wymienia przepisy przejściowe lub końcowe nieobjęte tekstem jednolitym "
+                f"({len(p.excluded_provisions)}: {'; '.join(names[:5])}{'; …' if len(names) > 5 else ''}) – treść w excluded_provisions "
+                "(get_legal_document); sprawdź, czy do sprawy stosuje się brzmienie dotychczasowe"
             )
             known_dates = [d for d in dates.values() if d is not None]
             latest = max(known_dates) if known_dates else None

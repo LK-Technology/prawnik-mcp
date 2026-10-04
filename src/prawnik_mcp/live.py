@@ -33,6 +33,7 @@ CLIENT_FACTORY: Callable[[], PoliteClient] = PoliteClient
 # Results that arrived after the time budget: cache key -> (source_id, JSON body). Written by worker
 # threads, moved into the store by the next live_search call (the store is used from one thread).
 _LATE: dict[str, tuple[str, str]] = {}
+_RESOLVED: dict[str, str] = {}  # requested id -> id the source stored it under
 _LATE_LOCK = threading.Lock()
 
 
@@ -134,6 +135,10 @@ def _flush_late(store: Store) -> None:
         store.cache_put(key, body, ttl=SEARCH_TTL, source_id=source_id)
 
 
+def resolved_id(document_id: str) -> str:
+    return _RESOLVED.get(document_id, document_id)
+
+
 def interleave(results: list[tuple[str, RemoteHit, str]]) -> list[tuple[str, RemoteHit, str]]:
     """Round-robin over sources, keeping each source's own order, so one source cannot fill the page."""
     by_source: dict[str, list[tuple[str, RemoteHit, str]]] = {}
@@ -149,13 +154,19 @@ def interleave(results: list[tuple[str, RemoteHit, str]]) -> list[tuple[str, Rem
 
 
 def lazy_fetch(store: Store, document_id: str) -> tuple[bool, str | None]:
-    """Fetch and store a document missing locally. Returns (stored, warning)."""
+    """Fetch and store a document missing locally. Returns (stored, warning). When the source stores the
+    document under another id (an ELI consolidated-text notice resolves to its base act), the warning says so
+    and `resolved_id(store, document_id)` gives the id to use."""
     conn = registry.for_document(document_id)
     if conn is None or not conn.supports_fetch:
         return False, None
     client = CLIENT_FACTORY()
     try:
         stored = conn.fetch(store, client, document_id)
+        if stored and stored != document_id:
+            _RESOLVED[document_id] = stored
+            return True, (f"{document_id} to obwieszczenie o tekście jednolitym aktu {stored}; zwracam przepis "
+                          f"z aktu podstawowego w najnowszym tekście jednolitym. Cytuj {stored}.")
         return stored is not None, None
     except NotFoundUpstream:
         return False, (f"{document_id}: źródło zwróciło 404 dla tego identyfikatora lub formatu/języka "

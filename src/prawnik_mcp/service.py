@@ -37,6 +37,7 @@ DEFAULT_LIMIT = 5
 MAX_LIMIT = 20
 SNIPPET_CHARS = 800
 JUDGMENT_PAGE_CHARS = 6000
+PROVISION_PAGE_CHARS = 12000  # long articles (art. 21 PIT ~120k chars) are paged; ask for ust./pkt to get less
 STALE_AFTER = timedelta(days=30)
 
 def _act_aliases() -> dict[str, str]:
@@ -395,8 +396,46 @@ def _judgment_hit(store: Store, j, doc, terms: list[str], score: float | None = 
                   "note": "Fragment może pochodzić ze stanowiska strony, nie z oceny sądu — sprawdź kontekst."})
 
 
+_ENUM_START = re.compile(r"\n\s*\d+[a-z]{0,3}(?:\^\d+)?\)\s")
+_LIT_START = re.compile(r"\n\s*[a-z]{1,2}\)\s")
+
+
+def _unit_lead_in(article_text: str, loc: str) -> list[str]:
+    """The introductory wording ("wprowadzenie do wyliczenia") a pkt or lit. depends on, outermost first.
+
+    Example: art. 23 ust. 1 pkt 46a of the PIT Act only makes sense with "1. Nie uważa się za koszty uzyskania
+    przychodów:". Empty when the locator has no pkt/lit or the structure is not recognised.
+    """
+    if not re.search(r"\bpkt\b|\blit\.", loc):
+        return []
+    out: list[str] = []
+    parent = _extract_unit(article_text, re.sub(r"\s+pkt\s+\S+.*$", "", loc)) if re.search(r"§|ust\.", loc) else article_text
+    if parent:
+        e = _ENUM_START.search(parent)
+        if e and e.start() > 0:
+            out.append(parent[: e.start()].strip())
+    if re.search(r"\blit\.", loc):
+        pkt_unit = _extract_unit(article_text, re.sub(r"\s+lit\.\s+\S+$", "", loc))
+        if pkt_unit:
+            e = _LIT_START.search(pkt_unit)
+            if e and e.start() > 0:
+                out.append(pkt_unit[: e.start()].strip())
+    return [x if len(x) <= 600 else x[:600] + " […]" for x in out]
+
+
 def _extract_unit(article_text: str, loc: str) -> str | None:
-    """Best-effort extraction of § / ust. / pkt from an article text. None if not reliable."""
+    """Best-effort extraction of § / ust. / pkt / lit. from an article text. None if not reliable."""
+    lit = re.search(r"\blit\.\s*([a-z]{1,2})\s*$", loc)
+    if lit:
+        pkt_unit = _extract_unit(article_text, loc[: lit.start()].strip())
+        if not pkt_unit:
+            return None
+        ls = re.search(rf"(?:^|\n)\s*{re.escape(lit.group(1))}\)\s", pkt_unit)
+        if not ls:
+            return None
+        lrest = pkt_unit[ls.start():]
+        le = re.search(r"\n\s*(?:[a-z]{1,2}\)|–)\s", lrest[len(ls.group(0)):])
+        return (lrest[: len(ls.group(0)) + le.start()] if le else lrest).strip()
     m = re.search(r"(§\s*(\S+)|ust\.\s*(\S+))(?:\s+pkt\s+(\S+))?", loc)
     if not m:
         return None
@@ -550,11 +589,12 @@ def get_legal_document(
     (unless `live=False` or PRAWNIK_MCP_OFFLINE=1)."""
     from prawnik_mcp import live as live_mod
 
-    document_id = document_id_from_url(document_id)
+    document_id = live_mod.resolved_id(document_id_from_url(document_id))
     notes: list[str] = []
     if live is not False and live_mod.live_enabled() and store.get_document(document_id) is None:
         stored, note = live_mod.lazy_fetch(store, document_id)
         notes += [note] if note else []
+        document_id = live_mod.resolved_id(document_id)
         if stored:
             notes.append(f"{document_id}: pobrano ze źródła na żądanie i zapisano lokalnie (snapshot).")
     res = _get_legal_document_local(store, document_id, locator, as_of, snapshot_id, cursor)
@@ -616,10 +656,15 @@ def _get_legal_document_local(
     p = _latest(provs)
     warnings: list[str] = []
     text = p.text
+    lead_in: list[str] = []
     if loc != art:
         unit = _extract_unit(p.text, loc)
         if unit:
             text = unit
+            lead_in = _unit_lead_in(p.text, loc)
+            if lead_in:
+                warnings.append(f"{loc} jest elementem wyliczenia; czytaj go razem z wprowadzeniem: „{lead_in[-1][:200]}”. "
+                                "Sens punktu zależy od tego wprowadzenia (np. „Nie uważa się za koszty…”).")
         else:
             warnings.append(f"Nie wyodrębniono jednostki {loc}; zwrócono cały {art}.")
     ts, reasons = _temporal(store, p, when)
@@ -627,8 +672,20 @@ def _get_legal_document_local(
     if p.excluded_provisions:
         warnings.append("Obwieszczenie TJ wymienia przepisy nieobjęte tekstem jednolitym (m.in. przejściowe) — sprawdź excluded_provisions.")
     status = ResultStatus.temporal_unknown if ts == TemporalStatus.unknown else ResultStatus.ok
+    next_cursor = None
+    if len(text) > PROVISION_PAGE_CHARS:
+        start = min(offset, len(text))
+        cut = text.rfind("\n", start, start + PROVISION_PAGE_CHARS)
+        end = cut if cut > start + PROVISION_PAGE_CHARS // 2 else start + PROVISION_PAGE_CHARS
+        next_cursor = str(end) if end < len(text) else None
+        text = text[start:end]
+        warnings.append(f"Przepis jest długi; zwrócono znaki {start}–{end}"
+                        + (f", resztę pobierz z cursor={next_cursor}" if next_cursor else "")
+                        + ". Mniej tekstu dostaniesz, podając ust./pkt w locator.")
     return ToolResult(status=status, coverage=cov, warnings=warnings, data={
         **base, "locator": loc if text is not p.text else art, "requested_locator": loc, "text": text,
+        "next_cursor": next_cursor,
+        "lead_in": lead_in,
         "version_id": p.version_id, "version_label": p.version_label,
         "text_state_date": str(p.text_state_date) if p.text_state_date else None,
         "temporal_status": ts.value, "temporal_notes": reasons,
@@ -710,7 +767,28 @@ def check_citations_tool(
     if report.critical_errors:
         warnings.append(f"Błędy krytyczne: {len(report.critical_errors)}. Eksport wypełnionego pisma będzie zablokowany.")
     warnings.append(report.note)
-    return ToolResult(status=ResultStatus.ok, data=report.model_dump(mode="json"), warnings=warnings, coverage=_coverage(store))
+    data = report.model_dump(mode="json")
+    lead_ins = _evidence_lead_ins(store, ev)
+    if lead_ins:
+        data["enumeration_lead_ins"] = lead_ins
+        warnings.append("Część cytatów to punkty wyliczeń (enumeration_lead_ins). Sprawdź, czy twierdzenie uwzględnia "
+                        "wprowadzenie do wyliczenia — np. „Nie uważa się za koszty…” odwraca sens punktu.")
+    return ToolResult(status=ResultStatus.ok, data=data, warnings=warnings, coverage=_coverage(store))
+
+
+def _evidence_lead_ins(store: Store, evidence: list) -> dict[str, list[str]]:
+    out: dict[str, list[str]] = {}
+    for e in evidence:
+        loc = canonical_locator(e.locator or "") or ""
+        if not re.search(r"\bpkt\b|\blit\.", loc):
+            continue
+        art = re.match(r"art\.\s*\S+", loc)
+        provs = [p for p in store.get_provisions(e.document_id) if art and p.locator == art.group(0)]
+        if provs:
+            li = _unit_lead_in(_latest(provs).text, loc)
+            if li:
+                out[e.evidence_id] = li
+    return out
 
 
 def get_document_template(template_id: str) -> ToolResult:

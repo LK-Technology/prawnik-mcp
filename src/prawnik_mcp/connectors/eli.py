@@ -243,6 +243,10 @@ def sync_act(store: Store, client: PoliteClient, logical_id: str, *, force: bool
     """Online: logical act metadata -> latest TJ -> its metadata and PDF -> parse -> store."""
     r = client.get(act_url(logical_id), accept="application/json")
     logical_meta = json.loads(r.content)
+    base = [x.get("id") for x in (logical_meta.get("references") or {}).get("Tekst jednolity dla aktu", []) if x.get("id")]
+    if base and base[0] != logical_id:
+        # an obwieszczenie (consolidated text) was requested: store the base act with its latest consolidated text
+        return sync_act(store, client, base[0], force=force)
     logical_snap = store.put_snapshot(SOURCE_ID, r.url, r.content, r.content_type, fetched_at=r.fetched_at)
     tj_id = latest_consolidated(logical_meta)
     if not tj_id:
@@ -399,5 +403,6 @@ class EliConnector(BaseConnector):
     def fetch(self, store: Store, client: PoliteClient, document_id: str, *, force: bool = False) -> str | None:
         if not document_id.startswith("eli:"):
             return None
-        sync_act(store, client, document_id.removeprefix("eli:"), force=force)
-        return document_id
+        res = sync_act(store, client, document_id.removeprefix("eli:"), force=force)
+        stored = getattr(res, "document_id", None)
+        return stored or document_id
